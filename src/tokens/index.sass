@@ -1,0 +1,8 @@
+@import "./basics/colors.scss"
+@import "converter"
+
+:root[theme-data="light"]
+  @include convert-color-token($md-sys-colors-light)
+
+:root[theme-data="dark"]
+  @include convert-color-token($md-sys-colors-dark)

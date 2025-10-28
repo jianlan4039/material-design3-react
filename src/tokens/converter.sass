@@ -1,0 +1,7 @@
+/**
+ * Convert color map to css variables
+ *
+@mixin convert-color-token($colors)
+  @each $name, $value in $colors
+    :root
+      --#{$name}: #{$value}
