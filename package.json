@@ -1,0 +1,26 @@
+{
+  "name": "material-design3-react",
+  "version": "0.0.1",
+  "description": "an implementation of material design 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jianlan4039/material-design3-react.git"
+  },
+  "keywords": [
+    "react",
+    "material",
+    "design",
+    "components",
+    "lib"
+  ],
+  "author": "jian lan",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jianlan4039/material-design3-react/issues"
+  },
+  "homepage": "https://github.com/jianlan4039/material-design3-react#readme"
+}
