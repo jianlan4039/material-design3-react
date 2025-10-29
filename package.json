@@ -4,7 +4,7 @@
   "description": "an implementation of material design 3",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,15 @@
   "bugs": {
     "url": "https://github.com/jianlan4039/material-design3-react/issues"
   },
-  "homepage": "https://github.com/jianlan4039/material-design3-react#readme"
+  "homepage": "https://github.com/jianlan4039/material-design3-react#readme",
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12"
+  }
 }
