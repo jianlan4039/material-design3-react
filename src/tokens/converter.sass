@@ -3,5 +3,4 @@
  *
 @mixin convert-color-token($colors)
   @each $name, $value in $colors
-    :root
-      --#{$name}: #{$value}
+      --#{$name}: rgb(#{$value})

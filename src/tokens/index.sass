@@ -1,7 +1,7 @@
 @use "./basics/colors.scss"
 @use "./converter"
 
-:root[theme-data="light"]
+:root
   @include converter.convert-color-token(colors.$md-sys-colors-light)
 
 :root[theme-data="dark"]
