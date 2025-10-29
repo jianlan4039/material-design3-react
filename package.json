@@ -4,7 +4,9 @@
   "description": "an implementation of material design 3",
   "main": "index.js",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
@@ -28,8 +30,11 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@storybook/react-vite": "^10.0.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "sass": "^1.93.2",
+    "storybook": "^10.0.1",
     "typescript": "^5.9.3",
     "vite": "^7.1.12"
   }
