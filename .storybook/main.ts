@@ -10,4 +10,5 @@ const config: StorybookConfig = {
     "options": {}
   }
 };
+// @ts-ignore
 export default config;

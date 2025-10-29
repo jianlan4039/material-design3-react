@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react-vite'
+// @ts-ignore
 import '../src/tokens/index.sass'
 
 const preview: Preview = {
@@ -11,5 +12,5 @@ const preview: Preview = {
     },
   },
 };
-
+// @ts-ignore
 export default preview;
