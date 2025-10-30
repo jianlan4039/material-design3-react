@@ -1,8 +1,26 @@
-@use "./basics/colors.scss"
-@use "./converter"
+@use "./basics/colors"
+@use "./basics/elelation"
+@use "./basics/motions"
+@use "./basics/palette"
+@use "./basics/shapes"
+@use "./basics/state"
+@use "./basics/typography"
 
-:root
-  @include converter.convert-color-token(colors.$md-sys-colors-light)
+@use "./converter"
+@use "./components/index"
+
+:root,
+:root[theme-data="light"]
+  @include converter.convert-map-token(colors.$md-sys-colors-light, sys-color)
 
 :root[theme-data="dark"]
-  @include converter.convert-color-token(colors.$md-sys-colors-dark)
+  @include converter.convert-map-token(colors.$md-sys-colors-dark, sys-color)
+
+:root
+  @include converter.convert-map-token(elelation.$elevation, sys)
+  @include converter.convert-map-token(motions.$duration, sys)
+  @include converter.convert-map-token(motions.$easing, sys)
+  @include converter.convert-map-token(palette.$palette, ref-palette)
+  @include converter.convert-map-token(shapes.$shape, sys)
+  @include converter.convert-map-token(state.$state, sys)
+  @include converter.convert-map-token(typography.$typography, ref-typography)

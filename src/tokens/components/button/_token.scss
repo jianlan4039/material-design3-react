@@ -1,0 +1,33 @@
+$tokens: (
+        container-color: (false, sys-color-primary),
+        container-color-toggle-unselected: sys-color-surface-container,
+        container-color-toggle-selected: sys-color-primary,
+        shadow-color: sys-color-shadow,
+        elevation: sys-elevation-0,
+        label-color: sys-color-on-primary,
+        label-color-toggle-unselected: sys-color-surface-variant,
+        label-color-toggle-selected: sys-color-on-primary,
+        icon-color: sys-color-on-primary,
+        icon-color-toggle-unselected: sys-color-on-surface-variant,
+        icon-color-toggle-selected: sys-color-on-primary,
+        container-height: (40px, true),
+        label-font: ref-typography-label-large-font,
+        label-weight: ref-typography-label-large-weight,
+        label-size: ref-typography-label-large-size,
+        line-height: (20px, true), //
+        lebel-space: 0.1px, // letter-spacing
+        icon-size: 20px,
+        shape-round: sys-corner-full,
+        shape-square: sys-corner-medium,
+        leading-space: 24px,
+        between-icon-label-space: 8px,
+        trailing-space: 24px,
+        shape-pressed-morph: sys-corner-small,
+        shape-spring-animation-damping: fast-spatial-damping,
+        shape-spring-animation-stiffness: fast-spatial-stiffness,
+        selected-container-shape-round: sys-shape-corner-medium,
+        selected-container-shape-square: sys-shape-corner-full,
+        focus-ring-indicator-color: sys-color-secondary,
+        focus-ring-indicator-thickness: 3px,
+        focus-ring-outline-offset: 2px//--nd-ref-typography-label-small-weight-medium
+)

@@ -1,6 +1,18 @@
+@use "sass:list"
 /**
  * Convert color map to css variables
  *
-@mixin convert-color-token($colors)
-  @each $name, $value in $colors
-      --#{$name}: #{$value}
+@mixin convert-map-token($tokens, $prefix)
+  @each $name, $value in $tokens
+    --nd-#{$prefix}-#{$name}: #{$value}
+
+@mixin convert-comp-token($tokens, $comp)
+  @each $name, $value in $tokens
+    @debug list.nth($value, 1)
+    --nd-comp-#{$comp}-#{$name}: #{parse-value(list.nth($value, 1), list.nth($value, 2))}
+
+@function parse-value($value, $hard-code:false)
+  @if ($hard-code == true)
+    @return $value
+  @else
+    @return var(--nd-#{$value})

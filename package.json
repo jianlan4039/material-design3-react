@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "an implementation of material design 3",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "storybook": "storybook dev -p 6006",
