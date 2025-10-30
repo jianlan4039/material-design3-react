@@ -8,11 +8,10 @@
 
 @mixin convert-comp-token($tokens, $comp)
   @each $name, $value in $tokens
-    @debug list.nth($value, 1)
-    --nd-comp-#{$comp}-#{$name}: #{parse-value(list.nth($value, 1), list.nth($value, 2))}
+    --nd-comp-#{$comp}-#{$name}: #{parse-value(#{$comp}-#{$name}, list.nth($value, 2), list.nth($value, 1))}
 
-@function parse-value($value, $hard-code:false)
+@function parse-value($comp, $value, $hard-code:false)
   @if ($hard-code == true)
-    @return $value
+    @return var(--nd-cust-#{$comp}, $value)
   @else
-    @return var(--nd-#{$value})
+    @return var(--nd-cust-#{$comp}, var(--nd-#{$value}))
