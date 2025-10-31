@@ -7,7 +7,6 @@
 @use "./basics/typography"
 
 @use "./converter"
-@use "./components/index"
 
 :root,
 :root[theme-data="light"]
@@ -20,6 +19,7 @@
   @include converter.convert-map-token(elelation.$elevation, sys)
   @include converter.convert-map-token(motions.$duration, sys)
   @include converter.convert-map-token(motions.$easing, sys)
+  @include converter.convert-map-token(motions.$physics-motion, sys)
   @include converter.convert-map-token(palette.$palette, ref-palette)
   @include converter.convert-map-token(shapes.$shape, sys)
   @include converter.convert-map-token(state.$state, sys)

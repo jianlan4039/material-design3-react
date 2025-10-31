@@ -1,7 +1,16 @@
+import React from "react"
+import './index.sass'
 
-export default function NDButton() {
+export interface ButtonProps {
+  children?: React.ReactNode
+  icon?: React.ReactNode
+}
+
+export default function Button(props: ButtonProps) {
 
   return (
-    <div></div>
+    <button>
+
+    </button>
   )
 }
