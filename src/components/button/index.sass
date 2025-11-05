@@ -1,2 +1,41 @@
+@use "../../tokens/components/button/index"
+
 .nd-button
-  background: #1ea7fd
+  display: flex
+  align-items: center
+  background: rgb(var(--nd-comp-button-container-color))
+  height: var(--nd-comp-button-container-height)
+  min-width: fit-content
+  border: none
+  padding-inline: 16px
+  box-shadow: var(--nd-comp-button-elevation)
+  color: rgb(var(--nd-comp-button-label-color))
+  font-family: var(--nd-comp-button-label-font), sans-serif
+  font-weight: var(--nd-comp-button-label-weight)
+  font-size: var(--nd-comp-button-label-size)
+  line-height: var(--nd-comp-button-line-height)
+  letter-spacing: var(--nd-comp-button-label-space)
+  border-radius: var(--nd-comp-button-shape-round)
+
+  .nd-button__icon
+    color: rgb(var(--nd-comp-button-icon-color))
+    font-size: var(--nd-comp-button-icon-size)
+
+
+  &.nd-button--toggle
+    border-radius: var(--nd-comp-button-shape-square)
+
+  &.nd-button--toggle-unselected
+    background: rgb(var(--nd-comp-button-container-color-toggle-unselected))
+    color: rgb(var(--nd-comp-button-label-color-toggle-unselected))
+
+    .nd-button__icon
+      color: rgb(var(--nd-comp-button-icon-color-toggle-unselected))
+
+  &.nd-button--toggle-selected
+    background: rgb(var(--nd-comp-button-container-color-toggle-selected))
+    color: rgb(var(--nd-comp-button-label-color-toggle-selected))
+
+    .nd-button__icon
+      color: rgb(var(--nd-comp-button-icon-color-toggle-selected))
+
