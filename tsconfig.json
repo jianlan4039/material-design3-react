@@ -45,6 +45,7 @@
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@tokens/*": ["src/tokens/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src"]
