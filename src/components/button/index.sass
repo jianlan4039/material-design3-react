@@ -1,13 +1,17 @@
+@use "sass:color"
 @use "../../tokens/components/button/index"
 
 .nd-button
+  position: relative
+  box-sizing: border-box
   display: flex
+  column-gap: var(--nd-comp-button-between-icon-label-space)
   align-items: center
-  background: rgb(var(--nd-comp-button-container-color))
   height: var(--nd-comp-button-container-height)
   min-width: fit-content
   border: none
-  padding-inline: 16px
+  padding-inline-start: var(--nd-comp-button-leading-space)
+  padding-inline-end: var(--nd-comp-button-trailing-space)
   box-shadow: var(--nd-comp-button-elevation)
   color: rgb(var(--nd-comp-button-label-color))
   font-family: var(--nd-comp-button-label-font), sans-serif
@@ -16,10 +20,34 @@
   line-height: var(--nd-comp-button-line-height)
   letter-spacing: var(--nd-comp-button-label-space)
   border-radius: var(--nd-comp-button-shape-round)
+  background: transparent
+
+  &::before
+    content: ''
+    border-radius: inherit
+    position: absolute
+    inset: 0
+    background: rgb(var(--nd-comp-button-container-color))
+    z-index: -100
 
   .nd-button__icon
     color: rgb(var(--nd-comp-button-icon-color))
     font-size: var(--nd-comp-button-icon-size)
+    inline-size: var(--nd-comp-button-icon-size)
+    block-size: var(--nd-comp-button-icon-size)
+
+  &.nd-button:hover
+    background: rgba(var(--nd-comp-button-hovered-container-state-layer-color), var(--nd-comp-button-hovered-container-state-layer-opacity))
+    box-shadow: var(--nd-comp-button-hovered-container-elevation)
+
+
+  &.nd-button--disabled
+    background: rgba(var(--nd-comp-button-disabled-container-color), var(--nd-comp-button-disabled-container-opacity))
+    box-shadow: var(--nd-comp-button-disabled-container-elevation)
+    color: rgba(var(--nd-comp-button-disabled-label-color), var(--nd-comp-button-disabled-label-opacity))
+
+    .nd-button__icon
+      color: rgba(var(--nd-comp-button-disabled-icon-color), var(--nd-comp-button-disabled-icon-opacity))
 
 
   &.nd-button--toggle

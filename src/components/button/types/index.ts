@@ -6,4 +6,5 @@ export interface ButtonProps extends Basic<HTMLButtonElement> {
   prefixIcon?: React.ReactNode
   suffixIcon?: React.ReactNode
   toggle?: boolean //when toggle is true, the button will be a switch, the selected and unselected states are different.
+  disabled?: boolean
 }

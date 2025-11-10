@@ -25,6 +25,14 @@ export default class ClassNames {
     this.buffer.delete(name)
   }
 
+  toggle(name: string){
+    if (this.buffer.has(name)) {
+      this.buffer.delete(name)
+    } else {
+      this.buffer.add(name)
+    }
+  }
+
   toString() {
     return Array.from(this.buffer).join(' ')
   }
