@@ -10,7 +10,8 @@
   @each $name, $value in $tokens
     --nd-comp-#{$comp}-#{$name}: #{parse-value(#{$comp}-#{$name}, list.nth($value, 2), list.nth($value, 1))}
 
-@function parse-value($comp, $value, $hard-code:false)
+@function parse-value($comp, $value, $hard-code:false, $sass-var:false)
+  @if($sass-var == true)
   @if ($hard-code == true)
     @return var(--nd-cust-#{$comp}, $value)
   @else

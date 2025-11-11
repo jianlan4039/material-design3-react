@@ -1,5 +1,6 @@
 @use "sass:color"
 @use "../../tokens/components/button/index"
+@use "../../tokens/components/comp-elevation" as elevation
 
 .nd-button
   position: relative
@@ -38,8 +39,7 @@
 
   &.nd-button:hover
     background: rgba(var(--nd-comp-button-hovered-container-state-layer-color), var(--nd-comp-button-hovered-container-state-layer-opacity))
-    box-shadow: var(--nd-comp-button-hovered-container-elevation)
-
+    @include elevation.elevation(var(--nd-comp-button-hovered-container-elevation), var(--nd-comp-button-shadow-color))
 
   &.nd-button--disabled
     background: rgba(var(--nd-comp-button-disabled-container-color), var(--nd-comp-button-disabled-container-opacity))

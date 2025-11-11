@@ -1,0 +1,32 @@
+@mixin elevation($level, $color) {
+  --_level: #{$level};
+  --_color: #{$color};
+
+  $key-level1-y: clamp(0, var(--_level), 1);
+  $key-level4-y: clamp(0, var(--_level) - 3, 1);
+  $key-level5-y: calc(2 * clamp(0, var(--_level) - 4, 1));
+  $key-y: calc(1px * ($key-level1-y + $key-level4-y + $key-level5-y));
+
+  $key-level1-blur: calc(2 * clamp(0, var(--_level), 1));
+  $key-level3-blur: clamp(0, var(--_level) - 2, 1);
+  $key-level5-blur: clamp(0, var(--_level) - 4, 1);
+  $key-blur: calc(1px * ($key-level1-blur + $key-level3-blur + $key-level5-blur));
+
+  $ambient-level1-y: clamp(0, var(--_level), 1);
+  $ambient-level2-y: clamp(0, var(--_level) - 1, 1);
+  $ambient-level3to5-y: calc(2 * clamp(0, var(--_level) - 2, 3));
+  $ambient-y: calc(1px * ($ambient-level1-y + $ambient-level2-y + $ambient-level3to5-y));
+
+  $ambient-level1to2-blur: calc(3 * clamp(0, var(--_level), 2));
+  $ambient-level3to5-blur: calc(2 * clamp(0, var(--_level) - 2, 3));
+  $ambient-blur: calc(1px * ($ambient-level1to2-blur + $ambient-level3to5-blur));
+
+  $ambient-level1to4-spread: clamp(0, var(--_level), 4);
+  $ambient-level5-spread: calc(2 * clamp(0, var(--_level) - 4, 1));
+  $ambient-spread: calc(1px * ($ambient-level1to4-spread + $ambient-level5-spread));
+
+  // 复合 box-shadow：key (alpha 0.3) + ambient (alpha 0.15)
+  box-shadow:
+          0 $key-y $key-blur 0 rgba(var(--_color), 0.3),
+          0 $ambient-y $ambient-blur $ambient-spread rgba(var(--_color), 0.15);
+}
