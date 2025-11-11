@@ -21,15 +21,16 @@
   line-height: var(--nd-comp-button-line-height)
   letter-spacing: var(--nd-comp-button-label-space)
   border-radius: var(--nd-comp-button-shape-round)
-  background: transparent
+  background: rgb(var(--nd-comp-button-container-color))
 
   &::before
     content: ''
     border-radius: inherit
     position: absolute
     inset: 0
-    background: rgb(var(--nd-comp-button-container-color))
-    z-index: -100
+    background: transparent
+    z-index: 0
+    pointer-events: none
 
   .nd-button__icon
     color: rgb(var(--nd-comp-button-icon-color))
@@ -38,24 +39,30 @@
     block-size: var(--nd-comp-button-icon-size)
 
   &:hover
-    background: rgba(var(--nd-comp-button-hovered-container-state-layer-color), var(--nd-comp-button-hovered-container-state-layer-opacity))
     color: rgb(var(--nd-comp-button-hovered-label-color))
     @include elevation.elevation(var(--nd-comp-button-hovered-container-elevation), var(--nd-comp-button-shadow-color))
 
+    &::before
+      background: rgba(var(--nd-comp-button-hovered-container-state-layer-color), var(--nd-comp-button-hovered-container-state-layer-opacity))
+
   &:focus-visible
-    background: rgba(var(--nd-comp-button-focused-container-state-layer-color), var(--nd-comp-button-focused-container-state-layer-opacity))
     color: rgb(var(--nd-comp-button-focused-label-color))
     outline: solid rgb(var(--nd-comp-button-focus-ring-indicator-color)) var(--nd-comp-button-focus-ring-indicator-thickness)
     outline-offset: var(--nd-comp-button-focus-ring-outline-offset)
     @include elevation.elevation(var(--nd-comp-button-focused-container-state-elevation), var(--nd-comp-button-shadow-color))
 
+    &::before
+      background: rgba(var(--nd-comp-button-focused-container-state-layer-color), var(--nd-comp-button-focused-container-state-layer-opacity))
+
     .nd-button__icon
       color: rgb(var(--nd-comp-button-focused-icon-color))
 
   &:active
-    background: rgba(var(--nd-comp-button-pressed-container-state-layer-color), var(--nd-comp-button-pressed-container-state-layer-opacity))
     color: rgb(var(--nd-comp-button-pressed-label-color))
     @include elevation.elevation(var(--nd-comp-button-pressed-container-state-elevation), var(--nd-comp-button-shadow-color))
+
+    &::before
+      background: rgba(var(--nd-comp-button-pressed-container-state-layer-color), var(--nd-comp-button-pressed-container-state-layer-opacity))
 
     .nd-button__icon
       color: rgb(var(--nd-comp-button-pressed-icon-color))
@@ -65,9 +72,10 @@
     box-shadow: var(--nd-comp-button-disabled-container-elevation) !important
     color: rgba(var(--nd-comp-button-disabled-label-color), var(--nd-comp-button-disabled-label-opacity)) !important
     cursor: not-allowed
+    background: rgba(var(--nd-comp-button-disabled-container-color), var(--nd-comp-button-disabled-container-opacity)) !important
 
     &::before
-      background: rgba(var(--nd-comp-button-disabled-container-color), var(--nd-comp-button-disabled-container-opacity)) !important
+      background: transparent !important
 
     .nd-button__icon
       color: rgba(var(--nd-comp-button-disabled-icon-color), var(--nd-comp-button-disabled-icon-opacity)) !important
