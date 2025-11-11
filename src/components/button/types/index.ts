@@ -7,4 +7,5 @@ export interface ButtonProps extends Basic<HTMLButtonElement> {
   suffixIcon?: React.ReactNode
   toggle?: boolean //when toggle is true, the button will be a switch, the selected and unselected states are different.
   disabled?: boolean
+  size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large'
 }

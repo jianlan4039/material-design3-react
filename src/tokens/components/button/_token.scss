@@ -20,9 +20,9 @@ $tokens: (
         icon-size: (true, 20px),
         shape-round: (false, sys-corner-full),
         shape-square: (false, sys-corner-medium),
-        leading-space: (true, 24px),
+        leading-space: (true, 16px),
         between-icon-label-space: (true, 8px),
-        trailing-space: (true, 24px),
+        trailing-space: (true, 16px),
         shape-pressed-morph: (false, sys-corner-small), // --
         shape-spring-motion:(false, fast-spatial),  // --
         shape-spring-shema: (false, expressive), // --
@@ -31,6 +31,26 @@ $tokens: (
         focus-ring-indicator-color: (false, sys-color-secondary), // --
         focus-ring-indicator-thickness: (true, 3px), // --
         focus-ring-outline-offset: (true, 2px), // --
+        // extra small
+        extra-small-container-height: (true, 32px),
+        extra-small-leading-space: (true, 12px),
+        extra-small-trailing-space: (true, 12px),
+        extra-small-between-icon-label-space: (true, 4px),
+        // medium
+        medium-container-height: (true, 56px),
+        medium-leading-space: (true, 24px),
+        medium-trailing-space: (true, 24px),
+        medium-between-icon-label-space: (true, 8px),
+        // large
+        large-container-height: (true, 96px),
+        large-leading-space: (true, 48px),
+        large-trailing-space: (true, 48px),
+        large-between-icon-label-space: (true, 12px),
+        // extra large
+        extra-large-container-height: (true, 136px),
+        extra-large-leading-space: (true, 64px),
+        extra-large-trailing-space: (true, 64px),
+        extra-large-between-icon-label-space: (true, 16px),
         // disabled
         disabled-container-color: (false, sys-color-on-surface),
         disabled-container-opacity: (true, 0.1),
