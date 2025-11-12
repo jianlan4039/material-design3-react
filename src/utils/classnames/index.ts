@@ -21,11 +21,21 @@ export default class ClassNames {
     this.buffer.add(name)
   }
 
+  addWithCondition(condition: Record<string, boolean>) {
+    Object.entries(condition).map(([key, value]) => {
+      if (value) {
+        this.buffer.add(key)
+      } else {
+        this.buffer.delete(key)
+      }
+    })
+  }
+
   remove(name: string) {
     this.buffer.delete(name)
   }
 
-  toggle(name: string){
+  toggle(name: string) {
     if (this.buffer.has(name)) {
       this.buffer.delete(name)
     } else {

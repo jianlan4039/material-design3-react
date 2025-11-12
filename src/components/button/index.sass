@@ -33,10 +33,62 @@
     pointer-events: none
 
   .nd-button__icon
+    display: flex
+    justify-content: center
+    align-items: center
     color: rgb(var(--nd-comp-button-icon-color))
     font-size: var(--nd-comp-button-icon-size)
     inline-size: var(--nd-comp-button-icon-size)
     block-size: var(--nd-comp-button-icon-size)
+
+    *
+      inline-size: inherit
+      block-size: inherit
+
+  &.nd-button--extra-small
+    height: var(--nd-comp-button-extra-small-container-height)
+    padding-inline-start: var(--nd-comp-button-extra-small-leading-space)
+    padding-inline-end: var(--nd-comp-button-extra-small-leading-space)
+    column-gap: var(--nd-comp-button-extra-small-between-icon-label-space)
+
+  &.nd-button--medium
+    height: var(--nd-comp-button-medium-container-height)
+    padding-inline-start: var(--nd-comp-button-medium-leading-space)
+    padding-inline-end: var(--nd-comp-button-medium-trailing-space)
+    column-gap: var(--nd-comp-button-medium-between-icon-label-space)
+    font-size: var(--nd-comp-button-medium-label-size)
+    line-height: var(--nd-comp-button-medium-line-height)
+
+    .nd-button__icon
+      font-size: var(--nd-comp-button-medium-icon-size)
+      inline-size: var(--nd-comp-button-medium-icon-size)
+      block-size: var(--nd-comp-button-medium-icon-size)
+
+  &.nd-button--large
+    height: var(--nd-comp-button-large-container-height)
+    padding-inline-start: var(--nd-comp-button-large-leading-space)
+    padding-inline-end: var(--nd-comp-button-large-trailing-space)
+    column-gap: var(--nd-comp-button-large-between-icon-label-space)
+    font-size: var(--nd-comp-button-large-label-size)
+    line-height: var(--nd-comp-button-large-line-height)
+
+    .nd-button__icon
+      font-size: var(--nd-comp-button-large-icon-size)
+      inline-size: var(--nd-comp-button-large-icon-size)
+      block-size: var(--nd-comp-button-large-icon-size)
+
+  &.nd-button--extra-large
+    height: var(--nd-comp-button-extra-large-container-height)
+    padding-inline-start: var(--nd-comp-button-extra-large-leading-space)
+    padding-inline-end: var(--nd-comp-button-extra-large-trailing-space)
+    column-gap: var(--nd-comp-button-extra-large-between-icon-label-space)
+    font-size: var(--nd-comp-button-extra-large-label-size)
+    line-height: var(--nd-comp-button-extra-large-line-height)
+
+    .nd-button__icon
+      font-size: var(--nd-comp-button-extra-large-icon-size)
+      inline-size: var(--nd-comp-button-extra-large-icon-size)
+      block-size: var(--nd-comp-button-extra-large-icon-size)
 
   &:hover
     color: rgb(var(--nd-comp-button-hovered-label-color))

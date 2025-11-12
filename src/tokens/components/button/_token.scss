@@ -1,5 +1,5 @@
 $tokens: (
-        // enabled
+  // enabled
         container-color: (false, sys-color-primary),
         container-color-toggle-unselected: (false, sys-color-surface-container),
         container-color-toggle-selected: (false, sys-color-primary),
@@ -24,34 +24,43 @@ $tokens: (
         between-icon-label-space: (true, 8px),
         trailing-space: (true, 16px),
         shape-pressed-morph: (false, sys-corner-small), // --
-        shape-spring-motion:(false, fast-spatial),  // --
+        shape-spring-motion:(false, fast-spatial), // --
         shape-spring-shema: (false, expressive), // --
         selected-container-shape-round: (false, sys-corner-medium), // --
         selected-container-shape-square: (false, sys-corner-full), // --
         focus-ring-indicator-color: (false, sys-color-secondary), // --
         focus-ring-indicator-thickness: (true, 3px), // --
         focus-ring-outline-offset: (true, 2px), // --
-        // extra small
+  // extra small
         extra-small-container-height: (true, 32px),
         extra-small-leading-space: (true, 12px),
         extra-small-trailing-space: (true, 12px),
         extra-small-between-icon-label-space: (true, 4px),
-        // medium
+  // medium
         medium-container-height: (true, 56px),
         medium-leading-space: (true, 24px),
         medium-trailing-space: (true, 24px),
         medium-between-icon-label-space: (true, 8px),
-        // large
+        medium-label-size: (true, 1.25rem),
+        medium-line-height: (true, 1.25rem),
+        medium-icon-size: (true, 24px),
+  // large
         large-container-height: (true, 96px),
         large-leading-space: (true, 48px),
         large-trailing-space: (true, 48px),
         large-between-icon-label-space: (true, 12px),
-        // extra large
+        large-label-size: (true, 2rem),
+        large-line-height: (true, 2rem),
+        large-icon-size: (true, 2rem),
+  // extra large
         extra-large-container-height: (true, 136px),
         extra-large-leading-space: (true, 64px),
         extra-large-trailing-space: (true, 64px),
         extra-large-between-icon-label-space: (true, 16px),
-        // disabled
+        extra-large-label-size: (true, 2.5rem),
+        extra-large-line-height: (true, 2.5rem),
+        extra-large-icon-size: (true, 2.5rem),
+  // disabled
         disabled-container-color: (false, sys-color-on-surface),
         disabled-container-opacity: (true, 0.1),
         disabled-container-elevation: (false, sys-elevation-0),
@@ -59,7 +68,7 @@ $tokens: (
         disabled-label-opacity: (true, 0.38),
         disabled-icon-color: (false, sys-color-on-surface),
         disabled-icon-opacity: (true, 0.38),
-        // hovered
+  // hovered
         hovered-container-state-layer-color: (false, sys-color-on-primary),
         hovered-container-state-layer-color-toggle-unselected: (false, sys-color-on-surface-variant), // --
         hovered-container-state-layer-color-toggle-selected: (false, sys-color-on-primary), // --
@@ -70,7 +79,7 @@ $tokens: (
         hovered-label-color-toggle-selected: (false, sys-color-on-primary), // --
         hovered-icon-color-toggle-unselected: (false, sys-color-on-surface-variant), // --
         hovered-icon-color-toggle-selected: (false, sys-color-on-primary), // --
-        // focused
+  // focused
         focused-container-state-layer-color: (false, sys-color-on-primary),
         focused-container-state-layer-color-toggle-unselected: (false, sys-color-on-surface-variant), // --
         focused-container-state-layer-color-toggle-selected: (false, sys-color-on-primary), // --
@@ -82,7 +91,7 @@ $tokens: (
         focused-icon-color: (false, sys-color-on-primary),
         focused-icon-color-toggle-unselected: (false, sys-color-on-surface-variant), // --
         focused-icon-color-toggle-selected: (false, sys-color-on-primary), // --
-        // pressed
+  // pressed
         pressed-container-state-layer-color: (false, sys-color-on-primary),
         pressed-container-state-layer-color-toggle-unselected: (false, sys-color-on-surface-variant), // --
         pressed-container-state-layer-color-toggle-selected: (false, sys-color-on-primary), // --
