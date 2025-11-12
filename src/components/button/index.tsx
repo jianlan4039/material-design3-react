@@ -6,7 +6,7 @@ import './index.sass'
 
 export default function Button(props: ButtonProps) {
   const {size = 'small', disabled, prefixIcon, suffixIcon, children, toggle = false, selected, onClick, ...rest} = props
-  const [rootCls, setRootCls] = useState(new ClassName('nd-button'))
+  const rootCls = new ClassName('nd-button')
   const [selfToggle, setSelfToggle] = useState<boolean>(toggle)
   const [selfSelected, setSelfSelected] = useState<boolean | undefined>(selected)
 
@@ -38,7 +38,7 @@ export default function Button(props: ButtonProps) {
   }
 
   return (
-    <button className={rootCls.toString()} onClick={clickHandler}>
+    <button className={rootCls.toString()} onClick={clickHandler} {...rest}>
       {prefixIcon && <div className={'nd-button__prefix nd-button__icon'}>{prefixIcon}</div>}
       <span className={'nd-button__label'}>{children}</span>
       {suffixIcon && <div className={'nd-button__suffix nd-button__icon'}>{suffixIcon}</div>}
