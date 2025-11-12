@@ -1,0 +1,34 @@
+@mixin button-toggle-unselected
+  &.nd-button--toggle-unselected
+    background: rgb(var(--nd-comp-button-container-color-toggle-unselected))
+    color: rgb(var(--nd-comp-button-label-color-toggle-unselected))
+
+    .nd-button__icon
+      color: rgb(var(--nd-comp-button-icon-color-toggle-unselected))
+
+    &:hover
+      color: rgb(var(--nd-comp-button-hovered-label-color-toggle-unselected))
+
+      .nd-button__icon
+        color: rgb(var(--nd-comp-button-hovered-icon-color-toggle-unselected))
+
+      &::before
+        background: rgba(var(--nd-comp-button-hovered-container-state-layer-color-toggle-unselected), var(--nd-comp-button-hovered-container-state-layer-opacity))
+
+    &:focus-visible
+      color: rgb(var(--nd-comp-button-focused-label-color-toggle-unselected))
+
+      &::before
+        background: rgba(var(--nd-comp-button-focused-container-state-layer-color-toggle-unselected), var(--nd-comp-button-hovered-container-state-layer-opacity))
+
+      .nd-button__icon
+        color: rgb(var(--nd-comp-button-focused-icon-color-toggle-unselected))
+
+    &:active
+      color: rgb(var(--nd-comp-button-pressed-label-color-toggle-unselected))
+
+      &::before
+        background: rgba(var(--nd-comp-button-pressed-container-state-layer-color-toggle-unselected), var(--nd-comp-button-hovered-container-state-layer-opacity))
+
+      .nd-button__icon
+        color: rgb(var(--nd-comp-button-pressed-icon-color-toggle-unselected))
