@@ -31,6 +31,7 @@ export default function Button(props: ButtonProps) {
   }, [toggle])
 
   function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
+    if (disabled) return
     if (toggle) {
       setSelfSelected(!selfSelected)
     }

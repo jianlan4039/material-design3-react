@@ -1,0 +1,35 @@
+$tokens: (
+        elevated-container-color: (false, sys-color-surface-container-low),
+        elevated-container-color-toggle-unselected: (false, sys-color-surface-container-low),
+        elevated-container-color-toggle-selected: (false, primary),
+        elevated-shadow-color: (false, sys-color-shadow),
+        elevated-elevation: (false, sys-elevation-1),
+        elevated-label-color: (false, sys-color-primary),
+        elevated-label-color-toggle-unselected: (false, sys-color-primary),
+        elevated-label-color-toggle-selected: (false, sys-color-on-primary),
+        elevated-icon-color: (false, sys-color-primary),
+        elevated-icon-color-toggle-unselected: (false, sys-color-primary),
+        elevated-icon-color-toggle-selected: (false, sys-color-on-primary),
+        // disabled
+        elevated-disabled-container-color: (false, sys-color-on-surface),
+        elevated-disabled-container-opacity: (true, 0.1),
+        elevated-disabled-container-elevation: (false, sys-elevation-0),
+        elevated-disabled-label-color: (false, sys-color-on-surface),
+        elevated-disabled-label-opacity: (true, 0.38),
+        elevated-disabled-icon-color: (false, sys-color-on-surface),
+        elevated-disabled-icon-opacity: (true, 0.38),
+        // hovered
+        elevated-hovered-container-state-layer-color: (false, sys-color-primary),
+        elevated-hovered-container-state-layer-color-toggle-unselected: (false, sys-color-primary),
+        elevated-hovered-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),
+        elevated-hovered-container-state-layer-opacity: (false, sys-hover-state-layer-opacity),
+        elevated-hovered-container-elevation: (false, sys-elevation-2),
+        elevated-hovered-label-color: (false, sys-color-primary),
+        elevated-hovered-label-color-toggle-unselected: (false, primary),
+        elevated-hovered-label-color-toggle-selected: (false, sys-color-on-primary),
+        elevated-hovered-icon-color: (false, sys-color-primary),
+        elevated-hovered-icon-color-toggle-unselected: (false, sys-color-primary),
+        elevated-hovered-icon-color-toggle-selected: (false, sys-color-on-primary),
+        // focused
+
+)
