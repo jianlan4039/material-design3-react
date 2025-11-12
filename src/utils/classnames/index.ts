@@ -21,7 +21,7 @@ export default class ClassNames {
     this.buffer.add(name)
   }
 
-  addWithCondition(condition: Record<string, boolean>) {
+  addWithCondition(condition: Record<string, boolean | undefined>) {
     Object.entries(condition).map(([key, value]) => {
       if (value) {
         this.buffer.add(key)
