@@ -12,21 +12,22 @@
 @use "./parts/text" as button-text
 @use "./parts/tonal" as button-tonal
 
-.nd-button
-  // the basic tokens from token center
-  @include tokens.button-basic
-  @include tokens.button-size
+@layer nd-comp-button-styles
+  .nd-button
+    // the basic tokens from token center
+    @include tokens.button-basic
+    @include tokens.button-size
 
-  // the special style tokens
-  @include button-elevated.styles
-  @include button-filled.styles
-  @include button-text.styles
-  @include button-tonal.styles
+    // the special style tokens
+    @include button-elevated.styles
+    @include button-filled.styles
+    @include button-text.styles
+    @include button-tonal.styles
 
-  // the basic style for button
-  @include base.base
-  @include button-state.button-state
-  @include button-size.button-size
-  @include button-toggle-selected.button-toggle-selected
-  @include button-toggle-unselected.button-toggle-unselected
+    // the basic style for button
+    @include base.base
+    @include button-state.button-state
+    @include button-size.button-size
+    @include button-toggle-selected.button-toggle-selected
+    @include button-toggle-unselected.button-toggle-unselected
 
