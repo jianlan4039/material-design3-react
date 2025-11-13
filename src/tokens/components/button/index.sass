@@ -1,7 +1,13 @@
 @use "../../converter"
 @use "./button"
 @use "./elevated"
+@use "filled"
+@use "text"
+@use "tonal"
 
 .nd-button
   @include converter.convert-comp-token(button.$tokens, 'button')
-  @include converter.convert-comp-token(elevated.$tokens, 'elevated')
+  @include converter.convert-comp-token(elevated.$tokens, 'elevated-button')
+  @include converter.convert-comp-token(filled.$tokens, 'filled-button')
+  @include converter.convert-comp-token(text.$tokens, 'text-button')
+  @include converter.convert-comp-token(tonal.$tokens, 'tonal-button')
