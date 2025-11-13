@@ -1,3 +1,4 @@
+@use "../../../tokens/components/comp-elevation" as elevation
 
 @mixin base
   &
@@ -11,7 +12,7 @@
     height: var(--nd-comp-button-container-height)
     padding-inline-start: var(--nd-comp-button-leading-space)
     padding-inline-end: var(--nd-comp-button-trailing-space)
-    box-shadow: var(--nd-comp-button-elevation)
+    @include elevation.elevation(var(--nd-comp-button-elevation), var(--nd-comp-button-shadow-color))
     color: rgb(var(--nd-comp-button-label-color))
     font-family: var(--nd-comp-button-label-font), sans-serif
     font-weight: var(--nd-comp-button-label-weight)

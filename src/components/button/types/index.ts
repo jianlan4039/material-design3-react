@@ -9,4 +9,5 @@ export interface ButtonProps extends Basic<HTMLButtonElement> {
   selected?: boolean
   disabled?: boolean
   size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large'
+  type?: 'elevated' | 'filled' | 'text' | 'tonal'
 }

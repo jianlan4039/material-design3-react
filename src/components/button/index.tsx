@@ -5,7 +5,18 @@ import {ClassName} from "@/utils/index.ts"
 import './index.sass'
 
 export default function Button(props: ButtonProps) {
-  const {size = 'small', disabled, prefixIcon, suffixIcon, children, toggle = false, selected, onClick, ...rest} = props
+  const {
+    size = 'small',
+    disabled,
+    prefixIcon,
+    suffixIcon,
+    children,
+    toggle = false,
+    selected,
+    onClick,
+    type,
+    ...rest
+  } = props
   const rootCls = new ClassName('nd-button')
   const [selfToggle, setSelfToggle] = useState<boolean>(toggle)
   const [selfSelected, setSelfSelected] = useState<boolean | undefined>(selected)
@@ -19,7 +30,11 @@ export default function Button(props: ButtonProps) {
     'nd-button--large': size === 'large',
     'nd-button--extra-large': size === 'extra-large',
     'nd-button--toggle-selected': selfToggle && selfSelected === true,
-    'nd-button--toggle-unselected': selfToggle && selfSelected === false
+    'nd-button--toggle-unselected': selfToggle && selfSelected === false,
+    'nd-button--elevated': type === 'elevated',
+    'nd-button--filled': type === 'filled',
+    'nd-button--text': type === 'text',
+    'nd-button--tonal': type === 'tonal'
   })
 
   useEffect(() => {

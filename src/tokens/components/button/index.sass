@@ -6,10 +6,20 @@
 @use "text"
 @use "tonal"
 
-@mixin tokens
+@mixin button-basic
   @include converter.convert-comp-token(button.$tokens, 'button')
+
+@mixin button-size
   @include converter.convert-comp-token(size.$tokens, 'button-size')
-  @include converter.convert-comp-token(elevated.$tokens, 'button-elevated')
-  @include converter.convert-comp-token(filled.$tokens, 'button-filled')
-  @include converter.convert-comp-token(text.$tokens, 'button-text')
-  @include converter.convert-comp-token(tonal.$tokens, 'button-tonal')
+
+@mixin button-elevated
+  @include converter.convert-comp-token(elevated.$tokens, 'button')
+
+@mixin button-filled
+  @include converter.convert-comp-token(filled.$tokens, 'button')
+
+@mixin button-text
+  @include converter.convert-comp-token(text.$tokens, 'button')
+
+@mixin button-tonal
+  @include converter.convert-comp-token(tonal.$tokens, 'button')

@@ -1,5 +1,5 @@
 @use "sass:color"
-@use "../../tokens/components/button/index" as button
+@use "../../tokens/components/button/index" as tokens
 @use "../../tokens/components/comp-elevation" as elevation
 @use "./parts/base"
 @use "./parts/button-state"
@@ -7,8 +7,23 @@
 @use "./parts/button-toggle-unselected"
 @use "./parts/button-toggle-selected"
 
+@use "./parts/elevated" as button-elevated
+@use "./parts/filled" as button-filled
+@use "./parts/text" as button-text
+@use "./parts/tonal" as button-tonal
+
 .nd-button
-  @include button.tokens
+  // the basic tokens from token center
+  @include tokens.button-basic
+  @include tokens.button-size
+
+  // the special style tokens
+  @include button-elevated.styles
+  @include button-filled.styles
+  @include button-text.styles
+  @include button-tonal.styles
+
+  // the basic style for button
   @include base.base
   @include button-state.button-state
   @include button-size.button-size
