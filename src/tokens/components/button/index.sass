@@ -6,9 +6,9 @@
 @use "text"
 @use "tonal"
 
-.nd-button
-  @include converter.convert-comp-token(size.$tokens, 'button-size')
+@mixin tokens
   @include converter.convert-comp-token(button.$tokens, 'button')
+  @include converter.convert-comp-token(size.$tokens, 'button-size')
   @include converter.convert-comp-token(elevated.$tokens, 'button-elevated')
   @include converter.convert-comp-token(filled.$tokens, 'button-filled')
   @include converter.convert-comp-token(text.$tokens, 'button-text')
