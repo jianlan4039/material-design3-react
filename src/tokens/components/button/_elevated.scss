@@ -22,7 +22,7 @@ $tokens: (
         elevated-hovered-container-state-layer-color: (false, sys-color-primary),
         elevated-hovered-container-state-layer-color-toggle-unselected: (false, sys-color-primary),
         elevated-hovered-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),
-        elevated-hovered-container-state-layer-opacity: (false, sys-hover-state-layer-opacity),
+        elevated-hovered-container-state-layer-opacity: (false, sys-state-hover-state-layer-opacity),
         elevated-hovered-container-elevation: (false, sys-elevation-2),
         elevated-hovered-label-color: (false, sys-color-primary),
         elevated-hovered-label-color-toggle-unselected: (false, primary),
@@ -31,5 +31,27 @@ $tokens: (
         elevated-hovered-icon-color-toggle-unselected: (false, sys-color-primary),
         elevated-hovered-icon-color-toggle-selected: (false, sys-color-on-primary),
         // focused
-
+        elevated-focused-container-state-layer-color: (false, sys-color-primary),
+        elevated-focused-container-state-layer-color-toggle-unselected: (false, sys-color-primary),
+        elevated-focused-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),
+        elevated-focused-container-state-layer-opacity: (false, sys-state-focus-layer-opacity),
+        elevated-focused-container-state-layer-elevation: (false, sys-elevation-1),
+        elevated-focused-label-color: (false, sys-color-primary),
+        elevated-focused-label-color-toggle-unselected: (false, sys-color-primary),
+        elevated-focused-label-color-toggle-selected: (false, sys-color-on-primary),
+        elevated-focused-icon-color: (false, sys-color-primary),
+        elevated-focused-icon-color-toggle-unselected: (false, sys-color-primary),
+        elevated-focused-icon-color-toggle-selected: (false, sys-color-on-primary),
+        // pressed
+        elevated-pressed-container-state-layer-color: (false, sys-color-primary),
+        elevated-pressed-container-state-layer-color-toggle-unselected: (false, sys-color-primary),
+        elevated-pressed-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),
+        elevated-pressed-container-state-layer-opacity: (false, sys-state-pressed-state-layer-opacity),
+        elevated-pressed-container-state-layer-elevation: (false, sys-elevation-1),
+        elevated-pressed-label-color: (false, sys-color-primary),
+        elevated-pressed-label-color-toggle-unselected: (false, sys-color-primary),
+        elevated-pressed-label-color-toggle-selected: (false, sys-color-on-primary),
+        elevated-pressed-icon-color: (false, sys-color-primary),
+        elevated-pressed-icon-color-toggle-unselected: (false, sys-color-primary),
+        elevated-pressed-icon-color-toggle-selected: (false, sys-color-on-primary)
 )

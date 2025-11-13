@@ -1,5 +1,7 @@
 @use "../../converter"
-@use "./token"
+@use "./button"
+@use "./elevated"
 
 .nd-button
-  @include converter.convert-comp-token(token.$tokens, 'button')
+  @include converter.convert-comp-token(button.$tokens, 'button')
+  @include converter.convert-comp-token(elevated.$tokens, 'elevated')
