@@ -9,8 +9,20 @@
 @mixin button-basic
   @include converter.convert-comp-token(button.$tokens, 'button')
 
-@mixin button-size
-  @include converter.convert-comp-token(size.$tokens, 'button-size')
+@mixin button-size-extra-small
+  @include converter.convert-comp-token(size.$extra-small-tokens, 'button-size')
+
+@mixin button-size-small
+  @include converter.convert-comp-token(size.$small-tokens, 'button-size')
+
+@mixin button-size-medium
+  @include converter.convert-comp-token(size.$medium-tokens, 'button-size')
+
+@mixin button-size-large
+  @include converter.convert-comp-token(size.$large-tokens, 'button-size')
+
+@mixin button-size-extra-large
+  @include converter.convert-comp-token(size.$extra-large-tokens, 'button-size')
 
 @mixin button-elevated
   @include converter.convert-comp-token(elevated.$tokens, 'button')

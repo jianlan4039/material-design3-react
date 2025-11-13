@@ -1,46 +1,29 @@
+@use "../../../tokens/components/button/index"
 
 @mixin button-size
+  @include index.button-size-small
+  height: var(--nd-comp-button-size-container-height)
+  outline-width: var(--nd-comp-button-size-outline-width)
+  font-size: var(--nd-comp-button-size-label-size)
+  font-weight: var(--nd-comp-button-size-label-weight)
+  line-height: var(--nd-comp-button-size-line-height)
+  padding-inline-start: var(--nd-comp-button-size-leading-space)
+  column-gap: var(--nd-comp-button-size-between-icon-label-space)
+  padding-inline-end: var(--nd-comp-button-size-trailing-space)
+
+  .nd-button__icon
+    font-size: var(--nd-comp-button-size-icon-size)
+    inline-size: var(--nd-comp-button-size-icon-size)
+    block-size: var(--nd-comp-button-size-icon-size)
+
   &.nd-button--extra-small
-    height: var(--nd-comp-button-size-extra-small-container-height)
-    padding-inline-start: var(--nd-comp-button-size-extra-small-leading-space)
-    padding-inline-end: var(--nd-comp-button-size-extra-small-leading-space)
-    column-gap: var(--nd-comp-button-size-extra-small-between-icon-label-space)
+    @include index.button-size-extra-small
 
   &.nd-button--medium
-    height: var(--nd-comp-button-size-medium-container-height)
-    padding-inline-start: var(--nd-comp-button-size-medium-leading-space)
-    padding-inline-end: var(--nd-comp-button-size-medium-trailing-space)
-    column-gap: var(--nd-comp-button-size-medium-between-icon-label-space)
-    font-size: var(--nd-comp-button-size-medium-label-size)
-    line-height: var(--nd-comp-button-size-medium-line-height)
-
-    .nd-button__icon
-      font-size: var(--nd-comp-button-size-medium-icon-size)
-      inline-size: var(--nd-comp-button-size-medium-icon-size)
-      block-size: var(--nd-comp-button-size-medium-icon-size)
+    @include index.button-size-medium
 
   &.nd-button--large
-    height: var(--nd-comp-button-size-large-container-height)
-    padding-inline-start: var(--nd-comp-button-size-large-leading-space)
-    padding-inline-end: var(--nd-comp-button-size-large-trailing-space)
-    column-gap: var(--nd-comp-button-size-large-between-icon-label-space)
-    font-size: var(--nd-comp-button-size-large-label-size)
-    line-height: var(--nd-comp-button-size-large-line-height)
-
-    .nd-button__icon
-      font-size: var(--nd-comp-button-size-large-icon-size)
-      inline-size: var(--nd-comp-button-size-large-icon-size)
-      block-size: var(--nd-comp-button-size-large-icon-size)
+    @include index.button-size-large
 
   &.nd-button--extra-large
-    height: var(--nd-comp-button-size-extra-large-container-height)
-    padding-inline-start: var(--nd-comp-button-size-extra-large-leading-space)
-    padding-inline-end: var(--nd-comp-button-size-extra-large-trailing-space)
-    column-gap: var(--nd-comp-button-size-extra-large-between-icon-label-space)
-    font-size: var(--nd-comp-button-size-extra-large-label-size)
-    line-height: var(--nd-comp-button-size-extra-large-line-height)
-
-    .nd-button__icon
-      font-size: var(--nd-comp-button-size-extra-large-icon-size)
-      inline-size: var(--nd-comp-button-size-extra-large-icon-size)
-      block-size: var(--nd-comp-button-size-extra-large-icon-size)
+    @include index.button-size-extra-large
