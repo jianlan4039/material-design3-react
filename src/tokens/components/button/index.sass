@@ -1,4 +1,5 @@
 @use "../../converter"
+@use "./size"
 @use "./button"
 @use "./elevated"
 @use "filled"
@@ -6,8 +7,9 @@
 @use "tonal"
 
 .nd-button
+  @include converter.convert-comp-token(size.$tokens, 'button-size')
   @include converter.convert-comp-token(button.$tokens, 'button')
-  @include converter.convert-comp-token(elevated.$tokens, 'elevated-button')
-  @include converter.convert-comp-token(filled.$tokens, 'filled-button')
-  @include converter.convert-comp-token(text.$tokens, 'text-button')
-  @include converter.convert-comp-token(tonal.$tokens, 'tonal-button')
+  @include converter.convert-comp-token(elevated.$tokens, 'button-elevated')
+  @include converter.convert-comp-token(filled.$tokens, 'button-filled')
+  @include converter.convert-comp-token(text.$tokens, 'button-text')
+  @include converter.convert-comp-token(tonal.$tokens, 'button-tonal')

@@ -1,5 +1,4 @@
 $tokens: (
-  // enabled
         container-color: (false, sys-color-primary),
         container-color-toggle-unselected: (false, sys-color-surface-container),
         container-color-toggle-selected: (false, sys-color-primary),
@@ -11,7 +10,6 @@ $tokens: (
         icon-color: (false, sys-color-on-primary),
         icon-color-toggle-unselected: (false, sys-color-on-surface-variant),
         icon-color-toggle-selected: (false, sys-color-on-primary),
-  // disabled
         disabled-container-color: (false, sys-color-on-surface),
         disabled-container-opacity: (true, 0.1),
         disabled-container-elevation: (false, sys-elevation-0),
@@ -19,7 +17,6 @@ $tokens: (
         disabled-label-opacity: (true, 0.38),
         disabled-icon-color: (false, sys-color-on-surface),
         disabled-icon-opacity: (true, 0.38),
-  // hovered
         hovered-container-state-layer-color: (false, sys-color-on-primary),
         hovered-container-state-layer-color-toggle-unselected: (false, sys-color-on-surface-variant),
         hovered-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),
@@ -31,7 +28,6 @@ $tokens: (
         hovered-icon-color: (false, sys-color-on-primary),
         hovered-icon-color-toggle-unselected: (false, sys-color-on-surface-variant),
         hovered-icon-color-toggle-selected: (false, sys-color-on-primary),
-  // focused
         focused-container-state-layer-color: (false, sys-color-on-primary),
         focused-container-state-layer-color-toggle-unselected: (false, sys-color-on-surface-variant),
         focused-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),
@@ -43,7 +39,6 @@ $tokens: (
         focused-icon-color: (false, sys-color-on-primary),
         focused-icon-color-toggle-unselected: (false, sys-color-on-surface-variant),
         focused-icon-color-toggle-selected: (false, sys-color-on-primary),
-  // pressed
         pressed-container-state-layer-color: (false, sys-color-on-primary),
         pressed-container-state-layer-color-toggle-unselected: (false, sys-color-on-surface-variant),
         pressed-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),

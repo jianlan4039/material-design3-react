@@ -10,7 +10,6 @@ $tokens: (
         icon-color: (false, sys-color-primary),
         icon-color-toggle-unselected: (false, sys-color-primary),
         icon-color-toggle-selected: (false, sys-color-on-primary),
-        // disabled
         disabled-container-color: (false, sys-color-on-surface),
         disabled-container-opacity: (true, 0.1),
         disabled-container-elevation: (false, sys-elevation-0),
@@ -18,7 +17,6 @@ $tokens: (
         disabled-label-opacity: (true, 0.38),
         disabled-icon-color: (false, sys-color-on-surface),
         disabled-icon-opacity: (true, 0.38),
-        // hovered
         hovered-container-state-layer-color: (false, sys-color-primary),
         hovered-container-state-layer-color-toggle-unselected: (false, sys-color-primary),
         hovered-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),
@@ -30,7 +28,6 @@ $tokens: (
         hovered-icon-color: (false, sys-color-primary),
         hovered-icon-color-toggle-unselected: (false, sys-color-primary),
         hovered-icon-color-toggle-selected: (false, sys-color-on-primary),
-        // focused
         focused-container-state-layer-color: (false, sys-color-primary),
         focused-container-state-layer-color-toggle-unselected: (false, sys-color-primary),
         focused-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),
@@ -42,7 +39,6 @@ $tokens: (
         focused-icon-color: (false, sys-color-primary),
         focused-icon-color-toggle-unselected: (false, sys-color-primary),
         focused-icon-color-toggle-selected: (false, sys-color-on-primary),
-        // pressed
         pressed-container-state-layer-color: (false, sys-color-primary),
         pressed-container-state-layer-color-toggle-unselected: (false, sys-color-primary),
         pressed-container-state-layer-color-toggle-selected: (false, sys-color-on-primary),

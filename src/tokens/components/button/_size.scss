@@ -1,0 +1,31 @@
+$tokens: (
+  // extra small
+        extra-small-container-height: (true, 32px),
+        extra-small-leading-space: (true, 12px),
+        extra-small-trailing-space: (true, 12px),
+        extra-small-between-icon-label-space: (true, 4px),
+  // medium
+        medium-container-height: (true, 56px),
+        medium-leading-space: (true, 24px),
+        medium-trailing-space: (true, 24px),
+        medium-between-icon-label-space: (true, 8px),
+        medium-label-size: (true, 1.25rem),
+        medium-line-height: (true, 1.25rem),
+        medium-icon-size: (true, 24px),
+  // large
+        large-container-height: (true, 96px),
+        large-leading-space: (true, 48px),
+        large-trailing-space: (true, 48px),
+        large-between-icon-label-space: (true, 12px),
+        large-label-size: (true, 2rem),
+        large-line-height: (true, 2rem),
+        large-icon-size: (true, 2rem),
+  // extra large
+        extra-large-container-height: (true, 136px),
+        extra-large-leading-space: (true, 64px),
+        extra-large-trailing-space: (true, 64px),
+        extra-large-between-icon-label-space: (true, 16px),
+        extra-large-label-size: (true, 2.5rem),
+        extra-large-line-height: (true, 2.5rem),
+        extra-large-icon-size: (true, 2.5rem),
+)
