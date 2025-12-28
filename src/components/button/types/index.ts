@@ -1,4 +1,4 @@
-import React from "react";
+import React, {type RefObject} from "react";
 import type {Basic} from "@components/basic/index.js";
 
 export interface ButtonProps extends Basic<HTMLButtonElement> {
