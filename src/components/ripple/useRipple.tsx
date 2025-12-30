@@ -1,7 +1,5 @@
-import * as React from 'react'
-
 import style from './index.module.sass'
-import {useEffect, useMemo, useRef} from "react";
+import {useEffect, useRef} from "react";
 
 type Props = {
   parent: HTMLElement | null
@@ -13,11 +11,10 @@ export function useRipple({
                             maxRipple = 8
                           }: Props) {
 
+  if (!parent) return;
   const spanPool = useRef<HTMLSpanElement[]>([])
 
   useEffect(() => {
-    if (!parent) return;
-
     parent.addEventListener('mousedown', mouseDownHandler)
     parent.addEventListener('touchstart', touchStartHandler)
     parent.addEventListener('mouseup', mouseUpHandler)
@@ -40,6 +37,9 @@ export function useRipple({
   function mouseDownHandler(e: MouseEvent) {
     e.preventDefault()
     const position = calcPosition(e)
+    if (position) {
+      spawnSpan(position)
+    }
   }
 
   function touchStartHandler(e: TouchEvent) {
@@ -58,12 +58,38 @@ export function useRipple({
   }
 
   /**
+   * spawning a span element from a span pool (5 spans) at the position where user clicks or touches
+   *
+   * @param position
+   */
+  function spawnSpan(position: { x: number, y: number }) {
+    if (!parent || !spanPool.current.length) return
+    const span = spanPool.current.pop()
+    if (span) {
+      span.style.left = `${position.x - 5}px` // the span size is 10px set in css
+      span.style.top = `${position.y - 5}px`  // the span size is 10px set in css
+      parent.prepend(span)
+    }
+  }
+
+  /**
+   * when an animation finished, the span is recycled to the pool
+   *
+   * @param span the span element that's finished animating
+   */
+  function recycleSpan(span: HTMLSpanElement) {
+    if (!parent) return
+    parent.removeChild(span)
+    spanPool.current.push(span)
+  }
+
+  /**
    * get the position of user clicks or touches, for touch screen, if multiple touching happened, the first touch is taken;
    *
    * @param e
    */
   function calcPosition(e: MouseEvent | TouchEvent) {
-    if(!parent) return null
+    if (!parent) return null
     const {clientX, clientY} = 'touches' in e ? e.touches[0]! : e
     const parentRect = parent.getBoundingClientRect()
 
