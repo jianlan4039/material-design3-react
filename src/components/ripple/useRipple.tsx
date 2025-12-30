@@ -11,10 +11,10 @@ export function useRipple({
                             maxRipple = 8
                           }: Props) {
 
-  if (!parent) return;
   const spanPool = useRef<HTMLSpanElement[]>([])
 
   useEffect(() => {
+    if (!parent) return;
     parent.addEventListener('mousedown', mouseDownHandler)
     parent.addEventListener('touchstart', touchStartHandler)
     parent.addEventListener('mouseup', mouseUpHandler)
