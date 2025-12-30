@@ -1,15 +1,9 @@
 .nd-ripple
   position: absolute
   inset: 0
-  border: inherit
-  overflow: hidden
+  border-radius: inherit
 
-  &::before,
-  &::after
-    content: ''
+  .nd-ripple__surface
     position: absolute
-    inset: 0
-    opacity: 0
-    border-radius: 9999px
-    background: red
-
+    width: 10px
+    height: 10px
