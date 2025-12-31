@@ -21,6 +21,8 @@ export function useRipple({
     const RELEASE_GROW_RATE = 1.2
     const GROW_DURATION = 750
     const FADE_DURATION = 600
+    const GROW_EASING = 'cubic-bezier(0.2, 0, 0, 1)'
+    const FADE_EASING = 'cubic-bezier(0.05, 0.7, 0.1, 1)'
     const spanPool = useRef<HTMLSpanElement[]>([])
     const parentRect = useRef<DOMRect>(null)
     const currentSpan = useRef<string | null>(null)
@@ -61,7 +63,7 @@ export function useRipple({
 
     function mouseDownHandler(e: MouseEvent) {
         e.preventDefault()
-        console.log('mouse down')
+        e.stopPropagation()
         const position = calcPosition(e)
         if (position) {
             stateAnimation(position)
@@ -70,6 +72,7 @@ export function useRipple({
 
     function touchStartHandler(e: TouchEvent) {
         e.preventDefault()
+        e.stopPropagation()
         const position = calcPosition(e)
         if (position) {
             stateAnimation(position)
@@ -78,11 +81,13 @@ export function useRipple({
 
     function mouseUpHandler(e: MouseEvent) {
         e.preventDefault()
+        e.stopPropagation()
         slowGrowingAndStartFading()
     }
 
     function touchEndHandler(e: TouchEvent) {
         e.preventDefault()
+        e.stopPropagation()
         console.log('touch end')
     }
 
@@ -92,6 +97,7 @@ export function useRipple({
      */
     function mouseLeaveHandler(e: MouseEvent) {
         e.preventDefault()
+        e.stopPropagation()
         slowGrowingAndStartFading()
     }
 
@@ -171,7 +177,7 @@ export function useRipple({
             ],
             {
                 duration: GROW_DURATION,
-                easing: 'cubic-bezier(0.2, 0, 0, 1)',
+                easing: GROW_EASING,
                 fill: 'forwards'
             }
         )
@@ -181,7 +187,7 @@ export function useRipple({
         const animation = span.animate(
             [
                 {
-                    opacity: 0.2
+                    opacity: 0.12
                 },
                 {
                     opacity: 0
@@ -189,7 +195,7 @@ export function useRipple({
             ],
             {
                 duration: FADE_DURATION,
-                easing: 'cubic-bezier(0.2, 0, 0, 1)',
+                easing: FADE_EASING,
                 fill: 'forwards'
             }
         )
