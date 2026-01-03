@@ -1,0 +1,8 @@
+@use "../../tokens/components/buttons/index" as button;
+@use "../../tokens/converter";
+
+@layer nd-comp{
+  .nd-button {
+    @include converter.iterateTokens(button.$tokens);
+  }
+}

@@ -1,0 +1,18 @@
+@use "converter";
+@use "./basics/color";
+@use "./basics/motions";
+@use "./basics/shapes";
+@use "./basics/state";
+
+@layer nd-sys, nd-ef, nd-comp, nd-custom;
+
+:root{
+  @layer nd-sys {
+    @include color.default-light;
+    @include motions.duration;
+    @include motions.easing;
+    @include motions.physics-motion;
+    @include shapes.shape;
+    @include state.state;
+  }
+}

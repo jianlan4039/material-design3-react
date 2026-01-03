@@ -1,0 +1,82 @@
+@use "sass:string";
+@use "sass:list";
+@use "sass:meta";
+
+@mixin iterateTokens($map) {
+  @each $token, $value in $map {
+    $local-token: dot-to-hyphen($token);
+    @include toLocalToken($local-token, $value);
+  }
+}
+
+@mixin toLocalToken($token, $value) {
+  --#{$token}: #{to-value($token, $value)};
+}
+
+@function to-value($token, $value) {
+  @if string.index($value, 'md') == 1 {
+    @return var(--#{dot-to-hyphen($value)})
+  } @else {
+    @return #{$value}
+  }
+}
+
+@function dot-to-hyphen($token) {
+  // 如果不是字符串，直接原样返回（防御性写法）
+  @if meta.type-of($token) != string {
+    @return $token;
+  }
+
+  // 判断是否包含点号
+  @if string.index($token, ".") {
+    // 用 . 分割成列表
+    $parts: str-split($token, ".");
+
+    // 把列表重新用 - 连接
+    @return str-join($parts, "-");
+  } @else {
+    // 不含 . 就原样返回
+    @return $token;
+  }
+}
+
+// 把字符串按分隔符拆成列表
+@function str-split($string, $delimiter) {
+  $result: ();
+  $exploded: ();
+
+  // 找不到分隔符就直接返回单元素列表
+  @if string.index($string, $delimiter) == null {
+    @return append($result, $string);
+  }
+
+  // 循环切割
+  @while string.index($string, $delimiter) != null {
+    $d-index: string.index($string, $delimiter);
+    $item: string.slice($string, 1, $d-index - 1);
+    $result: list.append($result, $item);
+    $string: string.slice($string, $d-index + list.length($delimiter));
+  }
+
+  // 加上最后一段
+  @if list.length($string) > 0 {
+    $result: list.append($result, $string);
+  }
+
+  @return $result;
+}
+
+@function str-join($list, $glue) {
+  @if list.length($list) == 1 {
+    @return nth($list, 1);
+  }
+
+  $result: "";
+  @for $i from 1 through list.length($list) {
+    $result: $result + list.nth($list, $i);
+    @if $i < list.length($list) {
+      $result: $result + $glue;
+    }
+  }
+  @return $result;
+}

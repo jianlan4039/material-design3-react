@@ -1,0 +1,14 @@
+
+.nd-state-container {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-color: currentColor;
+    opacity: 0;
+  }
+}

@@ -1,7 +1,7 @@
-$state: (
+@mixin state() {
   // State Layer Opacity Variables
-        dragged-state-layer-opacity: 0.16,
-        focus-state-layer-opacity: 0.12,
-        hover-state-layer-opacity: 0.08,
-        pressed-state-layer-opacity: 0.12
-)
+  --md-sys-hover-state-layer-opacity: 0.08;
+  --md-sys-focus-state-layer-opacity: 0.10;
+  --md-sys-pressed-state-layer-opacity: 0.10;
+  --md-sys-dragged-state-layer-opacity: 0.16;
+}

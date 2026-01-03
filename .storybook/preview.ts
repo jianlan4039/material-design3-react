@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react-vite'
 // @ts-ignore
-import '../src/tokens/index.sass'
+import '../src/tokens/index.scss'
 
 const preview: Preview = {
   parameters: {
