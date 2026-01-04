@@ -1,0 +1,22 @@
+@use "../../tokens/components/buttons/index" as button;
+@use "../../tokens/converter";
+
+@layer nd-comp{
+  .nd-button {
+    @include converter.iterateTokens(button.$tokens);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    block-size: var(--md-comp-button-container-height);
+    background-color: var(--md-comp-button-container-color);
+    color: var(--md-comp-button-label-text-color);
+    font-size: var(--md-comp-button-label-text);
+    padding-inline: var(--md-comp-button-leading-space);
+    border: none;
+    border-radius: var(--md-comp-button-container-shape-round);
+
+    .nd-button__icon {
+      font-size: var(--md-comp-button-icon-size);
+    }
+  }
+}

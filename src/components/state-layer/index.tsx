@@ -4,8 +4,8 @@ import './index.scss'
 import cs from '@utils/classnames/index.js'
 
 export type Props = {
-  parent?: HTMLElement | null
-  disabled?: boolean
+  parent?: HTMLElement | undefined
+  disabled?: boolean | null
 }
 
 export default function useStateLayer(
