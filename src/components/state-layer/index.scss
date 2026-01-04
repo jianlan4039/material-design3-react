@@ -5,10 +5,25 @@
   &::before {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: -10%;
     border-radius: inherit;
-    pointer-events: none;
     background-color: currentColor;
     opacity: 0;
+  }
+
+  &:hover::before {
+    opacity: var(--md-sys-hover-state-layer-opacity);
+  }
+
+  &:active::before {
+    opacity: var(--md-sys-pressed-state-layer-opacity);
+  }
+
+  &:focus-visible::before {
+    opacity: var(--md-sys-focus-state-layer-opacity);
+  }
+
+  &.nd-state-container--dragging::before {
+    opacity: var(--md-sys-dragged-state-layer-opacity);
   }
 }
