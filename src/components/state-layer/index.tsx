@@ -15,11 +15,14 @@ export default function useStateLayer(
   }: Props
 ) {
   
-  if (!parent || disabled) return
+  if (disabled) return
   
   const rootClass = useRef(new cs('nd-state-container'))
   
   useEffect(() => {
-    parent.classList.add(rootClass.current.toString())
+    if (parent) {
+      parent.classList.add(rootClass.current.toString())
+    }
+    
   }, [parent])
 }
