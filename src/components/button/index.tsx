@@ -1,8 +1,9 @@
 import * as React from 'react';
+import {useEffect, useRef, useState} from "react";
 import useStateLayer from "@components/state-layer/index.js";
 
 import style from './index.module.scss'
-import {useEffect, useRef, useState} from "react";
+import cs from '@utils/classnames/index.ts'
 
 export type ButtonProps = {
   children?: React.ReactNode
@@ -44,7 +45,7 @@ const Button: React.FC<ButtonProps> = (
   }, [selected]);
   
   return (
-    <button ref={ref} className={style['nd-button']}>
+    <button ref={ref} className={cs(style['nd-button'])}>
       {icon && <span className={'nd-button__icon'}>{icon}</span>}
       {label || children}
     </button>

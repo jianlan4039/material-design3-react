@@ -1,49 +1,69 @@
-/**
- * 1. 混合多个class名到一起
- * 3. 设置默认class名
- * 4. 移除或添加一个或多个class名
- */
-export default class ClassNames {
-  // 缓存单个class名，每子项是一个单独的class名
-  buffer: Set<string> = new Set<string>()
+type Condition = string | string[] | Record<string, boolean | undefined>
 
-  constructor(name: string | string[]) {
-    if (name instanceof Array) {
-      name.forEach(item => {
-        this.buffer.add(item)
-      })
-    } else {
-      this.buffer.add(name)
-    }
-  }
-
-  add(name: string) {
-    this.buffer.add(name)
-  }
-
-  addWithCondition(condition: Record<string, boolean | undefined>) {
-    Object.entries(condition).map(([key, value]) => {
-      if (value) {
-        this.buffer.add(key)
-      } else {
-        this.buffer.delete(key)
-      }
-    })
-  }
-
-  remove(name: string) {
-    this.buffer.delete(name)
-  }
-
-  toggle(name: string) {
-    if (this.buffer.has(name)) {
-      this.buffer.delete(name)
-    } else {
-      this.buffer.add(name)
-    }
-  }
-
-  toString() {
-    return Array.from(this.buffer).join(' ')
-  }
+interface ClassHandler {
+  (...condition: Condition[]): string
+  
+  buffer: Set<string>
+  
+  add(name: string): void
+  
+  addByConditions(condition: Condition): void
+  
+  remove(name: string): void
+  
+  toggle(name: string): void
+  
+  toString(): string
 }
+
+const createClassNames = (): ClassHandler => {
+  const buffer: Set<string> = new Set<string>()
+  const addByConditions = (condition: Condition) => {
+    if (typeof condition === 'string') {
+      buffer.add(condition)
+    } else if (Array.isArray(condition)) {
+      condition.forEach(item => buffer.add(item))
+    } else {
+      Object.entries(condition).forEach(([key, value]) => {
+        if (value) {
+          buffer.add(key)
+        } else {
+          buffer.delete(key)
+        }
+      })
+    }
+  }
+  
+  const classNames: ClassHandler = ((...condition: Condition[]): string => {
+    condition.forEach(item => addByConditions(item))
+    return Array.from(buffer).join(' ')
+  }) as ClassHandler
+  
+  classNames.add = (name: string) => {
+    buffer.add(name)
+  }
+  
+  classNames.addByConditions = addByConditions
+  
+  classNames.remove = (name: string) => {
+    buffer.delete(name)
+  }
+  
+  classNames.toggle = (name: string) => {
+    if (buffer.has(name)) {
+      buffer.delete(name)
+    } else {
+      buffer.add(name)
+    }
+  }
+  
+  classNames.toString = () => {
+    return Array.from(buffer).join(' ')
+  }
+  
+  return classNames
+}
+
+const classNames: ClassHandler = createClassNames()
+
+export default classNames
