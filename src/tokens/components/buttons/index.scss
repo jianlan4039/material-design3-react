@@ -1,5 +1,3 @@
-@use "./../../converter";
-
 $tokens: (
         "md.comp.button.container.color": "md.sys.color.primary",
         "md.comp.button.unselected.container.color": "md.sys.color.surface-container",
@@ -25,5 +23,49 @@ $tokens: (
         'md.comp.button.selected.container.shape.square': 'md.sys.shape.corner.full',
         'md.comp.button.focus.indicator.color': 'md.sys.color.secondary',
         'md.comp.button.focus.indicator.thickness': '3px',
-        'md.comp.button.focus.indicator.outline.offset': '2px'
+        'md.comp.button.focus.indicator.outline.offset': '2px',
+        
+        'md.comp.button.disabled.container.color': 'md.sys.color.on-surface',
+        'md.comp.button.disabled.container.opacity': '0.1',
+        'md.comp.button.disabled.container.elevation': 'md.sys.elevation.level0',
+        'md.comp.button.disabled.label-text.color': 'md.sys.color.on-surface',
+        'md.comp.button.disabled.label-text.opacity': '0.38',
+        'md.comp.button.disabled.icon.color': 'md.sys.color.on-surface',
+        'md.comp.button.disabled.icon.opacity': '0.38',
+        'md.comp.button.hovered.state-layer.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.hovered.state-layer.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.hovered.state-layer.color': 'md.sys.color.on-primary',
+        'md.comp.button.hovered.state-layer.opacity': '0.08',
+        'md.comp.button.hovered.container.elevation': 'md.sys.elevation.level1',
+        'md.comp.button.hovered.label-text.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.hovered.label-text.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.hovered.label-text.color': 'md.sys.color.on-primary',
+        'md.comp.button.hovered.icon.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.hovered.icon.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.hovered.icon.color': 'md.sys.color.on-primary',
+        
+        'md.comp.button.focused.state-layer.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.focused.state-layer.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.focused.state-layer.color': 'md.sys.color.on-primary',
+        'md.comp.button.focused.state-layer.opacity': '0.1',
+        'md.comp.button.focused.container.elevation': 'md.sys.elevation.level0',
+        'md.comp.button.focused.label-text.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.focused.label-text.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.focused.label-text.color': 'md.sys.color.on-primary',
+        'md.comp.button.focused.icon.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.focused.icon.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.focused.icon.color': 'md.sys.color.on-primary',
+
+        'md.comp.button.pressed.state-layer.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.pressed.state-layer.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.pressed.state-layer.color': 'md.sys.color.on-primary',
+        'md.comp.button.pressed.state-layer.opacity': '0.1',
+        'md.comp.button.pressed.container.elevation': 'md.sys.elevation.level0',
+        'md.comp.button.pressed.label-text.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.pressed.label-text.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.pressed.label-text.color': 'md.sys.color.on-primary',
+        'md.comp.button.pressed.icon.color': 'md.sys.color.on-primary',
+        'md.comp.button.unselected.pressed.icon.color': 'md.sys.color.on-surface-variant',
+        'md.comp.button.selected.pressed.icon.color': 'md.sys.color.on-primary'
+
 )
