@@ -5,6 +5,7 @@ import useRipple from "@components/ripple/useRipple.tsx";
 
 import style from './index.module.scss'
 import cs from '@utils/classnames/index.ts'
+import useElevation from '../elevation/index.tsx';
 
 export type ButtonProps = {
   children?: React.ReactNode
@@ -29,6 +30,7 @@ const Button: React.FC<ButtonProps> = (
   
   useStateLayer({parent: anchor})
   useRipple({parent: anchor})
+  useElevation({parent: anchor})
   
   useEffect(() => {
     if (ref.current) {

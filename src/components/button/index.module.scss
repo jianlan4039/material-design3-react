@@ -18,5 +18,9 @@
     .nd-button__icon {
       font-size: var(--md-comp-button-icon-size);
     }
+
+    &:hover {
+      --md-elevation-level: 1;
+    }
   }
 }
