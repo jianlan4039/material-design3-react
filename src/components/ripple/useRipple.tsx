@@ -9,7 +9,7 @@ interface RippleState {
 }
 
 type Props = {
-    parent?: HTMLElement | undefined
+    parent?: HTMLElement
     maxRipple?: number
 };
 
@@ -23,12 +23,16 @@ export default function useRipple({
     const FADE_DURATION = 600
     const GROW_EASING = 'cubic-bezier(0.2, 0, 0, 1)'
     const FADE_EASING = 'cubic-bezier(0.05, 0.7, 0.1, 1)'
+    const RIPPLE_RADIUS_MULTIPLIER = 1.2
+    const RIPPLE_INITIAL_SIZE = 10 // px, matches CSS
+    const RIPPLE_OFFSET = RIPPLE_INITIAL_SIZE / 2 // 5px offset for centering
     const spanPool = useRef<HTMLSpanElement[]>([])
-    const parentRect = useRef<DOMRect>(null)
+    const parentRect = useRef<DOMRect | null>(null)
     const currentSpan = useRef<string | null>(null)
     const zIndex = useRef<number>(0)
     const spanStates = useRef<Map<string, RippleState>>(new Map<string, RippleState>())
     const prevParent = useRef<HTMLElement | null>(null)
+    const updateParentRectTimeoutRef = useRef<number | null>(null)
 
     const resetState = (targetParent?: HTMLElement | null) => {
         const parentEl = targetParent ?? prevParent.current
@@ -64,13 +68,21 @@ export default function useRipple({
             }
         }
 
+        // Debounce resize/scroll events to avoid excessive recalculations
+        const debouncedUpdateParentRect = () => {
+            if (updateParentRectTimeoutRef.current !== null) {
+                cancelAnimationFrame(updateParentRectTimeoutRef.current)
+            }
+            updateParentRectTimeoutRef.current = requestAnimationFrame(updateParentRect)
+        }
+
         parent.addEventListener('mousedown', mouseDownHandler)
         parent.addEventListener('touchstart', touchStartHandler, {passive: true})
         parent.addEventListener('mouseup', mouseUpHandler)
         parent.addEventListener('touchend', touchEndHandler, {passive: true})
         parent.addEventListener('mouseleave', mouseLeaveHandler)
-        window.addEventListener('resize', updateParentRect, {passive: true})
-        window.addEventListener('scroll', updateParentRect, {passive: true})
+        window.addEventListener('resize', debouncedUpdateParentRect, {passive: true})
+        window.addEventListener('scroll', debouncedUpdateParentRect, {passive: true})
         updateParentRect()
         prevParent.current = parent
         parent.classList.add(style['nd-ripple__container'])
@@ -95,14 +107,19 @@ export default function useRipple({
             parent.removeEventListener('mouseup', mouseUpHandler)
             parent.removeEventListener('touchend', touchEndHandler)
             parent.removeEventListener('mouseleave', mouseLeaveHandler)
-            window.removeEventListener('resize', updateParentRect)
-            window.removeEventListener('scroll', updateParentRect)
+            window.removeEventListener('resize', debouncedUpdateParentRect)
+            window.removeEventListener('scroll', debouncedUpdateParentRect)
+            if (updateParentRectTimeoutRef.current !== null) {
+                cancelAnimationFrame(updateParentRectTimeoutRef.current)
+                updateParentRectTimeoutRef.current = null
+            }
             parent.classList.remove(style['nd-ripple__container'])
             resetState(parent)
         }
     }, [parent, maxRipple])
 
     function mouseDownHandler(e: MouseEvent) {
+        if (!parent) return
         e.stopPropagation()
         const position = calcPosition(e)
         if (position) {
@@ -111,6 +128,7 @@ export default function useRipple({
     }
 
     function touchStartHandler(e: TouchEvent) {
+        if (!parent) return
         e.stopPropagation()
         const position = calcPosition(e)
         if (position) {
@@ -119,11 +137,13 @@ export default function useRipple({
     }
 
     function mouseUpHandler(e: MouseEvent) {
+        if (!parent) return
         e.stopPropagation()
         slowGrowingAndStartFading()
     }
 
     function touchEndHandler(e: TouchEvent) {
+        if (!parent) return
         e.stopPropagation()
         slowGrowingAndStartFading()
     }
@@ -133,7 +153,7 @@ export default function useRipple({
      * @param e mouse event
      */
     function mouseLeaveHandler(e: MouseEvent) {
-        // e.preventDefault()
+        if (!parent) return
         e.stopPropagation()
         slowGrowingAndStartFading()
     }
@@ -146,9 +166,9 @@ export default function useRipple({
     function spawnSpan(position: { x: number, y: number }) {
         if (!parent || !spanPool.current.length) return null
         const span = spanPool.current.shift()
-        if (span) {
-            span.style.left = `${position.x - 5}px` // the span size is 10px set in css
-            span.style.top = `${position.y - 5}px`  // the span size is 10px set in css
+        if (span && parent) {
+            span.style.left = `${position.x - RIPPLE_OFFSET}px`
+            span.style.top = `${position.y - RIPPLE_OFFSET}px`
             span.style.zIndex = `${zIndex.current++}`
             parent.append(span)
             return span
@@ -164,8 +184,26 @@ export default function useRipple({
     function recycleSpan(span: HTMLSpanElement) {
         if (!parent) return
         const state = spanStates.current.get(span.id)
-        if (state?.state === 'finished') {
-            parent.removeChild(span)
+        if (!state) {
+            // Handle orphaned span - clean it up if it exists in DOM
+            if (parent.contains(span)) {
+                try {
+                    parent.removeChild(span)
+                } catch (e) {
+                    // Span may have already been removed
+                }
+            }
+            return
+        }
+        if (state.state === 'finished') {
+            // Double-check parent still contains span before removing
+            if (parent.contains(span)) {
+                try {
+                    parent.removeChild(span)
+                } catch (e) {
+                    // Span may have already been removed by another process
+                }
+            }
             state.growAnimation?.cancel()
             state.fadeAnimation?.cancel()
             state.state = 'idle'
@@ -191,16 +229,16 @@ export default function useRipple({
     }
 
     /**
-     * get the minimum circle radius of the ripple, it should be the diagonal length of the parent rectangle and times 1.2;
+     * get the minimum circle radius of the ripple, it should be the diagonal length of the parent rectangle and times RIPPLE_RADIUS_MULTIPLIER;
      * @param height parent element's height
      * @param width parent element's width
      */
     function calcRippleRadius(height: number, width: number) {
-        return Math.sqrt(height * height + width * width) * 1.2
+        return Math.sqrt(height * height + width * width) * RIPPLE_RADIUS_MULTIPLIER
     }
 
     function growAnimate(span: HTMLSpanElement) {
-        if (!parent || !parentRect.current) return
+        if (!parent || !parentRect.current) return null
         const radius = calcRippleRadius(parentRect.current.height, parentRect.current.width)
 
         return span.animate(
@@ -209,7 +247,7 @@ export default function useRipple({
                     transform: 'scale(1)',
                 },
                 {
-                    transform: `scale(${radius * 2 / 10})`,
+                    transform: `scale(${radius * 2 / RIPPLE_INITIAL_SIZE})`,
                 }
             ],
             {
@@ -236,28 +274,40 @@ export default function useRipple({
                 fill: 'forwards'
             }
         )
-        const state = spanStates.current.get(span.id)!
+        const state = spanStates.current.get(span.id)
+        if (!state) {
+            animation.cancel()
+            return null
+        }
         state.state = 'fading'
         animation.onfinish = () => {
-            state.state = 'finished'
-            recycleSpan(span)
+            // Re-check state in case it was modified during animation
+            const currentState = spanStates.current.get(span.id)
+            if (currentState) {
+                currentState.state = 'finished'
+                recycleSpan(span)
+            }
         }
 
         return animation
     }
 
     function stateAnimation(position: { x: number, y: number }) {
+        if (!parent) return
         const span = spawnSpan(position)
         if (span) {
+            const state = spanStates.current.get(span.id)
+            if (!state) return
+            
             currentSpan.current = span.id
             const growAnimation = growAnimate(span)
-            const state = spanStates.current.get(span.id)!
             if (growAnimation) {
                 state.growAnimation = growAnimation
                 state.state = 'growing'
                 growAnimation.onfinish = () => {
-                    // If release didn't trigger yet, ensure fade still runs
-                    if (state.state === 'growing') {
+                    // Re-check state in case it was modified during animation
+                    const currentState = spanStates.current.get(span.id)
+                    if (currentState && currentState.state === 'growing') {
                         slowGrowingAndStartFading(span.id)
                     }
                 }
@@ -271,12 +321,18 @@ export default function useRipple({
     function slowGrowingAndStartFading(spanId?: string) {
         const targetId = spanId ?? currentSpan.current
         if (!targetId) return
-        const state = spanStates.current.get(targetId)!
-        if (state?.state === 'growing') {
-            if (state.growAnimation?.playbackRate) {
+        const state = spanStates.current.get(targetId)
+        if (!state) return
+        
+        // Only proceed if still growing and not already fading
+        if (state.state === 'growing') {
+            if (state.growAnimation?.playbackRate !== undefined) {
                 state.growAnimation.playbackRate = RELEASE_GROW_RATE
             }
-            state.fadeAnimation = fadeAnimate(state.span)
+            // Only start fade if not already fading
+            if (!state.fadeAnimation) {
+                state.fadeAnimation = fadeAnimate(state.span)
+            }
         }
     }
 }
