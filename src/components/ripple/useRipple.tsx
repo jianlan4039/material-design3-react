@@ -9,11 +9,11 @@ interface RippleState {
 }
 
 type Props = {
-    parent: HTMLElement | null
+    parent?: HTMLElement | undefined
     maxRipple?: number
 };
 
-export function useRipple({
+export default function useRipple({
                               parent,
                               maxRipple = 8
                           }: Props) {
@@ -28,15 +28,50 @@ export function useRipple({
     const currentSpan = useRef<string | null>(null)
     const zIndex = useRef<number>(0)
     const spanStates = useRef<Map<string, RippleState>>(new Map<string, RippleState>())
+    const prevParent = useRef<HTMLElement | null>(null)
+
+    const resetState = (targetParent?: HTMLElement | null) => {
+        const parentEl = targetParent ?? prevParent.current
+        spanStates.current.forEach(({span, growAnimation, fadeAnimation}) => {
+            growAnimation?.cancel()
+            fadeAnimation?.cancel()
+            if (parentEl?.contains(span)) {
+                parentEl.removeChild(span)
+            }
+        })
+        spanStates.current.clear()
+        spanPool.current = []
+        currentSpan.current = null
+        parentRect.current = null
+        zIndex.current = 0
+    }
 
     useEffect(() => {
-        if (!parent) return;
+        // clear state if the parent changed since last run
+        if (prevParent.current && prevParent.current !== parent) {
+            resetState(prevParent.current)
+        }
+
+        if (!parent) {
+            resetState()
+            prevParent.current = null
+            return;
+        }
+        const updateParentRect = () => {
+            if (parent) {
+                parentRect.current = parent.getBoundingClientRect()
+            }
+        }
+
         parent.addEventListener('mousedown', mouseDownHandler)
         parent.addEventListener('touchstart', touchStartHandler)
         parent.addEventListener('mouseup', mouseUpHandler)
         parent.addEventListener('touchend', touchEndHandler)
         parent.addEventListener('mouseleave', mouseLeaveHandler)
-        parentRect.current = parent.getBoundingClientRect()
+        window.addEventListener('resize', updateParentRect, {passive: true})
+        window.addEventListener('scroll', updateParentRect, {passive: true})
+        updateParentRect()
+        prevParent.current = parent
 
         for (let i = 0; i < maxRipple; i++) {
             const span = document.createElement('span')
@@ -58,6 +93,9 @@ export function useRipple({
             parent.removeEventListener('mouseup', mouseUpHandler)
             parent.removeEventListener('touchend', touchEndHandler)
             parent.removeEventListener('mouseleave', mouseLeaveHandler)
+            window.removeEventListener('resize', updateParentRect)
+            window.removeEventListener('scroll', updateParentRect)
+            resetState(parent)
         }
     }, [parent, maxRipple])
 

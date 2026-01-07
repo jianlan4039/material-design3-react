@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {useEffect, useRef, useState} from "react";
 import useStateLayer from "@components/state-layer/index.js";
+import useRipple from "@components/ripple/useRipple.tsx";
 
 import style from './index.module.scss'
 import cs from '@utils/classnames/index.ts'
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = (
   const [controlledSelected, setControlledSelected] = useState(selected)
   
   useStateLayer({parent: anchor})
+  useRipple({parent: anchor})
   
   useEffect(() => {
     if (ref.current) {
