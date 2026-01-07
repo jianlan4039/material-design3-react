@@ -50,6 +50,7 @@ export default function useRipple({
         // clear state if the parent changed since last run
         if (prevParent.current && prevParent.current !== parent) {
             resetState(prevParent.current)
+            prevParent.current.classList.remove(style['nd-ripple__container'])
         }
 
         if (!parent) {
@@ -64,14 +65,15 @@ export default function useRipple({
         }
 
         parent.addEventListener('mousedown', mouseDownHandler)
-        parent.addEventListener('touchstart', touchStartHandler)
+        parent.addEventListener('touchstart', touchStartHandler, {passive: true})
         parent.addEventListener('mouseup', mouseUpHandler)
-        parent.addEventListener('touchend', touchEndHandler)
+        parent.addEventListener('touchend', touchEndHandler, {passive: true})
         parent.addEventListener('mouseleave', mouseLeaveHandler)
         window.addEventListener('resize', updateParentRect, {passive: true})
         window.addEventListener('scroll', updateParentRect, {passive: true})
         updateParentRect()
         prevParent.current = parent
+        parent.classList.add(style['nd-ripple__container'])
 
         for (let i = 0; i < maxRipple; i++) {
             const span = document.createElement('span')
@@ -95,12 +97,12 @@ export default function useRipple({
             parent.removeEventListener('mouseleave', mouseLeaveHandler)
             window.removeEventListener('resize', updateParentRect)
             window.removeEventListener('scroll', updateParentRect)
+            parent.classList.remove(style['nd-ripple__container'])
             resetState(parent)
         }
     }, [parent, maxRipple])
 
     function mouseDownHandler(e: MouseEvent) {
-        e.preventDefault()
         e.stopPropagation()
         const position = calcPosition(e)
         if (position) {
@@ -109,7 +111,6 @@ export default function useRipple({
     }
 
     function touchStartHandler(e: TouchEvent) {
-        e.preventDefault()
         e.stopPropagation()
         const position = calcPosition(e)
         if (position) {
@@ -118,15 +119,13 @@ export default function useRipple({
     }
 
     function mouseUpHandler(e: MouseEvent) {
-        e.preventDefault()
         e.stopPropagation()
         slowGrowingAndStartFading()
     }
 
     function touchEndHandler(e: TouchEvent) {
-        e.preventDefault()
         e.stopPropagation()
-        console.log('touch end')
+        slowGrowingAndStartFading()
     }
 
     /**
@@ -134,7 +133,7 @@ export default function useRipple({
      * @param e mouse event
      */
     function mouseLeaveHandler(e: MouseEvent) {
-        e.preventDefault()
+        // e.preventDefault()
         e.stopPropagation()
         slowGrowingAndStartFading()
     }
@@ -256,6 +255,12 @@ export default function useRipple({
             if (growAnimation) {
                 state.growAnimation = growAnimation
                 state.state = 'growing'
+                growAnimation.onfinish = () => {
+                    // If release didn't trigger yet, ensure fade still runs
+                    if (state.state === 'growing') {
+                        slowGrowingAndStartFading()
+                    }
+                }
             }
         }
     }
