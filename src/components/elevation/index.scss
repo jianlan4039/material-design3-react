@@ -4,9 +4,7 @@
   --_level: var(--md-elevation-level, 0);
   --_shadow-color: var(--md-elevation-shadow-color, rgb(0 0 0));
 
-  transition-property: box-shadow;
-  transition-duration: inherit;
-  transition-timing-function: inherit;
+  transition: box-shadow var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
 
   // Key box shadow (主阴影) - 计算 Y 偏移量
   // level0: 0px
