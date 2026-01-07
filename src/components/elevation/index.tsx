@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import './index.scss';
 
 export type Props = {
-  parent?: HTMLElement;
-  disabled?: boolean;
+  parent?: HTMLElement | null
+  disabled?: boolean
 };
 
 /**

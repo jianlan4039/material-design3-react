@@ -9,13 +9,15 @@ interface RippleState {
 }
 
 type Props = {
-    parent?: HTMLElement
+    parent?: HTMLElement | null
     maxRipple?: number
+    disabled?: boolean
 };
 
 export default function useRipple({
                               parent,
-                              maxRipple = 8
+                              maxRipple = 8,
+                              disabled = false
                           }: Props) {
 
     const RELEASE_GROW_RATE = 1.2
@@ -62,6 +64,23 @@ export default function useRipple({
             prevParent.current = null
             return;
         }
+
+        // 如果 disabled，清理状态并移除 container class，不添加事件监听器
+        if (disabled) {
+            if (prevParent.current) {
+                prevParent.current.classList.remove(style['nd-ripple__container'])
+            }
+            resetState(parent)
+            prevParent.current = parent
+            return () => {
+                // 清理函数：确保在 disabled 状态下也能正确清理
+                if (parent) {
+                    parent.classList.remove(style['nd-ripple__container'])
+                    resetState(parent)
+                }
+            }
+        }
+
         const updateParentRect = () => {
             if (parent) {
                 parentRect.current = parent.getBoundingClientRect()
@@ -116,10 +135,10 @@ export default function useRipple({
             parent.classList.remove(style['nd-ripple__container'])
             resetState(parent)
         }
-    }, [parent, maxRipple])
+    }, [parent, maxRipple, disabled])
 
     function mouseDownHandler(e: MouseEvent) {
-        if (!parent) return
+        if (!parent || disabled) return
         e.stopPropagation()
         const position = calcPosition(e)
         if (position) {
@@ -128,7 +147,7 @@ export default function useRipple({
     }
 
     function touchStartHandler(e: TouchEvent) {
-        if (!parent) return
+        if (!parent || disabled) return
         e.stopPropagation()
         const position = calcPosition(e)
         if (position) {

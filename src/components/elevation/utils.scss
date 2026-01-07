@@ -1,0 +1,65 @@
+// Mixin: 快速设置 hover、active、focus-visible 状态下的 elevation level 和 shadow color
+// @param $default-level - 默认状态下的 elevation level (0-5)（可选）
+// @param $default-shadow-color - 默认状态下的阴影颜色（可选）
+// @param $hover-level - hover 状态下的 elevation level (0-5)
+// @param $hover-shadow-color - hover 状态下的阴影颜色（可选）
+// @param $active-level - active 状态下的 elevation level (0-5)
+// @param $active-shadow-color - active 状态下的阴影颜色（可选）
+// @param $focus-visible-level - focus-visible 状态下的 elevation level (0-5)
+// @param $focus-visible-shadow-color - focus-visible 状态下的阴影颜色（可选）
+//
+// @example
+//   .my-component {
+//     @include elevation-states(
+//       $default-level: 1,
+//       $default-shadow-color: rgb(0 0 0),
+//       $hover-level: 2,
+//       $active-level: 3,
+//       $focus-visible-level: 2
+//     );
+//   }
+@mixin elevation-states(
+  $default-level: null,
+  $default-shadow-color: null,
+  $hover-level: null,
+  $hover-shadow-color: null,
+  $active-level: null,
+  $active-shadow-color: null,
+  $focus-visible-level: null,
+  $focus-visible-shadow-color: null
+) {
+  // 设置默认值
+  @if $default-level != null {
+    --md-elevation-level: #{$default-level};
+  }
+  @if $default-shadow-color != null {
+    --md-elevation-shadow-color: #{$default-shadow-color};
+  }
+  // 设置 hover 状态
+  @if $hover-level != null {
+    &:hover {
+      --md-elevation-level: #{$hover-level};
+      @if $hover-shadow-color != null {
+        --md-elevation-shadow-color: #{$hover-shadow-color};
+      }
+    }
+  }
+  // 设置 active 状态
+  @if $active-level != null {
+    &:active {
+      --md-elevation-level: #{$active-level};
+      @if $active-shadow-color != null {
+        --md-elevation-shadow-color: #{$active-shadow-color};
+      }
+    }
+  }
+  // 设置 focus-visible 状态
+  @if $focus-visible-level != null {
+    &:focus-visible {
+      --md-elevation-level: #{$focus-visible-level};
+      @if $focus-visible-shadow-color != null {
+        --md-elevation-shadow-color: #{$focus-visible-shadow-color};
+      }
+    }
+  }
+}
