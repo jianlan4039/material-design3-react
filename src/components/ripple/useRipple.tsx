@@ -258,7 +258,7 @@ export default function useRipple({
                 growAnimation.onfinish = () => {
                     // If release didn't trigger yet, ensure fade still runs
                     if (state.state === 'growing') {
-                        slowGrowingAndStartFading()
+                        slowGrowingAndStartFading(span.id)
                     }
                 }
             }
@@ -268,15 +268,15 @@ export default function useRipple({
     /**
      * when the mouse is released or touch is ended, the ripple will slow down and start fading;
      */
-    function slowGrowingAndStartFading() {
-        if (currentSpan.current) {
-            const state = spanStates.current.get(currentSpan.current)!
-            if (state.state === 'growing') {
-                if (state.growAnimation?.playbackRate) {
-                    state.growAnimation.playbackRate = RELEASE_GROW_RATE
-                }
-                state.fadeAnimation = fadeAnimate(state.span)
+    function slowGrowingAndStartFading(spanId?: string) {
+        const targetId = spanId ?? currentSpan.current
+        if (!targetId) return
+        const state = spanStates.current.get(targetId)!
+        if (state?.state === 'growing') {
+            if (state.growAnimation?.playbackRate) {
+                state.growAnimation.playbackRate = RELEASE_GROW_RATE
             }
+            state.fadeAnimation = fadeAnimate(state.span)
         }
     }
 }
