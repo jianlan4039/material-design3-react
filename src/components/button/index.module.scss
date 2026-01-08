@@ -1,3 +1,12 @@
+/**
+ * Button 组件样式
+ * 
+ * Material Design 3 Button 组件的样式定义
+ * 包含默认状态、hover、focus、pressed、disabled 等状态的样式处理
+ * 
+ * @file index.module.scss
+ */
+
 @use "../../tokens/components/button/index" as button;
 @use "../../tokens/converter";
 @use "../elevation/utils";
@@ -16,7 +25,6 @@
 // Mixin: Hover 状态样式
 @mixin button-hovered {
   &:hover:not(:disabled):not([aria-disabled="true"]) {
-    --md-sys-hover-state-layer-opacity: var(--md-comp-button-hovered-state-layer-opacity);
     --_button-icon-color: var(--md-comp-button-hovered-icon-color);
     --_button-label-text-color: var(--md-comp-button-hovered-label-text-color);
     color: var(--md-comp-button-hovered-state-layer-color);
@@ -26,7 +34,6 @@
 // Mixin: Focus 状态样式
 @mixin button-focused {
   &:focus-visible:not(:disabled):not([aria-disabled="true"]) {
-    --md-sys-focus-state-layer-opacity: var(--md-comp-button-focused-state-layer-opacity);
     --_button-icon-color: var(--md-comp-button-focused-icon-color);
     --_button-label-text-color: var(--md-comp-button-focused-label-text-color);
     outline: var(--md-comp-button-focus-indicator-thickness) solid var(--md-comp-button-focus-indicator-color);
@@ -38,7 +45,6 @@
 // Mixin: Pressed 状态样式
 @mixin button-pressed {
   &:active:not(:disabled):not([aria-disabled="true"]) {
-    --md-sys-pressed-state-layer-opacity: var(--md-comp-button-pressed-state-layer-opacity);
     --_button-icon-color: var(--md-comp-button-pressed-icon-color);
     --_button-label-text-color: var(--md-comp-button-pressed-label-text-color);
     color: var(--md-comp-button-pressed-state-layer-color);
