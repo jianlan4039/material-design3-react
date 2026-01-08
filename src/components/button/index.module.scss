@@ -4,83 +4,44 @@
 
 // Mixin: 默认状态样式
 @mixin button-default {
-  // Container
   background-color: var(--md-comp-button-container-color);
   block-size: var(--md-comp-button-container-height);
   border-radius: var(--md-comp-button-container-shape-round);
-  
-  // Label text (color 也用于 state-layer 的 currentColor)
   color: var(--md-comp-button-label-text-color);
   font-size: var(--md-comp-button-label-text);
-  
-  // Spacing
   padding-inline-start: var(--md-comp-button-leading-space);
   padding-inline-end: var(--md-comp-button-trailing-space);
-  
-  // 默认状态层 opacity（用于 state-layer 组件）
-  --md-sys-hover-state-layer-opacity: var(--md-comp-button-hovered-state-layer-opacity);
-  --md-sys-focus-state-layer-opacity: var(--md-comp-button-focused-state-layer-opacity);
-  --md-sys-pressed-state-layer-opacity: var(--md-comp-button-pressed-state-layer-opacity);
 }
 
 // Mixin: Hover 状态样式
 @mixin button-hovered {
   &:hover:not(:disabled):not([aria-disabled="true"]) {
-    // State layer (通过设置系统变量来影响 state-layer 组件)
     --md-sys-hover-state-layer-opacity: var(--md-comp-button-hovered-state-layer-opacity);
-    // 状态层颜色通过 currentColor 继承，所以设置 color 为状态层颜色
+    --_button-icon-color: var(--md-comp-button-hovered-icon-color);
+    --_button-label-text-color: var(--md-comp-button-hovered-label-text-color);
     color: var(--md-comp-button-hovered-state-layer-color);
-    
-    // Label text (需要单独设置，因为 color 被用于状态层)
-    .nd-button__label {
-      color: var(--md-comp-button-hovered-label-text-color);
-    }
-    
-    // Icon
-    --md-comp-button-icon-color: var(--md-comp-button-hovered-icon-color);
   }
 }
 
 // Mixin: Focus 状态样式
 @mixin button-focused {
   &:focus-visible:not(:disabled):not([aria-disabled="true"]) {
-    // State layer (通过设置系统变量来影响 state-layer 组件)
     --md-sys-focus-state-layer-opacity: var(--md-comp-button-focused-state-layer-opacity);
-    // 状态层颜色通过 currentColor 继承，所以设置 color 为状态层颜色
-    color: var(--md-comp-button-focused-state-layer-color);
-    
-    // Label text (需要单独设置，因为 color 被用于状态层)
-    .nd-button__label {
-      color: var(--md-comp-button-focused-label-text-color);
-    }
-    
-    // Icon
-    --md-comp-button-icon-color: var(--md-comp-button-focused-icon-color);
-    
-    // Focus indicator
+    --_button-icon-color: var(--md-comp-button-focused-icon-color);
+    --_button-label-text-color: var(--md-comp-button-focused-label-text-color);
     outline: var(--md-comp-button-focus-indicator-thickness) solid var(--md-comp-button-focus-indicator-color);
     outline-offset: var(--md-comp-button-focus-indicator-outline-offset);
+    color: var(--md-comp-button-focused-state-layer-color);
   }
 }
 
 // Mixin: Pressed 状态样式
 @mixin button-pressed {
   &:active:not(:disabled):not([aria-disabled="true"]) {
-    // State layer (通过设置系统变量来影响 state-layer 组件)
     --md-sys-pressed-state-layer-opacity: var(--md-comp-button-pressed-state-layer-opacity);
-    // 状态层颜色通过 currentColor 继承，所以设置 color 为状态层颜色
+    --_button-icon-color: var(--md-comp-button-pressed-icon-color);
+    --_button-label-text-color: var(--md-comp-button-pressed-label-text-color);
     color: var(--md-comp-button-pressed-state-layer-color);
-    
-    // Container shape
-    // border-radius: var(--md-comp-button-pressed-container-shape);
-    
-    // Label text (需要单独设置，因为 color 被用于状态层)
-    .nd-button__label {
-      color: var(--md-comp-button-pressed-label-text-color);
-    }
-    
-    // Icon
-    --md-comp-button-icon-color: var(--md-comp-button-pressed-icon-color);
   }
 }
 
@@ -88,10 +49,9 @@
 @mixin button-disabled {
   &:disabled,
   &[aria-disabled="true"] {
-    // Container - 使用伪元素来应用背景 opacity，避免影响子元素
     position: relative;
     background-color: transparent;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -102,32 +62,41 @@
       pointer-events: none;
       z-index: 0;
     }
-    
-    // Label text (opacity 独立设置)
-    .nd-button__label {
-      position: relative;
-      z-index: 1;
-      color: var(--md-comp-button-disabled-label-text-color);
-      opacity: var(--md-comp-button-disabled-label-text-opacity);
-    }
-    
-    // Icon (opacity 独立设置)
-    --md-comp-button-icon-color: var(--md-comp-button-disabled-icon-color);
-    --md-comp-button-icon-opacity: var(--md-comp-button-disabled-icon-opacity);
-    
-    .nd-button__icon {
-      position: relative;
-      z-index: 1;
-    }
+
+    --_button-icon-color: var(--md-comp-button-disabled-icon-color);
+    --_button-icon-opacity: var(--md-comp-button-disabled-icon-opacity);
+    --_button-label-text-color: var(--md-comp-button-disabled-label-text-color);
+    --_button-label-text-opacity: var(--md-comp-button-disabled-label-text-opacity);
   }
 }
 
-@layer nd-comp{
+@layer nd-comp {
   .nd-button {
+    // ===== 规则1 & 规则3: 在作用域开头重置公共组件的自定义样式变量 =====
+    // 重置 state-layer 组件的变量（防止父级污染）
+    --md-sys-hover-state-layer-opacity: var(--md-comp-button-hovered-state-layer-opacity);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-button-focused-state-layer-opacity);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-button-pressed-state-layer-opacity);
+    --md-sys-dragged-state-layer-opacity: 0;
+
+    // 重置 elevation 组件的变量（防止父级污染）
+    --md-elevation-level: var(--md-comp-button-container-elevation);
+    --md-elevation-shadow-color: var(--md-comp-button-container-shadow-color);
+
+    // 重置 ripple 组件的变量（防止父级污染）
+    // ripple 组件使用 currentColor，无需额外变量重置
+
     // 生成所有 token 变量
     @include converter.iterateTokens(button.$tokens);
-    
-    // Elevation 状态（已通过 elevation-states mixin 处理）
+
+    // ===== 规则3: 自定义样式变量定义在作用域开头（在 token 生成之后） =====
+    // 定义用于状态切换的自定义变量，初始值使用 token 变量
+    --_button-icon-color: var(--md-comp-button-icon-color);
+    --_button-icon-opacity: 1;
+    --_button-label-text-color: var(--md-comp-button-label-text-color);
+    --_button-label-text-opacity: 1;
+
+    // Elevation 状态
     @include utils.elevation-states(
       var(--md-comp-button-container-elevation),
       var(--md-comp-button-container-shadow-color),
@@ -144,21 +113,22 @@
     align-items: center;
     gap: var(--md-comp-button-icon-label-space);
     border: none;
-    
+
     // 应用默认状态样式
     @include button-default;
-    
+
     // 应用不同状态的样式 mixin
     @include button-hovered;
     @include button-focused;
     @include button-pressed;
     @include button-disabled;
 
-    // Label text wrapper (用于在状态变化时保持文本颜色独立)
+    // Label text 样式
     .nd-button__label {
       position: relative;
       z-index: 1;
-      color: var(--md-comp-button-label-text-color);
+      color: var(--_button-label-text-color);
+      opacity: var(--_button-label-text-opacity);
     }
 
     // Icon 样式
@@ -166,8 +136,8 @@
       position: relative;
       z-index: 1;
       font-size: var(--md-comp-button-icon-size);
-      color: var(--md-comp-button-icon-color);
-      opacity: var(--md-comp-button-icon-opacity, 1);
+      color: var(--_button-icon-color);
+      opacity: var(--_button-icon-opacity);
     }
   }
 }
