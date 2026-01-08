@@ -55,19 +55,13 @@
 @mixin button-disabled {
   &:disabled,
   &[aria-disabled="true"] {
-    position: relative;
-    background-color: transparent;
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-color: var(--md-comp-button-disabled-container-color);
-      opacity: var(--md-comp-button-disabled-container-opacity);
-      border-radius: inherit;
-      pointer-events: none;
-      z-index: 0;
-    }
+    // 使用 color-mix 将颜色和透明度混合为带透明度的背景色
+    // 将 opacity (0-1) 转换为百分比：opacity * 100%
+    background-color: color-mix(
+      in srgb,
+      var(--md-comp-button-disabled-container-color) calc(var(--md-comp-button-disabled-container-opacity) * 100%),
+      transparent
+    );
 
     --_button-icon-color: var(--md-comp-button-disabled-icon-color);
     --_button-icon-opacity: var(--md-comp-button-disabled-icon-opacity);
