@@ -20,34 +20,102 @@
   font-size: var(--md-comp-button-label-text);
   padding-inline-start: var(--md-comp-button-leading-space);
   padding-inline-end: var(--md-comp-button-trailing-space);
+  
+  /* TODO: 暂时注释，后续实现 selected/unselected 状态
+  // Unselected 状态（toggle按钮未选中时）
+  &:not([aria-pressed="true"]) {
+    background-color: var(--md-comp-button-unselected-container-color);
+    --_button-label-text-color: var(--md-comp-button-label-text-unselected-color);
+    --_button-icon-color: var(--md-comp-button-unselected-icon-color);
+  }
+  
+  // Selected 状态（toggle按钮选中时）
+  &[aria-pressed="true"] {
+    background-color: var(--md-comp-button-selected-container-color);
+    border-radius: var(--md-comp-button-selected-container-shape-round);
+    --_button-label-text-color: var(--md-comp-button-label-text-selected-color);
+    --_button-icon-color: var(--md-comp-button-selected-icon-color);
+  }
+  */
 }
 
 // Mixin: Hover 状态样式
 @mixin button-hovered {
   &:hover:not(:disabled):not([aria-disabled="true"]) {
+    // 默认状态（非toggle按钮）
     --_button-icon-color: var(--md-comp-button-hovered-icon-color);
     --_button-label-text-color: var(--md-comp-button-hovered-label-text-color);
     color: var(--md-comp-button-hovered-state-layer-color);
+    
+    /* TODO: 暂时注释，后续实现 selected/unselected 状态
+    // Unselected 状态（toggle按钮未选中时）
+    &:not([aria-pressed="true"]) {
+      --_button-icon-color: var(--md-comp-button-unselected-hovered-icon-color);
+      --_button-label-text-color: var(--md-comp-button-unselected-hovered-label-text-color);
+      color: var(--md-comp-button-unselected-hovered-state-layer-color);
+    }
+    
+    // Selected 状态（toggle按钮选中时）
+    &[aria-pressed="true"] {
+      --_button-icon-color: var(--md-comp-button-selected-hovered-icon-color);
+      --_button-label-text-color: var(--md-comp-button-selected-hovered-label-text-color);
+      color: var(--md-comp-button-selected-hovered-state-layer-color);
+    }
+    */
   }
 }
 
 // Mixin: Focus 状态样式
 @mixin button-focused {
   &:focus-visible:not(:disabled):not([aria-disabled="true"]) {
+    // 默认状态（非toggle按钮）
     --_button-icon-color: var(--md-comp-button-focused-icon-color);
     --_button-label-text-color: var(--md-comp-button-focused-label-text-color);
     outline: var(--md-comp-button-focus-indicator-thickness) solid var(--md-comp-button-focus-indicator-color);
     outline-offset: var(--md-comp-button-focus-indicator-outline-offset);
     color: var(--md-comp-button-focused-state-layer-color);
+    
+    /* TODO: 暂时注释，后续实现 selected/unselected 状态
+    // Unselected 状态（toggle按钮未选中时）
+    &:not([aria-pressed="true"]) {
+      --_button-icon-color: var(--md-comp-button-unselected-focused-icon-color);
+      --_button-label-text-color: var(--md-comp-button-unselected-focused-label-text-color);
+      color: var(--md-comp-button-unselected-focused-state-layer-color);
+    }
+    
+    // Selected 状态（toggle按钮选中时）
+    &[aria-pressed="true"] {
+      --_button-icon-color: var(--md-comp-button-selected-focused-icon-color);
+      --_button-label-text-color: var(--md-comp-button-selected-focused-label-text-color);
+      color: var(--md-comp-button-selected-focused-state-layer-color);
+    }
+    */
   }
 }
 
 // Mixin: Pressed 状态样式
 @mixin button-pressed {
   &:active:not(:disabled):not([aria-disabled="true"]) {
+    // 默认状态（非toggle按钮）
     --_button-icon-color: var(--md-comp-button-pressed-icon-color);
     --_button-label-text-color: var(--md-comp-button-pressed-label-text-color);
     color: var(--md-comp-button-pressed-state-layer-color);
+    
+    /* TODO: 暂时注释，后续实现 selected/unselected 状态
+    // Unselected 状态（toggle按钮未选中时）
+    &:not([aria-pressed="true"]) {
+      --_button-icon-color: var(--md-comp-button-unselected-pressed-icon-color);
+      --_button-label-text-color: var(--md-comp-button-unselected-pressed-label-text-color);
+      color: var(--md-comp-button-unselected-pressed-state-layer-color);
+    }
+    
+    // Selected 状态（toggle按钮选中时）
+    &[aria-pressed="true"] {
+      --_button-icon-color: var(--md-comp-button-selected-pressed-icon-color);
+      --_button-label-text-color: var(--md-comp-button-selected-pressed-label-text-color);
+      color: var(--md-comp-button-selected-pressed-state-layer-color);
+    }
+    */
   }
 }
 
@@ -107,6 +175,12 @@
       var(--md-comp-button-focused-container-elevation),
       var(--md-comp-button-container-shadow-color),
     );
+    
+    // Disabled 状态的 elevation
+    &:disabled,
+    &[aria-disabled="true"] {
+      --md-elevation-level: var(--md-comp-button-disabled-container-elevation);
+    }
 
     // 基础布局
     display: flex;
