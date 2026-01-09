@@ -1,0 +1,143 @@
+/**
+ * Button 状态样式 Mixin
+ * 
+ * 包含所有交互状态相关的样式定义
+ * 每个状态都包含默认、unselected、selected 以及主题变体
+ */
+
+@use "./themes" as themes;
+
+// Mixin: 默认状态样式
+@mixin button-default {
+  background-color: var(--md-comp-button-container-color);
+  block-size: var(--md-comp-button-container-height);
+  border-radius: var(--md-comp-button-container-shape-round);
+  color: var(--md-comp-button-label-text-color);
+  font-size: var(--md-comp-button-label-text);
+  padding-inline-start: var(--md-comp-button-leading-space);
+  padding-inline-end: var(--md-comp-button-trailing-space);
+  
+  // Unselected 状态（toggle按钮未选中时，aria-pressed="false"）
+  &[aria-pressed="false"] {
+    background-color: var(--md-comp-button-unselected-container-color);
+    --_button-label-text-color: var(--md-comp-button-label-text-unselected-color);
+    --_button-icon-color: var(--md-comp-button-unselected-icon-color);
+  }
+  
+  // Selected 状态（toggle按钮选中时，aria-pressed="true"）
+  &[aria-pressed="true"] {
+    background-color: var(--md-comp-button-selected-container-color);
+    // 处于 selected 状态时，应用 shape-round token
+    border-radius: var(--md-comp-button-selected-container-shape-round);
+    --_button-label-text-color: var(--md-comp-button-label-text-selected-color);
+    --_button-icon-color: var(--md-comp-button-selected-icon-color);
+  }
+  
+  // 应用主题样式
+  @include themes.button-theme-elevated;
+}
+
+// Mixin: Hover 状态样式
+@mixin button-hovered {
+  &:hover:not(:disabled):not([aria-disabled="true"]) {
+    // 默认状态（非toggle按钮，即 default 状态）
+    --_button-icon-color: var(--md-comp-button-hovered-icon-color);
+    --_button-label-text-color: var(--md-comp-button-hovered-label-text-color);
+    color: var(--md-comp-button-hovered-state-layer-color);
+    
+    // Unselected 状态（toggle按钮未选中时，aria-pressed="false"）
+    &[aria-pressed="false"] {
+      --_button-icon-color: var(--md-comp-button-unselected-hovered-icon-color);
+      --_button-label-text-color: var(--md-comp-button-unselected-hovered-label-text-color);
+      color: var(--md-comp-button-unselected-hovered-state-layer-color);
+    }
+    
+    // Selected 状态（toggle按钮选中时，aria-pressed="true"）
+    &[aria-pressed="true"] {
+      --_button-icon-color: var(--md-comp-button-selected-hovered-icon-color);
+      --_button-label-text-color: var(--md-comp-button-selected-hovered-label-text-color);
+      color: var(--md-comp-button-selected-hovered-state-layer-color);
+    }
+    
+    // 应用主题样式
+    @include themes.button-theme-elevated-hovered;
+  }
+}
+
+// Mixin: Focus 状态样式
+@mixin button-focused {
+  &:focus-visible:not(:disabled):not([aria-disabled="true"]) {
+    // 默认状态（非toggle按钮，即 default 状态）
+    --_button-icon-color: var(--md-comp-button-focused-icon-color);
+    --_button-label-text-color: var(--md-comp-button-focused-label-text-color);
+    outline: var(--md-comp-button-focus-indicator-thickness) solid var(--md-comp-button-focus-indicator-color);
+    outline-offset: var(--md-comp-button-focus-indicator-outline-offset);
+    color: var(--md-comp-button-focused-state-layer-color);
+    
+    // Unselected 状态（toggle按钮未选中时，aria-pressed="false"）
+    &[aria-pressed="false"] {
+      --_button-icon-color: var(--md-comp-button-unselected-focused-icon-color);
+      --_button-label-text-color: var(--md-comp-button-unselected-focused-label-text-color);
+      color: var(--md-comp-button-unselected-focused-state-layer-color);
+    }
+    
+    // Selected 状态（toggle按钮选中时，aria-pressed="true"）
+    &[aria-pressed="true"] {
+      --_button-icon-color: var(--md-comp-button-selected-focused-icon-color);
+      --_button-label-text-color: var(--md-comp-button-selected-focused-label-text-color);
+      color: var(--md-comp-button-selected-focused-state-layer-color);
+    }
+    
+    // 应用主题样式
+    @include themes.button-theme-elevated-focused;
+  }
+}
+
+// Mixin: Pressed 状态样式
+@mixin button-pressed {
+  &:active:not(:disabled):not([aria-disabled="true"]) {
+    // 默认状态（非toggle按钮，即 default 状态）
+    --_button-icon-color: var(--md-comp-button-pressed-icon-color);
+    --_button-label-text-color: var(--md-comp-button-pressed-label-text-color);
+    color: var(--md-comp-button-pressed-state-layer-color);
+    
+    // Unselected 状态（toggle按钮未选中时，aria-pressed="false"）
+    &[aria-pressed="false"] {
+      --_button-icon-color: var(--md-comp-button-unselected-pressed-icon-color);
+      --_button-label-text-color: var(--md-comp-button-unselected-pressed-label-text-color);
+      color: var(--md-comp-button-unselected-pressed-state-layer-color);
+    }
+    
+    // Selected 状态（toggle按钮选中时，aria-pressed="true"）
+    &[aria-pressed="true"] {
+      --_button-icon-color: var(--md-comp-button-selected-pressed-icon-color);
+      --_button-label-text-color: var(--md-comp-button-selected-pressed-label-text-color);
+      color: var(--md-comp-button-selected-pressed-state-layer-color);
+    }
+    
+    // 应用主题样式
+    @include themes.button-theme-elevated-pressed;
+  }
+}
+
+// Mixin: Disabled 状态样式
+@mixin button-disabled {
+  &:disabled,
+  &[aria-disabled="true"] {
+    // 使用 color-mix 将颜色和透明度混合为带透明度的背景色
+    // 将 opacity (0-1) 转换为百分比：opacity * 100%
+    background-color: color-mix(
+      in srgb,
+      var(--md-comp-button-disabled-container-color) calc(var(--md-comp-button-disabled-container-opacity) * 100%),
+      transparent
+    );
+
+    --_button-icon-color: var(--md-comp-button-disabled-icon-color);
+    --_button-icon-opacity: var(--md-comp-button-disabled-icon-opacity);
+    --_button-label-text-color: var(--md-comp-button-disabled-label-text-color);
+    --_button-label-text-opacity: var(--md-comp-button-disabled-label-text-opacity);
+    
+    // 应用主题样式
+    @include themes.button-theme-elevated-disabled;
+  }
+}

@@ -1,0 +1,86 @@
+/**
+ * Button 变量和 Elevation 设置
+ * 
+ * 包含 CSS 自定义变量的定义和 elevation 相关的配置
+ */
+
+@use "../../../tokens/components/button/index" as button;
+@use "../../../tokens/converter";
+@use "../../elevation/utils";
+
+// Mixin: 设置按钮的变量和 elevation
+@mixin button-variables {
+  // ===== 规则1 & 规则3: 在作用域开头重置公共组件的自定义样式变量 =====
+  // 重置 state-layer 组件的变量（防止父级污染）
+  --md-sys-hover-state-layer-opacity: var(--md-comp-button-hovered-state-layer-opacity);
+  --md-sys-focus-state-layer-opacity: var(--md-comp-button-focused-state-layer-opacity);
+  --md-sys-pressed-state-layer-opacity: var(--md-comp-button-pressed-state-layer-opacity);
+  --md-sys-dragged-state-layer-opacity: 0;
+  
+  // Elevated 主题的 state-layer opacity
+  &[data-theme="elevated"] {
+    --md-sys-hover-state-layer-opacity: var(--md-comp-button-elevated-hovered-state-layer-opacity);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-button-elevated-focused-state-layer-opacity);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-button-elevated-pressed-state-layer-opacity);
+  }
+
+  // 重置 elevation 组件的变量（防止父级污染）
+  --md-elevation-level: var(--md-comp-button-container-elevation);
+  --md-elevation-shadow-color: var(--md-comp-button-container-shadow-color);
+  
+  // Elevated 主题的 elevation 变量
+  &[data-theme="elevated"] {
+    --md-elevation-level: var(--md-comp-button-elevated-container-elevation);
+    --md-elevation-shadow-color: var(--md-comp-button-elevated-container-shadow-color);
+  }
+
+  // 重置 ripple 组件的变量（防止父级污染）
+  // ripple 组件使用 currentColor，无需额外变量重置
+
+  // 生成所有 token 变量
+  @include converter.iterateTokens(button.$tokens);
+
+  // ===== 规则3: 自定义样式变量定义在作用域开头（在 token 生成之后） =====
+  // 定义用于状态切换的自定义变量，初始值使用 token 变量
+  --_button-icon-color: var(--md-comp-button-icon-color);
+  --_button-icon-opacity: 1;
+  --_button-label-text-color: var(--md-comp-button-label-text-color);
+  --_button-label-text-opacity: 1;
+
+  // Elevation 状态
+  @include utils.elevation-states(
+    var(--md-comp-button-container-elevation),
+    var(--md-comp-button-container-shadow-color),
+    var(--md-comp-button-hovered-container-elevation),
+    var(--md-comp-button-container-shadow-color),
+    var(--md-comp-button-pressed-container-elevation),
+    var(--md-comp-button-container-shadow-color),
+    var(--md-comp-button-focused-container-elevation),
+    var(--md-comp-button-container-shadow-color),
+  );
+  
+  // Elevated 主题的 Elevation 状态
+  &[data-theme="elevated"] {
+    @include utils.elevation-states(
+      var(--md-comp-button-elevated-container-elevation),
+      var(--md-comp-button-elevated-container-shadow-color),
+      var(--md-comp-button-elevated-hovered-container-elevation),
+      var(--md-comp-button-elevated-container-shadow-color),
+      var(--md-comp-button-elevated-pressed-container-elevation),
+      var(--md-comp-button-elevated-container-shadow-color),
+      var(--md-comp-button-elevated-focused-container-elevation),
+      var(--md-comp-button-elevated-container-shadow-color),
+    );
+  }
+  
+  // Disabled 状态的 elevation
+  &:disabled,
+  &[aria-disabled="true"] {
+    --md-elevation-level: var(--md-comp-button-disabled-container-elevation);
+    
+    // Elevated 主题 - Disabled elevation
+    &[data-theme="elevated"] {
+      --md-elevation-level: var(--md-comp-button-elevated-disabled-container-elevation);
+    }
+  }
+}

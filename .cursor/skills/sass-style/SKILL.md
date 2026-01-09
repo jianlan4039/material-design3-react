@@ -4,6 +4,14 @@ description: This is a new rule
 ---
 
 # Sass 样式开发规范（v1.0）
+## 文件结构
+
+- 每个组件都拥有一个独立的文件夹：
+  - `index.tsx`：组件的主要定义文件；
+  - `index.scss`：样式的入口文件；
+  - 子组件及其样式文件必须统一放置在该文件夹下的 `parts` 子文件夹中。
+  - parts 子文件夹中的子样式文件必须采用 SCSS partial 命名规范，即以下划线开头，例如 _fileName.scss。
+
 
 ## 命名规范
 - 类名采用 **BEM** 命名规则，统一添加项目前缀 `nd-`。
