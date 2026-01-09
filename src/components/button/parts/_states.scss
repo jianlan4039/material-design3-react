@@ -39,6 +39,8 @@
   
   // 应用主题样式
   @include themes.button-theme-elevated;
+  @include themes.button-theme-filled;
+  @include themes.button-theme-tonal;
 }
 
 // Mixin: Hover 状态样式
@@ -65,6 +67,8 @@
     
     // 应用主题样式
     @include themes.button-theme-elevated-hovered;
+    @include themes.button-theme-filled-hovered;
+    @include themes.button-theme-tonal-hovered;
   }
 }
 
@@ -94,6 +98,8 @@
     
     // 应用主题样式
     @include themes.button-theme-elevated-focused;
+    @include themes.button-theme-filled-focused;
+    @include themes.button-theme-tonal-focused;
   }
 }
 
@@ -121,6 +127,8 @@
     
     // 应用主题样式
     @include themes.button-theme-elevated-pressed;
+    @include themes.button-theme-filled-pressed;
+    @include themes.button-theme-tonal-pressed;
   }
 }
 
@@ -143,5 +151,7 @@
     
     // 应用主题样式
     @include themes.button-theme-elevated-disabled;
+    @include themes.button-theme-filled-disabled;
+    @include themes.button-theme-tonal-disabled;
   }
 }

@@ -17,22 +17,48 @@
   --md-sys-pressed-state-layer-opacity: var(--md-comp-button-pressed-state-layer-opacity);
   --md-sys-dragged-state-layer-opacity: 0;
   
-  // Elevated 主题的 state-layer opacity
-  &[data-theme="elevated"] {
-    --md-sys-hover-state-layer-opacity: var(--md-comp-button-elevated-hovered-state-layer-opacity);
-    --md-sys-focus-state-layer-opacity: var(--md-comp-button-elevated-focused-state-layer-opacity);
-    --md-sys-pressed-state-layer-opacity: var(--md-comp-button-elevated-pressed-state-layer-opacity);
-  }
+    // Elevated 主题的 state-layer opacity
+    &[data-theme="elevated"] {
+      --md-sys-hover-state-layer-opacity: var(--md-comp-button-elevated-hovered-state-layer-opacity);
+      --md-sys-focus-state-layer-opacity: var(--md-comp-button-elevated-focused-state-layer-opacity);
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-button-elevated-pressed-state-layer-opacity);
+    }
+    
+    // Filled 主题的 state-layer opacity
+    &[data-theme="filled"] {
+      --md-sys-hover-state-layer-opacity: var(--md-comp-button-filled-hovered-state-layer-opacity);
+      --md-sys-focus-state-layer-opacity: var(--md-comp-button-filled-focused-state-layer-opacity);
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-button-filled-pressed-state-layer-opacity);
+    }
+    
+    // Tonal 主题的 state-layer opacity
+    &[data-theme="tonal"] {
+      --md-sys-hover-state-layer-opacity: var(--md-comp-button-tonal-hovered-state-layer-opacity);
+      --md-sys-focus-state-layer-opacity: var(--md-comp-button-tonal-focused-state-layer-opacity);
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-button-tonal-pressed-state-layer-opacity);
+    }
 
   // 重置 elevation 组件的变量（防止父级污染）
   --md-elevation-level: var(--md-comp-button-container-elevation);
   --md-elevation-shadow-color: var(--md-comp-button-container-shadow-color);
   
-  // Elevated 主题的 elevation 变量
-  &[data-theme="elevated"] {
-    --md-elevation-level: var(--md-comp-button-elevated-container-elevation);
-    --md-elevation-shadow-color: var(--md-comp-button-elevated-container-shadow-color);
-  }
+    // Elevated 主题的 elevation 变量
+    &[data-theme="elevated"] {
+      --md-elevation-level: var(--md-comp-button-elevated-container-elevation);
+      --md-elevation-shadow-color: var(--md-comp-button-elevated-container-shadow-color);
+    }
+    
+    // Filled 主题的 elevation 变量
+    &[data-theme="filled"] {
+      --md-elevation-level: var(--md-comp-button-filled-container-elevation);
+      --md-elevation-shadow-color: var(--md-comp-button-filled-container-shadow-color);
+    }
+    
+    // Tonal 主题的 elevation 变量
+    &[data-theme="tonal"] {
+      --md-elevation-level: var(--md-comp-button-tonal-container-elevation);
+      --md-elevation-shadow-color: var(--md-comp-button-tonal-container-shadow-color);
+    }
 
   // 重置 ripple 组件的变量（防止父级污染）
   // ripple 组件使用 currentColor，无需额外变量重置
@@ -68,28 +94,66 @@
     var(--md-comp-button-container-shadow-color),
   );
   
-  // Elevated 主题的 Elevation 状态
-  &[data-theme="elevated"] {
-    @include utils.elevation-states(
-      var(--md-comp-button-elevated-container-elevation),
-      var(--md-comp-button-elevated-container-shadow-color),
-      var(--md-comp-button-elevated-hovered-container-elevation),
-      var(--md-comp-button-elevated-container-shadow-color),
-      var(--md-comp-button-elevated-pressed-container-elevation),
-      var(--md-comp-button-elevated-container-shadow-color),
-      var(--md-comp-button-elevated-focused-container-elevation),
-      var(--md-comp-button-elevated-container-shadow-color),
-    );
-  }
+    // Elevated 主题的 Elevation 状态
+    &[data-theme="elevated"] {
+      @include utils.elevation-states(
+        var(--md-comp-button-elevated-container-elevation),
+        var(--md-comp-button-elevated-container-shadow-color),
+        var(--md-comp-button-elevated-hovered-container-elevation),
+        var(--md-comp-button-elevated-container-shadow-color),
+        var(--md-comp-button-elevated-pressed-container-elevation),
+        var(--md-comp-button-elevated-container-shadow-color),
+        var(--md-comp-button-elevated-focused-container-elevation),
+        var(--md-comp-button-elevated-container-shadow-color),
+      );
+    }
+    
+    // Filled 主题的 Elevation 状态
+    &[data-theme="filled"] {
+      @include utils.elevation-states(
+        var(--md-comp-button-filled-container-elevation),
+        var(--md-comp-button-filled-container-shadow-color),
+        var(--md-comp-button-filled-hovered-container-elevation),
+        var(--md-comp-button-filled-container-shadow-color),
+        var(--md-comp-button-filled-pressed-container-elevation),
+        var(--md-comp-button-filled-container-shadow-color),
+        var(--md-comp-button-filled-focused-container-elevation),
+        var(--md-comp-button-filled-container-shadow-color),
+      );
+    }
+    
+    // Tonal 主题的 Elevation 状态
+    &[data-theme="tonal"] {
+      @include utils.elevation-states(
+        var(--md-comp-button-tonal-container-elevation),
+        var(--md-comp-button-tonal-container-shadow-color),
+        var(--md-comp-button-tonal-hovered-container-elevation),
+        var(--md-comp-button-tonal-container-shadow-color),
+        var(--md-comp-button-tonal-pressed-container-elevation),
+        var(--md-comp-button-tonal-container-shadow-color),
+        var(--md-comp-button-tonal-focused-container-elevation),
+        var(--md-comp-button-tonal-container-shadow-color),
+      );
+    }
   
   // Disabled 状态的 elevation
   &:disabled,
   &[aria-disabled="true"] {
     --md-elevation-level: var(--md-comp-button-disabled-container-elevation);
     
-    // Elevated 主题 - Disabled elevation
-    &[data-theme="elevated"] {
-      --md-elevation-level: var(--md-comp-button-elevated-disabled-container-elevation);
-    }
+      // Elevated 主题 - Disabled elevation
+      &[data-theme="elevated"] {
+        --md-elevation-level: var(--md-comp-button-elevated-disabled-container-elevation);
+      }
+      
+      // Filled 主题 - Disabled elevation
+      &[data-theme="filled"] {
+        --md-elevation-level: var(--md-comp-button-filled-disabled-container-elevation);
+      }
+      
+      // Tonal 主题 - Disabled elevation
+      &[data-theme="tonal"] {
+        --md-elevation-level: var(--md-comp-button-tonal-disabled-container-elevation);
+      }
   }
 }

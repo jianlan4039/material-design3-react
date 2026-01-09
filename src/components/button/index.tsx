@@ -13,7 +13,7 @@ export type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 't
   label?: string
   toggle?: boolean
   selected?: boolean
-  theme?: 'default' | 'elevated'
+  theme?: 'default' | 'elevated' | 'filled' | 'tonal'
   changeShape?: boolean
   type?: 'button' | 'submit' | 'reset'
 }
