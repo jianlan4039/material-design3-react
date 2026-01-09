@@ -29,6 +29,12 @@
     @include states.button-focused;
     @include states.button-pressed;
     @include states.button-disabled;
+    
+    // 确保 transition 优先级高于 elevation 组件的 transition
+    // 使用组合选择器覆盖 .nd-elevation-container 的 transition
+    &.nd-elevation-container {
+      transition: box-shadow var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
+    }
 
     // Label text 样式
     .nd-button__label {

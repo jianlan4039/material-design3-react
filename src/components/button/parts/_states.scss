@@ -20,6 +20,8 @@
   // Unselected 状态（toggle按钮未选中时，aria-pressed="false"）
   &[aria-pressed="false"] {
     background-color: var(--md-comp-button-unselected-container-color);
+    // 确保 border-radius 也应用，以便 transition 能正常工作
+    border-radius: var(--md-comp-button-container-shape-round);
     --_button-label-text-color: var(--md-comp-button-label-text-unselected-color);
     --_button-icon-color: var(--md-comp-button-unselected-icon-color);
   }
@@ -27,8 +29,10 @@
   // Selected 状态（toggle按钮选中时，aria-pressed="true"）
   &[aria-pressed="true"] {
     background-color: var(--md-comp-button-selected-container-color);
-    // 处于 selected 状态时，应用 shape-round token
-    border-radius: var(--md-comp-button-selected-container-shape-round);
+    // 处于 selected 状态时，根据 changeShape 属性决定是否应用 shape-round token
+    &[data-change-shape="true"] {
+      border-radius: var(--md-comp-button-selected-container-shape-round);
+    }
     --_button-label-text-color: var(--md-comp-button-label-text-selected-color);
     --_button-icon-color: var(--md-comp-button-selected-icon-color);
   }
