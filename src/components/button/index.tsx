@@ -13,6 +13,7 @@ export type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 't
   label?: string
   toggle?: boolean
   selected?: boolean
+  theme?: 'default' | 'elevated'
   type?: 'button' | 'submit' | 'reset'
 }
 
@@ -23,6 +24,7 @@ const Button: React.FC<ButtonProps> = (
     label,
     toggle = false,
     selected: controlledSelected,
+    theme = 'default',
     disabled,
     type = 'button',
     className,
@@ -90,6 +92,7 @@ const Button: React.FC<ButtonProps> = (
       disabled={disabled}
       aria-pressed={toggle ? selected : undefined}
       aria-disabled={disabled ? 'true' : undefined}
+      data-theme={theme}
       className={cs(style['nd-button'], className ?? '')}
       onClick={handleClick}
       {...restProps}
