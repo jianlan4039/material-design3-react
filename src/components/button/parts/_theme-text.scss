@@ -1,0 +1,58 @@
+/**
+ * Text 主题样式 Mixin
+ * 
+ * 包含 Text 主题的所有状态样式定义
+ */
+
+// Mixin: Text 主题样式
+@mixin button-theme-text {
+  &[data-theme="text"] {
+    // 默认状态
+    background-color: transparent;
+    --_button-label-text-color: var(--md-comp-button-text-label-text-color);
+    --_button-icon-color: var(--md-comp-button-text-icon-color);
+  }
+}
+
+// Mixin: Text 主题 - Hover 状态
+@mixin button-theme-text-hovered {
+  &[data-theme="text"] {
+    --_button-icon-color: var(--md-comp-button-text-hovered-icon-color);
+    --_button-label-text-color: var(--md-comp-button-text-hovered-label-text-color);
+    color: var(--md-comp-button-text-hovered-state-layer-color);
+  }
+}
+
+// Mixin: Text 主题 - Focus 状态
+@mixin button-theme-text-focused {
+  &[data-theme="text"] {
+    --_button-icon-color: var(--md-comp-button-text-focused-icon-color);
+    --_button-label-text-color: var(--md-comp-button-text-focused-label-text-color);
+    color: var(--md-comp-button-text-focused-state-layer-color);
+  }
+}
+
+// Mixin: Text 主题 - Pressed 状态
+@mixin button-theme-text-pressed {
+  &[data-theme="text"] {
+    --_button-icon-color: var(--md-comp-button-text-pressed-icon-color);
+    --_button-label-text-color: var(--md-comp-button-text-pressed-label-text-color);
+    color: var(--md-comp-button-text-pressed-state-layer-color);
+  }
+}
+
+// Mixin: Text 主题 - Disabled 状态
+@mixin button-theme-text-disabled {
+  &[data-theme="text"] {
+    background-color: color-mix(
+      in srgb,
+      var(--md-comp-button-text-disabled-container-color) calc(var(--md-comp-button-text-disabled-container-opacity) * 100%),
+      transparent
+    );
+    
+    --_button-icon-color: var(--md-comp-button-text-disabled-icon-color);
+    --_button-icon-opacity: var(--md-comp-button-text-disabled-icon-opacity);
+    --_button-label-text-color: var(--md-comp-button-text-disabled-label-text-color);
+    --_button-label-text-opacity: var(--md-comp-button-text-disabled-label-text-opacity);
+  }
+}

@@ -1,0 +1,135 @@
+/**
+ * Outlined 主题样式 Mixin
+ * 
+ * 包含 Outlined 主题的所有状态样式定义
+ */
+
+// Mixin: Outlined 主题样式
+@mixin button-theme-outlined {
+  &[data-theme="outlined"] {
+    // 默认状态
+    background-color: transparent;
+    border: 1px solid var(--md-comp-button-outlined-outline-color);
+    --_button-label-text-color: var(--md-comp-button-outlined-label-text-color);
+    --_button-icon-color: var(--md-comp-button-outlined-icon-color);
+    
+    // Unselected 状态
+    &[aria-pressed="false"] {
+      background-color: transparent;
+      border-color: var(--md-comp-button-outlined-outline-color);
+      --_button-label-text-color: var(--md-comp-button-outlined-unselected-label-text-color);
+      --_button-icon-color: var(--md-comp-button-outlined-unselected-icon-color);
+    }
+    
+    // Selected 状态
+    &[aria-pressed="true"] {
+      background-color: var(--md-comp-button-outlined-selected-container-color);
+      border-color: var(--md-comp-button-outlined-outline-color);
+      --_button-label-text-color: var(--md-comp-button-outlined-selected-label-text-color);
+      --_button-icon-color: var(--md-comp-button-outlined-selected-icon-color);
+    }
+  }
+}
+
+// Mixin: Outlined 主题 - Hover 状态
+@mixin button-theme-outlined-hovered {
+  &[data-theme="outlined"] {
+    border-color: var(--md-comp-button-outlined-hovered-outline-color);
+    --_button-icon-color: var(--md-comp-button-outlined-hovered-icon-color);
+    --_button-label-text-color: var(--md-comp-button-outlined-hovered-label-text-color);
+    color: var(--md-comp-button-outlined-hovered-state-layer-color);
+    
+    &[aria-pressed="false"] {
+      border-color: var(--md-comp-button-outlined-unselected-hovered-outline-color);
+      --_button-icon-color: var(--md-comp-button-outlined-unselected-hovered-icon-color);
+      --_button-label-text-color: var(--md-comp-button-outlined-unselected-hovered-label-text-color);
+      color: var(--md-comp-button-outlined-unselected-hovered-state-layer-color);
+    }
+    
+    &[aria-pressed="true"] {
+      border-color: var(--md-comp-button-outlined-hovered-outline-color);
+      --_button-icon-color: var(--md-comp-button-outlined-selected-hovered-icon-color);
+      --_button-label-text-color: var(--md-comp-button-outlined-selected-hovered-label-text-color);
+      color: var(--md-comp-button-outlined-selected-hovered-state-layer-color);
+    }
+  }
+}
+
+// Mixin: Outlined 主题 - Focus 状态
+@mixin button-theme-outlined-focused {
+  &[data-theme="outlined"] {
+    border-color: var(--md-comp-button-outlined-focused-outline-color);
+    --_button-icon-color: var(--md-comp-button-outlined-focused-icon-color);
+    --_button-label-text-color: var(--md-comp-button-outlined-focused-label-text-color);
+    color: var(--md-comp-button-outlined-focused-state-layer-color);
+    
+    &[aria-pressed="false"] {
+      border-color: var(--md-comp-button-outlined-unselected-focused-outline-color);
+      --_button-icon-color: var(--md-comp-button-outlined-unselected-focused-icon-color);
+      --_button-label-text-color: var(--md-comp-button-outlined-unselected-focused-label-text-color);
+      color: var(--md-comp-button-outlined-unselected-focused-state-layer-color);
+    }
+    
+    &[aria-pressed="true"] {
+      border-color: var(--md-comp-button-outlined-focused-outline-color);
+      --_button-icon-color: var(--md-comp-button-outlined-selected-focused-icon-color);
+      --_button-label-text-color: var(--md-comp-button-outlined-selected-focused-label-text-color);
+      color: var(--md-comp-button-outlined-selected-focused-state-layer-color);
+    }
+  }
+}
+
+// Mixin: Outlined 主题 - Pressed 状态
+@mixin button-theme-outlined-pressed {
+  &[data-theme="outlined"] {
+    border-color: var(--md-comp-button-outlined-pressed-outline-color);
+    --_button-icon-color: var(--md-comp-button-outlined-pressed-icon-color);
+    --_button-label-text-color: var(--md-comp-button-outlined-pressed-label-text-color);
+    color: var(--md-comp-button-outlined-pressed-state-layer-color);
+    
+    &[aria-pressed="false"] {
+      border-color: var(--md-comp-button-outlined-unselected-pressed-outline-color);
+      --_button-icon-color: var(--md-comp-button-outlined-unselected-pressed-icon-color);
+      --_button-label-text-color: var(--md-comp-button-outlined-unselected-pressed-label-text-color);
+      color: var(--md-comp-button-outlined-unselected-pressed-state-layer-color);
+    }
+    
+    &[aria-pressed="true"] {
+      border-color: var(--md-comp-button-outlined-pressed-outline-color);
+      --_button-icon-color: var(--md-comp-button-outlined-selected-pressed-icon-color);
+      --_button-label-text-color: var(--md-comp-button-outlined-selected-pressed-label-text-color);
+      color: var(--md-comp-button-outlined-selected-pressed-state-layer-color);
+    }
+  }
+}
+
+// Mixin: Outlined 主题 - Disabled 状态
+@mixin button-theme-outlined-disabled {
+  &[data-theme="outlined"] {
+    border-color: var(--md-comp-button-outlined-disabled-outline-color);
+    background-color: color-mix(
+      in srgb,
+      var(--md-comp-button-outlined-disabled-container-color) calc(var(--md-comp-button-outlined-disabled-container-opacity) * 100%),
+      transparent
+    );
+    
+    --_button-icon-color: var(--md-comp-button-outlined-disabled-icon-color);
+    --_button-icon-opacity: var(--md-comp-button-outlined-disabled-icon-opacity);
+    --_button-label-text-color: var(--md-comp-button-outlined-disabled-label-text-color);
+    --_button-label-text-opacity: var(--md-comp-button-outlined-disabled-label-text-opacity);
+    
+    // Unselected disabled 状态
+    &[aria-pressed="false"] {
+      border-color: var(--md-comp-button-outlined-unselected-disabled-outline-color);
+    }
+    
+    // Selected disabled 状态
+    &[aria-pressed="true"] {
+      background-color: color-mix(
+        in srgb,
+        var(--md-comp-button-outlined-selected-disabled-container-color) calc(var(--md-comp-button-outlined-disabled-container-opacity) * 100%),
+        transparent
+      );
+    }
+  }
+}

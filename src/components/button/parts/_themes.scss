@@ -1,498 +1,113 @@
 /**
- * Button 主题样式 Mixin
+ * Button 主题样式 Mixin 入口文件
  * 
- * 包含所有主题相关的样式定义
+ * 导入所有主题相关的样式定义
  * 每个主题都有对应的默认、hover、focus、pressed、disabled 状态
  */
 
-// Mixin: Elevated 主题样式
+@use "./theme-elevated" as elevated;
+@use "./theme-filled" as filled;
+@use "./theme-tonal" as tonal;
+@use "./theme-outlined" as outlined;
+@use "./theme-text" as text;
+
+// 重新导出所有主题 mixin，保持向后兼容
 @mixin button-theme-elevated {
-  &[data-theme="elevated"] {
-    // 默认状态
-    background-color: var(--md-comp-button-elevated-container-color);
-    --_button-label-text-color: var(--md-comp-button-elevated-label-text-color);
-    --_button-icon-color: var(--md-comp-button-elevated-icon-color);
-    
-    // Unselected 状态
-    &[aria-pressed="false"] {
-      background-color: var(--md-comp-button-elevated-unselected-container-color);
-      --_button-label-text-color: var(--md-comp-button-elevated-unselected-label-text-color);
-      --_button-icon-color: var(--md-comp-button-elevated-unselected-icon-color);
-    }
-    
-    // Selected 状态
-    &[aria-pressed="true"] {
-      background-color: var(--md-comp-button-elevated-selected-container-color);
-      --_button-label-text-color: var(--md-comp-button-elevated-selected-label-text-color);
-      --_button-icon-color: var(--md-comp-button-elevated-selected-icon-color);
-    }
-  }
+  @include elevated.button-theme-elevated;
 }
 
-// Mixin: Elevated 主题 - Hover 状态
 @mixin button-theme-elevated-hovered {
-  &[data-theme="elevated"] {
-    --_button-icon-color: var(--md-comp-button-elevated-hovered-icon-color);
-    --_button-label-text-color: var(--md-comp-button-elevated-hovered-label-text-color);
-    color: var(--md-comp-button-elevated-hovered-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-elevated-unselected-hovered-icon-color);
-      --_button-label-text-color: var(--md-comp-button-elevated-unselected-hovered-label-text-color);
-      color: var(--md-comp-button-elevated-unselected-hovered-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-elevated-selected-hovered-icon-color);
-      --_button-label-text-color: var(--md-comp-button-elevated-selected-hovered-label-text-color);
-      color: var(--md-comp-button-elevated-selected-hovered-state-layer-color);
-    }
-  }
+  @include elevated.button-theme-elevated-hovered;
 }
 
-// Mixin: Elevated 主题 - Focus 状态
 @mixin button-theme-elevated-focused {
-  &[data-theme="elevated"] {
-    --_button-icon-color: var(--md-comp-button-elevated-focused-icon-color);
-    --_button-label-text-color: var(--md-comp-button-elevated-focused-label-text-color);
-    color: var(--md-comp-button-elevated-focused-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-elevated-unselected-focused-icon-color);
-      --_button-label-text-color: var(--md-comp-button-elevated-unselected-focused-label-text-color);
-      color: var(--md-comp-button-elevated-unselected-focused-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-elevated-selected-focused-icon-color);
-      --_button-label-text-color: var(--md-comp-button-elevated-selected-focused-label-text-color);
-      color: var(--md-comp-button-elevated-selected-focused-state-layer-color);
-    }
-  }
+  @include elevated.button-theme-elevated-focused;
 }
 
-// Mixin: Elevated 主题 - Pressed 状态
 @mixin button-theme-elevated-pressed {
-  &[data-theme="elevated"] {
-    --_button-icon-color: var(--md-comp-button-elevated-pressed-icon-color);
-    --_button-label-text-color: var(--md-comp-button-elevated-pressed-label-text-color);
-    color: var(--md-comp-button-elevated-pressed-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-elevated-unselected-pressed-icon-color);
-      --_button-label-text-color: var(--md-comp-button-elevated-unselected-pressed-label-text-color);
-      color: var(--md-comp-button-elevated-unselected-pressed-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-elevated-selected-pressed-icon-color);
-      --_button-label-text-color: var(--md-comp-button-elevated-selected-pressed-label-text-color);
-      color: var(--md-comp-button-elevated-selected-pressed-state-layer-color);
-    }
-  }
+  @include elevated.button-theme-elevated-pressed;
 }
 
-// Mixin: Elevated 主题 - Disabled 状态
 @mixin button-theme-elevated-disabled {
-  &[data-theme="elevated"] {
-    background-color: color-mix(
-      in srgb,
-      var(--md-comp-button-elevated-disabled-container-color) calc(var(--md-comp-button-elevated-disabled-container-opacity) * 100%),
-      transparent
-    );
-    
-    --_button-icon-color: var(--md-comp-button-elevated-disabled-icon-color);
-    --_button-icon-opacity: var(--md-comp-button-elevated-disabled-icon-opacity);
-    --_button-label-text-color: var(--md-comp-button-elevated-disabled-label-text-color);
-    --_button-label-text-opacity: var(--md-comp-button-elevated-disabled-label-text-opacity);
-  }
+  @include elevated.button-theme-elevated-disabled;
 }
 
-// Mixin: Filled 主题样式
 @mixin button-theme-filled {
-  &[data-theme="filled"] {
-    // 默认状态
-    background-color: var(--md-comp-button-filled-container-color);
-    --_button-label-text-color: var(--md-comp-button-filled-label-text-color);
-    --_button-icon-color: var(--md-comp-button-filled-icon-color);
-    
-    // Unselected 状态
-    &[aria-pressed="false"] {
-      background-color: var(--md-comp-button-filled-unselected-container-color);
-      --_button-label-text-color: var(--md-comp-button-filled-unselected-label-text-color);
-      --_button-icon-color: var(--md-comp-button-filled-unselected-icon-color);
-    }
-    
-    // Selected 状态
-    &[aria-pressed="true"] {
-      background-color: var(--md-comp-button-filled-selected-container-color);
-      --_button-label-text-color: var(--md-comp-button-filled-selected-label-text-color);
-      --_button-icon-color: var(--md-comp-button-filled-selected-icon-color);
-    }
-  }
+  @include filled.button-theme-filled;
 }
 
-// Mixin: Filled 主题 - Hover 状态
 @mixin button-theme-filled-hovered {
-  &[data-theme="filled"] {
-    --_button-icon-color: var(--md-comp-button-filled-hovered-icon-color);
-    --_button-label-text-color: var(--md-comp-button-filled-hovered-label-text-color);
-    color: var(--md-comp-button-filled-hovered-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-filled-unselected-hovered-icon-color);
-      --_button-label-text-color: var(--md-comp-button-filled-unselected-hovered-label-text-color);
-      color: var(--md-comp-button-filled-unselected-hovered-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-filled-selected-hovered-icon-color);
-      --_button-label-text-color: var(--md-comp-button-filled-selected-hovered-label-text-color);
-      color: var(--md-comp-button-filled-selected-hovered-state-layer-color);
-    }
-  }
+  @include filled.button-theme-filled-hovered;
 }
 
-// Mixin: Filled 主题 - Focus 状态
 @mixin button-theme-filled-focused {
-  &[data-theme="filled"] {
-    --_button-icon-color: var(--md-comp-button-filled-focused-icon-color);
-    --_button-label-text-color: var(--md-comp-button-filled-focused-label-text-color);
-    color: var(--md-comp-button-filled-focused-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-filled-unselected-focused-icon-color);
-      --_button-label-text-color: var(--md-comp-button-filled-unselected-focused-label-text-color);
-      color: var(--md-comp-button-filled-unselected-focused-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-filled-selected-focused-icon-color);
-      --_button-label-text-color: var(--md-comp-button-filled-selected-focused-label-text-color);
-      color: var(--md-comp-button-filled-selected-focused-state-layer-color);
-    }
-  }
+  @include filled.button-theme-filled-focused;
 }
 
-// Mixin: Filled 主题 - Pressed 状态
 @mixin button-theme-filled-pressed {
-  &[data-theme="filled"] {
-    --_button-icon-color: var(--md-comp-button-filled-pressed-icon-color);
-    --_button-label-text-color: var(--md-comp-button-filled-pressed-label-text-color);
-    color: var(--md-comp-button-filled-pressed-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-filled-unselected-pressed-icon-color);
-      --_button-label-text-color: var(--md-comp-button-filled-unselected-pressed-label-text-color);
-      color: var(--md-comp-button-filled-unselected-pressed-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-filled-selected-pressed-icon-color);
-      --_button-label-text-color: var(--md-comp-button-filled-selected-pressed-label-text-color);
-      color: var(--md-comp-button-filled-selected-pressed-state-layer-color);
-    }
-  }
+  @include filled.button-theme-filled-pressed;
 }
 
-// Mixin: Filled 主题 - Disabled 状态
 @mixin button-theme-filled-disabled {
-  &[data-theme="filled"] {
-    background-color: color-mix(
-      in srgb,
-      var(--md-comp-button-filled-disabled-container-color) calc(var(--md-comp-button-filled-disabled-container-opacity) * 100%),
-      transparent
-    );
-    
-    --_button-icon-color: var(--md-comp-button-filled-disabled-icon-color);
-    --_button-icon-opacity: var(--md-comp-button-filled-disabled-icon-opacity);
-    --_button-label-text-color: var(--md-comp-button-filled-disabled-label-text-color);
-    --_button-label-text-opacity: var(--md-comp-button-filled-disabled-label-text-opacity);
-  }
+  @include filled.button-theme-filled-disabled;
 }
 
-// Mixin: Tonal 主题样式
 @mixin button-theme-tonal {
-  &[data-theme="tonal"] {
-    // 默认状态
-    background-color: var(--md-comp-button-tonal-container-color);
-    --_button-label-text-color: var(--md-comp-button-tonal-label-text-color);
-    --_button-icon-color: var(--md-comp-button-tonal-icon-color);
-    
-    // Unselected 状态
-    &[aria-pressed="false"] {
-      background-color: var(--md-comp-button-tonal-unselected-container-color);
-      --_button-label-text-color: var(--md-comp-button-tonal-unselected-label-text-color);
-      --_button-icon-color: var(--md-comp-button-tonal-unselected-icon-color);
-    }
-    
-    // Selected 状态
-    &[aria-pressed="true"] {
-      background-color: var(--md-comp-button-tonal-selected-container-color);
-      --_button-label-text-color: var(--md-comp-button-tonal-selected-label-text-color);
-      --_button-icon-color: var(--md-comp-button-tonal-selected-icon-color);
-    }
-  }
+  @include tonal.button-theme-tonal;
 }
 
-// Mixin: Tonal 主题 - Hover 状态
 @mixin button-theme-tonal-hovered {
-  &[data-theme="tonal"] {
-    --_button-icon-color: var(--md-comp-button-tonal-hovered-icon-color);
-    --_button-label-text-color: var(--md-comp-button-tonal-hovered-label-text-color);
-    color: var(--md-comp-button-tonal-hovered-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-tonal-unselected-hovered-icon-color);
-      --_button-label-text-color: var(--md-comp-button-tonal-unselected-hovered-label-text-color);
-      color: var(--md-comp-button-tonal-unselected-hovered-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-tonal-selected-hovered-icon-color);
-      --_button-label-text-color: var(--md-comp-button-tonal-selected-hovered-label-text-color);
-      color: var(--md-comp-button-tonal-selected-hovered-state-layer-color);
-    }
-  }
+  @include tonal.button-theme-tonal-hovered;
 }
 
-// Mixin: Tonal 主题 - Focus 状态
 @mixin button-theme-tonal-focused {
-  &[data-theme="tonal"] {
-    --_button-icon-color: var(--md-comp-button-tonal-focused-icon-color);
-    --_button-label-text-color: var(--md-comp-button-tonal-focused-label-text-color);
-    color: var(--md-comp-button-tonal-focused-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-tonal-unselected-focused-icon-color);
-      --_button-label-text-color: var(--md-comp-button-tonal-unselected-focused-label-text-color);
-      color: var(--md-comp-button-tonal-unselected-focused-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-tonal-selected-focused-icon-color);
-      --_button-label-text-color: var(--md-comp-button-tonal-selected-focused-label-text-color);
-      color: var(--md-comp-button-tonal-selected-focused-state-layer-color);
-    }
-  }
+  @include tonal.button-theme-tonal-focused;
 }
 
-// Mixin: Tonal 主题 - Pressed 状态
 @mixin button-theme-tonal-pressed {
-  &[data-theme="tonal"] {
-    --_button-icon-color: var(--md-comp-button-tonal-pressed-icon-color);
-    --_button-label-text-color: var(--md-comp-button-tonal-pressed-label-text-color);
-    color: var(--md-comp-button-tonal-pressed-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      --_button-icon-color: var(--md-comp-button-tonal-unselected-pressed-icon-color);
-      --_button-label-text-color: var(--md-comp-button-tonal-unselected-pressed-label-text-color);
-      color: var(--md-comp-button-tonal-unselected-pressed-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      --_button-icon-color: var(--md-comp-button-tonal-selected-pressed-icon-color);
-      --_button-label-text-color: var(--md-comp-button-tonal-selected-pressed-label-text-color);
-      color: var(--md-comp-button-tonal-selected-pressed-state-layer-color);
-    }
-  }
+  @include tonal.button-theme-tonal-pressed;
 }
 
-// Mixin: Tonal 主题 - Disabled 状态
 @mixin button-theme-tonal-disabled {
-  &[data-theme="tonal"] {
-    background-color: color-mix(
-      in srgb,
-      var(--md-comp-button-tonal-disabled-container-color) calc(var(--md-comp-button-tonal-disabled-container-opacity) * 100%),
-      transparent
-    );
-    
-    --_button-icon-color: var(--md-comp-button-tonal-disabled-icon-color);
-    --_button-icon-opacity: var(--md-comp-button-tonal-disabled-icon-opacity);
-    --_button-label-text-color: var(--md-comp-button-tonal-disabled-label-text-color);
-    --_button-label-text-opacity: var(--md-comp-button-tonal-disabled-label-text-opacity);
-  }
+  @include tonal.button-theme-tonal-disabled;
 }
 
-// Mixin: Outlined 主题样式
 @mixin button-theme-outlined {
-  &[data-theme="outlined"] {
-    // 默认状态
-    background-color: transparent;
-    border: 1px solid var(--md-comp-button-outlined-outline-color);
-    --_button-label-text-color: var(--md-comp-button-outlined-label-text-color);
-    --_button-icon-color: var(--md-comp-button-outlined-icon-color);
-    
-    // Unselected 状态
-    &[aria-pressed="false"] {
-      background-color: transparent;
-      border-color: var(--md-comp-button-outlined-outline-color);
-      --_button-label-text-color: var(--md-comp-button-outlined-unselected-label-text-color);
-      --_button-icon-color: var(--md-comp-button-outlined-unselected-icon-color);
-    }
-    
-    // Selected 状态
-    &[aria-pressed="true"] {
-      background-color: var(--md-comp-button-outlined-selected-container-color);
-      border-color: var(--md-comp-button-outlined-outline-color);
-      --_button-label-text-color: var(--md-comp-button-outlined-selected-label-text-color);
-      --_button-icon-color: var(--md-comp-button-outlined-selected-icon-color);
-    }
-  }
+  @include outlined.button-theme-outlined;
 }
 
-// Mixin: Outlined 主题 - Hover 状态
 @mixin button-theme-outlined-hovered {
-  &[data-theme="outlined"] {
-    border-color: var(--md-comp-button-outlined-hovered-outline-color);
-    --_button-icon-color: var(--md-comp-button-outlined-hovered-icon-color);
-    --_button-label-text-color: var(--md-comp-button-outlined-hovered-label-text-color);
-    color: var(--md-comp-button-outlined-hovered-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      border-color: var(--md-comp-button-outlined-unselected-hovered-outline-color);
-      --_button-icon-color: var(--md-comp-button-outlined-unselected-hovered-icon-color);
-      --_button-label-text-color: var(--md-comp-button-outlined-unselected-hovered-label-text-color);
-      color: var(--md-comp-button-outlined-unselected-hovered-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      border-color: var(--md-comp-button-outlined-hovered-outline-color);
-      --_button-icon-color: var(--md-comp-button-outlined-selected-hovered-icon-color);
-      --_button-label-text-color: var(--md-comp-button-outlined-selected-hovered-label-text-color);
-      color: var(--md-comp-button-outlined-selected-hovered-state-layer-color);
-    }
-  }
+  @include outlined.button-theme-outlined-hovered;
 }
 
-// Mixin: Outlined 主题 - Focus 状态
 @mixin button-theme-outlined-focused {
-  &[data-theme="outlined"] {
-    border-color: var(--md-comp-button-outlined-focused-outline-color);
-    --_button-icon-color: var(--md-comp-button-outlined-focused-icon-color);
-    --_button-label-text-color: var(--md-comp-button-outlined-focused-label-text-color);
-    color: var(--md-comp-button-outlined-focused-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      border-color: var(--md-comp-button-outlined-unselected-focused-outline-color);
-      --_button-icon-color: var(--md-comp-button-outlined-unselected-focused-icon-color);
-      --_button-label-text-color: var(--md-comp-button-outlined-unselected-focused-label-text-color);
-      color: var(--md-comp-button-outlined-unselected-focused-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      border-color: var(--md-comp-button-outlined-focused-outline-color);
-      --_button-icon-color: var(--md-comp-button-outlined-selected-focused-icon-color);
-      --_button-label-text-color: var(--md-comp-button-outlined-selected-focused-label-text-color);
-      color: var(--md-comp-button-outlined-selected-focused-state-layer-color);
-    }
-  }
+  @include outlined.button-theme-outlined-focused;
 }
 
-// Mixin: Outlined 主题 - Pressed 状态
 @mixin button-theme-outlined-pressed {
-  &[data-theme="outlined"] {
-    border-color: var(--md-comp-button-outlined-pressed-outline-color);
-    --_button-icon-color: var(--md-comp-button-outlined-pressed-icon-color);
-    --_button-label-text-color: var(--md-comp-button-outlined-pressed-label-text-color);
-    color: var(--md-comp-button-outlined-pressed-state-layer-color);
-    
-    &[aria-pressed="false"] {
-      border-color: var(--md-comp-button-outlined-unselected-pressed-outline-color);
-      --_button-icon-color: var(--md-comp-button-outlined-unselected-pressed-icon-color);
-      --_button-label-text-color: var(--md-comp-button-outlined-unselected-pressed-label-text-color);
-      color: var(--md-comp-button-outlined-unselected-pressed-state-layer-color);
-    }
-    
-    &[aria-pressed="true"] {
-      border-color: var(--md-comp-button-outlined-pressed-outline-color);
-      --_button-icon-color: var(--md-comp-button-outlined-selected-pressed-icon-color);
-      --_button-label-text-color: var(--md-comp-button-outlined-selected-pressed-label-text-color);
-      color: var(--md-comp-button-outlined-selected-pressed-state-layer-color);
-    }
-  }
+  @include outlined.button-theme-outlined-pressed;
 }
 
-// Mixin: Outlined 主题 - Disabled 状态
 @mixin button-theme-outlined-disabled {
-  &[data-theme="outlined"] {
-    border-color: var(--md-comp-button-outlined-disabled-outline-color);
-    background-color: color-mix(
-      in srgb,
-      var(--md-comp-button-outlined-disabled-container-color) calc(var(--md-comp-button-outlined-disabled-container-opacity) * 100%),
-      transparent
-    );
-    
-    --_button-icon-color: var(--md-comp-button-outlined-disabled-icon-color);
-    --_button-icon-opacity: var(--md-comp-button-outlined-disabled-icon-opacity);
-    --_button-label-text-color: var(--md-comp-button-outlined-disabled-label-text-color);
-    --_button-label-text-opacity: var(--md-comp-button-outlined-disabled-label-text-opacity);
-    
-    // Unselected disabled 状态
-    &[aria-pressed="false"] {
-      border-color: var(--md-comp-button-outlined-unselected-disabled-outline-color);
-    }
-    
-    // Selected disabled 状态
-    &[aria-pressed="true"] {
-      background-color: color-mix(
-        in srgb,
-        var(--md-comp-button-outlined-selected-disabled-container-color) calc(var(--md-comp-button-outlined-disabled-container-opacity) * 100%),
-        transparent
-      );
-    }
-  }
+  @include outlined.button-theme-outlined-disabled;
 }
 
-// Mixin: Text 主题样式
 @mixin button-theme-text {
-  &[data-theme="text"] {
-    // 默认状态
-    background-color: transparent;
-    --_button-label-text-color: var(--md-comp-button-text-label-text-color);
-    --_button-icon-color: var(--md-comp-button-text-icon-color);
-  }
+  @include text.button-theme-text;
 }
 
-// Mixin: Text 主题 - Hover 状态
 @mixin button-theme-text-hovered {
-  &[data-theme="text"] {
-    --_button-icon-color: var(--md-comp-button-text-hovered-icon-color);
-    --_button-label-text-color: var(--md-comp-button-text-hovered-label-text-color);
-    color: var(--md-comp-button-text-hovered-state-layer-color);
-  }
+  @include text.button-theme-text-hovered;
 }
 
-// Mixin: Text 主题 - Focus 状态
 @mixin button-theme-text-focused {
-  &[data-theme="text"] {
-    --_button-icon-color: var(--md-comp-button-text-focused-icon-color);
-    --_button-label-text-color: var(--md-comp-button-text-focused-label-text-color);
-    color: var(--md-comp-button-text-focused-state-layer-color);
-  }
+  @include text.button-theme-text-focused;
 }
 
-// Mixin: Text 主题 - Pressed 状态
 @mixin button-theme-text-pressed {
-  &[data-theme="text"] {
-    --_button-icon-color: var(--md-comp-button-text-pressed-icon-color);
-    --_button-label-text-color: var(--md-comp-button-text-pressed-label-text-color);
-    color: var(--md-comp-button-text-pressed-state-layer-color);
-  }
+  @include text.button-theme-text-pressed;
 }
 
-// Mixin: Text 主题 - Disabled 状态
 @mixin button-theme-text-disabled {
-  &[data-theme="text"] {
-    background-color: color-mix(
-      in srgb,
-      var(--md-comp-button-text-disabled-container-color) calc(var(--md-comp-button-text-disabled-container-opacity) * 100%),
-      transparent
-    );
-    
-    --_button-icon-color: var(--md-comp-button-text-disabled-icon-color);
-    --_button-icon-opacity: var(--md-comp-button-text-disabled-icon-opacity);
-    --_button-label-text-color: var(--md-comp-button-text-disabled-label-text-color);
-    --_button-label-text-opacity: var(--md-comp-button-text-disabled-label-text-opacity);
-  }
+  @include text.button-theme-text-disabled;
 }
