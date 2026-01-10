@@ -23,7 +23,76 @@
  * - Record<string, boolean | undefined>: Object where keys are class names and values determine inclusion
  * - undefined: Ignored values
  */
-type ClassValue = string | string[] | Record<string, boolean | undefined> | undefined;
+export type ClassValue = string | string[] | Record<string, boolean | undefined> | undefined;
+
+/**
+ * Class name manager interface with methods for managing class names
+ * 
+ * Provides a fluent API for adding, removing, and checking class names
+ * with efficient Set-based operations.
+ */
+export interface ClassNameManager {
+  /**
+   * Returns the class names as a space-separated string
+   */
+  toString(): string;
+  
+  /**
+   * Returns the class names as a space-separated string
+   */
+  valueOf(): string;
+  
+  /**
+   * Symbol.toPrimitive for automatic string conversion
+   */
+  [Symbol.toPrimitive](hint: 'string' | 'number' | 'default'): string;
+  
+  /**
+   * Adds one or more class names to the set
+   * Automatically handles duplicates
+   * 
+   * @param args - Class name arguments to add
+   * @returns The ClassNameManager instance for chaining
+   * 
+   * @example
+   * ```ts
+   * const cn = classNames('btn');
+   * cn.add('btn-primary', 'btn-large');
+   * cn.toString(); // "btn btn-primary btn-large"
+   * ```
+   */
+  add(...args: ClassValue[]): ClassNameManager;
+  
+  /**
+   * Removes one or more class names from the set
+   * 
+   * @param args - Class name arguments to remove
+   * @returns The ClassNameManager instance for chaining
+   * 
+   * @example
+   * ```ts
+   * const cn = classNames('btn', 'btn-primary');
+   * cn.remove('btn-primary');
+   * cn.toString(); // "btn"
+   * ```
+   */
+  remove(...args: ClassValue[]): ClassNameManager;
+  
+  /**
+   * Checks if a class name exists in the set
+   * 
+   * @param className - The class name to check
+   * @returns True if the class name exists, false otherwise
+   * 
+   * @example
+   * ```ts
+   * const cn = classNames('btn', 'btn-primary');
+   * cn.check('btn-primary'); // true
+   * cn.check('btn-large'); // false
+   * ```
+   */
+  check(className: string): boolean;
+}
 
 /**
  * Processes a single class value and returns an array of class names
@@ -67,49 +136,97 @@ function processClassValue(value: ClassValue): string[] {
 }
 
 /**
- * Combines multiple class name arguments into a single space-separated string
- * 
- * This function processes multiple class name inputs and combines them into a single string.
- * Each component using this function gets its own independent result string, ensuring
- * no cross-component pollution.
+ * Creates a ClassNameManager instance that manages class names using a Set for efficient operations
  * 
  * @param args - Variable number of class name arguments
- * @returns Space-separated string of class names
+ * @returns ClassNameManager with methods for managing class names
  * 
  * @example
  * ```ts
- * // Basic usage with strings
- * classNames('btn', 'btn-primary'); // "btn btn-primary"
+ * // Basic usage with strings (backward compatible)
+ * const cn = classNames('btn', 'btn-primary');
+ * cn.toString(); // "btn btn-primary"
  * 
  * // With arrays
- * classNames(['btn', 'btn-primary']); // "btn btn-primary"
+ * const cn2 = classNames(['btn', 'btn-primary']);
  * 
  * // With conditional objects
  * const selected = true;
- * classNames({
+ * const cn3 = classNames({
  *   'btn': true,
  *   'btn-selected': selected,
  *   'btn-disabled': false
- * }); // "btn btn-selected"
+ * });
  * 
- * // Mixed arguments
- * classNames('btn', ['btn-primary'], {
- *   'btn-selected': true
- * }); // "btn btn-primary btn-selected"
- * 
- * // With undefined values (ignored)
- * classNames('btn', undefined, 'btn-primary'); // "btn btn-primary"
+ * // Using methods
+ * const cn4 = classNames('btn');
+ * cn4.add('btn-primary').add('btn-large');
+ * cn4.check('btn-primary'); // true
+ * cn4.remove('btn-large');
+ * cn4.toString(); // "btn btn-primary"
  * ```
  */
-export function classNames(...args: ClassValue[]): string {
-  // Process all arguments and flatten into a single array
-  const classNamesArray = args
-    .flatMap(arg => processClassValue(arg))
-    .filter(Boolean) // Remove any empty strings
-    .filter((className, index, array) => array.indexOf(className) === index); // Remove duplicates
+export function classNames(...args: ClassValue[]): ClassNameManager {
+  // Use Set for efficient duplicate handling and operations
+  const classNamesSet = new Set<string>();
+  
+  // Process initial arguments and add to Set
+  args.forEach(arg => {
+    const processed = processClassValue(arg);
+    processed.forEach(className => {
+      if (className) {
+        classNamesSet.add(className);
+      }
+    });
+  });
 
-  // Join with spaces and return
-  return classNamesArray.join(' ');
+  // Helper function to get string representation
+  const getString = (): string => Array.from(classNamesSet).join(' ');
+
+  // Create instance with methods
+  const instance: ClassNameManager = {
+    toString(): string {
+      return getString();
+    },
+    
+    valueOf(): string {
+      return getString();
+    },
+    
+    [Symbol.toPrimitive](_hint: 'string' | 'number' | 'default'): string {
+      return getString();
+    },
+    
+    add(...addArgs: ClassValue[]): ClassNameManager {
+      addArgs.forEach(arg => {
+        const processed = processClassValue(arg);
+        processed.forEach(className => {
+          if (className) {
+            classNamesSet.add(className);
+          }
+        });
+      });
+      return instance;
+    },
+    
+    remove(...removeArgs: ClassValue[]): ClassNameManager {
+      removeArgs.forEach(arg => {
+        const processed = processClassValue(arg);
+        processed.forEach(className => {
+          if (className) {
+            classNamesSet.delete(className);
+          }
+        });
+      });
+      return instance;
+    },
+    
+    check(className: string): boolean {
+      return classNamesSet.has(className);
+    }
+  };
+
+  return instance;
 }
 
 export default classNames;
