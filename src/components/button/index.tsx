@@ -177,7 +177,7 @@ export const Button: React.FC<ButtonProps> = ({
   useStateLayer({
     classNameManager: buttonClassName,
     disabled: disabled || false,
-  }, [selected, toggleable]);
+  }, [selected, toggleable, disabled]);
 
   // Apply ripple effect
   useRipple({
@@ -189,7 +189,7 @@ export const Button: React.FC<ButtonProps> = ({
   useElevation({
     classNameManager: buttonClassName,
     disabled: disabled || false,
-  });
+  }, [selected, toggleable, disabled]);
 
   return (
     <button

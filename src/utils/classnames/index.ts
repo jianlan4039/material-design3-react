@@ -34,6 +34,23 @@ export type ClassValue = string | string[] | Record<string, boolean | undefined>
 export interface ClassNameManager {
   /**
    * Returns the class names as a space-separated string
+   * 
+   * This method enables the ClassNameManager to be used directly in string contexts,
+   * such as string concatenation or template literals.
+   * 
+   * @returns Space-separated string of class names
+   * 
+   * @example
+   * ```ts
+   * const cn = classNames('btn', 'btn-primary');
+   * cn.toString(); // "btn btn-primary"
+   * 
+   * // Can be used in string concatenation
+   * const result = 'nd-button' + cn; // "nd-buttonbtn btn-primary"
+   * 
+   * // Or in template literals
+   * const template = `class="${cn}"`; // 'class="btn btn-primary"'
+   * ```
    */
   toString(): string;
   
