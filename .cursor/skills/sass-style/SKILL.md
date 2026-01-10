@@ -24,19 +24,37 @@ description: This is a new rule
 
 ## CSS 自定义属性（--var）使用规范
 - 项目中的 `state-layer`、`elevation`、`ripple` 等公共动态效果组件内部定义了通用的 CSS 自定义属性。
-- 当一个组件内部使用这些公共组件时，必须在该组件的**顶级根元素**上显式重写（重置）这些公共组件所依赖的 CSS 自定义属性。
+- **强制要求**：当一个组件内部使用这些公共组件时，必须在该组件的**顶级根元素样式的最开头**显式重写（重置）这些公共组件所依赖的 CSS 自定义属性。
   - 目的：实现样式隔离，防止组件嵌套时父组件的自定义属性污染子组件。
+  - **位置要求**：CSS 自定义属性重置必须在组件样式块的最顶部，在所有其他样式属性之前。
   - 示例：
     ```scss
-    .nd-card {
-      // 重置公共组件所需的自定义属性
-      --nd-state-layer-color: var(--nd-color-primary);
-      --nd-elevation-level: 2;
-      --nd-ripple-color: var(--nd-color-primary);
-    
+    .nd-button {
+      // ==================== CSS Custom Properties Reset ====================
+      // 必须在最开头重置公共组件所需的自定义属性
+      
+      // State-layer: Reset state-layer color and opacity
+      color: var(--md-comp-button-label-text-color, ...);
+      --md-sys-hover-state-layer-opacity: var(--md-comp-button-hovered-state-layer-opacity, 0.08);
+      --md-sys-focus-state-layer-opacity: var(--md-comp-button-focused-state-layer-opacity, 0.1);
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-button-pressed-state-layer-opacity, 0.1);
+      
+      // Elevation: Reset elevation level and shadow color
+      --md-elevation-level: var(--md-comp-button-container-elevation, 0);
+      --md-elevation-shadow-color: var(--md-comp-button-container-shadow-color, ...);
+      
+      // Ripple: Reset ripple color (uses currentColor via color property)
+      
+      // ==================== Component Styles ====================
       // 组件自身样式...
+      display: inline-flex;
+      // ...
     }
     ```
+- **State-layer Opacity 重置原则**：
+  - State-layer 组件样式的变化主要体现在 opacity 上，使用 `--md-sys-*-state-layer-opacity` 变量。
+  - 组件必须在一开始就重置这些 opacity 变量，使用组件对应的 tokens 值。
+  - 例如：`--md-sys-hover-state-layer-opacity: var(--md-comp-button-hovered-state-layer-opacity, 0.08);`
 - 其他任何复用公共组件的场景均需遵守此规则。
 - CSS 自定义属性必须在组件作用域的最顶部声明，便于阅读和覆盖。
 - 禁止定义无实际用途的 CSS 自定义属性。

@@ -21,16 +21,48 @@ import {useEffect, useRef} from "react";
 // Types & Interfaces
 // ============================================================================
 
+/**
+ * Ripple animation state
+ * 
+ * Tracks the lifecycle and animations of a single ripple effect instance.
+ */
 interface RippleState {
+    /** Grow animation instance, null if not started or finished */
     growAnimation: Animation | null
+    /** Fade animation instance, null if not started or finished */
     fadeAnimation: Animation | null
+    /** The span element that renders the ripple */
     span: HTMLSpanElement
+    /** Current state of the ripple animation */
     state: 'idle' | 'growing' | 'fading' | 'finished'
 }
 
-type Props = {
+/**
+ * useRipple Hook Props
+ * 
+ * Configuration options for the ripple effect hook.
+ */
+export type Props = {
+    /**
+     * Parent element to attach ripple effect to
+     * 
+     * The ripple container will be created as a child of this element.
+     * If null or undefined, the hook will not create any ripple effects.
+     */
     parent?: HTMLElement | null
+    /**
+     * Maximum number of concurrent ripples
+     * 
+     * Controls the size of the span pool for performance optimization.
+     * Defaults to 8.
+     */
     maxRipple?: number
+    /**
+     * Whether to disable ripple effects
+     * 
+     * When true, no ripple effects will be created and all event listeners
+     * will be removed.
+     */
     disabled?: boolean
 };
 
@@ -38,19 +70,64 @@ type Props = {
 // Constants
 // ============================================================================
 
+/** Playback rate multiplier when mouse is released or touch ends */
 const RELEASE_GROW_RATE = 1.2
+/** Duration of the grow animation in milliseconds */
 const GROW_DURATION = 750
+/** Duration of the fade animation in milliseconds */
 const FADE_DURATION = 600
+/** Easing function for grow animation */
 const GROW_EASING = 'cubic-bezier(0.2, 0, 0, 1)'
+/** Easing function for fade animation */
 const FADE_EASING = 'cubic-bezier(0.05, 0.7, 0.1, 1)'
+/** Multiplier for calculating ripple radius based on parent dimensions */
 const RIPPLE_RADIUS_MULTIPLIER = 1.2
-const RIPPLE_INITIAL_SIZE = 10 // px, matches CSS
-const RIPPLE_OFFSET = RIPPLE_INITIAL_SIZE / 2 // 5px offset for centering
+/** Initial size of ripple span in pixels (matches CSS) */
+const RIPPLE_INITIAL_SIZE = 10
+/** Offset for centering ripple at click/touch position (half of initial size) */
+const RIPPLE_OFFSET = RIPPLE_INITIAL_SIZE / 2
 
 // ============================================================================
 // Hook Implementation
 // ============================================================================
 
+/**
+ * useRipple Hook
+ * 
+ * Provides Material Design 3 ripple effect functionality for interactive elements.
+ * Creates an internal container div to isolate overflow styles and prevent pollution
+ * of parent element styles. The ripple effect responds to mouse and touch events,
+ * creating animated circular ripples that expand from the interaction point.
+ * 
+ * @param props - Hook configuration parameters
+ * @param props.parent - Parent element to attach ripple effects to
+ * @param props.maxRipple - Maximum number of concurrent ripples (default: 8)
+ * @param props.disabled - Whether to disable ripple effects (default: false)
+ * 
+ * @example
+ * ```tsx
+ * const buttonRef = useRef<HTMLButtonElement>(null);
+ * 
+ * useRipple({
+ *   parent: buttonRef.current,
+ *   maxRipple: 8,
+ *   disabled: false
+ * });
+ * 
+ * return (
+ *   <button ref={buttonRef}>
+ *     Click me
+ *   </button>
+ * );
+ * ```
+ * 
+ * @remarks
+ * - The hook creates an internal container div with `overflow: hidden` to clip
+ *   ripple effects without affecting the parent element's overflow property.
+ * - Ripple animations use the Web Animations API for smooth performance.
+ * - The hook automatically handles cleanup when the parent element changes or
+ *   the component unmounts.
+ */
 export default function useRipple({
     parent,
     maxRipple = 8,
@@ -66,6 +143,7 @@ export default function useRipple({
     const spanStates = useRef<Map<string, RippleState>>(new Map<string, RippleState>())
     const prevParent = useRef<HTMLElement | null>(null)
     const updateParentRectTimeoutRef = useRef<number | null>(null)
+    const rippleContainerRef = useRef<HTMLDivElement | null>(null)
 
     // ========================================================================
     // State Management
@@ -73,14 +151,17 @@ export default function useRipple({
 
     /**
      * Reset all ripple state and clean up animations
+     * 
+     * Cancels all active animations, removes all ripple spans from the DOM,
+     * and clears all internal state. Used during cleanup and when parent changes.
      */
-    const resetState = (targetParent?: HTMLElement | null) => {
-        const parentEl = targetParent ?? prevParent.current
+    const resetState = () => {
+        const container = rippleContainerRef.current
         spanStates.current.forEach(({span, growAnimation, fadeAnimation}) => {
             growAnimation?.cancel()
             fadeAnimation?.cancel()
-            if (parentEl?.contains(span)) {
-                parentEl.removeChild(span)
+            if (container?.contains(span)) {
+                container.removeChild(span)
             }
         })
         spanStates.current.clear()
@@ -88,6 +169,53 @@ export default function useRipple({
         currentSpan.current = null
         parentRect.current = null
         zIndex.current = 0
+    }
+    
+    /**
+     * Create or get ripple container div
+     * 
+     * Creates an internal container div that is absolutely positioned to cover
+     * the parent element completely. This container isolates the `overflow: hidden`
+     * style to prevent polluting the parent element's overflow property.
+     * 
+     * @param parentEl - Parent element to attach the container to
+     * @returns The ripple container div, or null if parentEl is invalid
+     */
+    const getOrCreateRippleContainer = (parentEl: HTMLElement): HTMLDivElement | null => {
+        if (!parentEl) return null
+        
+        // If container already exists and is in the correct parent, return it
+        if (rippleContainerRef.current && parentEl.contains(rippleContainerRef.current)) {
+            return rippleContainerRef.current
+        }
+        
+        // Create new container
+        const container = document.createElement('div')
+        container.className = style['nd-ripple__container']
+        
+        // Container dimensions are set via CSS (100% width/height with absolute positioning)
+        // This ensures it always matches parent size, even when parent resizes
+        
+        // Append to parent
+        parentEl.appendChild(container)
+        rippleContainerRef.current = container
+        
+        return container
+    }
+    
+    /**
+     * Remove ripple container from DOM
+     * 
+     * Safely removes the ripple container div from its parent element and
+     * clears the container reference.
+     * 
+     * @param parentEl - Parent element containing the container, or null
+     */
+    const removeRippleContainer = (parentEl: HTMLElement | null) => {
+        if (rippleContainerRef.current && parentEl?.contains(rippleContainerRef.current)) {
+            parentEl.removeChild(rippleContainerRef.current)
+        }
+        rippleContainerRef.current = null
     }
 
     // ========================================================================
@@ -97,37 +225,40 @@ export default function useRipple({
     useEffect(() => {
         // Handle parent change: clean up previous parent
         if (prevParent.current && prevParent.current !== parent) {
-            resetState(prevParent.current)
-            prevParent.current.classList.remove(style['nd-ripple__container'])
+            resetState()
+            removeRippleContainer(prevParent.current)
         }
 
         // Early return if no parent
         if (!parent) {
             resetState()
+            removeRippleContainer(null)
             prevParent.current = null
             return
         }
 
         // Handle disabled state: clean up and don't add event listeners
         if (disabled) {
-            if (prevParent.current) {
-                prevParent.current.classList.remove(style['nd-ripple__container'])
-            }
-            resetState(parent)
+            resetState()
+            removeRippleContainer(parent)
             prevParent.current = parent
             return () => {
                 // Cleanup: ensure proper cleanup even in disabled state
-                if (parent) {
-                    parent.classList.remove(style['nd-ripple__container'])
-                    resetState(parent)
-                }
+                resetState()
+                removeRippleContainer(parent)
             }
         }
 
-        // Update parent rectangle dimensions
+        // Update parent rectangle dimensions and container size
         const updateParentRect = () => {
             if (parent) {
                 parentRect.current = parent.getBoundingClientRect()
+                // Update container size if it exists
+                const container = rippleContainerRef.current
+                if (container && parent.contains(container)) {
+                    // Container size is already set to 100% via CSS, but we ensure it's correct
+                    // The container will automatically match parent size due to absolute positioning
+                }
             }
         }
 
@@ -151,7 +282,12 @@ export default function useRipple({
         // Initialize
         updateParentRect()
         prevParent.current = parent
-        parent.classList.add(style['nd-ripple__container'])
+        
+        // Create ripple container
+        const rippleContainer = getOrCreateRippleContainer(parent)
+        if (!rippleContainer) {
+            return
+        }
 
         // Initialize span pool
         for (let i = 0; i < maxRipple; i++) {
@@ -181,8 +317,8 @@ export default function useRipple({
                 cancelAnimationFrame(updateParentRectTimeoutRef.current)
                 updateParentRectTimeoutRef.current = null
             }
-            parent.classList.remove(style['nd-ripple__container'])
-            resetState(parent)
+            resetState()
+            removeRippleContainer(parent)
         }
     }, [parent, maxRipple, disabled])
 
@@ -190,6 +326,13 @@ export default function useRipple({
     // Event Handlers
     // ========================================================================
 
+    /**
+     * Handle mouse down event
+     * 
+     * Starts a new ripple animation at the mouse click position.
+     * 
+     * @param e - Mouse event
+     */
     function mouseDownHandler(e: MouseEvent) {
         if (!parent || disabled) return
         e.stopPropagation()
@@ -199,6 +342,13 @@ export default function useRipple({
         }
     }
 
+    /**
+     * Handle touch start event
+     * 
+     * Starts a new ripple animation at the touch position.
+     * 
+     * @param e - Touch event
+     */
     function touchStartHandler(e: TouchEvent) {
         if (!parent || disabled) return
         e.stopPropagation()
@@ -208,12 +358,26 @@ export default function useRipple({
         }
     }
 
+    /**
+     * Handle mouse up event
+     * 
+     * Triggers the fade animation for the current ripple when mouse is released.
+     * 
+     * @param e - Mouse event
+     */
     function mouseUpHandler(e: MouseEvent) {
         if (!parent) return
         e.stopPropagation()
         slowGrowingAndStartFading()
     }
 
+    /**
+     * Handle touch end event
+     * 
+     * Triggers the fade animation for the current ripple when touch ends.
+     * 
+     * @param e - Touch event
+     */
     function touchEndHandler(e: TouchEvent) {
         if (!parent) return
         e.stopPropagation()
@@ -221,7 +385,12 @@ export default function useRipple({
     }
 
     /**
-     * When the mouse leaves the element, start fading animation.
+     * Handle mouse leave event
+     * 
+     * When the mouse leaves the element, starts the fade animation for the
+     * current ripple to provide smooth visual feedback.
+     * 
+     * @param e - Mouse event
      */
     function mouseLeaveHandler(e: MouseEvent) {
         if (!parent) return
@@ -234,8 +403,14 @@ export default function useRipple({
     // ========================================================================
 
     /**
-     * Calculate the position of user clicks or touches relative to parent element.
-     * For touch events, uses the first touch point.
+     * Calculate the position of user clicks or touches relative to parent element
+     * 
+     * Converts global client coordinates to local coordinates relative to the
+     * parent element's bounding rectangle. For touch events, uses the first
+     * touch point.
+     * 
+     * @param e - Mouse or touch event
+     * @returns Position object with x and y coordinates, or null if calculation fails
      */
     function calcPosition(e: MouseEvent | TouchEvent) {
         if (!parent || !parentRect.current) return null
@@ -248,40 +423,62 @@ export default function useRipple({
     }
 
     /**
-     * Calculate the minimum circle radius of the ripple.
-     * It should be the diagonal length of the parent rectangle multiplied by RIPPLE_RADIUS_MULTIPLIER.
+     * Calculate the minimum circle radius of the ripple
+     * 
+     * Calculates the radius needed to cover the entire parent element when
+     * the ripple expands. Uses the diagonal length of the parent rectangle
+     * multiplied by RIPPLE_RADIUS_MULTIPLIER to ensure full coverage.
+     * 
+     * @param height - Height of the parent element in pixels
+     * @param width - Width of the parent element in pixels
+     * @returns The calculated ripple radius in pixels
      */
     function calcRippleRadius(height: number, width: number) {
         return Math.sqrt(height * height + width * width) * RIPPLE_RADIUS_MULTIPLIER
     }
 
     /**
-     * Spawn a span element from the span pool at the specified position.
+     * Spawn a span element from the span pool at the specified position
+     * 
+     * Retrieves a span element from the pool, positions it at the specified
+     * coordinates, and appends it to the ripple container. If no spans are
+     * available in the pool, returns null.
+     * 
+     * @param position - Position object with x and y coordinates relative to parent
+     * @returns The spawned span element, or null if pool is empty
      */
     function spawnSpan(position: { x: number, y: number }) {
-        if (!parent || !spanPool.current.length) return null
+        const container = rippleContainerRef.current
+        if (!container || !spanPool.current.length) return null
         const span = spanPool.current.shift()
-        if (span && parent) {
+        if (span && container) {
             span.style.left = `${position.x - RIPPLE_OFFSET}px`
             span.style.top = `${position.y - RIPPLE_OFFSET}px`
             span.style.zIndex = `${zIndex.current++}`
-            parent.append(span)
+            container.append(span)
             return span
         }
         return null
     }
 
     /**
-     * Recycle a span element back to the pool when animation finishes.
+     * Recycle a span element back to the pool when animation finishes
+     * 
+     * Removes the span from the DOM, cancels any active animations, resets
+     * its state to idle, and returns it to the span pool for reuse. Handles
+     * orphaned spans (spans without state) by cleaning them up.
+     * 
+     * @param span - The span element to recycle
      */
     function recycleSpan(span: HTMLSpanElement) {
-        if (!parent) return
+        const container = rippleContainerRef.current
+        if (!container) return
         const state = spanStates.current.get(span.id)
         if (!state) {
             // Handle orphaned span - clean it up if it exists in DOM
-            if (parent.contains(span)) {
+            if (container.contains(span)) {
                 try {
-                    parent.removeChild(span)
+                    container.removeChild(span)
                 } catch (e) {
                     // Span may have already been removed
                 }
@@ -289,10 +486,10 @@ export default function useRipple({
             return
         }
         if (state.state === 'finished') {
-            // Double-check parent still contains span before removing
-            if (parent.contains(span)) {
+            // Double-check container still contains span before removing
+            if (container.contains(span)) {
                 try {
-                    parent.removeChild(span)
+                    container.removeChild(span)
                 } catch (e) {
                     // Span may have already been removed by another process
                 }
@@ -311,7 +508,14 @@ export default function useRipple({
     // ========================================================================
 
     /**
-     * Create and start the grow animation for a ripple span.
+     * Create and start the grow animation for a ripple span
+     * 
+     * Creates a Web Animations API animation that scales the ripple span from
+     * its initial size to the calculated radius. The animation uses the configured
+     * grow duration and easing function.
+     * 
+     * @param span - The span element to animate
+     * @returns The animation instance, or null if parent or dimensions are unavailable
      */
     function growAnimate(span: HTMLSpanElement) {
         if (!parent || !parentRect.current) return null
@@ -331,7 +535,14 @@ export default function useRipple({
     }
 
     /**
-     * Create and start the fade animation for a ripple span.
+     * Create and start the fade animation for a ripple span
+     * 
+     * Creates a Web Animations API animation that fades the ripple span from
+     * its current opacity to transparent. When the animation finishes, the span
+     * is automatically recycled back to the pool.
+     * 
+     * @param span - The span element to animate
+     * @returns The animation instance, or null if span state is invalid
      */
     function fadeAnimate(span: HTMLSpanElement) {
         const animation = span.animate(
@@ -368,7 +579,13 @@ export default function useRipple({
     // ========================================================================
 
     /**
-     * Start a new ripple animation at the specified position.
+     * Start a new ripple animation at the specified position
+     * 
+     * Spawns a new ripple span at the specified position and starts the
+     * grow animation. When the grow animation completes, it automatically
+     * transitions to the fade animation.
+     * 
+     * @param position - Position object with x and y coordinates relative to parent
      */
     function stateAnimation(position: { x: number, y: number }) {
         if (!parent) return
@@ -394,8 +611,13 @@ export default function useRipple({
     }
 
     /**
-     * Slow down the grow animation and start the fade animation.
+     * Slow down the grow animation and start the fade animation
+     * 
      * Called when mouse is released, touch ends, or mouse leaves the element.
+     * Increases the playback rate of the grow animation and starts the fade
+     * animation to provide smooth visual feedback.
+     * 
+     * @param spanId - Optional specific span ID to target, defaults to current span
      */
     function slowGrowingAndStartFading(spanId?: string) {
         const targetId = spanId ?? currentSpan.current
