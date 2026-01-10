@@ -1,4 +1,5 @@
 $tokens: (
+        // --------- 默认样式 --------------------
         "md.comp.button.container.color": "md.sys.color.primary",
         "md.comp.button.unselected.container.color": "md.sys.color.surface-container",
         "md.comp.button.selected.container.color": "md.sys.color.primary",
@@ -68,6 +69,7 @@ $tokens: (
         'md.comp.button.unselected.pressed.icon.color': 'md.sys.color.on-surface-variant',
         'md.comp.button.selected.pressed.icon.color': 'md.sys.color.on-primary',
 
+        // ----- Elevated 主题 -----
         'md.comp.button.elevated.container.color': 'md.sys.color.surface-container-low',
         'md.comp.button.elevated.unselected.container.color': 'md.sys.color.surface-container-low',
         'md.comp.button.elevated.selected.container.color': 'md.sys.color.primary',
@@ -124,6 +126,7 @@ $tokens: (
         'md.comp.button.elevated.unselected.pressed.icon.color': 'md.sys.color.primary',
         'md.comp.button.elevated.selected.pressed.icon.color': 'md.sys.color.on-primary',
 
+        // ----- Filled 主题 -----
         'md.comp.button.filled.container.color': 'md.sys.color.primary',
         'md.comp.button.filled.unselected.container.color': 'md.sys.color.surface-container',
         'md.comp.button.filled.selected.container.color': 'md.sys.color.primary',
@@ -180,6 +183,7 @@ $tokens: (
         'md.comp.button.filled.unselected.pressed.icon.color': 'md.sys.color.on-surface-variant',
         'md.comp.button.filled.selected.pressed.icon.color': 'md.sys.color.on-primary',
 
+        // --------- tonal主题 --------------------
         'md.comp.button.tonal.container.color': 'md.sys.color.secondary-container',
         'md.comp.button.tonal.unselected.container.color': 'md.sys.color.secondary-container',
         'md.comp.button.tonal.selected.container.color': 'md.sys.color.secondary',
@@ -236,6 +240,7 @@ $tokens: (
         'md.comp.button.tonal.unselected.pressed.icon.color': 'md.sys.color.on-secondary-container',
         'md.comp.button.tonal.selected.pressed.icon.color': 'md.sys.color.on-secondary',
 
+        // --------- outlined主题 --------------------
         'md.comp.button.outlined.outline.color': 'md.sys.color.outline-variant',
         'md.comp.button.outlined.selected.container.color': 'md.sys.color.inverse-surface',
         'md.comp.button.outlined.label-text.color': 'md.sys.color.on-surface-variant',
@@ -293,6 +298,7 @@ $tokens: (
         'md.comp.button.outlined.unselected.pressed.icon.color': 'md.sys.color.on-surface-variant',
         'md.comp.button.outlined.selected.pressed.icon.color': 'md.sys.color.inverse-on-surface',
 
+        // --------- text主题 --------------------
         'md.comp.button.text.label-text.color': 'md.sys.color.primary',
         'md.comp.button.text.icon.color': 'md.sys.color.primary',
         'md.comp.button.text.disabled.container.color': 'md.sys.color.on-surface',
@@ -316,6 +322,7 @@ $tokens: (
         'md.comp.button.text.pressed.label-text.color': 'md.sys.color.primary',
         'md.comp.button.text.pressed.icon.color': 'md.sys.color.primary',
 
+        // ---------xsmall 尺寸 --------------------
         'md.comp.button.xsmall.container.height': '32px',
         'md.comp.button.xsmall.outlined.outline.width': '1px',
         'md.comp.button.xsmall.label-text': 'Roboto 500 14px / 20px',
@@ -329,6 +336,7 @@ $tokens: (
         'md.comp.button.xsmall.selected.container.shape.round': 'md.sys.shape.corner.medium',
         'md.comp.button.xsmall.selected.container.shape.square': 'md.sys.shape.corner.full',
 
+        // ---------small 尺寸 --------------------
         'md.comp.button.small.container.height': '40px',
         'md.comp.button.small.outlined.outline.width': '1px',
         'md.comp.button.small.label-text': 'Roboto 500 14px / 20px',
@@ -342,6 +350,7 @@ $tokens: (
         'md.comp.button.small.selected.container.shape.round': 'md.sys.shape.corner.medium',
         'md.comp.button.small.selected.container.shape.square': 'md.sys.shape.corner.full',
 
+        // ---------medium 尺寸 --------------------
         'md.comp.button.medium.container.height': '56px',
         'md.comp.button.medium.outlined.outline.width': '1px',
         'md.comp.button.medium.label-text': 'Roboto 500 16px / 24px',
@@ -355,6 +364,7 @@ $tokens: (
         'md.comp.button.medium.selected.container.shape.round': 'md.sys.shape.corner.large',
         'md.comp.button.medium.selected.container.shape.square': 'md.sys.shape.corner.full',
 
+        // ---------large 尺寸 --------------------
         'md.comp.button.large.container.height': '96px',
         'md.comp.button.large.outlined.outline.width': '2px',
         'md.comp.button.large.label-text': 'Roboto 400 24px / 32px',
@@ -368,6 +378,7 @@ $tokens: (
         'md.comp.button.large.selected.container.shape.round': 'md.sys.shape.corner.extra-large',
         'md.comp.button.large.selected.container.shape.square': 'md.sys.shape.corner.full',
 
+        //---------xlarge 尺寸 --------------------
         'md.comp.button.xlarge.container.height': '136px',
         'md.comp.button.xlarge.outlined.outline.width': '3px',
         'md.comp.button.xlarge.label-text': 'Roboto 400 32px / 40px',
