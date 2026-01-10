@@ -53,6 +53,39 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * ```
    */
   trailingIcon?: React.ReactNode;
+
+  /**
+   * Whether the button is toggleable
+   * 
+   * When true, clicking the button will toggle the selected state.
+   * This enables toggle button behavior where the button can be selected/unselected.
+   * 
+   * @example
+   * ```tsx
+   * <Button toggleable>Toggle Button</Button>
+   * ```
+   */
+  toggleable?: boolean;
+
+  /**
+   * Whether the button is selected
+   * 
+   * Controls the selected state of the button. Can be used in both controlled and uncontrolled modes.
+   * - Controlled mode: Pass a value to control the state externally
+   * - Uncontrolled mode: Omit this prop and use toggleable to let the button manage its own state
+   * 
+   * @example
+   * ```tsx
+   * // Controlled mode
+   * <Button toggleable selected={isSelected} onClick={() => setIsSelected(!isSelected)}>
+   *   Toggle Button
+   * </Button>
+   * 
+   * // Uncontrolled mode
+   * <Button toggleable>Toggle Button</Button>
+   * ```
+   */
+  selected?: boolean;
 }
 
 /**
@@ -91,16 +124,44 @@ export const Button: React.FC<ButtonProps> = ({
   trailingIcon,
   className,
   disabled,
+  toggleable = false,
+  selected: selectedProp,
+  onClick,
   ...restProps
 }) => {
   // State to store button element reference
   // Using state ensures hooks re-run when element changes
   const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
 
+  // Internal state for uncontrolled selected mode
+  // Only used when selectedProp is undefined
+  const [internalSelected, setInternalSelected] = useState(false);
+
+  // Determine if we're in controlled mode (selectedProp is not undefined)
+  const isControlled = selectedProp !== undefined;
+
+  // Use controlled value if provided, otherwise use internal state
+  // When selectedProp is provided (not undefined), it directly controls the selected state
+  const selected = isControlled ? selectedProp : internalSelected;
+
   // Callback ref to update state when button element is mounted/unmounted
   const buttonRef = useCallback((node: HTMLButtonElement | null) => {
     setButtonElement(node);
   }, []);
+
+  // Handle click event with toggle functionality
+  const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    // Only toggle if toggleable is true
+    if (toggleable && !disabled) {
+      // In uncontrolled mode, update internal state
+      if (!isControlled) {
+        setInternalSelected((prev) => !prev);
+      }
+    }
+
+    // Call user-provided onClick handler
+    onClick?.(event);
+  }, [toggleable, disabled, isControlled, onClick]);
 
   // Apply state-layer effect
   useStateLayer({
@@ -123,6 +184,10 @@ export const Button: React.FC<ButtonProps> = ({
   // Build class names, merging user-defined class names
   const buttonClassName = classNames(
     styles['nd-button'],
+    {
+      [styles['nd-button--toggleable']]: toggleable,
+      [styles['nd-button--selected']]: selected,
+    },
     className
   );
 
@@ -131,6 +196,8 @@ export const Button: React.FC<ButtonProps> = ({
       ref={buttonRef}
       className={buttonClassName}
       disabled={disabled}
+      onClick={handleClick}
+      aria-pressed={toggleable ? selected : undefined}
       {...restProps}
     >
       {/* Leading icon slot */}

@@ -112,6 +112,20 @@
     }
   }
   
+  // ==================== Toggleable Modifier ====================
+  // Modifier class for toggleable button
+  .nd-button--toggleable {
+    // Toggleable button specific styles can be added here
+    // This modifier indicates the button supports toggle functionality
+  }
+  
+  // ==================== Selected Modifier ====================
+  // Modifier class for selected button state
+  .nd-button--selected {
+    // Selected button specific styles can be added here
+    // This modifier indicates the button is in selected state
+  }
+  
   // ==================== Icon Slot Styles ====================
   .nd-button__leading-icon,
   .nd-button__trailing-icon {
