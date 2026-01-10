@@ -3,13 +3,13 @@ name: typescript-rule
 description: This is a new rule
 ---
 
-### TypeScript 开发规范
+# TypeScript 开发规范
 
-单一职责原则（Single Responsibility Principle, SRP）是 SOLID 原则的首条，核心含义是：**一个模块、类、函数应该只有一个职责，即只有一个引起它变化的原因**。在 TypeScript 项目中严格遵循 SRP 可以显著提升代码的可维护性、可测试性和可复用性。
+## 概述
 
-以下是从类、函数、接口、模块/文件组织等多个层面，围绕 SRP 制定的 TypeScript 开发规范。
+项目中的组件全部采用typescript、React、Sass开发，每个组件都应该具备该类组件应该具备的属性，例如Button组件应该具备html button的基本属性。组件的实现过程中，要充分考虑组件的安全、性能、可扩展性、可维护性。每个组件、组件的属性、内部的方法都要有注释说明其功能，代码要有层次，方便未来维护。另外还要充分支持无障碍性，必须具备基本的障碍辅助功能。
 
-#### 1. 类（Class）设计规范
+## 1. 类（Class）设计规范
 - **一个类只负责一个职责**  
   避免出现“上帝类”（God Class），即一个类承担多种不相干的责任（如同时处理业务逻辑、数据持久化、日志记录、格式化输出等）。
 - **职责分离**  
@@ -45,7 +45,7 @@ description: This is a new rule
   }
   ```
 
-#### 2. 函数（Function/Method）设计规范
+## 2. 函数（Function/Method）设计规范
 - **一个函数只做一件事**  
   函数应完成单一原子操作，避免在一个函数中完成“获取数据 → 校验 → 转换 → 持久化 → 发送通知”的完整流程。
 - **函数长度控制**  
@@ -73,7 +73,7 @@ description: This is a new rule
   function notifyUser(user: User): void { /* 只通知 */ }
   ```
 
-#### 3. 接口与类型（Interface/Type）设计规范
+## 3. 接口与类型（Interface/Type）设计规范
 - **接口只描述单一职责的契约**  
   避免定义超大接口（字段超过 10 个或包含多种职责的方法）。
 - **倾向于小接口组合**  
@@ -105,7 +105,7 @@ description: This is a new rule
   type PersistentUser = User & Persistable;
   ```
 
-#### 4. 模块/文件组织规范
+## 4. 模块/文件组织规范
 - **一个文件只导出与单一职责相关的符号**  
   每个文件聚焦一个主要实体（类、接口、函数集合），避免一个文件导出多个不相关的类。
 - **文件命名与职责一致**  
@@ -125,7 +125,7 @@ description: This is a new rule
 - **导出控制**  
   使用命名导出而非默认导出，便于明确知道文件提供了哪些职责。
 
-#### 5. 其他最佳实践
+## 5. 其他最佳实践
 - **依赖注入（DI）支持 SRP**  
   通过构造函数注入依赖，而不是在类内部直接 new 其他服务，从而保持类的职责单一。
 - **测试友好**  
@@ -137,7 +137,5 @@ description: This is a new rule
 - **工具辅助**  
   使用 ESLint 插件（如 `eslint-plugin-boundaries` 或自定义规则）强制检查职责边界。
 
-#### 总结
+## 总结
 严格遵循单一职责原则，会让 TypeScript 项目自然演化为**高内聚、低耦合**的架构。随着项目规模增长，维护成本会显著低于未遵循 SRP 的代码库。建议在团队中将 SRP 作为核心规范，并在架构设计阶段就进行职责划分。
-
-如需针对特定框架（如 NestJS、React + TypeScript）进一步细化规范，或提供更多示例代码，欢迎继续提问！
