@@ -14,4 +14,19 @@
  * limitations under the License.
  */
 
-export {default as ClassName} from './classnames/index.js'
+@layer nd-comp {
+  .nd-ripple__surface {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: currentColor;
+    border-radius: 9999px;
+    pointer-events: none;
+    opacity: 0.12;
+  }
+
+  .nd-ripple__container {
+    position: relative;
+    overflow: hidden;
+  }
+}

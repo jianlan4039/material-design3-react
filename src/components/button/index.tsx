@@ -1,193 +1,166 @@
-import React, { useRef, forwardRef } from 'react';
+/**
+ * Copyright (c) 2024 jian lan
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import React, { useState, useCallback } from 'react';
+
+import classNames from '@utils/classnames';
 import useElevation from '../elevation';
-import useStateLayer from '../state-layer';
 import useRipple from '../ripple/useRipple';
-import classNames from '../../utils/classnames';
+import useStateLayer from '../state-layer';
 import styles from './index.module.scss';
 
-// ============================================================================
-// Types & Interfaces
-// ============================================================================
-
 /**
- * Button 主题类型
+ * Button Component Props Interface
+ * 
+ * Extends all native HTML button element attributes and adds icon slot functionality.
+ * 
+ * @extends React.ButtonHTMLAttributes<HTMLButtonElement>
  */
-export type ButtonVariant = 'elevated' | 'filled' | 'tonal' | 'outlined' | 'text';
-
-/**
- * Button 尺寸类型
- */
-export type ButtonSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
-
-/**
- * Button 形状类型
- */
-export type ButtonShape = 'round' | 'square';
-
-/**
- * Button 组件属性接口
- * 继承 HTML button 元素的所有原生属性，确保组件具备完整的 button 功能
- */
-export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'size'> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * 按钮主题样式
-   * @default 'filled'
-   */
-  variant?: ButtonVariant;
-  
-  /**
-   * 按钮尺寸
-   * @default 'medium'
-   */
-  size?: ButtonSize;
-  
-  /**
-   * 按钮形状
-   * @default 'round'
-   */
-  shape?: ButtonShape;
-  
-  /**
-   * 是否选中状态
-   * @default false
-   */
-  selected?: boolean;
-  
-  /**
-   * 前置图标（React 节点）
+   * Leading icon slot
+   * 
+   * Used to display an icon before the button text, typically to indicate action type or state.
+   * 
+   * @example
+   * ```tsx
+   * <Button leadingIcon={<AddIcon />}>Add</Button>
+   * ```
    */
   leadingIcon?: React.ReactNode;
-  
+
   /**
-   * 后置图标（React 节点）
+   * Trailing icon slot
+   * 
+   * Used to display an icon after the button text, typically to indicate action result or navigation direction.
+   * 
+   * @example
+   * ```tsx
+   * <Button trailingIcon={<ArrowRightIcon />}>Next</Button>
+   * ```
    */
   trailingIcon?: React.ReactNode;
-  
-  /**
-   * 按钮文本内容
-   */
-  children?: React.ReactNode;
 }
 
-// ============================================================================
-// Component Implementation
-// ============================================================================
-
 /**
- * Button 组件
+ * Button Component
  * 
- * Material Design 3 风格的按钮组件，支持多种主题、尺寸和状态。
- * 组件完全兼容 HTML button 元素的所有原生属性和事件。
+ * Material Design 3 style button component that supports all native HTML button attributes
+ * and provides leading and trailing icon slots for flexible button content configuration.
  * 
+ * @component
  * @example
  * ```tsx
- * // 基础用法
- * <Button>Click me</Button>
+ * // Basic usage
+ * <Button onClick={handleClick}>Click me</Button>
  * 
- * // 带图标
- * <Button leadingIcon={<Icon />}>Save</Button>
+ * // With leading icon
+ * <Button leadingIcon={<AddIcon />}>Add Item</Button>
  * 
- * // 不同主题
- * <Button variant="elevated">Elevated</Button>
- * <Button variant="outlined">Outlined</Button>
+ * // With trailing icon
+ * <Button trailingIcon={<ArrowRightIcon />}>Next</Button>
  * 
- * // 不同尺寸
- * <Button size="small">Small</Button>
- * <Button size="large">Large</Button>
+ * // Using both icons
+ * <Button 
+ *   leadingIcon={<SaveIcon />} 
+ *   trailingIcon={<CheckIcon />}
+ * >
+ *   Save and Confirm
+ * </Button>
+ * 
+ * // Using native attributes
+ * <Button disabled aria-label="Disabled button">Disabled</Button>
  * ```
  */
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      variant = 'filled',
-      size = 'medium',
-      shape = 'round',
-      selected = false,
-      leadingIcon,
-      trailingIcon,
-      children,
-      disabled,
-      className,
-      ...restProps
-    },
-    ref
-  ) => {
-    // ========================================================================
-    // Refs
-    // ========================================================================
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const mergedRef = (ref || buttonRef) as React.RefObject<HTMLButtonElement>;
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  leadingIcon,
+  trailingIcon,
+  className,
+  disabled,
+  ...restProps
+}) => {
+  // State to store button element reference
+  // Using state ensures hooks re-run when element changes
+  const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
 
-    // ========================================================================
-    // Hooks
-    // ========================================================================
-    // 应用 elevation 效果
-    useElevation({
-      parent: mergedRef.current,
-      disabled: disabled || variant === 'text' || variant === 'outlined'
-    });
+  // Callback ref to update state when button element is mounted/unmounted
+  const buttonRef = useCallback((node: HTMLButtonElement | null) => {
+    setButtonElement(node);
+  }, []);
 
-    // 应用 state-layer 效果
-    useStateLayer({
-      parent: mergedRef.current,
-      disabled: disabled
-    });
+  // Apply state-layer effect
+  useStateLayer({
+    parent: buttonElement,
+    disabled: disabled || false,
+  });
 
-    // 应用 ripple 效果
-    useRipple({
-      parent: mergedRef.current,
-      disabled: disabled
-    });
+  // Apply ripple effect
+  useRipple({
+    parent: buttonElement,
+    disabled: disabled || false,
+  });
 
-    // ========================================================================
-    // Class Names
-    // ========================================================================
-    const buttonClasses = classNames(
-      styles['nd-button'],
-      styles[`nd-button--${variant}`],
-      styles[`nd-button--${size}`],
-      styles[`nd-button--${shape}`],
-      {
-        [styles['nd-button--selected']]: selected,
-        [styles['nd-button--unselected']]: !selected,
-        [styles['nd-button--disabled']]: disabled
-      },
-      className ?? ''
-    );
+  // Apply elevation effect
+  useElevation({
+    parent: buttonElement,
+    disabled: disabled || false,
+  });
 
-    const iconClasses = styles['nd-button__icon'];
-    const labelClasses = styles['nd-button__label'];
+  // Build class names, merging user-defined class names
+  const buttonClassName = classNames(
+    styles['nd-button'],
+    className
+  );
 
-    // ========================================================================
-    // Render
-    // ========================================================================
-    return (
-      <button
-        ref={mergedRef}
-        type="button"
-        className={buttonClasses}
-        disabled={disabled}
-        aria-selected={selected ? 'true' : undefined}
-        {...restProps}
-      >
-        {leadingIcon && (
-          <span className={iconClasses} aria-hidden="true">
-            {leadingIcon}
-          </span>
-        )}
-        {children && (
-          <span className={labelClasses}>{children}</span>
-        )}
-        {trailingIcon && (
-          <span className={iconClasses} aria-hidden="true">
-            {trailingIcon}
-          </span>
-        )}
-      </button>
-    );
-  }
-);
+  return (
+    <button
+      ref={buttonRef}
+      className={buttonClassName}
+      disabled={disabled}
+      {...restProps}
+    >
+      {/* Leading icon slot */}
+      {leadingIcon && (
+        <span 
+          className={styles['nd-button__leading-icon']}
+          aria-hidden="true"
+        >
+          {leadingIcon}
+        </span>
+      )}
 
-Button.displayName = 'Button';
+      {/* Button text content */}
+      {children && (
+        <span className={styles['nd-button__label']}>
+          {children}
+        </span>
+      )}
+
+      {/* Trailing icon slot */}
+      {trailingIcon && (
+        <span 
+          className={styles['nd-button__trailing-icon']}
+          aria-hidden="true"
+        >
+          {trailingIcon}
+        </span>
+      )}
+    </button>
+  );
+};
 
 export default Button;

@@ -1,14 +1,30 @@
+/**
+ * Copyright (c) 2024 jian lan
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 @layer nd-comp {
   .nd-elevation-container {
-    // 使用 CSS 变量控制 elevation level，默认为 0
-    // 阴影颜色变量，默认为黑色（使用现代 CSS 颜色语法，支持 / 透明度）
+    // Use CSS variables to control elevation level, default is 0
+    // Shadow color variable, default is black (using modern CSS color syntax, supports / opacity)
     --_level: var(--md-elevation-level, 0);
     --_shadow-color: var(--md-elevation-shadow-color, rgb(0 0 0));
   
-    // 确保容器有定位上下文，以便 ::after 伪元素可以绝对定位
+    // Ensure container has positioning context so ::after pseudo-element can be absolutely positioned
     position: relative;
   
-    // Key box shadow (主阴影) - 计算 Y 偏移量
+    // Key box shadow (main shadow) - Calculate Y offset
     // level0: 0px
     // level1: 1px
     // level2: 1px
@@ -20,7 +36,7 @@
     $key-level5-y: calc(2 * clamp(0, var(--_level) - 4, 1));
     $key-y: calc(1px * ($key-level1-y + $key-level4-y + $key-level5-y));
   
-    // Key box shadow - 计算模糊半径
+    // Key box shadow - Calculate blur radius
     // level0: 0px
     // level1: 2px
     // level2: 2px
@@ -32,7 +48,7 @@
     $key-level5-blur: clamp(0, var(--_level) - 4, 1);
     $key-blur: calc(1px * ($key-level1-blur + $key-level3-blur + $key-level5-blur));
   
-    // Ambient box shadow (环境阴影) - 计算 Y 偏移量
+    // Ambient box shadow (ambient shadow) - Calculate Y offset
     // level0: 0px
     // level1: 1px
     // level2: 2px
@@ -44,7 +60,7 @@
     $ambient-level3to5-y: calc(2 * clamp(0, var(--_level) - 2, 3));
     $ambient-y: calc(1px * ($ambient-level1-y + $ambient-level2-y + $ambient-level3to5-y));
   
-    // Ambient box shadow - 计算模糊半径
+    // Ambient box shadow - Calculate blur radius
     // level0: 0px
     // level1: 3px
     // level2: 6px
@@ -55,7 +71,7 @@
     $ambient-level3to5-blur: calc(2 * clamp(0, var(--_level) - 2, 3));
     $ambient-blur: calc(1px * ($ambient-level1to2-blur + $ambient-level3to5-blur));
   
-    // Ambient box shadow - 计算扩散半径
+    // Ambient box shadow - Calculate spread radius
     // level0: 0px
     // level1: 1px
     // level2: 2px
@@ -66,7 +82,7 @@
     $ambient-level5-spread: calc(2 * clamp(0, var(--_level) - 4, 1));
     $ambient-spread: calc(1px * ($ambient-level1to4-spread + $ambient-level5-spread));
   
-    // 使用 ::after 伪元素来承载 elevation 阴影效果
+    // Use ::after pseudo-element to carry elevation shadow effect
     &::after {
       content: '';
       position: absolute;
@@ -75,12 +91,12 @@
       border-radius: inherit;
       z-index: -1;
       
-      // 添加 transition 使阴影变化平滑
+      // Add transition to make shadow changes smooth
       transition: box-shadow var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
       
-      // 复合 box-shadow：key shadow (alpha 0.3) + ambient shadow (alpha 0.15)
-      // 使用现代 CSS 颜色语法，支持在 rgb() 中使用 / 来指定透明度
-      // 如果浏览器不支持，可以使用 rgba() 格式的颜色变量
+      // Composite box-shadow: key shadow (alpha 0.3) + ambient shadow (alpha 0.15)
+      // Using modern CSS color syntax, supports / in rgb() to specify opacity
+      // If browser doesn't support, can use rgba() format color variables
       box-shadow:
         0 $key-y $key-blur 0 rgb(from var(--_shadow-color) r g b / 0.3),
         0 $ambient-y $ambient-blur $ambient-spread rgb(from var(--_shadow-color) r g b / 0.15);

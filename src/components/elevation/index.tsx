@@ -1,6 +1,22 @@
+/**
+ * Copyright (c) 2024 jian lan
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { useEffect } from "react";
 
-import './index.scss';
+import styles from './index.module.scss';
 
 export type Props = {
   parent?: HTMLElement | null
@@ -53,23 +69,23 @@ export default function useElevation({
       return;
     }
 
-    // 如果 disabled，移除 class 并返回
+    // If disabled, remove class and return
     if (disabled) {
-      if (parent.classList.contains('nd-elevation-container')) {
-        parent.classList.remove('nd-elevation-container');
+      if (parent.classList.contains(styles['nd-elevation-container'])) {
+        parent.classList.remove(styles['nd-elevation-container']);
       }
       return;
     }
 
-    // 性能优化：只在 class 不存在时添加
-    if (!parent.classList.contains('nd-elevation-container')) {
-      parent.classList.add('nd-elevation-container');
+    // Performance optimization: only add class if it doesn't exist
+    if (!parent.classList.contains(styles['nd-elevation-container'])) {
+      parent.classList.add(styles['nd-elevation-container']);
     }
 
-    // 清理函数：组件卸载或 parent 变化时移除 class
+    // Cleanup function: remove class when component unmounts or parent changes
     return () => {
       if (parent instanceof HTMLElement) {
-        parent.classList.remove('nd-elevation-container');
+        parent.classList.remove(styles['nd-elevation-container']);
       }
     };
   }, [parent, disabled]);

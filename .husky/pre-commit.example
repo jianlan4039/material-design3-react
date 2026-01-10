@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Check if staged files have copyright headers
+# Uncomment the following lines to enable automatic header checking
+
+# node scripts/add-header.js --check || exit 1

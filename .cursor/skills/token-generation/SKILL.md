@@ -24,8 +24,4 @@ description: This is a new rule
 
 项目采用css层把样式分布到不同的层里，在src/tokens/index.scss里有定义`@layer nd-sys, nd-ef, nd-comp, nd-custom;`，组件的token和样式必须放在`nd-comp`层里面。
 
-## 运用token规则
-
-当用户要求实现一个组件的基本样式时，你需要按照各个组件的token的命名来实现各个样式，例如`--md-comp-button-container-height: 50px;`就是要实现高度`height: var(--md-comp-button-container-height);`，你要把这个组件有关的所有token都用起来。
-
 

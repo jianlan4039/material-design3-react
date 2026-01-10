@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "vite",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "add-header": "node scripts/add-header.js",
+    "add-header:all": "node scripts/add-header.js --all"
   },
   "repository": {
     "type": "git",
