@@ -49,6 +49,7 @@
     
     // Reset elevation related properties
     --nd-elevation-level: var(--md-comp-button-container-elevation, 0);
+    --md-elevation-shadow-color: var(--md-comp-button-container-shadow-color, var(--md-sys-color-shadow));
     
     // Reset ripple related properties
     --nd-ripple-color: var(--md-comp-button-container-color, currentColor);
@@ -62,13 +63,14 @@
     
     // Sizing properties
     height: var(--md-comp-button-container-height, 40px);
-    padding: 0 var(--md-comp-button-leading-space, 24px);
+    padding-left: var(--md-comp-button-leading-space, 24px);
+    padding-right: var(--md-comp-button-trailing-space, 24px);
     
     // Appearance properties
     border: none;
-    border-radius: var(--md-comp-button-container-shape-round, 20px);
-    background-color: var(--md-comp-button-container-color, var(--md-sys-color-primary, #6750a4));
-    color: var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary, #ffffff));
+    border-radius: var(--md-comp-button-container-shape-round, var(--md-sys-shape-corner-full));
+    background-color: var(--md-comp-button-container-color, var(--md-sys-color-primary));
+    color: var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary));
     
     // Typography properties
     font-family: inherit;
@@ -82,13 +84,19 @@
     user-select: none;
     
     // Transition effects
-    transition: background-color 0.2s ease, 
-                color 0.2s ease,
-                box-shadow 0.2s ease;
+    // transition: background-color 0.2s ease, 
+    //             color 0.2s ease,
+    //             box-shadow 0.2s ease,
+    //             border-radius 0.2s ease;
+    
+    // Pressed state: Apply pressed container shape
+    &:active:not(:disabled) {
+      border-radius: var(--md-comp-button-pressed-container-shape, var(--md-sys-shape-corner-small));
+    }
     
     // Accessibility: Ensure button is visible in focus state
     &:focus-visible {
-      outline: var(--md-comp-button-focus-indicator-thickness, 2px) solid var(--md-comp-button-focus-indicator-color, var(--md-sys-color-secondary, #625b71));
+      outline: var(--md-comp-button-focus-indicator-thickness, 3px) solid var(--md-comp-button-focus-indicator-color, var(--md-sys-color-secondary));
       outline-offset: var(--md-comp-button-focus-indicator-outline-offset, 2px);
     }
     
@@ -96,17 +104,11 @@
     &:disabled {
       opacity: var(--md-comp-button-disabled-label-text-opacity, 0.38);
       cursor: not-allowed;
-      background-color: var(--md-comp-button-disabled-container-color, var(--md-sys-color-on-surface, #1c1b1f));
+      background-color: var(--md-comp-button-disabled-container-color, var(--md-sys-color-on-surface));
     }
     
     // Hover state
     &:hover:not(:disabled) {
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
-                  0 1px 3px 1px rgba(0, 0, 0, 0.15);
-    }
-    
-    // Active state
-    &:active:not(:disabled) {
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
                   0 1px 3px 1px rgba(0, 0, 0, 0.15);
     }
@@ -115,15 +117,54 @@
   // ==================== Toggleable Modifier ====================
   // Modifier class for toggleable button
   .nd-button--toggleable {
-    // Toggleable button specific styles can be added here
-    // This modifier indicates the button supports toggle functionality
+    // Unselected state: Apply unselected container and label/icon colors
+    background-color: var(--md-comp-button-unselected-container-color, var(--md-sys-color-surface-container));
+    color: var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant));
+    
+    // Unselected icon color
+    .nd-button__leading-icon,
+    .nd-button__trailing-icon {
+      color: var(--md-comp-button-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+    }
+    
+    // Unselected label color
+    .nd-button__label {
+      color: var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant));
+    }
   }
   
   // ==================== Selected Modifier ====================
   // Modifier class for selected button state
   .nd-button--selected {
-    // Selected button specific styles can be added here
-    // This modifier indicates the button is in selected state
+    // Selected state: Apply selected container and label/icon colors
+    background-color: var(--md-comp-button-selected-container-color, var(--md-sys-color-primary));
+    color: var(--md-comp-button-label-text-selected-color, var(--md-sys-color-on-primary));
+    
+    // Selected icon color
+    .nd-button__leading-icon,
+    .nd-button__trailing-icon {
+      color: var(--md-comp-button-selected-icon-color, var(--md-sys-color-on-primary));
+    }
+    
+    // Selected label color
+    .nd-button__label {
+      color: var(--md-comp-button-label-text-selected-color, var(--md-sys-color-on-primary));
+    }
+    
+    // Selected container shape (round) - default for selected state
+    border-radius: var(--md-comp-button-selected-container-shape-round, var(--md-sys-shape-corner-medium));
+    
+    // Selected container shape (square) - when square modifier is present
+    &.nd-button--square {
+      border-radius: var(--md-comp-button-selected-container-shape-square, var(--md-sys-shape-corner-full));
+    }
+  }
+  
+  // ==================== Square Shape Modifier ====================
+  // Modifier class for square shape button
+  .nd-button--square {
+    // Square container shape
+    border-radius: var(--md-comp-button-container-shape-square, var(--md-sys-shape-corner-medium));
   }
   
   // ==================== Icon Slot Styles ====================
@@ -138,8 +179,8 @@
     height: var(--md-comp-button-icon-size, 20px);
     flex-shrink: 0;
     
-    // Ensure icon color inherits button text color
-    color: var(--md-comp-button-icon-color, inherit);
+    // Icon color: Use default icon color token
+    color: var(--md-comp-button-icon-color, var(--md-sys-color-on-primary));
     
     // Icon internal element styles
     svg {
@@ -153,5 +194,8 @@
   .nd-button__label {
     display: inline-block;
     white-space: nowrap;
+    
+    // Label text color: Use default label text color token
+    color: var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary));
   }
 }
