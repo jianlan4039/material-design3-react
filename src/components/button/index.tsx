@@ -144,6 +144,16 @@ export const Button: React.FC<ButtonProps> = ({
   // When selectedProp is provided (not undefined), it directly controls the selected state
   const selected = isControlled ? selectedProp : internalSelected;
 
+  // Build class names, merging user-defined class names
+  const buttonClassName = classNames(
+    styles['nd-button'],
+    {
+      [styles['nd-button--toggleable']]: toggleable,
+      [styles['nd-button--selected']]: selected,
+    },
+    className
+  );
+
   // Callback ref to update state when button element is mounted/unmounted
   const buttonRef = useCallback((node: HTMLButtonElement | null) => {
     setButtonElement(node);
@@ -165,9 +175,9 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Apply state-layer effect
   useStateLayer({
-    parent: buttonElement,
+    classNameManager: buttonClassName,
     disabled: disabled || false,
-  });
+  }, [selected, toggleable]);
 
   // Apply ripple effect
   useRipple({
@@ -181,20 +191,10 @@ export const Button: React.FC<ButtonProps> = ({
     disabled: disabled || false,
   });
 
-  // Build class names, merging user-defined class names
-  const buttonClassName = classNames(
-    styles['nd-button'],
-    {
-      [styles['nd-button--toggleable']]: toggleable,
-      [styles['nd-button--selected']]: selected,
-    },
-    className
-  );
-
   return (
     <button
       ref={buttonRef}
-      className={buttonClassName}
+      className={buttonClassName.toString()}
       disabled={disabled}
       onClick={handleClick}
       aria-pressed={toggleable ? selected : undefined}
