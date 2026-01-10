@@ -37,6 +37,20 @@
       --md-sys-focus-state-layer-opacity: var(--md-comp-button-tonal-focused-state-layer-opacity);
       --md-sys-pressed-state-layer-opacity: var(--md-comp-button-tonal-pressed-state-layer-opacity);
     }
+    
+    // Outlined 主题的 state-layer opacity
+    &[data-theme="outlined"] {
+      --md-sys-hover-state-layer-opacity: var(--md-comp-button-outlined-hovered-state-layer-opacity);
+      --md-sys-focus-state-layer-opacity: var(--md-comp-button-outlined-focused-state-layer-opacity);
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-button-outlined-pressed-state-layer-opacity);
+    }
+    
+    // Text 主题的 state-layer opacity
+    &[data-theme="text"] {
+      --md-sys-hover-state-layer-opacity: var(--md-comp-button-text-hovered-state-layer-opacity);
+      --md-sys-focus-state-layer-opacity: var(--md-comp-button-text-focused-state-layer-opacity);
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-button-text-pressed-state-layer-opacity);
+    }
 
   // 重置 elevation 组件的变量（防止父级污染）
   --md-elevation-level: var(--md-comp-button-container-elevation);

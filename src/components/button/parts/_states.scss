@@ -41,6 +41,8 @@
   @include themes.button-theme-elevated;
   @include themes.button-theme-filled;
   @include themes.button-theme-tonal;
+  @include themes.button-theme-outlined;
+  @include themes.button-theme-text;
 }
 
 // Mixin: Hover 状态样式
@@ -69,6 +71,8 @@
     @include themes.button-theme-elevated-hovered;
     @include themes.button-theme-filled-hovered;
     @include themes.button-theme-tonal-hovered;
+    @include themes.button-theme-outlined-hovered;
+    @include themes.button-theme-text-hovered;
   }
 }
 
@@ -100,6 +104,8 @@
     @include themes.button-theme-elevated-focused;
     @include themes.button-theme-filled-focused;
     @include themes.button-theme-tonal-focused;
+    @include themes.button-theme-outlined-focused;
+    @include themes.button-theme-text-focused;
   }
 }
 
@@ -129,6 +135,8 @@
     @include themes.button-theme-elevated-pressed;
     @include themes.button-theme-filled-pressed;
     @include themes.button-theme-tonal-pressed;
+    @include themes.button-theme-outlined-pressed;
+    @include themes.button-theme-text-pressed;
   }
 }
 
@@ -153,5 +161,7 @@
     @include themes.button-theme-elevated-disabled;
     @include themes.button-theme-filled-disabled;
     @include themes.button-theme-tonal-disabled;
+    @include themes.button-theme-outlined-disabled;
+    @include themes.button-theme-text-disabled;
   }
 }
