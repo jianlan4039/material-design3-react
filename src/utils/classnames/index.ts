@@ -14,77 +14,102 @@
  * limitations under the License.
  */
 
-type Condition = string | string[] | Record<string, boolean | undefined> | undefined
+/**
+ * Type definition for classNames function arguments
+ * 
+ * Supports multiple input types:
+ * - string: Direct class name string
+ * - string[]: Array of class name strings
+ * - Record<string, boolean | undefined>: Object where keys are class names and values determine inclusion
+ * - undefined: Ignored values
+ */
+type ClassValue = string | string[] | Record<string, boolean | undefined> | undefined;
 
-interface ClassHandler {
-  (...condition: Condition[]): string
-  
-  buffer: Set<string>
-  
-  add(name: string): void
-  
-  addByConditions(condition: Condition): void
-  
-  remove(name: string): void
-  
-  toggle(name: string): void
-  
-  toString(): string
+/**
+ * Processes a single class value and returns an array of class names
+ * 
+ * This is a pure function that processes different input types:
+ * - string: Returns array with the string
+ * - string[]: Returns the array after filtering empty values
+ * - Record: Returns keys where values are truthy
+ * - undefined/null: Returns empty array
+ * 
+ * @param value - The class value to process
+ * @returns Array of class name strings
+ */
+function processClassValue(value: ClassValue): string[] {
+  // Handle undefined or null
+  if (value === undefined || value === null) {
+    return [];
+  }
+
+  // Handle string type
+  if (typeof value === 'string') {
+    return value.trim() ? [value] : [];
+  }
+
+  // Handle array type
+  if (Array.isArray(value)) {
+    return value
+      .flatMap(item => processClassValue(item))
+      .filter(Boolean);
+  }
+
+  // Handle object type (Record<string, boolean | undefined>)
+  if (typeof value === 'object') {
+    return Object.entries(value)
+      .filter(([_, condition]) => Boolean(condition))
+      .map(([className]) => className)
+      .filter(Boolean);
+  }
+
+  return [];
 }
 
-const createClassNames = (): ClassHandler => {
-  const buffer: Set<string> = new Set<string>()
-  const addByConditions = (condition: Condition) => {
-    // Ignore undefined values
-    if (condition === undefined) {
-      return
-    }
-    
-    if (typeof condition === 'string') {
-      buffer.add(condition)
-    } else if (Array.isArray(condition)) {
-      condition.forEach(item => buffer.add(item))
-    } else {
-      Object.entries(condition).forEach(([key, value]) => {
-        if (value) {
-          buffer.add(key)
-        } else {
-          buffer.delete(key)
-        }
-      })
-    }
-  }
-  
-  const classNames: ClassHandler = ((...condition: Condition[]): string => {
-    condition.forEach(item => addByConditions(item))
-    return Array.from(buffer).join(' ')
-  }) as ClassHandler
-  
-  classNames.add = (name: string) => {
-    buffer.add(name)
-  }
-  
-  classNames.addByConditions = addByConditions
-  
-  classNames.remove = (name: string) => {
-    buffer.delete(name)
-  }
-  
-  classNames.toggle = (name: string) => {
-    if (buffer.has(name)) {
-      buffer.delete(name)
-    } else {
-      buffer.add(name)
-    }
-  }
-  
-  classNames.toString = () => {
-    return Array.from(buffer).join(' ')
-  }
-  
-  return classNames
+/**
+ * Combines multiple class name arguments into a single space-separated string
+ * 
+ * This function processes multiple class name inputs and combines them into a single string.
+ * Each component using this function gets its own independent result string, ensuring
+ * no cross-component pollution.
+ * 
+ * @param args - Variable number of class name arguments
+ * @returns Space-separated string of class names
+ * 
+ * @example
+ * ```ts
+ * // Basic usage with strings
+ * classNames('btn', 'btn-primary'); // "btn btn-primary"
+ * 
+ * // With arrays
+ * classNames(['btn', 'btn-primary']); // "btn btn-primary"
+ * 
+ * // With conditional objects
+ * const selected = true;
+ * classNames({
+ *   'btn': true,
+ *   'btn-selected': selected,
+ *   'btn-disabled': false
+ * }); // "btn btn-selected"
+ * 
+ * // Mixed arguments
+ * classNames('btn', ['btn-primary'], {
+ *   'btn-selected': true
+ * }); // "btn btn-primary btn-selected"
+ * 
+ * // With undefined values (ignored)
+ * classNames('btn', undefined, 'btn-primary'); // "btn btn-primary"
+ * ```
+ */
+export function classNames(...args: ClassValue[]): string {
+  // Process all arguments and flatten into a single array
+  const classNamesArray = args
+    .flatMap(arg => processClassValue(arg))
+    .filter(Boolean) // Remove any empty strings
+    .filter((className, index, array) => array.indexOf(className) === index); // Remove duplicates
+
+  // Join with spaces and return
+  return classNamesArray.join(' ');
 }
 
-const classNames: ClassHandler = createClassNames()
-
-export default classNames
+export default classNames;
