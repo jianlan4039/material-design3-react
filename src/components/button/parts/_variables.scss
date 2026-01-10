@@ -78,13 +78,8 @@
   // ripple 组件使用 currentColor，无需额外变量重置
 
   // 统一设置 transition，避免各组件之间的 transition 相互覆盖
-  // 包含 elevation 的 box-shadow
-  // 注意：state-layer 的 transition 在 ::before 伪元素上，不会与主元素的 transition 冲突
-  // 当同时有 elevation 类时，使用组合选择器确保优先级高于 .nd-elevation-container 的 transition
-  // 覆盖 elevation 组件的 transition，统一管理所有 transition
-  &.nd-elevation-container {
-    transition: box-shadow var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
-  }
+  // 注意：state-layer 的 transition 在 ::before 伪元素上，elevation 的 box-shadow 在 ::after 伪元素上
+  // 它们不会与主元素的 transition 冲突
 
   // 生成所有 token 变量
   @include converter.iterateTokens(button.$tokens);

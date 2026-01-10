@@ -5,7 +5,8 @@
     --_level: var(--md-elevation-level, 0);
     --_shadow-color: var(--md-elevation-shadow-color, rgb(0 0 0));
   
-    transition: box-shadow var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
+    // 确保容器有定位上下文，以便 ::after 伪元素可以绝对定位
+    position: relative;
   
     // Key box shadow (主阴影) - 计算 Y 偏移量
     // level0: 0px
@@ -65,11 +66,24 @@
     $ambient-level5-spread: calc(2 * clamp(0, var(--_level) - 4, 1));
     $ambient-spread: calc(1px * ($ambient-level1to4-spread + $ambient-level5-spread));
   
-    // 复合 box-shadow：key shadow (alpha 0.3) + ambient shadow (alpha 0.15)
-    // 使用现代 CSS 颜色语法，支持在 rgb() 中使用 / 来指定透明度
-    // 如果浏览器不支持，可以使用 rgba() 格式的颜色变量
-    box-shadow:
-      0 $key-y $key-blur 0 rgb(from var(--_shadow-color) r g b / 0.3),
-      0 $ambient-y $ambient-blur $ambient-spread rgb(from var(--_shadow-color) r g b / 0.15);
+    // 使用 ::after 伪元素来承载 elevation 阴影效果
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      z-index: -1;
+      
+      // 添加 transition 使阴影变化平滑
+      transition: box-shadow var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
+      
+      // 复合 box-shadow：key shadow (alpha 0.3) + ambient shadow (alpha 0.15)
+      // 使用现代 CSS 颜色语法，支持在 rgb() 中使用 / 来指定透明度
+      // 如果浏览器不支持，可以使用 rgba() 格式的颜色变量
+      box-shadow:
+        0 $key-y $key-blur 0 rgb(from var(--_shadow-color) r g b / 0.3),
+        0 $ambient-y $ambient-blur $ambient-spread rgb(from var(--_shadow-color) r g b / 0.15);
+    }
   }
 }
