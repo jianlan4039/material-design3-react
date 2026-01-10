@@ -187,7 +187,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Apply elevation effect
   useElevation({
-    parent: buttonElement,
+    classNameManager: buttonClassName,
     disabled: disabled || false,
   });
 
