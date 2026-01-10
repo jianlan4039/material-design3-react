@@ -84,10 +84,7 @@
     user-select: none;
     
     // Transition effects
-    // transition: background-color 0.2s ease, 
-    //             color 0.2s ease,
-    //             box-shadow 0.2s ease,
-    //             border-radius 0.2s ease;
+    transition: border-radius 0.5s ease;
     
     // Pressed state: Apply pressed container shape
     &:active:not(:disabled) {
