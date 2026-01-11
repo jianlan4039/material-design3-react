@@ -57,7 +57,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['default', 'elevated', 'filled'],
+      options: ['default', 'elevated', 'filled', 'tonal'],
       description: 'Button visual variant',
     },
     type: {
@@ -129,6 +129,16 @@ export const Filled: Story = {
   args: {
     children: 'Filled',
     variant: 'filled',
+  },
+};
+
+/**
+ * Tonal button variant
+ */
+export const Tonal: Story = {
+  args: {
+    children: 'Tonal',
+    variant: 'tonal',
   },
 };
 
