@@ -1,0 +1,253 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Button Elevated Variant
+ *
+ * Responsible for `.nd-button--elevated` token mapping, including
+ * default/disabled/hovered/focused/pressed states and toggleable overrides.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  // ==================== Elevated Variant ====================
+  .nd-button--elevated {
+    // Base elevated tokens
+    --md-elevation-level: var(--md-comp-button-elevated-container-elevation, 1);
+    --md-elevation-shadow-color: var(--md-comp-button-elevated-container-shadow-color, var(--md-sys-color-shadow));
+    --md-sys-hover-state-layer-opacity: var(--md-comp-button-elevated-hovered-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-button-elevated-focused-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-button-elevated-pressed-state-layer-opacity, 0.1);
+
+    background-color: var(--md-comp-button-elevated-container-color, var(--md-sys-color-surface-container-low));
+    color: var(--md-comp-button-elevated-label-text-color, var(--md-sys-color-primary));
+
+    .nd-button__label {
+      color: var(--md-comp-button-elevated-label-text-color, var(--md-sys-color-primary));
+    }
+
+    .nd-button__leading-icon,
+    .nd-button__trailing-icon {
+      color: var(--md-comp-button-elevated-icon-color, var(--md-sys-color-primary));
+    }
+
+    // Elevated interactive states (non-toggleable default behavior)
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-elevated-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-elevated-hovered-container-elevation, 0);
+      color: var(--md-comp-button-elevated-hovered-label-text-color, var(--md-comp-button-elevated-label-text-color, var(--md-sys-color-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-elevated-hovered-label-text-color, var(--md-comp-button-elevated-label-text-color, var(--md-sys-color-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-elevated-hovered-icon-color, var(--md-comp-button-elevated-icon-color, var(--md-sys-color-primary)));
+      }
+    }
+
+    &:focus-visible:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-elevated-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-elevated-focused-container-elevation, 0);
+      color: var(--md-comp-button-elevated-focused-label-text-color, var(--md-comp-button-elevated-label-text-color, var(--md-sys-color-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-elevated-focused-label-text-color, var(--md-comp-button-elevated-label-text-color, var(--md-sys-color-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-elevated-focused-icon-color, var(--md-comp-button-elevated-icon-color, var(--md-sys-color-primary)));
+      }
+    }
+
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-elevated-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-elevated-pressed-container-elevation, 0);
+      color: var(--md-comp-button-elevated-pressed-label-text-color, var(--md-comp-button-elevated-label-text-color, var(--md-sys-color-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-elevated-pressed-label-text-color, var(--md-comp-button-elevated-label-text-color, var(--md-sys-color-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-elevated-pressed-icon-color, var(--md-comp-button-elevated-icon-color, var(--md-sys-color-primary)));
+      }
+    }
+
+    // Elevated disabled state
+    &:disabled {
+      --md-elevation-level: var(--md-comp-button-elevated-disabled-container-elevation, 0);
+      background-color: rgb(
+        from var(--md-comp-button-elevated-disabled-container-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-button-elevated-disabled-container-opacity, 0.1)
+      );
+      color: rgb(
+        from var(--md-comp-button-elevated-disabled-label-text-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-button-elevated-disabled-label-text-opacity, 0.38)
+      );
+
+      .nd-button__label {
+        color: rgb(
+          from var(--md-comp-button-elevated-disabled-label-text-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-elevated-disabled-label-text-opacity, 0.38)
+        );
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: rgb(
+          from var(--md-comp-button-elevated-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-elevated-disabled-icon-opacity, 0.38)
+        );
+      }
+    }
+
+    // Elevated toggleable: unselected base tokens
+    &.nd-button--toggleable:not(.nd-button--selected) {
+      background-color: var(--md-comp-button-elevated-unselected-container-color, var(--md-sys-color-surface-container-low));
+      color: var(--md-comp-button-elevated-unselected-label-text-color, var(--md-sys-color-primary));
+
+      .nd-button__label {
+        color: var(--md-comp-button-elevated-unselected-label-text-color, var(--md-sys-color-primary));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-elevated-unselected-icon-color, var(--md-sys-color-primary));
+      }
+
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-elevated-unselected-hovered-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        --md-elevation-level: var(--md-comp-button-elevated-hovered-container-elevation, 0);
+        color: var(--md-comp-button-elevated-unselected-hovered-label-text-color, var(--md-comp-button-elevated-unselected-label-text-color, var(--md-sys-color-primary)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-elevated-unselected-hovered-label-text-color, var(--md-comp-button-elevated-unselected-label-text-color, var(--md-sys-color-primary)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-elevated-unselected-hovered-icon-color, var(--md-comp-button-elevated-unselected-icon-color, var(--md-sys-color-primary)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-elevated-unselected-focused-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        --md-elevation-level: var(--md-comp-button-elevated-focused-container-elevation, 0);
+        color: var(--md-comp-button-elevated-unselected-focused-label-text-color, var(--md-comp-button-elevated-unselected-label-text-color, var(--md-sys-color-primary)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-elevated-unselected-focused-label-text-color, var(--md-comp-button-elevated-unselected-label-text-color, var(--md-sys-color-primary)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-elevated-unselected-focused-icon-color, var(--md-comp-button-elevated-unselected-icon-color, var(--md-sys-color-primary)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-elevated-unselected-pressed-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        --md-elevation-level: var(--md-comp-button-elevated-pressed-container-elevation, 0);
+        color: var(--md-comp-button-elevated-unselected-pressed-label-text-color, var(--md-comp-button-elevated-unselected-label-text-color, var(--md-sys-color-primary)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-elevated-unselected-pressed-label-text-color, var(--md-comp-button-elevated-unselected-label-text-color, var(--md-sys-color-primary)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-elevated-unselected-pressed-icon-color, var(--md-comp-button-elevated-unselected-icon-color, var(--md-sys-color-primary)));
+        }
+      }
+    }
+
+    // Elevated toggleable: selected base tokens
+    &.nd-button--selected {
+      background-color: var(--md-comp-button-elevated-selected-container-color, var(--md-sys-color-primary));
+      color: var(--md-comp-button-elevated-selected-label-text-color, var(--md-sys-color-on-primary));
+
+      .nd-button__label {
+        color: var(--md-comp-button-elevated-selected-label-text-color, var(--md-sys-color-on-primary));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-elevated-selected-icon-color, var(--md-sys-color-on-primary));
+      }
+
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-elevated-selected-hovered-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        --md-elevation-level: var(--md-comp-button-elevated-hovered-container-elevation, 0);
+        color: var(--md-comp-button-elevated-selected-hovered-label-text-color, var(--md-comp-button-elevated-selected-label-text-color, var(--md-sys-color-on-primary)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-elevated-selected-hovered-label-text-color, var(--md-comp-button-elevated-selected-label-text-color, var(--md-sys-color-on-primary)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-elevated-selected-hovered-icon-color, var(--md-comp-button-elevated-selected-icon-color, var(--md-sys-color-on-primary)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-elevated-selected-focused-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        --md-elevation-level: var(--md-comp-button-elevated-focused-container-elevation, 0);
+        color: var(--md-comp-button-elevated-selected-focused-label-text-color, var(--md-comp-button-elevated-selected-label-text-color, var(--md-sys-color-on-primary)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-elevated-selected-focused-label-text-color, var(--md-comp-button-elevated-selected-label-text-color, var(--md-sys-color-on-primary)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-elevated-selected-focused-icon-color, var(--md-comp-button-elevated-selected-icon-color, var(--md-sys-color-on-primary)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-elevated-selected-pressed-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        --md-elevation-level: var(--md-comp-button-elevated-pressed-container-elevation, 0);
+        color: var(--md-comp-button-elevated-selected-pressed-label-text-color, var(--md-comp-button-elevated-selected-label-text-color, var(--md-sys-color-on-primary)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-elevated-selected-pressed-label-text-color, var(--md-comp-button-elevated-selected-label-text-color, var(--md-sys-color-on-primary)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-elevated-selected-pressed-icon-color, var(--md-comp-button-elevated-selected-icon-color, var(--md-sys-color-on-primary)));
+        }
+      }
+    }
+  }
+}
+
