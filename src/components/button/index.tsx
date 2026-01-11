@@ -95,7 +95,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    *
    * @default 'default'
    */
-  variant?: 'default' | 'elevated';
+  variant?: 'default' | 'elevated' | 'filled';
 }
 
 /**
@@ -162,6 +162,7 @@ export const Button: React.FC<ButtonProps> = ({
       [styles['nd-button--toggleable']]: toggleable,
       [styles['nd-button--selected']]: selected,
       [styles['nd-button--elevated']]: variant === 'elevated',
+      [styles['nd-button--filled']]: variant === 'filled',
     },
     className
   );

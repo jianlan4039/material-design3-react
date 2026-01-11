@@ -57,7 +57,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['default', 'elevated'],
+      options: ['default', 'elevated', 'filled'],
       description: 'Button visual variant',
     },
     type: {
@@ -119,6 +119,16 @@ export const Elevated: Story = {
   args: {
     children: 'Elevated',
     variant: 'elevated',
+  },
+};
+
+/**
+ * Filled button variant
+ */
+export const Filled: Story = {
+  args: {
+    children: 'Filled',
+    variant: 'filled',
   },
 };
 
