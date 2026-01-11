@@ -1,0 +1,125 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Button Text Variant
+ *
+ * Responsible for `.nd-button--text` token mapping, including
+ * disabled/hovered/focused/pressed states.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  // ==================== Text Variant ====================
+  .nd-button--text {
+    // Text buttons have no container by default
+    background-color: transparent;
+
+    // Base text tokens
+    --md-sys-hover-state-layer-opacity: var(--md-comp-button-text-hovered-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-button-text-focused-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-button-text-pressed-state-layer-opacity, 0.1);
+
+    color: var(--md-comp-button-text-label-text-color, var(--md-sys-color-primary));
+
+    .nd-button__label {
+      color: var(--md-comp-button-text-label-text-color, var(--md-sys-color-primary));
+    }
+
+    .nd-button__leading-icon,
+    .nd-button__trailing-icon {
+      color: var(--md-comp-button-text-icon-color, var(--md-sys-color-primary));
+    }
+
+    // Hovered state
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-text-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-button-text-hovered-label-text-color, var(--md-comp-button-text-label-text-color, var(--md-sys-color-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-text-hovered-label-text-color, var(--md-comp-button-text-label-text-color, var(--md-sys-color-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-text-hovered-icon-color, var(--md-comp-button-text-icon-color, var(--md-sys-color-primary)));
+      }
+    }
+
+    // Focused state
+    &:focus-visible:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-text-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-button-text-focused-label-text-color, var(--md-comp-button-text-label-text-color, var(--md-sys-color-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-text-focused-label-text-color, var(--md-comp-button-text-label-text-color, var(--md-sys-color-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-text-focused-icon-color, var(--md-comp-button-text-icon-color, var(--md-sys-color-primary)));
+      }
+    }
+
+    // Pressed state
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-text-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-button-text-pressed-label-text-color, var(--md-comp-button-text-label-text-color, var(--md-sys-color-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-text-pressed-label-text-color, var(--md-comp-button-text-label-text-color, var(--md-sys-color-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-text-pressed-icon-color, var(--md-comp-button-text-icon-color, var(--md-sys-color-primary)));
+      }
+    }
+
+    // Disabled state
+    &:disabled {
+      background-color: rgb(
+        from var(--md-comp-button-text-disabled-container-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-button-text-disabled-container-opacity, 0.1)
+      );
+      color: rgb(
+        from var(--md-comp-button-text-disabled-label-text-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-button-text-disabled-label-text-opacity, 0.38)
+      );
+
+      .nd-button__label {
+        color: rgb(
+          from var(--md-comp-button-text-disabled-label-text-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-text-disabled-label-text-opacity, 0.38)
+        );
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: rgb(
+          from var(--md-comp-button-text-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-text-disabled-icon-opacity, 0.38)
+        );
+      }
+    }
+  }
+}
+
