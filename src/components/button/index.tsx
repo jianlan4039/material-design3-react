@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import classNames from '@utils/classnames';
 import useElevation from '../elevation';
@@ -154,6 +154,14 @@ export const Button: React.FC<ButtonProps> = ({
   // Use controlled value if provided, otherwise use internal state
   // When selectedProp is provided (not undefined), it directly controls the selected state
   const selected = isControlled ? selectedProp : internalSelected;
+
+  // Reset internal selected state when toggleable changes from true to false
+  // This ensures the button returns to unselected state when toggleable is disabled
+  useEffect(() => {
+    if (!toggleable && !isControlled) {
+      setInternalSelected(false);
+    }
+  }, [toggleable, isControlled]);
 
   // Build class names, merging user-defined class names
   const buttonClassName = classNames(
