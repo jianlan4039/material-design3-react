@@ -14,10 +14,20 @@
  * limitations under the License.
  */
 
+/**
+ * Elevation Component Styles
+ * 
+ * Material Design 3 elevation component styles.
+ * Provides shadow effects based on elevation level (0-5) using CSS variables.
+ * Uses BEM naming convention with `nd-` project prefix.
+ * 
+ * @author jian lan
+ * @created 2024
+ */
+
 @layer nd-comp {
   .nd-elevation-container {
-    // Use CSS variables to control elevation level, default is 0
-    // Shadow color variable, default is black (using modern CSS color syntax, supports / opacity)
+    // CSS variables for elevation level and shadow color
     --_level: var(--md-elevation-level, 0);
     --_shadow-color: var(--md-elevation-shadow-color, rgb(0 0 0));
   
@@ -95,8 +105,6 @@
       transition: box-shadow var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
       
       // Composite box-shadow: key shadow (alpha 0.3) + ambient shadow (alpha 0.15)
-      // Using modern CSS color syntax, supports / in rgb() to specify opacity
-      // If browser doesn't support, can use rgba() format color variables
       box-shadow:
         0 $key-y $key-blur 0 rgb(from var(--_shadow-color) r g b / 0.3),
         0 $ambient-y $ambient-blur $ambient-spread rgb(from var(--_shadow-color) r g b / 0.15);

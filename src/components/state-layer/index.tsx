@@ -41,19 +41,19 @@ export type Props = {
 /**
  * useStateLayer hook
  * 
- * 在 ClassNameManager 实例上应用 Material Design 3 的 state layer 效果。
- * 通过添加或移除 `nd-state-container` 类来实现交互状态层效果（hover、active、focus 等）。
+ * Applies Material Design 3 state layer effect to a ClassNameManager instance.
+ * Adds or removes the `nd-state-container` class to enable interactive state layer effects (hover, active, focus, etc.).
  * 
- * 该 hook 会根据 disabled 状态自动管理类名：
- * - 当 disabled 为 true 时，移除 state container 类
- * - 当 disabled 为 false 时，添加 state container 类
+ * The hook automatically manages class names based on the disabled state:
+ * - When disabled is true, removes the state container class
+ * - When disabled is false, adds the state container class
  * 
- * @param props - Hook 配置参数
- * @param props.classNameManager - 用于管理类名的 ClassNameManager 实例
- * @param props.disabled - 是否禁用 state layer 效果，默认为 false
- * @param deps - 可选的依赖项数组，当依赖项变化时会重新计算类名
+ * @param props - Hook configuration parameters
+ * @param props.classNameManager - ClassNameManager instance for managing class names
+ * @param props.disabled - Whether to disable state layer effect, defaults to false
+ * @param deps - Optional dependency array, recalculates class names when dependencies change
  * 
- * @returns 返回修改后的 ClassNameManager 实例，可用于链式调用或获取最终的类名字符串
+ * @returns Returns the modified ClassNameManager instance, can be used for chaining or getting the final class name string
  * 
  * @example
  * ```tsx
@@ -79,7 +79,7 @@ export type Props = {
  * 
  * @example
  * ```tsx
- * // 链式调用示例
+ * // Chaining example
  * const cn = classNames('btn');
  * const finalClassName = useStateLayer(
  *   { classNameManager: cn, disabled: false },
@@ -87,10 +87,10 @@ export type Props = {
  * ).add('btn-primary').toString();
  * ```
  * 
- * CSS 类说明：
- * - `nd-state-container`: 应用 state layer 效果的容器类
- *   - 提供 hover、active、focus-visible 等交互状态的视觉反馈
- *   - 通过 ::before 伪元素实现状态层效果
+ * CSS Classes:
+ * - `nd-state-container`: Container class that applies state layer effect
+ *   - Provides visual feedback for interactive states (hover, active, focus-visible, etc.)
+ *   - Implements state layer effect via ::before pseudo-element
  */
 export default function useStateLayer(
   {

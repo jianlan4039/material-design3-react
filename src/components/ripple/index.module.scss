@@ -14,12 +14,25 @@
  * limitations under the License.
  */
 
+/**
+ * Ripple Component Styles
+ * 
+ * Material Design 3 ripple effect component styles.
+ * Provides animated ripple effects for interactive elements.
+ * Uses BEM naming convention with `nd-` project prefix.
+ * 
+ * @author jian lan
+ * @created 2024
+ */
+
 @layer nd-comp {
   .nd-ripple__surface {
     position: absolute;
     width: 10px;
     height: 10px;
-    background: currentColor;
+    // Use component-provided ripple color for isolation.
+    // Falls back to currentColor when not set by parent component.
+    background: var(--nd-ripple-color, currentColor);
     border-radius: 9999px;
     pointer-events: none;
     opacity: 0.12;

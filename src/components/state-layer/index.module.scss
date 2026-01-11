@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
+/**
+ * State Layer Component Styles
+ * 
+ * Material Design 3 state layer component styles.
+ * Provides interactive state feedback (hover, active, focus, dragging) for components.
+ * Uses BEM naming convention with `nd-` project prefix.
+ * 
+ * @author jian lan
+ * @created 2024
+ */
+
 @layer nd-comp {
   .nd-state-container {
     position: relative;
@@ -23,7 +34,9 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background-color: currentColor;
+      // Use component-provided state-layer color for isolation.
+      // Falls back to currentColor when not set by parent component.
+      background-color: var(--nd-state-layer-color, currentColor);
       opacity: 0;
       transition: opacity var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
       pointer-events: none;

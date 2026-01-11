@@ -44,15 +44,18 @@
   .nd-button {
     // ==================== CSS Custom Properties Reset ====================
     // Reset custom properties required by shared components for style isolation
-    // Reset state-layer related properties
-    --nd-state-layer-color: var(--md-comp-button-container-color, currentColor);
+    // Reset state-layer related properties (color + opacities)
+    --nd-state-layer-color: currentColor;
+    --md-sys-hover-state-layer-opacity: var(--md-comp-button-hovered-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-button-focused-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-button-pressed-state-layer-opacity, 0.1);
     
     // Reset elevation related properties
-    --nd-elevation-level: var(--md-comp-button-container-elevation, 0);
+    --md-elevation-level: var(--md-comp-button-container-elevation, 0);
     --md-elevation-shadow-color: var(--md-comp-button-container-shadow-color, var(--md-sys-color-shadow));
     
     // Reset ripple related properties
-    --nd-ripple-color: var(--md-comp-button-container-color, currentColor);
+    --nd-ripple-color: currentColor;
     
     // ==================== Layout & Sizing ====================
     // Layout properties
@@ -88,25 +91,91 @@
     
     // Pressed state: Apply pressed container shape
     &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-pressed-container-elevation, 0);
+      color: var(--md-comp-button-pressed-label-text-color, var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-pressed-label-text-color, var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-pressed-icon-color, var(--md-comp-button-icon-color, var(--md-sys-color-on-primary)));
+      }
+
       border-radius: var(--md-comp-button-pressed-container-shape, var(--md-sys-shape-corner-small));
     }
     
     // Accessibility: Ensure button is visible in focus state
     &:focus-visible {
+      --nd-state-layer-color: var(--md-comp-button-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-focused-container-elevation, 0);
+      color: var(--md-comp-button-focused-label-text-color, var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-focused-label-text-color, var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-focused-icon-color, var(--md-comp-button-icon-color, var(--md-sys-color-on-primary)));
+      }
+
       outline: var(--md-comp-button-focus-indicator-thickness, 3px) solid var(--md-comp-button-focus-indicator-color, var(--md-sys-color-secondary));
       outline-offset: var(--md-comp-button-focus-indicator-outline-offset, 2px);
+    }
+
+    // Hovered state
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-hovered-container-elevation, 0);
+      color: var(--md-comp-button-hovered-label-text-color, var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-hovered-label-text-color, var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-hovered-icon-color, var(--md-comp-button-icon-color, var(--md-sys-color-on-primary)));
+      }
     }
     
     // Disabled state
     &:disabled {
-      opacity: var(--md-comp-button-disabled-label-text-opacity, 0.38);
       cursor: not-allowed;
-      background-color: var(--md-comp-button-disabled-container-color, var(--md-sys-color-on-surface));
+      --md-elevation-level: var(--md-comp-button-disabled-container-elevation, 0);
+      background-color: rgb(
+        from var(--md-comp-button-disabled-container-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-button-disabled-container-opacity, 0.1)
+      );
+      color: rgb(
+        from var(--md-comp-button-disabled-label-text-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-button-disabled-label-text-opacity, 0.38)
+      );
+
+      .nd-button__label {
+        color: rgb(
+          from var(--md-comp-button-disabled-label-text-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-disabled-label-text-opacity, 0.38)
+        );
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: rgb(
+          from var(--md-comp-button-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-disabled-icon-opacity, 0.38)
+        );
+      }
     }
   }
   
   // ==================== Toggleable Modifier ====================
-  // Modifier class for toggleable button
   .nd-button--toggleable {
     // Unselected state: Apply unselected container and label/icon colors
     background-color: var(--md-comp-button-unselected-container-color, var(--md-sys-color-surface-container));
@@ -122,10 +191,58 @@
     .nd-button__label {
       color: var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant));
     }
+
+    // Unselected hovered/focused/pressed tokens
+    &:hover:not(:disabled):not(.nd-button--selected) {
+      --nd-state-layer-color: var(--md-comp-button-unselected-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-hovered-container-elevation, 0);
+      color: var(--md-comp-button-unselected-hovered-label-text-color, var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-unselected-hovered-label-text-color, var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-unselected-hovered-icon-color, var(--md-comp-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    &:focus-visible:not(:disabled):not(.nd-button--selected) {
+      --nd-state-layer-color: var(--md-comp-button-unselected-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-focused-container-elevation, 0);
+      color: var(--md-comp-button-unselected-focused-label-text-color, var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-unselected-focused-label-text-color, var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-unselected-focused-icon-color, var(--md-comp-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    &:active:not(:disabled):not(.nd-button--selected) {
+      --nd-state-layer-color: var(--md-comp-button-unselected-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-pressed-container-elevation, 0);
+      color: var(--md-comp-button-unselected-pressed-label-text-color, var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-unselected-pressed-label-text-color, var(--md-comp-button-label-text-unselected-color, var(--md-sys-color-on-surface-variant)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-unselected-pressed-icon-color, var(--md-comp-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
   }
   
   // ==================== Selected Modifier ====================
-  // Modifier class for selected button state
   .nd-button--selected {
     // Selected state: Apply selected container and label/icon colors
     background-color: var(--md-comp-button-selected-container-color, var(--md-sys-color-primary));
@@ -149,10 +266,58 @@
     &.nd-button--square {
       border-radius: var(--md-comp-button-selected-container-shape-square, var(--md-sys-shape-corner-full));
     }
+
+    // Selected hovered/focused/pressed tokens
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-selected-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-hovered-container-elevation, 0);
+      color: var(--md-comp-button-selected-hovered-label-text-color, var(--md-comp-button-label-text-selected-color, var(--md-sys-color-on-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-selected-hovered-label-text-color, var(--md-comp-button-label-text-selected-color, var(--md-sys-color-on-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-selected-hovered-icon-color, var(--md-comp-button-selected-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+
+    &:focus-visible:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-selected-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-focused-container-elevation, 0);
+      color: var(--md-comp-button-selected-focused-label-text-color, var(--md-comp-button-label-text-selected-color, var(--md-sys-color-on-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-selected-focused-label-text-color, var(--md-comp-button-label-text-selected-color, var(--md-sys-color-on-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-selected-focused-icon-color, var(--md-comp-button-selected-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-selected-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      --md-elevation-level: var(--md-comp-button-pressed-container-elevation, 0);
+      color: var(--md-comp-button-selected-pressed-label-text-color, var(--md-comp-button-label-text-selected-color, var(--md-sys-color-on-primary)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-selected-pressed-label-text-color, var(--md-comp-button-label-text-selected-color, var(--md-sys-color-on-primary)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-selected-pressed-icon-color, var(--md-comp-button-selected-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
   }
   
   // ==================== Square Shape Modifier ====================
-  // Modifier class for square shape button
   .nd-button--square {
     // Square container shape
     border-radius: var(--md-comp-button-container-shape-square, var(--md-sys-shape-corner-medium));

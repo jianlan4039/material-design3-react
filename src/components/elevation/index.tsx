@@ -41,19 +41,19 @@ export type Props = {
 /**
  * useElevation hook
  * 
- * 在 ClassNameManager 实例上应用 Material Design 3 的 elevation 效果。
- * 通过添加或移除 `nd-elevation-container` 类来实现阴影效果。
+ * Applies Material Design 3 elevation effect to a ClassNameManager instance.
+ * Adds or removes the `nd-elevation-container` class to enable shadow effects.
  * 
- * 该 hook 会根据 disabled 状态自动管理类名：
- * - 当 disabled 为 true 时，移除 elevation container 类
- * - 当 disabled 为 false 时，添加 elevation container 类
+ * The hook automatically manages class names based on the disabled state:
+ * - When disabled is true, removes the elevation container class
+ * - When disabled is false, adds the elevation container class
  * 
- * @param props - Hook 配置参数
- * @param props.classNameManager - 用于管理类名的 ClassNameManager 实例
- * @param props.disabled - 是否禁用 elevation 效果，默认为 false
- * @param deps - 可选的依赖项数组，当依赖项变化时会重新计算类名
+ * @param props - Hook configuration parameters
+ * @param props.classNameManager - ClassNameManager instance for managing class names
+ * @param props.disabled - Whether to disable elevation effect, defaults to false
+ * @param deps - Optional dependency array, recalculates class names when dependencies change
  * 
- * @returns 返回修改后的 ClassNameManager 实例，可用于链式调用或获取最终的类名字符串
+ * @returns Returns the modified ClassNameManager instance, can be used for chaining or getting the final class name string
  * 
  * @example
  * ```tsx
@@ -85,7 +85,7 @@ export type Props = {
  * 
  * @example
  * ```tsx
- * // 链式调用示例
+ * // Chaining example
  * const cn = classNames('card');
  * const finalClassName = useElevation(
  *   { classNameManager: cn, disabled: false },
@@ -93,14 +93,14 @@ export type Props = {
  * ).add('card-hover').toString();
  * ```
  * 
- * CSS 变量说明：
- * - `--md-elevation-level`: elevation 层级 (0-5)，默认为 0
- * - `--md-elevation-shadow-color`: 阴影颜色，默认为 `rgb(0 0 0)`
+ * CSS Variables:
+ * - `--md-elevation-level`: elevation level (0-5), defaults to 0
+ * - `--md-elevation-shadow-color`: shadow color, defaults to `rgb(0 0 0)`
  * 
- * CSS 类说明：
- * - `nd-elevation-container`: 应用 elevation 效果的容器类
- *   - 提供基于 elevation level 的阴影效果
- *   - 通过 CSS 变量控制阴影的层级和颜色
+ * CSS Classes:
+ * - `nd-elevation-container`: Container class that applies elevation effect
+ *   - Provides shadow effects based on elevation level
+ *   - Controls shadow level and color via CSS variables
  */
 export default function useElevation(
   {
