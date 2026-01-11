@@ -55,6 +55,11 @@ const meta = {
       control: 'boolean',
       description: 'Whether the button is disabled',
     },
+    variant: {
+      control: 'select',
+      options: ['default', 'elevated'],
+      description: 'Button visual variant',
+    },
     type: {
       control: 'select',
       options: ['button', 'submit', 'reset'],
@@ -104,6 +109,16 @@ const CheckIcon = () => (
 export const Default: Story = {
   args: {
     children: 'Button',
+  },
+};
+
+/**
+ * Elevated button variant
+ */
+export const Elevated: Story = {
+  args: {
+    children: 'Elevated',
+    variant: 'elevated',
   },
 };
 

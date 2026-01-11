@@ -86,6 +86,16 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * ```
    */
   selected?: boolean;
+
+  /**
+   * Button visual variant
+   *
+   * Controls the underlying token set used for container, label/icon, elevation,
+   * and interactive state colors.
+   *
+   * @default 'default'
+   */
+  variant?: 'default' | 'elevated';
 }
 
 /**
@@ -126,6 +136,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   toggleable = false,
   selected: selectedProp,
+  variant = 'default',
   onClick,
   ...restProps
 }) => {
@@ -150,6 +161,7 @@ export const Button: React.FC<ButtonProps> = ({
     {
       [styles['nd-button--toggleable']]: toggleable,
       [styles['nd-button--selected']]: selected,
+      [styles['nd-button--elevated']]: variant === 'elevated',
     },
     className
   );
