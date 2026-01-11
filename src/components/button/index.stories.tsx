@@ -62,7 +62,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      options: [undefined, 'xsmall'],
+      options: [undefined, 'xsmall', 'small'],
       description: 'Button size',
     },
     type: {
@@ -174,6 +174,16 @@ export const XSmall: Story = {
   args: {
     children: 'XSmall',
     size: 'xsmall',
+  },
+};
+
+/**
+ * Small size
+ */
+export const Small: Story = {
+  args: {
+    children: 'Small',
+    size: 'small',
   },
 };
 

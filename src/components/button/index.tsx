@@ -105,7 +105,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    *
    * @default undefined
    */
-  size?: 'xsmall';
+  size?: 'xsmall' | 'small';
 }
 
 /**
@@ -186,6 +186,7 @@ export const Button: React.FC<ButtonProps> = ({
       [styles['nd-button--text']]: variant === 'text',
       [styles['nd-button--outlined']]: variant === 'outlined',
       [styles['nd-button--xsmall']]: size === 'xsmall',
+      [styles['nd-button--small']]: size === 'small',
     },
     className
   );
