@@ -328,3 +328,93 @@ export const WithAriaLabel: Story = {
     </>
   ),
 };
+
+/**
+ * Button with custom background color via token override
+ * 
+ * Demonstrates how to customize button appearance by overriding CSS custom properties (tokens).
+ * This example shows how to change the background color by setting the container color token.
+ */
+export const CustomBackgroundColor: Story = {
+  args: {
+    children: 'Custom Background',
+    variant: 'filled',
+  },
+  render: (args) => (
+    <div
+      style={{
+        '--md-comp-button-filled-container-color': '#ff6b6b',
+        '--md-comp-button-filled-label-text-color': '#ffffff',
+        '--md-comp-button-filled-hovered-state-layer-color': '#ffffff',
+        '--md-comp-button-filled-focused-state-layer-color': '#ffffff',
+        '--md-comp-button-filled-pressed-state-layer-color': '#ffffff',
+      } as React.CSSProperties}
+    >
+      <Button {...args} />
+    </div>
+  ),
+};
+
+/**
+ * Multiple buttons with different custom background colors
+ * 
+ * Shows various examples of customizing button background colors using token overrides.
+ * Each button demonstrates a different color scheme.
+ */
+export const CustomBackgroundColors: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      {/* Red button */}
+      <div
+        style={{
+          '--md-comp-button-filled-container-color': '#ff6b6b',
+          '--md-comp-button-filled-label-text-color': '#ffffff',
+          '--md-comp-button-filled-hovered-state-layer-color': '#ffffff',
+          '--md-comp-button-filled-focused-state-layer-color': '#ffffff',
+          '--md-comp-button-filled-pressed-state-layer-color': '#ffffff',
+        } as React.CSSProperties}
+      >
+        <Button variant="filled">Red Button</Button>
+      </div>
+
+      {/* Green button */}
+      <div
+        style={{
+          '--md-comp-button-filled-container-color': '#51cf66',
+          '--md-comp-button-filled-label-text-color': '#ffffff',
+          '--md-comp-button-filled-hovered-state-layer-color': '#ffffff',
+          '--md-comp-button-filled-focused-state-layer-color': '#ffffff',
+          '--md-comp-button-filled-pressed-state-layer-color': '#ffffff',
+        } as React.CSSProperties}
+      >
+        <Button variant="filled">Green Button</Button>
+      </div>
+
+      {/* Blue button */}
+      <div
+        style={{
+          '--md-comp-button-filled-container-color': '#4dabf7',
+          '--md-comp-button-filled-label-text-color': '#ffffff',
+          '--md-comp-button-filled-hovered-state-layer-color': '#ffffff',
+          '--md-comp-button-filled-focused-state-layer-color': '#ffffff',
+          '--md-comp-button-filled-pressed-state-layer-color': '#ffffff',
+        } as React.CSSProperties}
+      >
+        <Button variant="filled">Blue Button</Button>
+      </div>
+
+      {/* Purple button */}
+      <div
+        style={{
+          '--md-comp-button-filled-container-color': '#9775fa',
+          '--md-comp-button-filled-label-text-color': '#ffffff',
+          '--md-comp-button-filled-hovered-state-layer-color': '#ffffff',
+          '--md-comp-button-filled-focused-state-layer-color': '#ffffff',
+          '--md-comp-button-filled-pressed-state-layer-color': '#ffffff',
+        } as React.CSSProperties}
+      >
+        <Button variant="filled">Purple Button</Button>
+      </div>
+    </div>
+  ),
+};

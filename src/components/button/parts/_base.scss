@@ -81,7 +81,7 @@
     user-select: none;
 
     // Transition effects
-    transition: border-radius 0.5s ease;
+    transition: border-radius var(--md-sys-duration-medium3, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
 
     // Pressed state: Apply pressed container shape
     &:active:not(:disabled) {
