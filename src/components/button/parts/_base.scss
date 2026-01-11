@@ -28,6 +28,13 @@
 
 @layer nd-comp {
   .nd-button {
+    // ==================== Local Shape Helpers ====================
+    // Avoid using global `--md-sys-shape-corner-full: 9999px` directly for components
+    // that animate border-radius. For a pill shape, the minimal "full" radius is
+    // half of the current container height.
+    --nd-button-container-height: var(--md-comp-button-container-height, 40px);
+    --nd-button-corner-full: calc(var(--nd-button-container-height) / 2);
+
     // ==================== CSS Custom Properties Reset ====================
     // Reset custom properties required by shared components for style isolation
     // Reset state-layer related properties (color + opacities)
@@ -51,13 +58,14 @@
     gap: var(--md-comp-button-icon-label-space, 8px);
 
     // Sizing properties
-    height: var(--md-comp-button-container-height, 40px);
+    height: var(--nd-button-container-height);
     padding-left: var(--md-comp-button-leading-space, 24px);
     padding-right: var(--md-comp-button-trailing-space, 24px);
 
     // Appearance properties
     border: none;
-    border-radius: var(--md-comp-button-container-shape-round, var(--md-sys-shape-corner-full));
+    // Prefer local computed "full" radius to keep border-radius transitions smooth
+    border-radius: var(--nd-button-corner-full);
     background-color: var(--md-comp-button-container-color, var(--md-sys-color-primary));
     color: var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary));
 

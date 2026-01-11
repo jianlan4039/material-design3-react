@@ -33,7 +33,8 @@
 
 @layer nd-comp {
   .nd-button--medium {
-    height: var(--md-comp-button-medium-container-height, var(--md-comp-button-container-height, 40px));
+    --nd-button-container-height: var(--md-comp-button-medium-container-height, var(--md-comp-button-container-height, 40px));
+    height: var(--nd-button-container-height);
     padding-left: var(--md-comp-button-medium-leading-space, var(--md-comp-button-leading-space, 24px));
     padding-right: var(--md-comp-button-medium-trailing-space, var(--md-comp-button-trailing-space, 24px));
     gap: var(--md-comp-button-medium-icon-label-space, var(--md-comp-button-icon-label-space, 8px));
@@ -42,10 +43,7 @@
     font: var(--md-comp-button-medium-label-text, inherit);
 
     // Shapes
-    border-radius: var(
-      --md-comp-button-medium-container-shape-round,
-      var(--md-comp-button-container-shape-round, var(--md-sys-shape-corner-full))
-    );
+    border-radius: var(--nd-button-corner-full);
 
     &.nd-button--square {
       border-radius: var(
@@ -70,10 +68,7 @@
       );
 
       &.nd-button--square {
-        border-radius: var(
-          --md-comp-button-medium-selected-container-shape-square,
-          var(--md-comp-button-selected-container-shape-square, var(--md-sys-shape-corner-full))
-        );
+        border-radius: var(--nd-button-corner-full);
       }
     }
   }

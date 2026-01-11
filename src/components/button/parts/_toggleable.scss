@@ -117,7 +117,7 @@
 
     // Selected container shape (square) - when square modifier is present
     &.nd-button--square {
-      border-radius: var(--md-comp-button-selected-container-shape-square, var(--md-sys-shape-corner-full));
+      border-radius: var(--nd-button-corner-full);
     }
 
     // Selected hovered/focused/pressed tokens
