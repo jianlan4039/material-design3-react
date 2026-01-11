@@ -103,12 +103,6 @@
       cursor: not-allowed;
       background-color: var(--md-comp-button-disabled-container-color, var(--md-sys-color-on-surface));
     }
-    
-    // Hover state
-    &:hover:not(:disabled) {
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
-                  0 1px 3px 1px rgba(0, 0, 0, 0.15);
-    }
   }
   
   // ==================== Toggleable Modifier ====================
