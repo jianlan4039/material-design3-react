@@ -60,6 +60,11 @@ const meta = {
       options: ['default', 'elevated', 'filled', 'tonal', 'text', 'outlined'],
       description: 'Button visual variant',
     },
+    size: {
+      control: 'select',
+      options: [undefined, 'xsmall'],
+      description: 'Button size',
+    },
     type: {
       control: 'select',
       options: ['button', 'submit', 'reset'],
@@ -159,6 +164,16 @@ export const Outlined: Story = {
   args: {
     children: 'Outlined',
     variant: 'outlined',
+  },
+};
+
+/**
+ * XSmall size
+ */
+export const XSmall: Story = {
+  args: {
+    children: 'XSmall',
+    size: 'xsmall',
   },
 };
 

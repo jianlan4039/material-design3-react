@@ -96,6 +96,16 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * @default 'default'
    */
   variant?: 'default' | 'elevated' | 'filled' | 'tonal' | 'text' | 'outlined';
+
+  /**
+   * Button size
+   *
+   * Controls sizing tokens such as height, paddings, typography, icon size,
+   * and shape values for specific size presets.
+   *
+   * @default undefined
+   */
+  size?: 'xsmall';
 }
 
 /**
@@ -137,6 +147,7 @@ export const Button: React.FC<ButtonProps> = ({
   toggleable = false,
   selected: selectedProp,
   variant = 'default',
+  size,
   onClick,
   ...restProps
 }) => {
@@ -174,6 +185,7 @@ export const Button: React.FC<ButtonProps> = ({
       [styles['nd-button--tonal']]: variant === 'tonal',
       [styles['nd-button--text']]: variant === 'text',
       [styles['nd-button--outlined']]: variant === 'outlined',
+      [styles['nd-button--xsmall']]: size === 'xsmall',
     },
     className
   );
