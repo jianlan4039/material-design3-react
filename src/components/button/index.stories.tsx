@@ -57,7 +57,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['default', 'elevated', 'filled', 'tonal', 'text'],
+      options: ['default', 'elevated', 'filled', 'tonal', 'text', 'outlined'],
       description: 'Button visual variant',
     },
     type: {
@@ -149,6 +149,16 @@ export const Text: Story = {
   args: {
     children: 'Text',
     variant: 'text',
+  },
+};
+
+/**
+ * Outlined button variant
+ */
+export const Outlined: Story = {
+  args: {
+    children: 'Outlined',
+    variant: 'outlined',
   },
 };
 

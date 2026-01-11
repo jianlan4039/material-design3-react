@@ -95,7 +95,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    *
    * @default 'default'
    */
-  variant?: 'default' | 'elevated' | 'filled' | 'tonal' | 'text';
+  variant?: 'default' | 'elevated' | 'filled' | 'tonal' | 'text' | 'outlined';
 }
 
 /**
@@ -173,6 +173,7 @@ export const Button: React.FC<ButtonProps> = ({
       [styles['nd-button--filled']]: variant === 'filled',
       [styles['nd-button--tonal']]: variant === 'tonal',
       [styles['nd-button--text']]: variant === 'text',
+      [styles['nd-button--outlined']]: variant === 'outlined',
     },
     className
   );

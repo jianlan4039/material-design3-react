@@ -1,0 +1,272 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Button Outlined Variant
+ *
+ * Responsible for `.nd-button--outlined` token mapping, including:
+ * - outline color (base + hovered/focused/pressed + disabled)
+ * - selected container color
+ * - label/icon colors (base + unselected/selected and interactive states)
+ * - state-layer color + opacity (hovered/focused/pressed)
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  // ==================== Outlined Variant ====================
+  .nd-button--outlined {
+    // Base outline style
+    // Uses size token when present (default height is 40px => small).
+    border-style: solid;
+    border-width: var(--md-comp-button-small-outlined-outline-width, 1px);
+    border-color: var(--md-comp-button-outlined-outline-color, var(--md-sys-color-outline-variant));
+
+    // Outlined buttons typically have transparent container
+    background-color: transparent;
+
+    // Base outlined tokens
+    --md-sys-hover-state-layer-opacity: var(--md-comp-button-outlined-hovered-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-button-outlined-focused-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-button-outlined-pressed-state-layer-opacity, 0.1);
+
+    color: var(--md-comp-button-outlined-label-text-color, var(--md-sys-color-on-surface-variant));
+
+    .nd-button__label {
+      color: var(--md-comp-button-outlined-label-text-color, var(--md-sys-color-on-surface-variant));
+    }
+
+    .nd-button__leading-icon,
+    .nd-button__trailing-icon {
+      color: var(--md-comp-button-outlined-icon-color, var(--md-sys-color-on-surface-variant));
+    }
+
+    // Disabled state (outlined)
+    &:disabled {
+      border-color: var(--md-comp-button-outlined-disabled-outline-color, var(--md-sys-color-outline-variant));
+      background-color: rgb(
+        from var(--md-comp-button-outlined-selected-disabled-container-color, var(--md-sys-color-on-surface))
+        r g b / 0
+      );
+      color: rgb(
+        from var(--md-comp-button-outlined-disabled-label-text-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-button-outlined-disabled-label-text-opacity, 0.38)
+      );
+
+      .nd-button__label {
+        color: rgb(
+          from var(--md-comp-button-outlined-disabled-label-text-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-outlined-disabled-label-text-opacity, 0.38)
+        );
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: rgb(
+          from var(--md-comp-button-outlined-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-outlined-disabled-icon-opacity, 0.38)
+        );
+      }
+    }
+
+    // Toggleable: unselected base tokens
+    &.nd-button--toggleable:not(.nd-button--selected) {
+      color: var(--md-comp-button-outlined-unselected-label-text-color, var(--md-sys-color-on-surface-variant));
+
+      .nd-button__label {
+        color: var(--md-comp-button-outlined-unselected-label-text-color, var(--md-sys-color-on-surface-variant));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-outlined-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+      }
+
+      &:disabled {
+        border-color: var(--md-comp-button-outlined-unselected-disabled-outline-color, var(--md-sys-color-outline-variant));
+      }
+    }
+
+    // Toggleable: selected base tokens
+    &.nd-button--selected {
+      background-color: var(--md-comp-button-outlined-selected-container-color, var(--md-sys-color-inverse-surface));
+      color: var(--md-comp-button-outlined-selected-label-text-color, var(--md-sys-color-inverse-on-surface));
+
+      .nd-button__label {
+        color: var(--md-comp-button-outlined-selected-label-text-color, var(--md-sys-color-inverse-on-surface));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-outlined-selected-icon-color, var(--md-sys-color-inverse-on-surface));
+      }
+
+      // Selected disabled container
+      &:disabled {
+        background-color: rgb(
+          from var(--md-comp-button-outlined-selected-disabled-container-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-button-outlined-disabled-container-opacity, 0.1)
+        );
+      }
+    }
+
+    // Hovered state
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-outlined-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      border-color: var(--md-comp-button-outlined-hovered-outline-color, var(--md-comp-button-outlined-outline-color, var(--md-sys-color-outline-variant)));
+      color: var(--md-comp-button-outlined-hovered-label-text-color, var(--md-comp-button-outlined-label-text-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-outlined-hovered-label-text-color, var(--md-comp-button-outlined-label-text-color, var(--md-sys-color-on-surface-variant)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-outlined-hovered-icon-color, var(--md-comp-button-outlined-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    // Focused state
+    &:focus-visible:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-outlined-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      border-color: var(--md-comp-button-outlined-focused-outline-color, var(--md-comp-button-outlined-outline-color, var(--md-sys-color-outline-variant)));
+      color: var(--md-comp-button-outlined-focused-label-text-color, var(--md-comp-button-outlined-label-text-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-outlined-focused-label-text-color, var(--md-comp-button-outlined-label-text-color, var(--md-sys-color-on-surface-variant)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-outlined-focused-icon-color, var(--md-comp-button-outlined-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    // Pressed state
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-button-outlined-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      border-color: var(--md-comp-button-outlined-pressed-outline-color, var(--md-comp-button-outlined-outline-color, var(--md-sys-color-outline-variant)));
+      color: var(--md-comp-button-outlined-pressed-label-text-color, var(--md-comp-button-outlined-label-text-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-button__label {
+        color: var(--md-comp-button-outlined-pressed-label-text-color, var(--md-comp-button-outlined-label-text-color, var(--md-sys-color-on-surface-variant)));
+      }
+
+      .nd-button__leading-icon,
+      .nd-button__trailing-icon {
+        color: var(--md-comp-button-outlined-pressed-icon-color, var(--md-comp-button-outlined-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    // Unselected hovered/focused/pressed token overrides
+    &.nd-button--toggleable:not(.nd-button--selected) {
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-outlined-unselected-hovered-state-layer-color, currentColor);
+        border-color: var(--md-comp-button-outlined-unselected-hovered-outline-color, var(--md-comp-button-outlined-hovered-outline-color, var(--md-sys-color-outline-variant)));
+        color: var(--md-comp-button-outlined-unselected-hovered-label-text-color, var(--md-comp-button-outlined-unselected-label-text-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-outlined-unselected-hovered-label-text-color, var(--md-comp-button-outlined-unselected-label-text-color, var(--md-sys-color-on-surface-variant)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-outlined-unselected-hovered-icon-color, var(--md-comp-button-outlined-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-outlined-unselected-focused-state-layer-color, currentColor);
+        border-color: var(--md-comp-button-outlined-unselected-focused-outline-color, var(--md-comp-button-outlined-focused-outline-color, var(--md-sys-color-outline-variant)));
+        color: var(--md-comp-button-outlined-unselected-focused-label-text-color, var(--md-comp-button-outlined-unselected-label-text-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-outlined-unselected-focused-label-text-color, var(--md-comp-button-outlined-unselected-label-text-color, var(--md-sys-color-on-surface-variant)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-outlined-unselected-focused-icon-color, var(--md-comp-button-outlined-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-outlined-unselected-pressed-state-layer-color, currentColor);
+        border-color: var(--md-comp-button-outlined-unselected-pressed-outline-color, var(--md-comp-button-outlined-pressed-outline-color, var(--md-sys-color-outline-variant)));
+        color: var(--md-comp-button-outlined-unselected-pressed-label-text-color, var(--md-comp-button-outlined-unselected-label-text-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-outlined-unselected-pressed-label-text-color, var(--md-comp-button-outlined-unselected-label-text-color, var(--md-sys-color-on-surface-variant)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-outlined-unselected-pressed-icon-color, var(--md-comp-button-outlined-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+    }
+
+    // Selected hovered/focused/pressed token overrides
+    &.nd-button--selected {
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-outlined-selected-hovered-state-layer-color, currentColor);
+        color: var(--md-comp-button-outlined-selected-hovered-label-text-color, var(--md-comp-button-outlined-selected-label-text-color, var(--md-sys-color-inverse-on-surface)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-outlined-selected-hovered-label-text-color, var(--md-comp-button-outlined-selected-label-text-color, var(--md-sys-color-inverse-on-surface)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-outlined-selected-hovered-icon-color, var(--md-comp-button-outlined-selected-icon-color, var(--md-sys-color-inverse-on-surface)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-outlined-selected-focused-state-layer-color, currentColor);
+        color: var(--md-comp-button-outlined-selected-focused-label-text-color, var(--md-comp-button-outlined-selected-label-text-color, var(--md-sys-color-inverse-on-surface)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-outlined-selected-focused-label-text-color, var(--md-comp-button-outlined-selected-label-text-color, var(--md-sys-color-inverse-on-surface)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-outlined-selected-focused-icon-color, var(--md-comp-button-outlined-selected-icon-color, var(--md-sys-color-inverse-on-surface)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-button-outlined-selected-pressed-state-layer-color, currentColor);
+        color: var(--md-comp-button-outlined-selected-pressed-label-text-color, var(--md-comp-button-outlined-selected-label-text-color, var(--md-sys-color-inverse-on-surface)));
+
+        .nd-button__label {
+          color: var(--md-comp-button-outlined-selected-pressed-label-text-color, var(--md-comp-button-outlined-selected-label-text-color, var(--md-sys-color-inverse-on-surface)));
+        }
+
+        .nd-button__leading-icon,
+        .nd-button__trailing-icon {
+          color: var(--md-comp-button-outlined-selected-pressed-icon-color, var(--md-comp-button-outlined-selected-icon-color, var(--md-sys-color-inverse-on-surface)));
+        }
+      }
+    }
+  }
+}
+
