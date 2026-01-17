@@ -1,0 +1,99 @@
+$tokens: (
+    'md.comp.icon-button.container.color': 'md.sys.color.primary',
+    'md.comp.icon-button.unselected.container.color': 'md.sys.color.surface-container',
+    'md.comp.icon-button.selected.container.color': 'md.sys.color.primary',
+    'md.comp.icon-button.icon.color': 'md.sys.color.on-primary',
+    
+    'md.comp.icon-button.unselected.icon.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.selected.icon.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.container.height': '40px',
+    'md.comp.icon-button.icon.size': '24px',
+
+    'md.comp.icon-button.narrow.leading-space': '4px',
+    'md.comp.icon-button.narrow.trailing-space': '4px',
+    'md.comp.icon-button.default.leading-space': '8px',
+    'md.comp.icon-button.default.trailing-space': '8px',
+
+    'md.comp.icon-button.wide.leading-space': '14px',
+    'md.comp.icon-button.wide.trailing-space': '14px',
+    'md.comp.icon-button.container.shape.round': 'md.sys.shape.corner.full',
+    'md.comp.icon-button.container.shape.square': 'md.sys.shape.corner.medium',
+
+    'md.comp.icon-button.pressed.container.shape': 'md.sys.shape.corner.small',
+    'md.comp.icon-button.selected.container.shape.round': 'md.sys.shape.corner.medium',
+    
+    'md.comp.icon-button.selected.container.shape.square': 'md.sys.shape.corner.full',
+    'md.comp.icon-button.focus.indicator.color': 'md.sys.color.secondary',
+    'md.comp.icon-button.focus.indicator.thickness': '3px',
+    'md.comp.icon-button.focus.indicator.outline.offset': '2px',
+
+    'md.comp.icon-button.disabled.container.color': 'md.sys.color.on-surface',
+    'md.comp.icon-button.disabled.container.opacity': '0.1',
+    'md.comp.icon-button.disabled.icon.color': 'md.sys.color.on-surface',
+    'md.comp.icon-button.disabled.icon.opacity': '0.38',
+
+    'md.comp.icon-button.hovered.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.unselected.hovered.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.selected.hovered.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.hovered.state-layer.opacity': '0.08',
+
+    'md.comp.icon-button.focused.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.unselected.focused.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.selected.focused.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.focused.state-layer.opacity': '0.1',
+
+    'md.comp.icon-button.focused.icon.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.unselected.focused.icon.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.selected.focused.icon.color': 'md.sys.color.on-primary'
+
+    'md.comp.icon-button.pressed.state-layer.color': 'md.ref.palette.primary100',
+    'md.comp.icon-button.unselected.pressed.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.selected.pressed.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.pressed.state-layer.opacity': '0.1',
+
+    'md.comp.icon-button.pressed.icon.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.unselected.pressed.icon.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.selected.pressed.icon.color': 'md.sys.color.on-primary',
+
+    // --------- filled --------------------
+    'md.comp.icon-button.filled.container.color': 'md.sys.color.primary',
+    'md.comp.icon-button.filled.unselected.container.color': 'md.sys.color.surface-container',
+    'md.comp.icon-button.filled.selected.container.color': 'md.sys.color.primary',
+    'md.comp.icon-button.filled.icon.color': 'md.sys.color.on-primary',
+
+    'md.comp.icon-button.filled.unselected.icon.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.filled.selected.icon.color': 'md.sys.color.on-primary',
+
+    'md.comp.icon-button.filled.disabled.container.color': 'md.sys.color.on-surface',
+    'md.comp.icon-button.filled.disabled.container.opacity': '0.1',
+    'md.comp.icon-button.filled.disabled.icon.color': 'md.sys.color.on-surface',
+    'md.comp.icon-button.filled.disabled.icon.opacity': '0.38',
+
+    'md.comp.icon-button.filled.hovered.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.unselected.hovered.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.filled.selected.hovered.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.hovered.state-layer.opacity': '0.08',
+
+    'md.comp.icon-button.filled.hovered.icon.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.unselected.hovered.icon.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.filled.selected.hovered.icon.color': 'md.sys.color.on-primary',
+
+    'md.comp.icon-button.filled.focused.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.unselected.focused.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.filled.selected.focused.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.focused.state-layer.opacity': '0.1',
+
+    'md.comp.icon-button.filled.focused.icon.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.unselected.focused.icon.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.filled.selected.focused.icon.color': 'md.sys.color.on-primary',
+
+    'md.comp.icon-button.filled.pressed.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.unselected.pressed.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.filled.selected.pressed.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.pressed.state-layer.opacity': '0.1',
+
+    'md.comp.icon-button.filled.pressed.icon.color': 'md.sys.color.on-primary',
+    'md.comp.icon-button.filled.unselected.pressed.icon.color': 'md.sys.color.on-surface-variant',
+    'md.comp.icon-button.filled.selected.pressed.icon.color': 'md.sys.color.on-primary'
+
+)
