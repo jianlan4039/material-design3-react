@@ -44,9 +44,9 @@ $tokens: (
 
     'md.comp.icon-button.focused.icon.color': 'md.sys.color.on-primary',
     'md.comp.icon-button.unselected.focused.icon.color': 'md.sys.color.on-surface-variant',
-    'md.comp.icon-button.selected.focused.icon.color': 'md.sys.color.on-primary'
+    'md.comp.icon-button.selected.focused.icon.color': 'md.sys.color.on-primary',
 
-    'md.comp.icon-button.pressed.state-layer.color': 'md.ref.palette.primary100',
+    'md.comp.icon-button.pressed.state-layer.color': 'md.sys.color.on-primary',
     'md.comp.icon-button.unselected.pressed.state-layer.color': 'md.sys.color.on-surface-variant',
     'md.comp.icon-button.selected.pressed.state-layer.color': 'md.sys.color.on-primary',
     'md.comp.icon-button.pressed.state-layer.opacity': '0.1',
