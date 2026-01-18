@@ -101,22 +101,6 @@
       font-size: var(--md-comp-icon-button-icon-size, 24px);
     }
 
-    // ==================== Size Modifiers ====================
-    &--narrow {
-      padding-left: var(--md-comp-icon-button-narrow-leading-space, 4px);
-      padding-right: var(--md-comp-icon-button-narrow-trailing-space, 4px);
-    }
-
-    &--default {
-      padding-left: var(--md-comp-icon-button-default-leading-space, 8px);
-      padding-right: var(--md-comp-icon-button-default-trailing-space, 8px);
-    }
-
-    &--wide {
-      padding-left: var(--md-comp-icon-button-wide-leading-space, 14px);
-      padding-right: var(--md-comp-icon-button-wide-trailing-space, 14px);
-    }
-
     // ==================== Shape Modifiers ====================
     &--square {
       border-radius: var(--md-comp-icon-button-container-shape-square, var(--md-sys-shape-corner-medium));

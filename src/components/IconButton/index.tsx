@@ -89,15 +89,6 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   variant?: 'default' | 'filled';
 
   /**
-   * IconButton size
-   *
-   * Controls sizing tokens such as height, paddings, and icon size.
-   *
-   * @default 'default'
-   */
-  size?: 'narrow' | 'default' | 'wide';
-
-  /**
    * IconButton shape
    *
    * Controls the border radius shape of the button.
@@ -123,12 +114,9 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
  * <IconButton icon={<FavoriteIcon />} toggleable />
  * 
  * // With variant
- * <IconButton icon={<SaveIcon />} variant="filled" />
- * 
- * // With size
- * <IconButton icon={<SettingsIcon />} size="wide" />
- * 
- * // With shape
+   * <IconButton icon={<SaveIcon />} variant="filled" />
+   * 
+   * // With shape
  * <IconButton icon={<MenuIcon />} shape="square" />
  * 
  * // Using native attributes
@@ -142,7 +130,6 @@ export const IconButton: React.FC<IconButtonProps> = ({
   toggleable = false,
   selected: selectedProp,
   variant = 'default',
-  size = 'default',
   shape = 'round',
   onClick,
   ...restProps
@@ -177,8 +164,6 @@ export const IconButton: React.FC<IconButtonProps> = ({
       [styles['nd-icon-button--toggleable']]: toggleable,
       [styles['nd-icon-button--selected']]: selected,
       [styles['nd-icon-button--filled']]: variant === 'filled',
-      [styles['nd-icon-button--narrow']]: size === 'narrow',
-      [styles['nd-icon-button--wide']]: size === 'wide',
       [styles['nd-icon-button--square']]: shape === 'square',
     },
     className

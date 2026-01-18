@@ -60,11 +60,6 @@ const meta = {
       options: ['default', 'filled'],
       description: 'IconButton visual variant',
     },
-    size: {
-      control: 'select',
-      options: ['narrow', 'default', 'wide'],
-      description: 'IconButton size',
-    },
     shape: {
       control: 'select',
       options: ['round', 'square'],
