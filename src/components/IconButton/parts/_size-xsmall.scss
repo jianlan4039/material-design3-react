@@ -1,0 +1,79 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * IconButton XSmall Size
+ *
+ * Responsible for `.nd-icon-button--xsmall` sizing token mapping:
+ * - container height (32px)
+ * - icon size (20px)
+ * - container shapes (round/square)
+ * - pressed container shape
+ * - selected container shapes (round/square)
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-icon-button--xsmall {
+    --nd-icon-button-container-height: var(--md-comp-icon-button-xsmall-container-height, 32px);
+    height: var(--nd-icon-button-container-height);
+    width: var(--nd-icon-button-container-height);
+
+    // Shapes
+    border-radius: var(--nd-icon-button-corner-full);
+
+    &.nd-icon-button--square {
+      border-radius: var(
+        --md-comp-icon-button-xsmall-container-shape-square,
+        var(--md-comp-icon-button-container-shape-square, var(--md-sys-shape-corner-medium))
+      );
+    }
+
+    // Pressed shape
+    &:active:not(:disabled) {
+      border-radius: var(
+        --md-comp-icon-button-xsmall-pressed-container-shape,
+        var(--md-comp-icon-button-pressed-container-shape, var(--md-sys-shape-corner-small))
+      );
+    }
+
+    // Selected shapes
+    &.nd-icon-button--selected {
+      border-radius: var(
+        --md-comp-icon-button-xsmall-selected-container-shape-round,
+        var(--md-comp-icon-button-selected-container-shape-round, var(--md-sys-shape-corner-medium))
+      );
+
+      &.nd-icon-button--square {
+        border-radius: var(--nd-icon-button-corner-full);
+      }
+    }
+  }
+
+  // Icon size overrides
+  .nd-icon-button--xsmall .nd-icon-button__icon {
+    width: var(--md-comp-icon-button-xsmall-icon-size, 20px);
+    height: var(--md-comp-icon-button-xsmall-icon-size, 20px);
+    font-size: var(--md-comp-icon-button-xsmall-icon-size, 20px);
+  }
+
+  // Outlined border width for xsmall
+  .nd-icon-button--outlined.nd-icon-button--xsmall {
+    border-width: var(--md-comp-icon-button-xsmall-outlined-outline-width, 1px);
+  }
+}

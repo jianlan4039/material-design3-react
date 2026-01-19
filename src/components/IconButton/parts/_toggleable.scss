@@ -1,0 +1,121 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * IconButton Toggleable State
+ *
+ * Responsible for:
+ * - `.nd-icon-button--toggleable` unselected state styling
+ * - `.nd-icon-button--selected` selected state styling
+ * - Selected container shape overrides (round/square)
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  // ==================== Toggleable Modifier ====================
+  .nd-icon-button--toggleable {
+    // Unselected state: Apply unselected container and icon colors
+    background-color: var(--md-comp-icon-button-unselected-container-color, var(--md-sys-color-surface-container));
+    color: var(--md-comp-icon-button-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+
+    .nd-icon-button__icon {
+      color: var(--md-comp-icon-button-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+    }
+
+    // Unselected hovered/focused/pressed tokens
+    &:hover:not(:disabled):not(.nd-icon-button--selected) {
+      --nd-state-layer-color: var(--md-comp-icon-button-unselected-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-unselected-hovered-icon-color, var(--md-comp-icon-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-unselected-hovered-icon-color, var(--md-comp-icon-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    &:focus-visible:not(:disabled):not(.nd-icon-button--selected) {
+      --nd-state-layer-color: var(--md-comp-icon-button-unselected-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-unselected-focused-icon-color, var(--md-comp-icon-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-unselected-focused-icon-color, var(--md-comp-icon-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    &:active:not(:disabled):not(.nd-icon-button--selected) {
+      --nd-state-layer-color: var(--md-comp-icon-button-unselected-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-unselected-pressed-icon-color, var(--md-comp-icon-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-unselected-pressed-icon-color, var(--md-comp-icon-button-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+  }
+
+  // ==================== Selected Modifier ====================
+  .nd-icon-button--selected {
+    // Selected state: Apply selected container and icon colors
+    background-color: var(--md-comp-icon-button-selected-container-color, var(--md-sys-color-primary));
+    color: var(--md-comp-icon-button-selected-icon-color, var(--md-sys-color-on-primary));
+
+    .nd-icon-button__icon {
+      color: var(--md-comp-icon-button-selected-icon-color, var(--md-sys-color-on-primary));
+    }
+
+    // Selected container shape (round) - default for selected state
+    border-radius: var(--md-comp-icon-button-selected-container-shape-round, var(--md-sys-shape-corner-medium));
+
+    // Selected container shape (square) - when square modifier is present
+    &.nd-icon-button--square {
+      border-radius: var(--md-comp-icon-button-selected-container-shape-square, var(--md-sys-shape-corner-full));
+    }
+
+    // Selected hovered/focused/pressed tokens
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-selected-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-selected-hovered-icon-color, var(--md-comp-icon-button-selected-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-selected-hovered-icon-color, var(--md-comp-icon-button-selected-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+
+    &:focus-visible:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-selected-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-selected-focused-icon-color, var(--md-comp-icon-button-selected-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-selected-focused-icon-color, var(--md-comp-icon-button-selected-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-selected-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-selected-pressed-icon-color, var(--md-comp-icon-button-selected-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-selected-pressed-icon-color, var(--md-comp-icon-button-selected-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+  }
+}

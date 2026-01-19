@@ -1,0 +1,158 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * IconButton Base Styles
+ *
+ * Responsible for:
+ * - `.nd-icon-button` base layout and sizing
+ * - CSS custom properties reset for shared components (state-layer/elevation/ripple)
+ * - Base interactive states: hovered/focused/pressed/disabled (default token set)
+ * - Shape modifiers (round/square)
+ * - Icon slot styles
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-icon-button {
+    // ==================== Local Shape Helpers ====================
+    // Avoid using global `--md-sys-shape-corner-full: 9999px` directly for components
+    // that animate border-radius. For a pill shape, the minimal "full" radius is
+    // half of the current container height.
+    --nd-icon-button-container-height: var(--md-comp-icon-button-container-height, 40px);
+    --nd-icon-button-corner-full: calc(var(--nd-icon-button-container-height) / 2);
+
+    // ==================== CSS Custom Properties Reset ====================
+    // Reset custom properties required by shared components for style isolation
+    // Reset state-layer related properties (color + opacities)
+    --nd-state-layer-color: currentColor;
+    --md-sys-hover-state-layer-opacity: var(--md-comp-icon-button-hovered-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-icon-button-focused-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-icon-button-pressed-state-layer-opacity, 0.1);
+
+    // Reset elevation related properties
+    --md-elevation-level: 0;
+    --md-elevation-shadow-color: var(--md-sys-color-shadow);
+
+    // Reset ripple related properties
+    --nd-ripple-color: currentColor;
+
+    // ==================== Layout & Sizing ====================
+    // Layout properties
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    // Sizing properties
+    height: var(--nd-icon-button-container-height);
+    width: var(--nd-icon-button-container-height);
+    padding: 0;
+
+    // Appearance properties
+    border: none;
+    // Prefer local computed "full" radius to keep border-radius transitions smooth
+    border-radius: var(--nd-icon-button-corner-full);
+    background-color: var(--md-comp-icon-button-container-color, var(--md-sys-color-primary));
+    color: var(--md-comp-icon-button-icon-color, var(--md-sys-color-on-primary));
+
+    // Interaction properties
+    cursor: pointer;
+    user-select: none;
+
+    // Transition effects
+    transition: border-radius var(--md-sys-duration-medium3, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1)),
+                background-color var(--md-sys-duration-medium3, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1)),
+                color var(--md-sys-duration-medium3, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
+
+    // ==================== Icon Styles ====================
+    .nd-icon-button__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--md-comp-icon-button-icon-size, 24px);
+      height: var(--md-comp-icon-button-icon-size, 24px);
+      color: inherit;
+      font-size: var(--md-comp-icon-button-icon-size, 24px);
+    }
+
+    // ==================== Shape Modifiers ====================
+    &--square {
+      border-radius: var(--md-comp-icon-button-container-shape-square, var(--md-sys-shape-corner-medium));
+    }
+
+    // Round shape is default, using --nd-icon-button-corner-full
+
+    // ==================== Pressed State ====================
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-pressed-icon-color, var(--md-comp-icon-button-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-pressed-icon-color, var(--md-comp-icon-button-icon-color, var(--md-sys-color-on-primary)));
+      }
+
+      border-radius: var(--md-comp-icon-button-pressed-container-shape, var(--md-sys-shape-corner-small));
+    }
+
+    // ==================== Focus State ====================
+    &:focus-visible {
+      --nd-state-layer-color: var(--md-comp-icon-button-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-focused-icon-color, var(--md-comp-icon-button-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-focused-icon-color, var(--md-comp-icon-button-icon-color, var(--md-sys-color-on-primary)));
+      }
+
+      outline: var(--md-comp-icon-button-focus-indicator-thickness, 3px) solid var(--md-comp-icon-button-focus-indicator-color, var(--md-sys-color-secondary));
+      outline-offset: var(--md-comp-icon-button-focus-indicator-outline-offset, 2px);
+    }
+
+    // ==================== Hovered State ====================
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-hovered-icon-color, var(--md-comp-icon-button-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-hovered-icon-color, var(--md-comp-icon-button-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+
+    // ==================== Disabled State ====================
+    &:disabled {
+      cursor: not-allowed;
+      background-color: rgb(
+        from var(--md-comp-icon-button-disabled-container-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-icon-button-disabled-container-opacity, 0.1)
+      );
+      color: rgb(
+        from var(--md-comp-icon-button-disabled-icon-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-icon-button-disabled-icon-opacity, 0.38)
+      );
+
+      .nd-icon-button__icon {
+        color: rgb(
+          from var(--md-comp-icon-button-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-icon-button-disabled-icon-opacity, 0.38)
+        );
+      }
+    }
+  }
+}

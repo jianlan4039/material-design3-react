@@ -57,13 +57,18 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['default', 'filled'],
+      options: ['default', 'filled', 'tonal', 'outlined', 'standard'],
       description: 'IconButton visual variant',
     },
     shape: {
       control: 'select',
       options: ['round', 'square'],
       description: 'IconButton shape',
+    },
+    size: {
+      control: 'select',
+      options: [undefined, 'xsmall', 'small', 'medium', 'large', 'xlarge'],
+      description: 'IconButton size',
     },
     type: {
       control: 'select',
@@ -108,6 +113,75 @@ export const Filled: Story = {
   args: {
     icon: <AddIcon />,
     variant: 'filled',
+    'aria-label': 'Add',
+  },
+};
+
+/**
+ * Tonal variant icon button
+ */
+export const Tonal: Story = {
+  args: {
+    icon: <AddIcon />,
+    variant: 'tonal',
+    'aria-label': 'Add',
+  },
+};
+
+/**
+ * Outlined variant icon button
+ */
+export const Outlined: Story = {
+  args: {
+    icon: <AddIcon />,
+    variant: 'outlined',
+    'aria-label': 'Add',
+  },
+};
+
+/**
+ * Standard variant icon button
+ */
+export const Standard: Story = {
+  args: {
+    icon: <AddIcon />,
+    variant: 'standard',
+    'aria-label': 'Add',
+  },
+};
+
+/**
+ * XSmall size icon button
+ */
+export const XSmall: Story = {
+  args: {
+    icon: <AddIcon />,
+    variant: 'filled',
+    size: 'xsmall',
+    'aria-label': 'Add',
+  },
+};
+
+/**
+ * Large size icon button
+ */
+export const Large: Story = {
+  args: {
+    icon: <AddIcon />,
+    variant: 'filled',
+    size: 'large',
+    'aria-label': 'Add',
+  },
+};
+
+/**
+ * XLarge size icon button
+ */
+export const XLarge: Story = {
+  args: {
+    icon: <AddIcon />,
+    variant: 'filled',
+    size: 'xlarge',
     'aria-label': 'Add',
   },
 };

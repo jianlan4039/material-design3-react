@@ -1,0 +1,173 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * IconButton Tonal Variant
+ *
+ * Responsible for `.nd-icon-button--tonal` token mapping, including
+ * default/disabled/hovered/focused/pressed states and toggleable overrides.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  // ==================== Tonal Variant ====================
+  .nd-icon-button--tonal {
+    --md-sys-hover-state-layer-opacity: var(--md-comp-icon-button-tonal-hovered-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-icon-button-tonal-focused-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-icon-button-tonal-pressed-state-layer-opacity, 0.1);
+
+    background-color: var(--md-comp-icon-button-tonal-container-color, var(--md-sys-color-secondary-container));
+    color: var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container));
+
+    .nd-icon-button__icon {
+      color: var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container));
+    }
+
+    // Tonal disabled state
+    &:disabled {
+      background-color: rgb(
+        from var(--md-comp-icon-button-tonal-disabled-container-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-icon-button-tonal-disabled-container-opacity, 0.1)
+      );
+      color: rgb(
+        from var(--md-comp-icon-button-tonal-disabled-icon-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-icon-button-tonal-disabled-icon-opacity, 0.38)
+      );
+
+      .nd-icon-button__icon {
+        color: rgb(
+          from var(--md-comp-icon-button-tonal-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-icon-button-tonal-disabled-icon-opacity, 0.38)
+        );
+      }
+    }
+
+    // Tonal hovered state
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-tonal-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-tonal-hovered-icon-color, var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-tonal-hovered-icon-color, var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container)));
+      }
+    }
+
+    // Tonal focused state
+    &:focus-visible:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-tonal-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-tonal-focused-icon-color, var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-tonal-focused-icon-color, var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container)));
+      }
+    }
+
+    // Tonal pressed state
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-tonal-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-tonal-pressed-icon-color, var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-tonal-pressed-icon-color, var(--md-comp-icon-button-tonal-icon-color, var(--md-sys-color-on-secondary-container)));
+      }
+    }
+
+    // Tonal toggleable unselected state
+    &.nd-icon-button--toggleable:not(.nd-icon-button--selected) {
+      background-color: var(--md-comp-icon-button-tonal-unselected-container-color, var(--md-sys-color-secondary-container));
+      color: var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container));
+      }
+
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-tonal-unselected-hovered-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-tonal-unselected-hovered-icon-color, var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-tonal-unselected-hovered-icon-color, var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-tonal-unselected-focused-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-tonal-unselected-focused-icon-color, var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-tonal-unselected-focused-icon-color, var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-tonal-unselected-pressed-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-tonal-unselected-pressed-icon-color, var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-tonal-unselected-pressed-icon-color, var(--md-comp-icon-button-tonal-unselected-icon-color, var(--md-sys-color-on-secondary-container)));
+        }
+      }
+    }
+
+    // Tonal toggleable selected state
+    &.nd-icon-button--toggleable.nd-icon-button--selected {
+      background-color: var(--md-comp-icon-button-tonal-selected-container-color, var(--md-sys-color-secondary));
+      color: var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary));
+      }
+
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-tonal-selected-hovered-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-tonal-selected-hovered-icon-color, var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-tonal-selected-hovered-icon-color, var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-tonal-selected-focused-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-tonal-selected-focused-icon-color, var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-tonal-selected-focused-icon-color, var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-tonal-selected-pressed-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-tonal-selected-pressed-icon-color, var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-tonal-selected-pressed-icon-color, var(--md-comp-icon-button-tonal-selected-icon-color, var(--md-sys-color-on-secondary)));
+        }
+      }
+    }
+  }
+}

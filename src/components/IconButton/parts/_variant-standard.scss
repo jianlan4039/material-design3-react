@@ -1,0 +1,171 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * IconButton Standard Variant
+ *
+ * Responsible for `.nd-icon-button--standard` token mapping, including
+ * default/disabled/hovered/focused/pressed states and toggleable overrides.
+ * This is the simplest variant with no background color.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  // ==================== Standard Variant ====================
+  .nd-icon-button--standard {
+    --md-sys-hover-state-layer-opacity: var(--md-comp-icon-button-standard-hovered-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-icon-button-standard-focused-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-icon-button-standard-pressed-state-layer-opacity, 0.1);
+
+    background-color: transparent;
+    color: var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant));
+
+    .nd-icon-button__icon {
+      color: var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant));
+    }
+
+    // Standard disabled state
+    &:disabled {
+      background-color: transparent;
+      color: rgb(
+        from var(--md-comp-icon-button-standard-disabled-icon-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-icon-button-standard-disabled-icon-opacity, 0.38)
+      );
+
+      .nd-icon-button__icon {
+        color: rgb(
+          from var(--md-comp-icon-button-standard-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-icon-button-standard-disabled-icon-opacity, 0.38)
+        );
+      }
+    }
+
+    // Standard hovered state
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-standard-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-standard-hovered-icon-color, var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-standard-hovered-icon-color, var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    // Standard focused state
+    &:focus-visible:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-standard-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-standard-focused-icon-color, var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-standard-focused-icon-color, var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    // Standard pressed state
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-standard-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-standard-pressed-icon-color, var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-standard-pressed-icon-color, var(--md-comp-icon-button-standard-icon-color, var(--md-sys-color-on-surface-variant)));
+      }
+    }
+
+    // Standard toggleable unselected state
+    &.nd-icon-button--toggleable:not(.nd-icon-button--selected) {
+      background-color: transparent;
+      color: var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+      }
+
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-standard-unselected-hovered-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-standard-unselected-hovered-icon-color, var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-standard-unselected-hovered-icon-color, var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-standard-unselected-focused-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-standard-unselected-focused-icon-color, var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-standard-unselected-focused-icon-color, var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-standard-unselected-pressed-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-standard-unselected-pressed-icon-color, var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-standard-unselected-pressed-icon-color, var(--md-comp-icon-button-standard-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+    }
+
+    // Standard toggleable selected state
+    &.nd-icon-button--toggleable.nd-icon-button--selected {
+      background-color: transparent;
+      color: var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary));
+      }
+
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-standard-selected-hovered-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-standard-selected-hovered-icon-color, var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-standard-selected-hovered-icon-color, var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-standard-selected-focused-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-standard-selected-focused-icon-color, var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-standard-selected-focused-icon-color, var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-standard-selected-pressed-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-standard-selected-pressed-icon-color, var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-standard-selected-pressed-icon-color, var(--md-comp-icon-button-standard-selected-icon-color, var(--md-sys-color-primary)));
+        }
+      }
+    }
+  }
+}

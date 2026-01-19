@@ -1,0 +1,169 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * IconButton Filled Variant
+ *
+ * Responsible for `.nd-icon-button--filled` token mapping, including
+ * default/disabled/hovered/focused/pressed states and toggleable overrides.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  // ==================== Filled Variant ====================
+  .nd-icon-button--filled {
+    background-color: var(--md-comp-icon-button-filled-container-color, var(--md-sys-color-primary));
+    color: var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary));
+
+    .nd-icon-button__icon {
+      color: var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary));
+    }
+
+    // Filled disabled state
+    &:disabled {
+      background-color: rgb(
+        from var(--md-comp-icon-button-filled-disabled-container-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-icon-button-filled-disabled-container-opacity, 0.1)
+      );
+      color: rgb(
+        from var(--md-comp-icon-button-filled-disabled-icon-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-icon-button-filled-disabled-icon-opacity, 0.38)
+      );
+
+      .nd-icon-button__icon {
+        color: rgb(
+          from var(--md-comp-icon-button-filled-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-icon-button-filled-disabled-icon-opacity, 0.38)
+        );
+      }
+    }
+
+    // Filled hovered state
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-filled-hovered-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-filled-hovered-icon-color, var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-filled-hovered-icon-color, var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+
+    // Filled focused state
+    &:focus-visible:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-filled-focused-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-filled-focused-icon-color, var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-filled-focused-icon-color, var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+
+    // Filled pressed state
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-icon-button-filled-pressed-state-layer-color, currentColor);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-icon-button-filled-pressed-icon-color, var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary)));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-filled-pressed-icon-color, var(--md-comp-icon-button-filled-icon-color, var(--md-sys-color-on-primary)));
+      }
+    }
+
+    // Filled toggleable unselected state
+    &.nd-icon-button--toggleable:not(.nd-icon-button--selected) {
+      background-color: var(--md-comp-icon-button-filled-unselected-container-color, var(--md-sys-color-surface-container));
+      color: var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+      }
+
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-filled-unselected-hovered-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-filled-unselected-hovered-icon-color, var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-filled-unselected-hovered-icon-color, var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-filled-unselected-focused-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-filled-unselected-focused-icon-color, var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-filled-unselected-focused-icon-color, var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-filled-unselected-pressed-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-filled-unselected-pressed-icon-color, var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-filled-unselected-pressed-icon-color, var(--md-comp-icon-button-filled-unselected-icon-color, var(--md-sys-color-on-surface-variant)));
+        }
+      }
+    }
+
+    // Filled toggleable selected state
+    &.nd-icon-button--toggleable.nd-icon-button--selected {
+      background-color: var(--md-comp-icon-button-filled-selected-container-color, var(--md-sys-color-primary));
+      color: var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary));
+
+      .nd-icon-button__icon {
+        color: var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary));
+      }
+
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-filled-selected-hovered-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-filled-selected-hovered-icon-color, var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-filled-selected-hovered-icon-color, var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary)));
+        }
+      }
+
+      &:focus-visible:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-filled-selected-focused-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-filled-selected-focused-icon-color, var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-filled-selected-focused-icon-color, var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary)));
+        }
+      }
+
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-icon-button-filled-selected-pressed-state-layer-color, currentColor);
+        --nd-ripple-color: var(--nd-state-layer-color);
+        color: var(--md-comp-icon-button-filled-selected-pressed-icon-color, var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary)));
+
+        .nd-icon-button__icon {
+          color: var(--md-comp-icon-button-filled-selected-pressed-icon-color, var(--md-comp-icon-button-filled-selected-icon-color, var(--md-sys-color-on-primary)));
+        }
+      }
+    }
+  }
+}

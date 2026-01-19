@@ -83,10 +83,15 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
    *
    * Controls the underlying token set used for container, icon,
    * and interactive state colors.
+   * - 'default': Default filled style with primary colors
+   * - 'filled': Same as default, explicit filled style
+   * - 'tonal': Secondary container colors for a softer appearance
+   * - 'outlined': Transparent background with outline border
+   * - 'standard': No background, icon only
    *
    * @default 'default'
    */
-  variant?: 'default' | 'filled';
+  variant?: 'default' | 'filled' | 'tonal' | 'outlined' | 'standard';
 
   /**
    * IconButton shape
@@ -96,6 +101,20 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
    * @default 'round'
    */
   shape?: 'round' | 'square';
+
+  /**
+   * IconButton size
+   *
+   * Controls the container height and icon size.
+   * - 'xsmall': 32px container, 20px icon
+   * - 'small': 40px container, 24px icon (default)
+   * - 'medium': 56px container, 24px icon
+   * - 'large': 96px container, 32px icon
+   * - 'xlarge': 136px container, 40px icon
+   *
+   * @default undefined (uses default 40px size)
+   */
+  size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 }
 
 /**
@@ -114,10 +133,17 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
  * <IconButton icon={<FavoriteIcon />} toggleable />
  * 
  * // With variant
-   * <IconButton icon={<SaveIcon />} variant="filled" />
-   * 
-   * // With shape
+ * <IconButton icon={<SaveIcon />} variant="filled" />
+ * <IconButton icon={<SaveIcon />} variant="tonal" />
+ * <IconButton icon={<SaveIcon />} variant="outlined" />
+ * <IconButton icon={<SaveIcon />} variant="standard" />
+ * 
+ * // With shape
  * <IconButton icon={<MenuIcon />} shape="square" />
+ * 
+ * // With size
+ * <IconButton icon={<MenuIcon />} size="xsmall" />
+ * <IconButton icon={<MenuIcon />} size="large" />
  * 
  * // Using native attributes
  * <IconButton icon={<DeleteIcon />} disabled aria-label="Delete" />
@@ -131,6 +157,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
   selected: selectedProp,
   variant = 'default',
   shape = 'round',
+  size,
   onClick,
   ...restProps
 }) => {
@@ -163,8 +190,19 @@ export const IconButton: React.FC<IconButtonProps> = ({
     {
       [styles['nd-icon-button--toggleable']]: toggleable,
       [styles['nd-icon-button--selected']]: selected,
-      [styles['nd-icon-button--filled']]: variant === 'filled',
+      // Variant modifiers
+      [styles['nd-icon-button--filled']]: variant === 'filled' || variant === 'default',
+      [styles['nd-icon-button--tonal']]: variant === 'tonal',
+      [styles['nd-icon-button--outlined']]: variant === 'outlined',
+      [styles['nd-icon-button--standard']]: variant === 'standard',
+      // Shape modifiers
       [styles['nd-icon-button--square']]: shape === 'square',
+      // Size modifiers
+      [styles['nd-icon-button--xsmall']]: size === 'xsmall',
+      [styles['nd-icon-button--small']]: size === 'small',
+      [styles['nd-icon-button--medium']]: size === 'medium',
+      [styles['nd-icon-button--large']]: size === 'large',
+      [styles['nd-icon-button--xlarge']]: size === 'xlarge',
     },
     className
   );
@@ -192,7 +230,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
   useStateLayer({
     classNameManager: buttonClassName,
     disabled: disabled || false,
-  }, [selected, toggleable, disabled]);
+  }, [selected, toggleable, disabled, variant, size]);
 
   // Apply ripple effect
   useRipple({
@@ -204,7 +242,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
   useElevation({
     classNameManager: buttonClassName,
     disabled: disabled || false,
-  }, [selected, toggleable, disabled]);
+  }, [selected, toggleable, disabled, variant, size]);
 
   return (
     <button
