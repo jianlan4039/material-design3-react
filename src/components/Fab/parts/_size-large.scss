@@ -1,0 +1,48 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * FAB Large Size
+ *
+ * Responsible for `.nd-fab--large` sizing token mapping:
+ * - container height (96px)
+ * - container width (96px)
+ * - icon size (36px)
+ * - container shape (28px)
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-fab--large {
+    --nd-fab-container-height: var(--md-comp-fab-large-container-height, 96px);
+    --nd-fab-container-width: var(--md-comp-fab-large-container-width, 96px);
+    
+    height: var(--nd-fab-container-height);
+    width: var(--nd-fab-container-width);
+
+    // Shape
+    border-radius: var(--md-comp-fab-large-container-shape, 28px);
+  }
+
+  // Icon size overrides
+  .nd-fab--large .nd-fab__icon {
+    width: var(--md-comp-fab-large-icon-size, 36px);
+    height: var(--md-comp-fab-large-icon-size, 36px);
+    font-size: var(--md-comp-fab-large-icon-size, 36px);
+  }
+}

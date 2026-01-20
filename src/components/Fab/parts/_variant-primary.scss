@@ -1,0 +1,79 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * FAB Primary Variant (Solid)
+ *
+ * Responsible for `.nd-fab--primary` token mapping, including
+ * default/disabled/hovered/focused/pressed states.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  // ==================== Primary Variant ====================
+  .nd-fab--primary {
+    --md-elevation-shadow-color: var(--md-comp-fab-primary-container-shadow-color, var(--md-sys-color-shadow));
+    --md-elevation-level: var(--md-comp-fab-primary-container-elevation, 3);
+    
+    background-color: var(--md-comp-fab-primary-container-color, var(--md-sys-color-primary));
+    color: var(--md-comp-fab-primary-icon-color, var(--md-sys-color-on-primary));
+
+    .nd-fab__icon {
+      color: var(--md-comp-fab-primary-icon-color, var(--md-sys-color-on-primary));
+    }
+
+    // Hovered state
+    &:hover:not(:disabled) {
+      --md-elevation-level: var(--md-comp-fab-primary-hovered-container-elevation, 4);
+      --nd-state-layer-color: var(--md-comp-fab-primary-hovered-state-layer-color, var(--md-sys-color-on-primary));
+      --md-sys-hover-state-layer-opacity: var(--md-comp-fab-primary-hovered-state-layer-opacity, 0.08);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-fab-primary-hovered-icon-color, var(--md-sys-color-on-primary));
+
+      .nd-fab__icon {
+        color: var(--md-comp-fab-primary-hovered-icon-color, var(--md-sys-color-on-primary));
+      }
+    }
+
+    // Focused state
+    &:focus-visible:not(:disabled) {
+      --md-elevation-level: var(--md-comp-fab-primary-focused-container-elevation, 3);
+      --nd-state-layer-color: var(--md-comp-fab-primary-focused-state-layer-color, var(--md-sys-color-on-primary));
+      --md-sys-focus-state-layer-opacity: var(--md-comp-fab-primary-focused-state-layer-opacity, 0.1);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-fab-primary-focused-icon-color, var(--md-sys-color-on-primary));
+
+      .nd-fab__icon {
+        color: var(--md-comp-fab-primary-focused-icon-color, var(--md-sys-color-on-primary));
+      }
+    }
+
+    // Pressed state
+    &:active:not(:disabled) {
+      --md-elevation-level: var(--md-comp-fab-primary-pressed-container-elevation, 3);
+      --nd-state-layer-color: var(--md-comp-fab-primary-pressed-state-layer-color, var(--md-sys-color-on-primary));
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-fab-primary-pressed-state-layer-opacity, 0.1);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-fab-primary-pressed-icon-color, var(--md-sys-color-on-primary));
+
+      .nd-fab__icon {
+        color: var(--md-comp-fab-primary-pressed-icon-color, var(--md-sys-color-on-primary));
+      }
+    }
+  }
+}
