@@ -1,0 +1,40 @@
+$token: (
+    // ----------- baseline --------------------
+    'md.comp.fab.container.height': '56px',
+    'md.comp.fab.container.width': '56px',
+    'md.comp.fab.icon.size': '24px',
+    'md.comp.fab.container.shape': 'md.sys.shape.corner.large',
+
+    // ----------- medium ----------------------
+    'md.comp.fab.medium.container.height': '80px',
+    'md.comp.fab.medium.container.width': '80px',
+    'md.comp.fab.medium.icon.size': '28px',
+    'md.comp.fab.medium.container.shape': '20px'
+
+    // ----------- large -----------------------
+    'md.comp.fab.large.container.height': '96px',
+    'md.comp.fab.large.container.width': '96px',
+    'md.comp.fab.large.icon.size': '36px',
+    'md.comp.fab.large.container.shape': '28px',
+
+    // ---------- tonal primary ----------------
+    'md.comp.fab.primary-container.container.color': 'md.sys.color.primary-container',
+    'md.comp.fab.primary-container.container.shadow-color': 'md.sys.color.shadow',
+    'md.comp.fab.primary-container.container.elevation': '3',
+    'md.comp.fab.primary-container.icon.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.fab.primary-container.hovered.container.elevation': '4',
+    'md.comp.fab.primary-container.hovered.state-layer.color': 'md.sys.color.on-primary-container',
+    'md.comp.fab.primary-container.hovered.state-layer.opacity': '0.08',
+    'md.comp.fab.primary-container.hovered.icon.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.fab.primary-container.focused.container.elevation': '3',
+    'md.comp.fab.primary-container.focused.state-layer.color': 'md.sys.color.on-primary-container',
+    'md.comp.fab.primary-container.focused.state-layer.opacity': '0.1',
+    'md.comp.fab.primary-container.focused.icon.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.fab.primary-container.pressed.container.elevation': '3',
+    'md.comp.fab.primary-container.pressed.state-layer.color': 'md.sys.color.on-primary-container',
+    'md.comp.fab.primary-container.pressed.state-layer.opacity': '0.1',
+    'md.comp.fab.primary-container.pressed.icon.color': 'md.sys.color.on-primary-container',
+)
