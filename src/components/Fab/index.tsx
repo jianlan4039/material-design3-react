@@ -17,9 +17,9 @@
 import React, { useState, useCallback } from 'react';
 
 import classNames from '@utils/classnames';
-import useElevation from '../elevation';
-import useRipple from '../ripple/useRipple';
-import useStateLayer from '../state-layer';
+import useElevation from '../Elevation';
+import useRipple from '../Ripple/useRipple';
+import useStateLayer from '../StateLayer';
 import styles from './index.module.scss';
 
 /**
