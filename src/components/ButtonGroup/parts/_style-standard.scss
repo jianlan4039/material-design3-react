@@ -1,0 +1,35 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * ButtonGroup Standard Style
+ *
+ * Standard style has visible gaps between buttons.
+ * Each button maintains its default rounded shape from the Button component.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-button-group--standard {
+    // Standard style uses the between-space gap
+    gap: var(--nd-button-group-between-space, 8px);
+    
+    // Button component handles all item styling
+    // No additional item overrides needed for standard style
+  }
+}
