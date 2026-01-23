@@ -1,0 +1,133 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * SegmentedButton State Styles
+ *
+ * Responsible for:
+ * - Hover, focus, and pressed state styling
+ * - State layer effects
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-segmented-button__item {
+    // ==================== State Layer ====================
+    // State layer is applied via ::before pseudo-element
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: transparent;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
+    }
+
+    // ==================== Hover State (Unselected) ====================
+    &:hover:not(:disabled):not(.nd-segmented-button__item--disabled):not(.nd-segmented-button__item--selected) {
+      color: var(--nd-segmented-button-unselected-hover-label-text-color);
+
+      &::before {
+        background-color: var(--nd-segmented-button-unselected-hover-state-layer-color);
+        opacity: var(--nd-segmented-button-hover-state-layer-opacity);
+      }
+
+      .nd-segmented-button__icon {
+        color: var(--nd-segmented-button-unselected-hover-icon-color);
+      }
+    }
+
+    // ==================== Hover State (Selected) ====================
+    &:hover:not(:disabled):not(.nd-segmented-button__item--disabled).nd-segmented-button__item--selected {
+      color: var(--nd-segmented-button-selected-hover-label-text-color);
+
+      &::before {
+        background-color: var(--nd-segmented-button-selected-hover-state-layer-color);
+        opacity: var(--nd-segmented-button-hover-state-layer-opacity);
+      }
+
+      .nd-segmented-button__icon,
+      .nd-segmented-button__selected-icon {
+        color: var(--nd-segmented-button-selected-hover-icon-color);
+      }
+    }
+
+    // ==================== Focus State (Unselected) ====================
+    &:focus-visible:not(:disabled):not(.nd-segmented-button__item--disabled):not(.nd-segmented-button__item--selected) {
+      color: var(--nd-segmented-button-unselected-focus-label-text-color);
+      outline: var(--nd-segmented-button-focus-indicator-thickness) solid var(--nd-segmented-button-focus-indicator-color);
+      outline-offset: calc(-1 * var(--nd-segmented-button-focus-indicator-thickness));
+
+      &::before {
+        background-color: var(--nd-segmented-button-unselected-focus-state-layer-color);
+        opacity: var(--nd-segmented-button-focus-state-layer-opacity);
+      }
+
+      .nd-segmented-button__icon {
+        color: var(--nd-segmented-button-unselected-focus-icon-color);
+      }
+    }
+
+    // ==================== Focus State (Selected) ====================
+    &:focus-visible:not(:disabled):not(.nd-segmented-button__item--disabled).nd-segmented-button__item--selected {
+      color: var(--nd-segmented-button-selected-focus-label-text-color);
+      outline: var(--nd-segmented-button-focus-indicator-thickness) solid var(--nd-segmented-button-focus-indicator-color);
+      outline-offset: calc(-1 * var(--nd-segmented-button-focus-indicator-thickness));
+
+      &::before {
+        background-color: var(--nd-segmented-button-selected-focus-state-layer-color);
+        opacity: var(--nd-segmented-button-focus-state-layer-opacity);
+      }
+
+      .nd-segmented-button__icon,
+      .nd-segmented-button__selected-icon {
+        color: var(--nd-segmented-button-selected-focus-icon-color);
+      }
+    }
+
+    // ==================== Pressed State (Unselected) ====================
+    &:active:not(:disabled):not(.nd-segmented-button__item--disabled):not(.nd-segmented-button__item--selected) {
+      color: var(--nd-segmented-button-unselected-pressed-label-text-color);
+
+      &::before {
+        background-color: var(--nd-segmented-button-unselected-pressed-state-layer-color);
+        opacity: var(--nd-segmented-button-pressed-state-layer-opacity);
+      }
+
+      .nd-segmented-button__icon {
+        color: var(--nd-segmented-button-unselected-pressed-icon-color);
+      }
+    }
+
+    // ==================== Pressed State (Selected) ====================
+    &:active:not(:disabled):not(.nd-segmented-button__item--disabled).nd-segmented-button__item--selected {
+      color: var(--nd-segmented-button-selected-pressed-label-text-color);
+
+      &::before {
+        background-color: var(--nd-segmented-button-selected-pressed-state-layer-color);
+        opacity: var(--nd-segmented-button-pressed-state-layer-opacity);
+      }
+
+      .nd-segmented-button__icon,
+      .nd-segmented-button__selected-icon {
+        color: var(--nd-segmented-button-selected-pressed-icon-color);
+      }
+    }
+  }
+}

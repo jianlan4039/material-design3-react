@@ -1,0 +1,90 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * SegmentedButton Token Variables
+ *
+ * CSS custom property definitions for SegmentedButton component.
+ * Token source: src/tokens/components/segment-button/index.scss
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-segmented-button {
+    // ==================== Container Tokens ====================
+    --nd-segmented-button-container-height: var(--md-comp-outlined-segmented-button-container-height, 40px);
+    --nd-segmented-button-outline-color: var(--md-comp-outlined-segmented-button-outline-color, var(--md-sys-color-outline));
+    --nd-segmented-button-outline-width: var(--md-comp-outlined-segmented-button-outline-width, 1px);
+    --nd-segmented-button-shape: var(--md-comp-outlined-segmented-button-shape, var(--md-sys-shape-corner-full, 9999px));
+
+    // ==================== Selected Container ====================
+    --nd-segmented-button-selected-container-color: var(--md-comp-outlined-segmented-button-selected-container-color, var(--md-sys-color-secondary-container));
+
+    // ==================== Label Text ====================
+    --nd-segmented-button-label-text-font: var(--md-comp-outlined-segmented-button-label-text-font, var(--md-sys-typescale-label-large-font));
+    --nd-segmented-button-label-text-size: var(--md-comp-outlined-segmented-button-label-text-size, 14px);
+    --nd-segmented-button-label-text-weight: var(--md-comp-outlined-segmented-button-label-text-weight, 500);
+    --nd-segmented-button-label-text-line-height: var(--md-comp-outlined-segmented-button-label-text-line-height, 20px);
+
+    --nd-segmented-button-unselected-label-text-color: var(--md-comp-outlined-segmented-button-unselected-label-text-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-label-text-color: var(--md-comp-outlined-segmented-button-selected-label-text-color, var(--md-sys-color-on-secondary-container));
+
+    // ==================== Icon ====================
+    --nd-segmented-button-icon-size: var(--md-comp-outlined-segmented-button-with-icon-icon-size, 18px);
+    --nd-segmented-button-unselected-icon-color: var(--md-comp-outlined-segmented-button-unselected-with-icon-icon-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-icon-color: var(--md-comp-outlined-segmented-button-selected-with-icon-icon-color, var(--md-sys-color-on-secondary-container));
+
+    // ==================== Disabled ====================
+    --nd-segmented-button-disabled-outline-color: var(--md-comp-outlined-segmented-button-disabled-outline-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-disabled-outline-opacity: var(--md-comp-outlined-segmented-button-disabled-outline-opacity, 0.12);
+    --nd-segmented-button-disabled-label-text-color: var(--md-comp-outlined-segmented-button-disabled-label-text-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-disabled-label-text-opacity: var(--md-comp-outlined-segmented-button-disabled-label-text-opacity, 0.38);
+    --nd-segmented-button-disabled-icon-color: var(--md-comp-outlined-segmented-button-disabled-icon-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-disabled-icon-opacity: var(--md-comp-outlined-segmented-button-disabled-icon-opacity, 0.38);
+
+    // ==================== Hover State ====================
+    --nd-segmented-button-unselected-hover-label-text-color: var(--md-comp-outlined-segmented-button-unselected-hover-label-text-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-hover-label-text-color: var(--md-comp-outlined-segmented-button-selected-hover-label-text-color, var(--md-sys-color-on-secondary-container));
+    --nd-segmented-button-unselected-hover-state-layer-color: var(--md-comp-outlined-segmented-button-unselected-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-hover-state-layer-color: var(--md-comp-outlined-segmented-button-selected-hover-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --nd-segmented-button-hover-state-layer-opacity: var(--md-comp-outlined-segmented-button-hover-state-layer-opacity, 0.08);
+    --nd-segmented-button-unselected-hover-icon-color: var(--md-comp-outlined-segmented-button-unselected-hover-icon-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-hover-icon-color: var(--md-comp-outlined-segmented-button-selected-hover-icon-color, var(--md-sys-color-on-secondary-container));
+
+    // ==================== Focus State ====================
+    --nd-segmented-button-focus-indicator-color: var(--md-comp-outlined-segmented-button-focus-indicator-color, var(--md-sys-color-secondary));
+    --nd-segmented-button-focus-indicator-thickness: var(--md-comp-outlined-segmented-button-focus-indicator-thickness, 3px);
+    --nd-segmented-button-focus-indicator-outline-offset: var(--md-comp-outlined-segmented-button-focus-indicator-outline-offset, 2px);
+    --nd-segmented-button-unselected-focus-label-text-color: var(--md-comp-outlined-segmented-button-unselected-focus-label-text-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-focus-label-text-color: var(--md-comp-outlined-segmented-button-selected-focus-label-text-color, var(--md-sys-color-on-secondary-container));
+    --nd-segmented-button-unselected-focus-state-layer-color: var(--md-comp-outlined-segmented-button-unselected-focus-state-layer-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-focus-state-layer-color: var(--md-comp-outlined-segmented-button-selected-focus-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --nd-segmented-button-focus-state-layer-opacity: var(--md-comp-outlined-segmented-button-focus-state-layer-opacity, 0.1);
+    --nd-segmented-button-unselected-focus-icon-color: var(--md-comp-outlined-segmented-button-unselected-focus-icon-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-focus-icon-color: var(--md-comp-outlined-segmented-button-selected-focus-icon-color, var(--md-sys-color-on-secondary-container));
+
+    // ==================== Pressed State ====================
+    --nd-segmented-button-unselected-pressed-label-text-color: var(--md-comp-outlined-segmented-button-unselected-pressed-label-text-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-pressed-label-text-color: var(--md-comp-outlined-segmented-button-selected-pressed-label-text-color, var(--md-sys-color-on-secondary-container));
+    --nd-segmented-button-unselected-pressed-state-layer-color: var(--md-comp-outlined-segmented-button-unselected-pressed-state-layer-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-pressed-state-layer-color: var(--md-comp-outlined-segmented-button-selected-pressed-state-layer-color, var(--md-sys-color-on-secondary-container));
+    --nd-segmented-button-pressed-state-layer-opacity: var(--md-comp-outlined-segmented-button-pressed-state-layer-opacity, 0.1);
+    --nd-segmented-button-unselected-pressed-icon-color: var(--md-comp-outlined-segmented-button-unselected-pressed-icon-color, var(--md-sys-color-on-surface));
+    --nd-segmented-button-selected-pressed-icon-color: var(--md-comp-outlined-segmented-button-selected-pressed-icon-color, var(--md-sys-color-on-secondary-container));
+  }
+}
