@@ -17,7 +17,7 @@
 import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 
 import classNames from '@utils/classnames';
-import useRipple from '../ripple/useRipple';
+import useRipple from '../Ripple/useRipple';
 import {
   SegmentedButtonContext,
   useSegmentedButtonContext,
