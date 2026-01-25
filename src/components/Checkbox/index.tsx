@@ -235,9 +235,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         {...restProps}
       />
 
-      {/* State layer container */}
-      <span className={styles['nd-checkbox__state-layer']} aria-hidden="true" />
-
       {/* Visual checkbox container */}
       <span className={styles['nd-checkbox__container']}>
         {/* Checkmark icon (shown when checked) */}

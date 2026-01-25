@@ -84,16 +84,6 @@
       z-index: 1;
     }
 
-    // ==================== State Layer Container ====================
-    // The state layer is applied to this container
-    .nd-checkbox__state-layer {
-      position: absolute;
-      width: var(--md-comp-checkbox-state-layer-size, 40px);
-      height: var(--md-comp-checkbox-state-layer-size, 40px);
-      border-radius: var(--md-comp-checkbox-state-layer-shape, 50%);
-      pointer-events: none;
-    }
-
     // ==================== Checkbox Container ====================
     .nd-checkbox__container {
       position: relative;
