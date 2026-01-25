@@ -1,0 +1,313 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Checkbox Base Styles
+ *
+ * Responsible for:
+ * - `.nd-checkbox` base layout and sizing
+ * - CSS custom properties reset for shared components (state-layer/ripple)
+ * - Base interactive states: hovered/focused/pressed/disabled
+ * - Selected and indeterminate state styles
+ * - Icon slot styles with checkmark and dash icons
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-checkbox {
+    // ==================== CSS Custom Properties Reset ====================
+    // Reset custom properties required by shared components for style isolation
+    --nd-state-layer-color: var(--md-comp-checkbox-unselected-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --md-sys-hover-state-layer-opacity: var(--md-comp-checkbox-unselected-hover-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-checkbox-unselected-focus-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-checkbox-unselected-pressed-state-layer-opacity, 0.1);
+
+    // Reset ripple related properties
+    --nd-ripple-color: var(--nd-state-layer-color);
+    // Override ripple container to be a centered circle matching state layer
+    --nd-ripple-inset: calc((48px - var(--md-comp-checkbox-state-layer-size, 40px)) / 2);
+    --nd-ripple-size: var(--md-comp-checkbox-state-layer-size, 40px);
+    --nd-ripple-shape: var(--md-comp-checkbox-state-layer-shape, 50%);
+
+    // ==================== Layout & Sizing ====================
+    // Layout properties - wrapper is inline-flex for proper alignment
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    // Touch target size (48dp recommended)
+    width: 48px;
+    height: 48px;
+
+    // Appearance properties
+    cursor: pointer;
+    user-select: none;
+
+    // ==================== State Layer Override ====================
+    // Override the default state-layer ::before to be a centered circle
+    // instead of filling the entire 48x48 touch target
+    &::before {
+      // Override inset:0 from nd-state-container to center the state layer
+      // Calculate inset to center 40px in 48px container: (48-40)/2 = 4px
+      inset: calc((48px - var(--md-comp-checkbox-state-layer-size, 40px)) / 2);
+      width: var(--md-comp-checkbox-state-layer-size, 40px);
+      height: var(--md-comp-checkbox-state-layer-size, 40px);
+      border-radius: var(--md-comp-checkbox-state-layer-shape, 50%);
+    }
+
+    // ==================== Hidden Native Input ====================
+    .nd-checkbox__input {
+      // Visually hidden but accessible
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: inherit;
+      z-index: 1;
+    }
+
+    // ==================== State Layer Container ====================
+    // The state layer is applied to this container
+    .nd-checkbox__state-layer {
+      position: absolute;
+      width: var(--md-comp-checkbox-state-layer-size, 40px);
+      height: var(--md-comp-checkbox-state-layer-size, 40px);
+      border-radius: var(--md-comp-checkbox-state-layer-shape, 50%);
+      pointer-events: none;
+    }
+
+    // ==================== Checkbox Container ====================
+    .nd-checkbox__container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      // Container size - fixed size regardless of state
+      width: var(--md-comp-checkbox-container-size, 18px);
+      height: var(--md-comp-checkbox-container-size, 18px);
+
+      // Unselected state: use inset box-shadow for outline to keep size consistent
+      // This ensures the container is always 18x18px, not 18+border*2
+      background-color: transparent;
+      border: none;
+      border-radius: var(--md-comp-checkbox-container-shape, 2px);
+      
+      // Use inset box-shadow to simulate border (keeps size consistent)
+      box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-outline-width, 2px) var(--md-comp-checkbox-unselected-outline-color, var(--md-sys-color-on-surface-variant));
+
+      // Transition effects
+      transition: background-color 150ms ease-in-out,
+                  box-shadow 150ms ease-in-out;
+    }
+
+    // ==================== Icon Styles ====================
+    .nd-checkbox__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--md-comp-checkbox-icon-size, 18px);
+      height: var(--md-comp-checkbox-icon-size, 18px);
+      color: var(--md-comp-checkbox-unselected-icon-color, var(--md-sys-color-on-surface));
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 150ms ease-in-out,
+                  transform 150ms ease-in-out,
+                  color 150ms ease-in-out;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+      }
+    }
+
+    // ==================== Selected State ====================
+    &--selected {
+      --nd-state-layer-color: var(--md-comp-checkbox-selected-hover-state-layer-color, var(--md-sys-color-primary));
+
+      .nd-checkbox__container {
+        background-color: var(--md-comp-checkbox-selected-container-color, var(--md-sys-color-primary));
+        // No outline when selected
+        box-shadow: none;
+      }
+
+      .nd-checkbox__icon {
+        color: var(--md-comp-checkbox-selected-icon-color, var(--md-sys-color-on-primary));
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      // Show checkmark, hide dash
+      .nd-checkbox__icon--check {
+        display: flex;
+      }
+
+      .nd-checkbox__icon--dash {
+        display: none;
+      }
+    }
+
+    // ==================== Indeterminate State ====================
+    &--indeterminate {
+      --nd-state-layer-color: var(--md-comp-checkbox-selected-hover-state-layer-color, var(--md-sys-color-primary));
+
+      .nd-checkbox__container {
+        background-color: var(--md-comp-checkbox-selected-container-color, var(--md-sys-color-primary));
+        // No outline when indeterminate
+        box-shadow: none;
+      }
+
+      .nd-checkbox__icon {
+        color: var(--md-comp-checkbox-selected-icon-color, var(--md-sys-color-on-primary));
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      // Show dash, hide checkmark
+      .nd-checkbox__icon--check {
+        display: none;
+      }
+
+      .nd-checkbox__icon--dash {
+        display: flex;
+      }
+    }
+
+    // ==================== Hovered State ====================
+    &:hover:not(.nd-checkbox--disabled) {
+      .nd-checkbox__container {
+        box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-hover-outline-width, 2px) var(--md-comp-checkbox-unselected-hover-outline-color, var(--md-sys-color-on-surface));
+      }
+
+      .nd-checkbox__icon {
+        color: var(--md-comp-checkbox-unselected-hover-icon-color, var(--md-sys-color-on-surface));
+      }
+
+      &.nd-checkbox--selected,
+      &.nd-checkbox--indeterminate {
+        .nd-checkbox__container {
+          background-color: var(--md-comp-checkbox-selected-hover-container-color, var(--md-sys-color-primary));
+          box-shadow: none;
+        }
+
+        .nd-checkbox__icon {
+          color: var(--md-comp-checkbox-selected-hover-icon-color, var(--md-sys-color-on-primary));
+        }
+      }
+    }
+
+    // ==================== Focus State ====================
+    &:has(.nd-checkbox__input:focus-visible) {
+      .nd-checkbox__container {
+        outline: var(--md-comp-checkbox-focus-indicator-thickness, 3px) solid var(--md-comp-checkbox-focus-indicator-color, var(--md-sys-color-secondary));
+        outline-offset: var(--md-comp-checkbox-focus-indicator-outline-offset, 2px);
+        box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-focus-outline-width, 2px) var(--md-comp-checkbox-unselected-focus-outline-color, var(--md-sys-color-on-surface));
+      }
+
+      .nd-checkbox__icon {
+        color: var(--md-comp-checkbox-unselected-focus-icon-color, var(--md-sys-color-on-surface));
+      }
+
+      --nd-state-layer-color: var(--md-comp-checkbox-unselected-focus-state-layer-color, var(--md-sys-color-on-surface));
+
+      &.nd-checkbox--selected,
+      &.nd-checkbox--indeterminate {
+        --nd-state-layer-color: var(--md-comp-checkbox-selected-focus-state-layer-color, var(--md-sys-color-primary));
+
+        .nd-checkbox__container {
+          background-color: var(--md-comp-checkbox-selected-focus-container-color, var(--md-sys-color-primary));
+          box-shadow: none;
+        }
+
+        .nd-checkbox__icon {
+          color: var(--md-comp-checkbox-selected-focus-icon-color, var(--md-sys-color-on-primary));
+        }
+      }
+    }
+
+    // ==================== Pressed State ====================
+    &:active:not(.nd-checkbox--disabled) {
+      .nd-checkbox__container {
+        box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-pressed-outline-width, 2px) var(--md-comp-checkbox-unselected-pressed-outline-color, var(--md-sys-color-on-surface));
+      }
+
+      .nd-checkbox__icon {
+        color: var(--md-comp-checkbox-unselected-pressed-icon-color, var(--md-sys-color-on-surface));
+      }
+
+      --nd-state-layer-color: var(--md-comp-checkbox-unselected-pressed-state-layer-color, var(--md-sys-color-primary));
+
+      &.nd-checkbox--selected,
+      &.nd-checkbox--indeterminate {
+        --nd-state-layer-color: var(--md-comp-checkbox-selected-pressed-state-layer-color, var(--md-sys-color-on-surface));
+
+        .nd-checkbox__container {
+          background-color: var(--md-comp-checkbox-selected-pressed-container-color, var(--md-sys-color-primary));
+          box-shadow: none;
+        }
+
+        .nd-checkbox__icon {
+          color: var(--md-comp-checkbox-selected-pressed-icon-color, var(--md-sys-color-on-primary));
+        }
+      }
+    }
+
+    // ==================== Disabled State ====================
+    &--disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+
+      .nd-checkbox__input {
+        cursor: not-allowed;
+      }
+
+      .nd-checkbox__container {
+        box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-disabled-outline-width, 2px) rgb(
+          from var(--md-comp-checkbox-unselected-disabled-outline-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-checkbox-unselected-disabled-container-opacity, 0.38)
+        );
+      }
+
+      .nd-checkbox__icon {
+        color: rgb(
+          from var(--md-comp-checkbox-disabled-unselected-icon-color, var(--md-sys-color-primary))
+          r g b / var(--md-comp-checkbox-disabled-unselected-icon-opacity, 0.38)
+        );
+      }
+
+      &.nd-checkbox--selected,
+      &.nd-checkbox--indeterminate {
+        .nd-checkbox__container {
+          background-color: rgb(
+            from var(--md-comp-checkbox-selected-disabled-container-color, var(--md-sys-color-on-surface))
+            r g b / var(--md-comp-checkbox-selected-disabled-container-opacity, 0.38)
+          );
+          box-shadow: none;
+        }
+
+        .nd-checkbox__icon {
+          color: var(--md-comp-checkbox-selected-disabled-icon-color, var(--md-sys-color-surface));
+        }
+      }
+    }
+  }
+}

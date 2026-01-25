@@ -40,17 +40,20 @@
 
   .nd-ripple__container {
     // Position to cover parent element completely
+    // Use CSS variables for customizable positioning (e.g., centered ripple for checkbox)
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: var(--nd-ripple-inset, 0);
+    left: var(--nd-ripple-inset, 0);
+    right: var(--nd-ripple-inset, 0);
+    bottom: var(--nd-ripple-inset, 0);
+    width: var(--nd-ripple-size, auto);
+    height: var(--nd-ripple-size, auto);
     
     // Clip ripple effects to container boundaries
     overflow: hidden;
     
-    // Inherit border-radius from parent for proper clipping
-    border-radius: inherit;
+    // Use CSS variable for border-radius, fallback to inherit from parent
+    border-radius: var(--nd-ripple-shape, inherit);
     
     // Ensure container doesn't block pointer events
     pointer-events: none;
