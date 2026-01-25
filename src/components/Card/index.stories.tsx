@@ -326,7 +326,7 @@ export const RichContent: Story = {
     variant: 'elevated',
     onClick: fn(),
     children: (
-      <div>
+      <div style={{ borderRadius: 'inherit' }}>
         {/* Media area */}
         <div
           style={{
@@ -335,6 +335,9 @@ export const RichContent: Story = {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            borderTopLeftRadius: 'inherit',
+            borderTopRightRadius: 'inherit',
+            overflow: 'hidden',
           }}
         >
           <span style={{ color: 'var(--md-sys-color-on-primary-container)', fontSize: '48px' }}>
