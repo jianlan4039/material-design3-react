@@ -1,3 +1,12 @@
+<!--
+ * @Author       : jian lan
+ * @Date         : 2026-01-11 23:01:24
+ * @LastEditors  : jian lan
+ * @LastEditTime : 2026-01-26 23:12:33
+ * @Description  : 
+ * @Copyright    : Copyright (c) 2024 jian lan
+ * @License      : Licensed under the Apache License, Version 2.0
+-->
 # File Header Scripts
 
 This directory contains scripts for automatically adding copyright headers to source files.
@@ -24,7 +33,7 @@ The script adds the following header to files:
 
 ```javascript
 /**
- * Copyright (c) 2024 jian lan
+ * Copyright (c) 2025 jian lan
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

@@ -1,12 +1,3 @@
-<!--
- * @Author       : jian lan
- * @Date         : 2026-01-17 22:00:13
- * @LastEditors  : jian lan
- * @LastEditTime : 2026-01-26 23:09:57
- * @Description  : 
- * @Copyright    : Copyright (c) 2024 jian lan
- * @License      : Licensed under the Apache License, Version 2.0
--->
 ---
 name: 组件的文件结构
 description: 组件的文件组织形式，包括文件的命名、文件夹的结构、自定义变量的引入。
