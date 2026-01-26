@@ -1,0 +1,234 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Filter Chip Variant Styles
+ *
+ * Filter chips allow users to refine content by selecting/deselecting options.
+ * They support both selected and unselected states with flat and elevated styles.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-chip--filter {
+    // Unselected flat styles (default)
+    background-color: transparent;
+    outline-color: var(--md-comp-filter-chip-flat-unselected-outline-color, var(--md-sys-color-outline-variant));
+    outline-width: var(--md-comp-filter-chip-flat-unselected-outline-width, 1px);
+    color: var(--md-comp-filter-chip-unselected-label-text-color, var(--md-sys-color-on-surface-variant));
+
+    // Icon colors (unselected)
+    .nd-chip__leading-icon {
+      color: var(--md-comp-filter-chip-with-leading-icon-leading-icon-unselected-color, var(--md-sys-color-primary));
+    }
+
+    .nd-chip__trailing-icon {
+      color: var(--md-comp-filter-chip-with-trailing-icon-trailing-icon-unselected-color, var(--md-sys-color-on-surface-variant));
+    }
+
+    // Hover state (unselected)
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-filter-chip-unselected-hover-state-layer-color, var(--md-sys-color-on-surface-variant));
+      --md-sys-hover-state-layer-opacity: var(--md-comp-filter-chip-unselected-hover-state-layer-opacity, 0.08);
+      
+      color: var(--md-comp-filter-chip-unselected-hover-label-text-color, var(--md-sys-color-on-surface-variant));
+
+      .nd-chip__leading-icon {
+        color: var(--md-comp-filter-chip-with-leading-icon-unselected-hover-leading-icon-color, var(--md-sys-color-primary));
+      }
+
+      .nd-chip__trailing-icon {
+        color: var(--md-comp-filter-chip-with-trailing-icon-unselected-hover-trailing-icon-color, var(--md-sys-color-on-surface-variant));
+      }
+    }
+
+    // Focus state (unselected)
+    &:focus-visible {
+      --nd-state-layer-color: var(--md-comp-filter-chip-unselected-focus-state-layer-color, var(--md-sys-color-on-surface-variant));
+      --md-sys-focus-state-layer-opacity: var(--md-comp-filter-chip-unselected-focus-state-layer-opacity, 0.1);
+      
+      outline-color: var(--md-comp-filter-chip-flat-unselected-focus-outline-color, var(--md-sys-color-on-surface-variant));
+      color: var(--md-comp-filter-chip-unselected-focus-label-text-color, var(--md-sys-color-on-surface-variant));
+
+      .nd-chip__leading-icon {
+        color: var(--md-comp-filter-chip-with-leading-icon-unselected-focus-leading-icon-color, var(--md-sys-color-primary));
+      }
+
+      .nd-chip__trailing-icon {
+        color: var(--md-comp-filter-chip-with-trailing-icon-unselected-focus-trailing-icon-color, var(--md-sys-color-on-surface-variant));
+      }
+    }
+
+    // Pressed state (unselected)
+    &:active:not(:disabled) {
+      --nd-state-layer-color: var(--md-comp-filter-chip-unselected-pressed-state-layer-color, var(--md-sys-color-on-secondary-container));
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-filter-chip-unselected-pressed-state-layer-opacity, 0.1);
+      
+      color: var(--md-comp-filter-chip-unselected-pressed-label-text-color, var(--md-sys-color-on-surface-variant));
+
+      .nd-chip__leading-icon {
+        color: var(--md-comp-filter-chip-with-leading-icon-unselected-pressed-leading-icon-color, var(--md-sys-color-primary));
+      }
+
+      .nd-chip__trailing-icon {
+        color: var(--md-comp-filter-chip-with-trailing-icon-unselected-pressed-trailing-icon-color, var(--md-sys-color-on-surface-variant));
+      }
+    }
+
+    // Selected state
+    &.nd-chip--selected {
+      background-color: var(--md-comp-filter-chip-flat-selected-container-color, var(--md-sys-color-secondary-container));
+      outline-width: var(--md-comp-filter-chip-flat-selected-outline-width, 0);
+      color: var(--md-comp-filter-chip-selected-label-text-color, var(--md-sys-color-on-secondary-container));
+
+      .nd-chip__leading-icon {
+        color: var(--md-comp-filter-chip-with-leading-icon-selected-leading-icon-color, var(--md-sys-color-on-secondary-container));
+      }
+
+      .nd-chip__trailing-icon {
+        color: var(--md-comp-filter-chip-with-trailing-icon-selected-trailing-icon-color, var(--md-sys-color-on-secondary-container));
+      }
+
+      // Hover state (selected)
+      &:hover:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-filter-chip-selected-hover-state-layer-color, var(--md-sys-color-on-secondary-container));
+        --md-sys-hover-state-layer-opacity: var(--md-comp-filter-chip-selected-hover-state-layer-opacity, 0.08);
+        
+        color: var(--md-comp-filter-chip-selected-hover-label-text-color, var(--md-sys-color-on-secondary-container));
+
+        .nd-chip__leading-icon {
+          color: var(--md-comp-filter-chip-with-leading-icon-selected-hover-leading-icon-color, var(--md-sys-color-on-secondary-container));
+        }
+
+        .nd-chip__trailing-icon {
+          color: var(--md-comp-filter-chip-with-trailing-icon-selected-hover-trailing-icon-color, var(--md-sys-color-on-secondary-container));
+        }
+      }
+
+      // Focus state (selected)
+      &:focus-visible {
+        --nd-state-layer-color: var(--md-comp-filter-chip-selected-focus-state-layer-color, var(--md-sys-color-on-secondary-container));
+        --md-sys-focus-state-layer-opacity: var(--md-comp-filter-chip-selected-focus-state-layer-opacity, 0.1);
+        
+        color: var(--md-comp-filter-chip-selected-focus-label-text-color, var(--md-sys-color-on-secondary-container));
+
+        .nd-chip__leading-icon {
+          color: var(--md-comp-filter-chip-with-leading-icon-selected-focus-leading-icon-color, var(--md-sys-color-on-secondary-container));
+        }
+
+        .nd-chip__trailing-icon {
+          color: var(--md-comp-filter-chip-with-trailing-icon-selected-focus-trailing-icon-color, var(--md-sys-color-on-secondary-container));
+        }
+      }
+
+      // Pressed state (selected)
+      &:active:not(:disabled) {
+        --nd-state-layer-color: var(--md-comp-filter-chip-selected-pressed-state-layer-color, var(--md-sys-color-on-surface-variant));
+        --md-sys-pressed-state-layer-opacity: var(--md-comp-filter-chip-selected-pressed-state-layer-opacity, 0.1);
+        
+        color: var(--md-comp-filter-chip-selected-pressed-label-text-color, var(--md-sys-color-on-secondary-container));
+
+        .nd-chip__leading-icon {
+          color: var(--md-comp-filter-chip-with-leading-icon-selected-pressed-leading-icon-color, var(--md-sys-color-on-secondary-container));
+        }
+
+        .nd-chip__trailing-icon {
+          color: var(--md-comp-filter-chip-with-trailing-icon-selected-pressed-trailing-icon-color, var(--md-sys-color-on-secondary-container));
+        }
+      }
+    }
+
+    // Disabled state
+    &:disabled,
+    &.nd-chip--disabled {
+      &:not(.nd-chip--selected) {
+        outline-color: rgb(
+          from var(--md-comp-filter-chip-flat-disabled-unselected-outline-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-filter-chip-flat-disabled-unselected-outline-opacity, 0.12)
+        );
+      }
+
+      &.nd-chip--selected {
+        background-color: rgb(
+          from var(--md-comp-filter-chip-flat-disabled-selected-container-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-filter-chip-flat-disabled-selected-container-opacity, 0.12)
+        );
+        outline-width: 0;
+      }
+
+      color: rgb(
+        from var(--md-comp-filter-chip-disabled-label-text-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-filter-chip-disabled-label-text-opacity, 0.38)
+      );
+
+      .nd-chip__leading-icon {
+        color: rgb(
+          from var(--md-comp-filter-chip-with-leading-icon-disabled-leading-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-filter-chip-with-leading-icon-disabled-leading-icon-opacity, 0.38)
+        );
+      }
+
+      .nd-chip__trailing-icon {
+        color: rgb(
+          from var(--md-comp-filter-chip-with-trailing-icon-disabled-trailing-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-filter-chip-with-trailing-icon-disabled-trailing-icon-opacity, 0.38)
+        );
+      }
+    }
+
+    // Elevated style
+    &.nd-chip--elevated {
+      outline: none;
+      --md-elevation-level: var(--md-comp-filter-chip-elevated-container-elevation, 1);
+      --md-elevation-shadow-color: var(--md-comp-filter-chip-elevated-container-shadow-color, var(--md-sys-color-shadow));
+
+      &:not(.nd-chip--selected) {
+        background-color: var(--md-comp-filter-chip-elevated-unselected-container-color, var(--md-sys-color-surface-container-low));
+      }
+
+      &.nd-chip--selected {
+        background-color: var(--md-comp-filter-chip-elevated-selected-container-color, var(--md-sys-color-secondary-container));
+      }
+
+      // Hover state
+      &:hover:not(:disabled) {
+        --md-elevation-level: var(--md-comp-filter-chip-elevated-hover-container-elevation, 2);
+      }
+
+      // Focus state
+      &:focus-visible {
+        --md-elevation-level: var(--md-comp-filter-chip-elevated-focus-container-elevation, 1);
+      }
+
+      // Pressed state
+      &:active:not(:disabled) {
+        --md-elevation-level: var(--md-comp-filter-chip-elevated-pressed-container-elevation, 1);
+      }
+
+      // Disabled state
+      &:disabled,
+      &.nd-chip--disabled {
+        --md-elevation-level: var(--md-comp-filter-chip-elevated-disabled-container-elevation, 0);
+        background-color: rgb(
+          from var(--md-comp-filter-chip-elevated-disabled-container-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-filter-chip-elevated-disabled-container-opacity, 0.12)
+        );
+      }
+    }
+  }
+}

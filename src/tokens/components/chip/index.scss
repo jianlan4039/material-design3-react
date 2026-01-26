@@ -113,12 +113,9 @@ $tokens: (
     'md.comp.filter-chip.elevated.disabled.container.elevation': '0',
     'md.comp.filter-chip.elevated.disabled.container.color': 'md.sys.color.on-surface',
     'md.comp.filter-chip.elevated.disabled.container.opacity': '0.12',
-    '': '',
     
     'md.comp.filter-chip.disabled.label-text.color': 'md.sys.color.on-surface',
     'md.comp.filter-chip.disabled.label-text.opacity': '0.38',
-    '': '',
-    '': '',
 
     'md.comp.filter-chip.with-leading-icon.disabled.leading-icon.color': 'md.sys.color.on-surface',
     'md.comp.filter-chip.with-leading-icon.disabled.leading-icon.opacity': '0.38',
@@ -127,8 +124,6 @@ $tokens: (
 
     'md.comp.filter-chip.with-icon.disabled.icon.color': 'md.sys.color.on-surface',
     'md.comp.filter-chip.with-icon.disabled.icon.opacity': '0.38',
-    '': '',
-    '': '',
 
     // ----------------- filter focus --------------------
     'md.comp.filter-chip.focus.indicator.color': 'md.sys.color.secondary',
@@ -201,8 +196,6 @@ $tokens: (
     // ----------------- input -----------------------
     'md.comp.input-chip.with-avatar.avatar.size': '24px',
     'md.comp.input-chip.with-avatar.avatar.shape': 'md.sys.shape.corner.full',
-    '': '',
-    '': '',
 
     'md.comp.input-chip.container.shape': 'md.sys.shape.corner.small',
     'md.comp.input-chip.container.height': '32px',
@@ -215,9 +208,6 @@ $tokens: (
     'md.comp.input-chip.outline.color': 'md.sys.color.outline',
 
     'md.comp.input-chip.outline.width': '1px',
-    '': '',
-    '': '',
-    '': '',
 
     'md.comp.input-chip.label-text.font': 'Roboto',
     'md.comp.input-chip.label-text.line-height': '20px',
@@ -260,7 +250,6 @@ $tokens: (
     'md.comp.input-chip.unselected.hover.label-text.color': 'md.sys.color.on-surface-variant',
     'md.comp.input-chip.selected.hover.label-text.color': 'md.sys.color.on-secondary-container',
     'md.comp.input-chip.hover.label-text.color': 'md.sys.color.on-surface-variant',
-    '': '',
 
     'md.comp.input-chip.unselected.hover.state-layer.color': 'md.sys.color.on-surface-variant',
     'md.comp.input-chip.unselected.hover.state-layer.opacity': '0.08',
@@ -324,43 +313,61 @@ $tokens: (
     'md.comp.input-chip.with-trailing-icon.selected.pressed.trailing-icon.color': 'md.sys.color.on-secondary-container',
     'md.comp.input-chip.with-trailing-icon.pressed.trailing-icon.color': 'md.sys.color.on-surface-variant',
 
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    // ----------------- suggestion --------------------
+    'md.comp.suggestion-chip.container.shape': 'md.sys.shape.corner.small',
+    'md.comp.suggestion-chip.container.height': '32px',
+    'md.comp.suggestion-chip.flat.container.elevation': '0',
+    'md.comp.suggestion-chip.flat.outline.color': 'md.sys.color.outline-variant',
 
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'md.comp.suggestion-chip.flat.outline.width': '1px',
+    'md.comp.suggestion-chip.elevated.container.elevation': '1',
+    'md.comp.suggestion-chip.elevated.container.color': 'md.sys.color.surface-container-low',
+    'md.comp.suggestion-chip.elevated.container.shadow-color': 'md.sys.color.shadow',
 
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'md.comp.suggestion-chip.container.surface-tint-layer.color': 'md.sys.color.surface-tint',
+    'md.comp.suggestion-chip.with-leading-icon.leading-icon.color': 'md.sys.color.primary',
+    'md.comp.suggestion-chip.with-leading-icon.leading-icon.size': '18px',
 
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'md.comp.suggestion-chip.label-text.font': 'Roboto',
+    'md.comp.suggestion-chip.label-text.line-height': '20px',
+    'md.comp.suggestion-chip.label-text.size': '14px',
+    'md.comp.suggestion-chip.label-text.weight': '500',
 
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'md.comp.suggestion-chip.label-text.color': 'md.sys.color.on-surface-variant',
+    'md.comp.suggestion-chip.flat.disabled.outline.color': 'md.sys.color.on-surface',
+    'md.comp.suggestion-chip.flat.disabled.outline.opacity': '0.12',
+    'md.comp.suggestion-chip.elevated.disabled.container.elevation': '0',
 
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'md.comp.suggestion-chip.elevated.disabled.container.color': 'md.sys.color.on-surface',
+    'md.comp.suggestion-chip.elevated.disabled.container.opacity': '0.12',
+    'md.comp.suggestion-chip.with-leading-icon.disabled.leading-icon.color': 'md.sys.color.on-surface',
+    'md.comp.suggestion-chip.with-leading-icon.disabled.leading-icon.opacity': '0.38',
 
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'md.comp.suggestion-chip.disabled.label-text.color': 'md.sys.color.on-surface',
+    'md.comp.suggestion-chip.disabled.label-text.opacity': '0.38',
+    'md.comp.suggestion-chip.elevated.hover.container.elevation': '2',
+    'md.comp.suggestion-chip.with-leading-icon.hover.leading-icon.color': 'md.sys.color.primary',
 
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'md.sys.color.on-surface-variant': 'md.sys.color.on-surface-variant',
+    'md.comp.suggestion-chip.hover.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.suggestion-chip.hover.state-layer.opacity': '0.08',
+
+    'md.comp.suggestion-chip.focus.indicator.color': 'md.sys.color.secondary',
+    'md.comp.suggestion-chip.focus.indicator.thickness': '3px',
+    'md.comp.suggestion-chip.focus.indicator.outline.offset': '2px',
+
+    'md.comp.suggestion-chip.flat.focus.outline.color': 'md.sys.color.on-surface-variant',
+    'md.comp.suggestion-chip.elevated.focus.container.elevation': '1',
+    'md.comp.suggestion-chip.with-leading-icon.focus.leading-icon.color': 'md.sys.color.primary',
+    'md.comp.suggestion-chip.focus.label-text.color': 'md.sys.color.on-surface-variant',
+
+    'md.comp.suggestion-chip.focus.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.suggestion-chip.focus.state-layer.opacity': '0.1',
+
+    'md.comp.suggestion-chip.elevated.pressed.container.elevation': '1',
+    'md.comp.suggestion-chip.with-leading-icon.pressed.leading-icon.color': 'md.sys.color.primary',
+    'md.comp.suggestion-chip.pressed.label-text.color': 'md.sys.color.on-surface-variant',
+
+    'md.comp.suggestion-chip.pressed.state-layer.color': 'md.sys.color.on-surface-variant',
+    'md.comp.suggestion-chip.pressed.state-layer.opacity': '0.1',
 )

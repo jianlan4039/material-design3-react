@@ -1,0 +1,202 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Chip Base Styles
+ *
+ * Responsible for:
+ * - `.nd-chip` base layout and sizing
+ * - CSS custom properties reset for shared components (state-layer/elevation/ripple)
+ * - Base interactive states: hover/focus/pressed/disabled
+ * - Common element slots: label, leading-icon, trailing-icon, avatar
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-chip {
+    // ==================== Local Shape Helpers ====================
+    --nd-chip-container-height: 32px;
+    --nd-chip-corner-full: calc(var(--nd-chip-container-height) / 2);
+
+    // ==================== CSS Custom Properties Reset ====================
+    // Reset custom properties required by shared components for style isolation
+    
+    // Reset state-layer related properties
+    --nd-state-layer-color: currentColor;
+    --md-sys-hover-state-layer-opacity: 0.08;
+    --md-sys-focus-state-layer-opacity: 0.1;
+    --md-sys-pressed-state-layer-opacity: 0.1;
+
+    // Reset elevation related properties
+    --md-elevation-level: 0;
+    --md-elevation-shadow-color: var(--md-sys-color-shadow);
+
+    // Reset ripple related properties
+    --nd-ripple-color: currentColor;
+
+    // ==================== Layout & Sizing ====================
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    // Sizing
+    height: var(--nd-chip-container-height);
+    min-height: var(--nd-chip-container-height);
+    padding-left: 16px;
+    padding-right: 16px;
+
+    // Appearance
+    border: none;
+    border-radius: var(--nd-chip-corner-full);
+    background-color: transparent;
+    outline: 1px solid transparent;
+
+    // Typography
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: center;
+
+    // Interaction
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+
+    // Transitions
+    transition: background-color 200ms cubic-bezier(0.2, 0, 0, 1),
+                outline-color 200ms cubic-bezier(0.2, 0, 0, 1),
+                color 200ms cubic-bezier(0.2, 0, 0, 1);
+
+    // ==================== Interactive States ====================
+
+    // Hover state
+    &:hover:not(:disabled) {
+      --nd-state-layer-color: currentColor;
+      --nd-ripple-color: var(--nd-state-layer-color);
+    }
+
+    // Focus state
+    &:focus-visible {
+      --nd-state-layer-color: currentColor;
+      --nd-ripple-color: var(--nd-state-layer-color);
+      
+      outline: 3px solid var(--md-sys-color-secondary);
+      outline-offset: 2px;
+    }
+
+    // Active/Pressed state
+    &:active:not(:disabled) {
+      --nd-state-layer-color: currentColor;
+      --nd-ripple-color: var(--nd-state-layer-color);
+    }
+
+    // Disabled state
+    &:disabled,
+    &--disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    // ==================== Element Slots ====================
+
+    // Label
+    &__label {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: inherit;
+    }
+
+    // Leading icon
+    &__leading-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: inherit;
+      
+      > * {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    // Trailing icon
+    &__trailing-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: inherit;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background-color 150ms cubic-bezier(0.2, 0, 0, 1);
+      
+      > * {
+        width: 100%;
+        height: 100%;
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
+      &:active {
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    // Avatar (input chips only)
+    &__avatar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-left: -8px;
+      
+      > * {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    // ==================== Chip with Leading Icon/Avatar Spacing ====================
+    &__leading-icon + &__label,
+    &__avatar + &__label {
+      margin-left: 8px;
+    }
+
+    &__label + &__trailing-icon {
+      margin-left: 8px;
+    }
+  }
+}
