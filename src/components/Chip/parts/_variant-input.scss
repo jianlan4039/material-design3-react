@@ -26,6 +26,12 @@
 
 @layer nd-comp {
   .nd-chip--input {
+    // Typography
+    font-family: var(--md-comp-input-chip-label-text-font, Roboto), sans-serif;
+    font-size: var(--md-comp-input-chip-label-text-size, 14px);
+    font-weight: var(--md-comp-input-chip-label-text-weight, 500);
+    line-height: var(--md-comp-input-chip-label-text-line-height, 20px);
+
     // Unselected styles (default)
     background-color: transparent;
     outline-color: var(--md-comp-input-chip-unselected-outline-color, var(--md-sys-color-outline-variant));

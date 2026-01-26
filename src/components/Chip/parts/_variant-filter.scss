@@ -26,6 +26,12 @@
 
 @layer nd-comp {
   .nd-chip--filter {
+    // Typography
+    font-family: var(--md-comp-filter-chip-label-text-font, Roboto), sans-serif;
+    font-size: var(--md-comp-filter-chip-label-text-size, 14px);
+    font-weight: var(--md-comp-filter-chip-label-text-weight, 500);
+    line-height: var(--md-comp-filter-chip-label-text-line-height, 20px);
+
     // Unselected flat styles (default)
     background-color: transparent;
     outline-color: var(--md-comp-filter-chip-flat-unselected-outline-color, var(--md-sys-color-outline-variant));

@@ -26,6 +26,12 @@
 
 @layer nd-comp {
   .nd-chip--assist {
+    // Typography
+    font-family: var(--md-comp-assist-chip-label-text-font, Roboto), sans-serif;
+    font-size: var(--md-comp-assist-chip-label-text-size, 14px);
+    font-weight: var(--md-comp-assist-chip-label-text-weight, 500);
+    line-height: var(--md-comp-assist-chip-label-text-line-height, 20px);
+
     // Default (flat) styles
     background-color: transparent;
     outline-color: var(--md-comp-assist-chip-flat-outline-color, var(--md-sys-color-outline-variant));

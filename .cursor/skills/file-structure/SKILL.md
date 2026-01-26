@@ -1,3 +1,12 @@
+<!--
+ * @Author       : jian lan
+ * @Date         : 2026-01-17 22:00:13
+ * @LastEditors  : jian lan
+ * @LastEditTime : 2026-01-26 23:09:57
+ * @Description  : 
+ * @Copyright    : Copyright (c) 2024 jian lan
+ * @License      : Licensed under the Apache License, Version 2.0
+-->
 ---
 name: 组件的文件结构
 description: 组件的文件组织形式，包括文件的命名、文件夹的结构、自定义变量的引入。
@@ -15,19 +24,8 @@ description: 组件的文件组织形式，包括文件的命名、文件夹的�
 
 每个组件的样式自定义变量定义在 `src/tokens/component/` 目录下对应组件名的文件夹内的 `index.scss` 文件中。该文件内定义了一个 map，其键值对会通过 [converter.scss](../../../src/tokens/converter.scss) 中的 `iterateTokens` 混入解析成 `md-comp-[comp-name]-[property]: [property-value]` 形式的 CSS 变量。
 
-组件样式文件应在开头引入其自定义变量。以 Button 组件为例，引用方式如下：
-
-```scss
-@use "@tokens/components/button/index.scss" as *;
-@use "@tokens/converter" as converter;
-
-:root {
-  @include converter.iterateTokens($tokens);
-}
-```
-
 ## 组件函数
 
 为了充分利用函数式编程的优势，所有组件统一采用函数式组件定义，而非类组件。这种方式能够带来更高的灵活性和可组合性。
 
-组件的属性类型定义应位于组件函数所在文件的开头。对于与原生 DOM 元素相关的组件，其属性接口应继承对应的原生元素属性接口。以 Button 组件为例，属性接口继承 `React.ButtonHTMLAttributes<HTMLButtonElement>`。
+组件的属性类型定义应位于组件函数所在文件的开头。对于与原生 DOM 元素相关的组件，其属性接口应继承对应的原生元素属性接口。
