@@ -1,0 +1,17 @@
+@layer nd-comp {
+  .nd-list-divider {
+    background-color: var(--md-comp-list-divider-color, var(--md-sys-color-outline-variant));
+    height: var(--md-comp-list-divider-height, 1px);
+    margin: 0;
+    border: none;
+    flex: none;
+  }
+
+  .nd-list-divider--inset-leading {
+    margin-inline-start: 72px;
+  }
+
+  .nd-list-divider--inset-full {
+    margin-inline: 16px;
+  }
+}

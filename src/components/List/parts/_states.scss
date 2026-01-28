@@ -152,12 +152,10 @@
   &:focus-visible {
     outline: var(--md-comp-list-focus-indicator-thickness, 3px) solid var(--md-comp-list-focus-indicator-color, var(--md-sys-color-secondary));
     outline-offset: var(--md-comp-list-focus-indicator-outline-offset, -3px);
-    border-radius: var(--md-comp-list-list-item-focused-container-expressive-shape, var(--md-sys-shape-corner-large, 16px));
   }
 
   // Hover state text/icon colors
   &:hover:not(:active):not(:focus) {
-    border-radius: var(--md-comp-list-list-item-hovered-container-expressive-shape, var(--md-sys-shape-corner-medium, 12px));
 
     .nd-list-item__headline {
       color: var(--md-comp-list-list-item-hover-label-text-color, var(--md-sys-color-on-surface));
@@ -190,7 +188,6 @@
 
   // Pressed state text/icon colors
   &:active {
-    border-radius: var(--md-comp-list-list-item-pressed-container-expressive-shape, var(--md-sys-shape-corner-large, 16px));
     
     .nd-list-item__headline {
       color: var(--md-comp-list-list-item-pressed-label-text-color, var(--md-sys-color-on-surface));

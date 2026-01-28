@@ -25,8 +25,8 @@
 .nd-list-item-group {
   display: flex;
   flex-direction: column;
-  border-radius: var(--md-comp-list-expand-container-shape, var(--md-sys-shape-corner-large, 16px));
-  overflow: hidden;
+  // border-radius: var(--md-comp-list-expand-container-shape, 0);
+  // overflow: hidden; // Remove to allow header's rounding (hover/selected) to show
 }
 
 // ==================== Group Header ====================
@@ -87,8 +87,8 @@
   // Prevents content from collapsing margins
   display: flex;
   flex-direction: column;
-  padding-left: 16px; // Indent nested items
-  background-color: var(--md-comp-list-expand-expanded-list-item-segmented-container-color, #FEF7FF);
+  // padding-left: 16px; // Indent nested items
+  background-color: transparent;
 }
 
 // ==================== Expanded State ====================

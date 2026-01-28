@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-import React, { useState, useCallback, useId } from 'react';
+import React, { useState, useCallback, useId, useMemo } from 'react';
 
 import classNames from '@utils/classnames';
 import useRipple from '../Ripple/useRipple';
 import useStateLayer from '../StateLayer';
-import { useListContext } from './ListContext';
+import { ListContext, useListContext } from './ListContext';
 import { useListExpandAnimation } from './useListExpandAnimation';
 import styles from './index.module.scss';
 
 import type { ListItemLeadingType } from './ListItem';
+import type { ListSelectionMode, ListContextValue } from './ListContext';
 
 // ============================================================================
 // Types & Interfaces
@@ -32,7 +33,7 @@ import type { ListItemLeadingType } from './ListItem';
 /**
  * ListItemGroup Component Props Interface
  */
-export interface ListItemGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
+export interface ListItemGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'onChange'> {
   /**
    * Primary text (headline) for the group header
    */
@@ -83,6 +84,48 @@ export interface ListItemGroupProps extends Omit<React.HTMLAttributes<HTMLDivEle
    * @default 300
    */
   animationDuration?: number;
+
+  /**
+   * Unique value for the group header (required for selection tracking if selectable)
+   */
+  value?: string;
+
+  /**
+   * Selection mode for children
+   * - 'none': Items are not selectable
+   * - 'single': Only one item can be selected at a time
+   * - 'multiple': Multiple items can be selected
+   * 
+   * @default 'none'
+   */
+  selectionMode?: ListSelectionMode;
+
+  /**
+   * Controlled selected value(s) for children
+   * - For 'single' mode: string or undefined
+   * - For 'multiple' mode: string[]
+   */
+  selectedValue?: string | string[];
+
+  /**
+   * Default selected value(s) for children (uncontrolled mode)
+   */
+  defaultSelectedValue?: string | string[];
+
+  /**
+   * Callback when children selection changes
+   */
+  onChange?: (value: string | string[]) => void;
+
+  /**
+   * Whether to use segmented list style for children
+   */
+  segmented?: boolean;
+
+  /**
+   * Whether to use expressive shape mode for children and the group header
+   */
+  expressive?: boolean;
 }
 
 // ============================================================================
@@ -148,6 +191,13 @@ export const ListItemGroup: React.FC<ListItemGroupProps> = ({
   onExpandedChange,
   disabled: disabledProp,
   animationDuration = 300,
+  value,
+  selectionMode: selectionModeProp,
+  selectedValue: selectedValueProp,
+  defaultSelectedValue,
+  onChange,
+  segmented: segmentedProp,
+  expressive: expressiveProp,
   className,
   ...restProps
 }) => {
@@ -155,23 +205,82 @@ export const ListItemGroup: React.FC<ListItemGroupProps> = ({
   const contentId = useId();
 
   // Get context from parent List
-  const { disabled: listDisabled } = useListContext();
+  const {
+    selectionMode: parentSelectionMode,
+    selectedValues: parentSelectedValues,
+    disabled: listDisabled,
+    toggleSelection: toggleParentSelection,
+    isSelected: isParentSelected,
+    segmented: parentSegmented,
+    expressive: parentExpressive,
+  } = useListContext();
 
   // State for element references
   const [headerElement, setHeaderElement] = useState<HTMLDivElement | null>(null);
   const [contentElement, setContentElement] = useState<HTMLDivElement | null>(null);
 
-  // Determine if controlled or uncontrolled
-  const isControlled = expandedProp !== undefined;
-
-  // Internal state for uncontrolled mode
+  // --- Expansion Logic ---
+  // Determine if expansion is controlled or uncontrolled
+  const isExpansionControlled = expandedProp !== undefined;
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
+  const expanded = isExpansionControlled ? expandedProp : internalExpanded;
 
-  // Use controlled value if provided, otherwise use internal state
-  const expanded = isControlled ? expandedProp : internalExpanded;
+  // --- Selection Logic (for children) ---
+  const isSelectionControlled = selectedValueProp !== undefined;
+  const [internalSelectedValues, setInternalSelectedValues] = useState<Set<string>>(() => {
+    if (defaultSelectedValue !== undefined) {
+      return new Set(Array.isArray(defaultSelectedValue) ? defaultSelectedValue : [defaultSelectedValue]);
+    }
+    return new Set();
+  });
+
+  const selectedValues = useMemo(() => {
+    if (isSelectionControlled) {
+      return new Set(Array.isArray(selectedValueProp) ? selectedValueProp : selectedValueProp ? [selectedValueProp] : []);
+    }
+    return internalSelectedValues;
+  }, [isSelectionControlled, selectedValueProp, internalSelectedValues]);
+
+  const toggleSelection = useCallback((val: string): void => {
+    if (!selectionModeProp || selectionModeProp === 'none') return;
+
+    let newSelectedValues: Set<string>;
+    if (selectionModeProp === 'single') {
+      newSelectedValues = selectedValues.has(val) ? new Set() : new Set([val]);
+    } else {
+      newSelectedValues = new Set(selectedValues);
+      if (newSelectedValues.has(val)) {
+        newSelectedValues.delete(val);
+      } else {
+        newSelectedValues.add(val);
+      }
+    }
+
+    if (!isSelectionControlled) {
+      setInternalSelectedValues(newSelectedValues);
+    }
+
+    if (onChange) {
+      const valuesArray = Array.from(newSelectedValues);
+      onChange(selectionModeProp === 'single' ? (valuesArray[0] || '') : valuesArray);
+    }
+  }, [selectionModeProp, selectedValues, isSelectionControlled, onChange]);
+
+  const isSelected = useCallback((val: string): boolean => {
+    return selectedValues.has(val);
+  }, [selectedValues]);
 
   // Determine if disabled
   const disabled = disabledProp || listDisabled;
+
+  // Determine if the group header itself is selected (using parent context)
+  const isHeaderSelected = value ? isParentSelected(value) : false;
+
+  // Determine if header is interactive
+  const isHeaderInteractive = !disabled && (!!onExpandedChange || (parentSelectionMode !== 'none' && !!value) || !isExpansionControlled);
+
+  // Determine if expressive mode is enabled (either via prop or parent context)
+  const isExpressive = expressiveProp ?? parentExpressive;
 
   // Build class names for the group container
   const groupClassName = classNames(
@@ -189,7 +298,9 @@ export const ListItemGroup: React.FC<ListItemGroupProps> = ({
     styles['nd-list-item'],
     {
       [styles['nd-list-item--disabled']]: disabled,
-      [styles['nd-list-item--interactive']]: !disabled,
+      [styles['nd-list-item--interactive']]: isHeaderInteractive,
+      [styles['nd-list-item--selected']]: isHeaderSelected,
+      [styles['nd-list-item--expressive']]: isExpressive,
       [styles['nd-list-item--leading-icon']]: leadingType === 'icon',
       [styles['nd-list-item--leading-avatar']]: leadingType === 'avatar',
       [styles['nd-list-item--leading-image']]: leadingType === 'image',
@@ -208,20 +319,22 @@ export const ListItemGroup: React.FC<ListItemGroupProps> = ({
     setContentElement(node);
   }, []);
 
-  // Handle header click to toggle expansion
+  // Handle header click to toggle expansion and selection
   const handleHeaderClick = useCallback(() => {
     if (disabled) return;
 
+    // Toggle expansion
     const newExpanded = !expanded;
-
-    // Update internal state for uncontrolled mode
-    if (!isControlled) {
+    if (!isExpansionControlled) {
       setInternalExpanded(newExpanded);
     }
-
-    // Call callback
     onExpandedChange?.(newExpanded);
-  }, [disabled, expanded, isControlled, onExpandedChange]);
+
+    // Toggle selection if header has a value and parent is in selection mode
+    if (parentSelectionMode !== 'none' && value) {
+      toggleParentSelection(value);
+    }
+  }, [disabled, expanded, isExpansionControlled, onExpandedChange, parentSelectionMode, value, toggleParentSelection]);
 
   // Handle keyboard events
   const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -236,13 +349,13 @@ export const ListItemGroup: React.FC<ListItemGroupProps> = ({
   // Apply state-layer effect to header
   useStateLayer({
     classNameManager: headerClassName,
-    disabled: disabled,
-  }, [disabled, expanded]);
+    disabled: !isHeaderInteractive,
+  }, [disabled, expanded, isHeaderSelected, isHeaderInteractive, isExpressive]);
 
   // Apply ripple effect to header
   useRipple({
     parent: headerElement,
-    disabled: disabled,
+    disabled: !isHeaderInteractive,
   });
 
   // Apply expand animation
@@ -252,6 +365,23 @@ export const ListItemGroup: React.FC<ListItemGroupProps> = ({
     duration: animationDuration,
   });
 
+  // Children context value (if providing selection mode, otherwise use parent)
+  const selectionContextValue: ListContextValue = useMemo(() => ({
+    selectionMode: selectionModeProp ?? parentSelectionMode,
+    selectedValues: selectionModeProp !== undefined ? selectedValues : parentSelectedValues,
+    disabled,
+    toggleSelection: selectionModeProp !== undefined ? toggleSelection : toggleParentSelection,
+    isSelected: selectionModeProp !== undefined ? isSelected : isParentSelected,
+    segmented: segmentedProp ?? parentSegmented,
+    expressive: isExpressive,
+  }), [
+    selectionModeProp, parentSelectionMode, 
+    selectedValues, parentSelectedValues,
+    toggleSelection, isSelected,
+    toggleParentSelection, isParentSelected,
+    disabled, segmentedProp, parentSegmented, isExpressive
+  ]);
+
   return (
     <div className={groupClassName.toString()} {...restProps}>
       {/* Group header (clickable) */}
@@ -259,8 +389,9 @@ export const ListItemGroup: React.FC<ListItemGroupProps> = ({
         ref={headerRef}
         className={headerClassName.toString()}
         role="button"
-        tabIndex={disabled ? undefined : 0}
+        tabIndex={isHeaderInteractive ? 0 : undefined}
         aria-expanded={expanded}
+        aria-selected={parentSelectionMode !== 'none' ? isHeaderSelected : undefined}
         aria-controls={contentId}
         aria-disabled={disabled || undefined}
         onClick={handleHeaderClick}
@@ -302,7 +433,9 @@ export const ListItemGroup: React.FC<ListItemGroupProps> = ({
         aria-hidden={!expanded}
       >
         <div className={styles['nd-list-item-group__children']}>
-          {children}
+          <ListContext.Provider value={selectionContextValue}>
+            {children}
+          </ListContext.Provider>
         </div>
       </div>
     </div>

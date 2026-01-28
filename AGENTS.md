@@ -1,158 +1,55 @@
-# Agent Guide (material-design3-react)
+# Agent
 
-This repo is a React + TypeScript + Sass implementation of Material Design 3 components.
-Storybook is the primary dev surface; Vite is used for tooling.
+本仓库是基于 React + TypeScript + Sass 的 Material Design 3 组件实现。
+使用 Storybook 开发，Vite 作为工具链。
 
-## Quick Commands
+注意：`tsconfig.json` 默认排除故事和测试文件，`tsc` 不对其进行类型检查。
 
-### Install
+## 代码风格 (TypeScript/React)
 
-```bash
-npm ci
-```
+### 导入
+- 优先使用路径别名：`@/`, `@components/`, `@tokens/`, `@utils/`。
+- 导入顺序：1) React 2) 第三方 3) 别名 4) 相对路径 5) 样式。
+- 仅类型导入须使用 `import type`。
 
-### Dev / Preview
+### 类型与 Props
+- 严格遵循类型安全，禁用 `any`。
+- Props 优先继承原生元素属性。
+- 变体/尺寸使用显式联合类型。
+- 避免使用 `@ts-ignore`，必要时须注明原因。
 
-```bash
-# Vite dev server (note: repo currently has no app entry wired up)
-npm run dev
+### 命名
+- 组件：`PascalCase` 文件夹与文件名；入口为 `index.tsx`。
+- Props：`ComponentNameProps`。
+- Hooks：`useXxx`。
+- CSS 类：BEM 规范，统一 `nd-` 前缀。
+- Token：使用 `@layer nd-comp` 和 `--md-comp-…` 格式。
 
-# Storybook (primary)
-npm run storybook
-```
+### 组件模式
+- 仅使用函数组件。
+- 交互组件：
+  - 使用 `ClassNameManager` 管理类名。
+  - 统一调用 `useStateLayer`, `useRipple`, `useElevation` 钩子。
+- 依赖 DOM 的钩子使用 callback refs。
 
-### Build
+### 无障碍 (A11y)
+- 模拟按钮须包含 `role="button"`, `tabIndex`, 键盘监听及 `aria` 属性。
+- 开关类组件使用 `aria-pressed`。
 
-```bash
-# Storybook static build
-npm run build-storybook
+### 错误处理
+- 禁用/空状态优先早期返回。
+- 保护 DOM 操作，避免在 UI 层抛出异常。
 
-# Vite build (if/when a build target is configured)
-npx vite build
-```
+### 样式 (Sass + CSS Modules)
+- 样式文件位于组件同级，`index.module.scss` 作为入口，具体规则按模块拆分至 `parts/`。
+- 使用 Sass `@use`。
+- Token 模式：在 `parts/_token-vars.scss` 中通过迭代生成。
 
-### Lint
+## 项目布局
+- `src/components/`: 组件实现与 Storybook 故事。
+- `src/tokens/`: Token 映射。
+- `src/utils/`: 工具函数。
+- `.storybook/`: Storybook 配置。
 
-```bash
-# Lint everything
-npx eslint .
-
-# Lint a single file
-npx eslint src/components/Button/index.tsx
-
-# Lint only source
-npx eslint "src/**/*.{ts,tsx,js,jsx}" --max-warnings=0
-```
-
-### Typecheck
-
-```bash
-npx tsc -p tsconfig.json --noEmit
-```
-
-Note: `tsconfig.json` excludes `**/*.stories.*` and `**/*.{test,spec}.*`, so `tsc` will not
-typecheck Storybook stories or tests by default.
-
-### Tests
-
-There is currently no unit/integration test runner wired in `package.json` (no `test` script,
-no `vitest`/`jest` config). Use Storybook for behavioral verification.
-
-If/when a test runner is added, prefer file-targeted runs. Examples:
-
-```bash
-# Vitest (example)
-npx vitest run src/components/Button/index.test.tsx
-npx vitest run -t "renders" src/components/Button/index.test.tsx
-
-# Jest (example)
-npx jest src/components/Button/index.test.tsx
-npx jest -t "renders" src/components/Button/index.test.tsx
-```
-
-## Repo Conventions To Follow
-
-### Cursor / Copilot Rules
-
-- No `.cursor/rules/` and no `.cursorrules` found.
-- No `.github/copilot-instructions.md` found.
-- There is a Cursor skill doc with component structure guidance: `.cursor/skills/file-structure/SKILL.md`.
-
-## Code Style (TypeScript/React)
-
-### Formatting
-
-- Match the surrounding file’s formatting first (there is some style drift across files).
-- Default style for new/rewritten code:
-  - 2-space indent
-  - single quotes in TS/TSX
-  - semicolons
-  - trailing commas in multiline objects/arrays
-
-### Imports
-
-- Prefer absolute aliases from `tsconfig.json` / `vite.config.ts`:
-  - `@/…` (src)
-  - `@components/…`
-  - `@tokens/…`
-  - `@utils/…`
-- Import ordering (keep groups separated by a blank line):
-  1) React / built-ins
-  2) third-party
-  3) repo absolute aliases
-  4) relative imports
-  5) styles (`./index.module.scss`)
-- Use `import type { … }` for type-only imports.
-
-### Types & Props
-
-- `tsconfig.json` is strict; keep code type-safe (avoid `any`).
-- Component props generally extend native element props (e.g. `React.ButtonHTMLAttributes<HTMLButtonElement>`).
-- Prefer explicit union types for variants/sizes (e.g. `variant?: 'filled' | 'outlined'`).
-- Avoid `@ts-ignore`; if unavoidable, add the narrowest possible ignore and leave a reason.
-
-### Naming
-
-- Components: `PascalCase` folder + component name; entry file is `index.tsx`.
-- Props: `ComponentNameProps`.
-- Hooks: `useXxx`.
-- CSS classes: BEM with `nd-` prefix, via CSS modules keys like `styles['nd-button__label']`.
-- Token layer/prefixes: `@layer nd-comp` and CSS custom props shaped like `--md-comp-…`.
-
-### Component Patterns
-
-- Functional components only (no class components).
-- For interactive surfaces:
-  - Build a `ClassNameManager` via `@utils/classnames`.
-  - Apply behavior hooks consistently:
-    - `useStateLayer({ classNameManager, disabled }, deps)`
-    - `useRipple({ parent, disabled })`
-    - `useElevation({ classNameManager, disabled }, deps)`
-- Use callback refs + state for DOM element refs when hooks depend on the element.
-
-### Accessibility
-
-- If an element becomes “button-like” (click handler on non-button), add:
-  - `role="button"`, `tabIndex={0}`, keyboard handlers (Enter/Space), and `aria-disabled` where appropriate.
-- For toggleables, use `aria-pressed`.
-
-### Error Handling / Defensive Code
-
-- Prefer early returns for disabled/null states (common in hooks like ripple/state-layer).
-- DOM ops should be guarded (check `parent`, `container.contains(node)`, etc.).
-- Avoid throwing from UI hooks/components; degrade gracefully.
-
-### Styling (Sass + CSS Modules)
-
-- Styles live beside components: `src/components/<Component>/index.module.scss`.
-- Keep `index.module.scss` as an entrypoint and split real rules into `parts/` partials.
-- Use Sass `@use` (not `@import`).
-- Token usage pattern:
-  - component `parts/_token-vars.scss` does token generation by `@use "@tokens/..."` and `@include converter.iterateTokens($tokens)`.
-
-## Project Layout
-
-- `src/components/`: component implementations and `*.stories.tsx`.
-- `src/tokens/`: token maps + converter mixins.
-- `src/utils/`: small utilities (notably `@utils/classnames`).
-- `.storybook/`: Storybook configuration.
+## 注释
+只有明确被要求加上注释的时候再加上注释。默认情况不添加任何注释。

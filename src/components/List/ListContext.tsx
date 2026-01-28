@@ -59,6 +59,11 @@ export interface ListContextValue {
    * Whether to use segmented list style
    */
   segmented: boolean;
+
+  /**
+   * Whether to use expressive shape mode
+   */
+  expressive: boolean;
 }
 
 /**
@@ -71,6 +76,7 @@ const defaultContextValue: ListContextValue = {
   toggleSelection: () => {},
   isSelected: () => false,
   segmented: false,
+  expressive: false,
 };
 
 /**

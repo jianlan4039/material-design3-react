@@ -100,6 +100,12 @@ export interface ListProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'o
    * Adds gaps between list items
    */
   segmented?: boolean;
+
+  /**
+   * Whether to use expressive shape mode for all list items
+   * Changes border-radius based on interaction state
+   */
+  expressive?: boolean;
 }
 
 // ============================================================================
@@ -206,6 +212,7 @@ export const List: React.FC<ListProps> = ({
   onChange,
   disabled = false,
   segmented = false,
+  expressive = false,
   className,
   ...restProps
 }) => {
@@ -279,8 +286,9 @@ export const List: React.FC<ListProps> = ({
     disabled,
     toggleSelection,
     isSelected,
-    segmented
-  }), [selectionMode, selectedValues, disabled, toggleSelection, isSelected, segmented]);
+    segmented,
+    expressive,
+  }), [selectionMode, selectedValues, disabled, toggleSelection, isSelected, segmented, expressive]);
 
   // Build class names
   const listClassName = classNames(

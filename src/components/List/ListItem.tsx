@@ -188,7 +188,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   disabled: disabledProp,
   selected: selectedProp,
   dragging = false,
-  expressive = false,
+  expressive: expressiveProp,
   videoSize,
   className,
   onClick,
@@ -202,6 +202,7 @@ export const ListItem: React.FC<ListItemProps> = ({
     toggleSelection,
     isSelected,
     segmented,
+    expressive: contextExpressive,
   } = useListContext();
 
   // State for element reference
@@ -209,6 +210,9 @@ export const ListItem: React.FC<ListItemProps> = ({
 
   // Determine if item is disabled
   const disabled = disabledProp || listDisabled;
+
+  // Determine if expressive mode is enabled (either via prop or context)
+  const isExpressive = expressiveProp ?? contextExpressive;
 
   // Determine if item is selected
   const isItemSelected = selectedProp !== undefined 
@@ -235,7 +239,7 @@ export const ListItem: React.FC<ListItemProps> = ({
       [styles['nd-list-item--disabled']]: disabled,
       [styles['nd-list-item--interactive']]: isInteractive,
       [styles['nd-list-item--dragging']]: dragging,
-      [styles['nd-list-item--expressive']]: expressive,
+      [styles['nd-list-item--expressive']]: isExpressive,
       [styles['nd-list-item--segmented']]: segmented,
       [styles['nd-list-item--leading-icon']]: leadingType === 'icon',
       [styles['nd-list-item--leading-avatar']]: leadingType === 'avatar',
@@ -289,7 +293,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   useStateLayer({
     classNameManager: itemClassName,
     disabled: disabled || !isInteractive,
-  }, [disabled, isInteractive, isItemSelected, dragging, expressive]);
+  }, [disabled, isInteractive, isItemSelected, dragging, isExpressive]);
 
   // Apply ripple effect (only for interactive items)
   useRipple({
