@@ -203,7 +203,12 @@ export const ListItem: React.FC<ListItemProps> = ({
     isSelected,
     segmented,
     expressive: contextExpressive,
+    insideList,
   } = useListContext();
+
+  if (!insideList) {
+    throw new Error('ListItem component must be used inside a List component.');
+  }
 
   // State for element reference
   const [itemElement, setItemElement] = useState<HTMLDivElement | null>(null);

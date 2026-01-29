@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useContext } from 'react';
 
 import classNames from '@utils/classnames';
 import Divider from '../Divider';
@@ -216,6 +216,12 @@ export const List: React.FC<ListProps> = ({
   className,
   ...restProps
 }) => {
+  // Check if List is nested
+  const parentContext = useContext(ListContext);
+  if (parentContext.insideList) {
+    throw new Error('List component can only be used at the outermost level.');
+  }
+
   // Determine if we're in controlled mode
   const isControlled = valueProp !== undefined;
 
@@ -288,6 +294,7 @@ export const List: React.FC<ListProps> = ({
     isSelected,
     segmented,
     expressive,
+    insideList: true,
   }), [selectionMode, selectedValues, disabled, toggleSelection, isSelected, segmented, expressive]);
 
   // Build class names

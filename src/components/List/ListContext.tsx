@@ -64,6 +64,11 @@ export interface ListContextValue {
    * Whether to use expressive shape mode
    */
   expressive: boolean;
+
+  /**
+   * Internal flag to verify context provider
+   */
+  insideList: boolean;
 }
 
 /**
@@ -77,6 +82,7 @@ const defaultContextValue: ListContextValue = {
   isSelected: () => false,
   segmented: false,
   expressive: false,
+  insideList: false,
 };
 
 /**

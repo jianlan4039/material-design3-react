@@ -238,7 +238,6 @@ export const Dividers: Story = {
 export const SingleSelection: Story = {
   args: {
     selectionMode: 'single',
-    defaultValue: 'item2',
     children: (
       <>
         <ListItem value="item1" headline="Selection Item 1" />
@@ -319,10 +318,8 @@ export const ExpandableGroups: Story = {
           leadingType="icon"
           defaultExpanded
         >
-          <List selectionMode="single">
-            <ListItem headline="Sub-item 2.1" />
-            <ListItem headline="Sub-item 2.2" />
-          </List>
+          <ListItem headline="Sub-item 2.1" />
+          <ListItem headline="Sub-item 2.2" />
         </ListItemGroup>
       </>
     ),
@@ -363,7 +360,6 @@ export const SelectableGroups: Story = {
             headline="Selectable Group 2" 
             leadingContent={<FolderIcon />} 
             leadingType="icon"
-            selectionMode="single"
             defaultExpanded
           >
             <ListItem value="item2.1" headline="Independent Single Select 1" />
@@ -402,11 +398,12 @@ export const Segmented: Story = {
   args: {
     segmented: true,
     style: { maxWidth: '600px' },
+    selectionMode: 'single',
     children: (
       <>
-        <ListItem headline="Segmented Item 1" supportingText="Items have gaps between them" />
-        <ListItem headline="Segmented Item 2" supportingText="And rounded corners" />
-        <ListItem headline="Segmented Item 3" />
+        <ListItem value='a' headline="Segmented Item 1" supportingText="Items have gaps between them" />
+        <ListItem value='b' headline="Segmented Item 2" supportingText="And rounded corners" />
+        <ListItem value='3' headline="Segmented Item 3" />
       </>
     ),
   },
