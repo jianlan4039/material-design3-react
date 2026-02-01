@@ -1,0 +1,27 @@
+@layer nd-comp {
+    body {
+        position: relative;
+    }
+
+    .nd-menu {
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--md-comp-menu-container-shape);
+        background-color: var(--md-comp-menu-container-color);
+        min-width: 112px;
+        max-width: 280px;
+        margin: 0;
+        padding: 4px;
+        box-sizing: border-box;
+        cursor: default;
+    }
+
+    .nd-menu-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        block-size: var(--md-comp-menu-list-item-container-height);
+        border-radius: var(--md-comp-menus-menu-item-shape);
+        flex: 0 0 auto;
+    }
+}

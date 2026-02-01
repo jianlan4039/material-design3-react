@@ -1,0 +1,8 @@
+@use '@tokens/components/menu/index.scss' as *;
+@use '@tokens/converter' as converter;
+
+@layer nd-compp{
+    :root {
+        @include converter.iterateTokens($tokens);
+    }
+}

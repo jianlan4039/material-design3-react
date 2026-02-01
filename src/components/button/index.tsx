@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, forwardRef } from 'react';
 
 import classNames from '@utils/classnames';
 import useElevation from '../Elevation';
@@ -138,7 +138,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  * <Button disabled aria-label="Disabled button">Disabled</Button>
  * ```
  */
-export const Button: React.FC<ButtonProps> = ({
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   leadingIcon,
   trailingIcon,
@@ -150,7 +150,7 @@ export const Button: React.FC<ButtonProps> = ({
   size,
   onClick,
   ...restProps
-}) => {
+}, ref) => {
   // State to store button element reference
   // Using state ensures hooks re-run when element changes
   const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
@@ -197,7 +197,12 @@ export const Button: React.FC<ButtonProps> = ({
   // Callback ref to update state when button element is mounted/unmounted
   const buttonRef = useCallback((node: HTMLButtonElement | null) => {
     setButtonElement(node);
-  }, []);
+    if (typeof ref === 'function') {
+      ref(node);
+    } else if (ref) {
+      (ref as React.MutableRefObject<HTMLButtonElement | null>).current = node;
+    }
+  }, [ref]);
 
   // Handle click event with toggle functionality
   const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
@@ -233,6 +238,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      type="button"
       ref={buttonRef}
       className={buttonClassName.toString()}
       disabled={disabled}
@@ -268,6 +274,6 @@ export const Button: React.FC<ButtonProps> = ({
       )}
     </button>
   );
-};
+});
 
 export default Button;
