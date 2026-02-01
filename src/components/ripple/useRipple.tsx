@@ -73,9 +73,9 @@ export type Props = {
 /** Playback rate multiplier when mouse is released or touch ends */
 const RELEASE_GROW_RATE = 1.2
 /** Duration of the grow animation in milliseconds */
-const GROW_DURATION = 750
+const GROW_DURATION = 1500
 /** Duration of the fade animation in milliseconds */
-const FADE_DURATION = 600
+const FADE_DURATION = 1200
 /** Easing function for grow animation */
 const GROW_EASING = 'cubic-bezier(0.2, 0, 0, 1)'
 /** Easing function for fade animation */
@@ -137,12 +137,10 @@ export default function useRipple({
     // Refs
     // ========================================================================
     const spanPool = useRef<HTMLSpanElement[]>([])
-    const parentRect = useRef<DOMRect | null>(null)
     const currentSpan = useRef<string | null>(null)
     const zIndex = useRef<number>(0)
     const spanStates = useRef<Map<string, RippleState>>(new Map<string, RippleState>())
     const prevParent = useRef<HTMLElement | null>(null)
-    const updateParentRectTimeoutRef = useRef<number | null>(null)
     const rippleContainerRef = useRef<HTMLDivElement | null>(null)
 
     // ========================================================================
@@ -167,7 +165,6 @@ export default function useRipple({
         spanStates.current.clear()
         spanPool.current = []
         currentSpan.current = null
-        parentRect.current = null
         zIndex.current = 0
     }
     
@@ -249,38 +246,14 @@ export default function useRipple({
             }
         }
 
-        // Update parent rectangle dimensions and container size
-        const updateParentRect = () => {
-            if (parent) {
-                parentRect.current = parent.getBoundingClientRect()
-                // Update container size if it exists
-                const container = rippleContainerRef.current
-                if (container && parent.contains(container)) {
-                    // Container size is already set to 100% via CSS, but we ensure it's correct
-                    // The container will automatically match parent size due to absolute positioning
-                }
-            }
-        }
-
-        // Debounce resize/scroll events to avoid excessive recalculations
-        const debouncedUpdateParentRect = () => {
-            if (updateParentRectTimeoutRef.current !== null) {
-                cancelAnimationFrame(updateParentRectTimeoutRef.current)
-            }
-            updateParentRectTimeoutRef.current = requestAnimationFrame(updateParentRect)
-        }
-
         // Add event listeners
         parent.addEventListener('mousedown', mouseDownHandler)
         parent.addEventListener('touchstart', touchStartHandler, {passive: true})
         parent.addEventListener('mouseup', mouseUpHandler)
         parent.addEventListener('touchend', touchEndHandler, {passive: true})
         parent.addEventListener('mouseleave', mouseLeaveHandler)
-        window.addEventListener('resize', debouncedUpdateParentRect, {passive: true})
-        window.addEventListener('scroll', debouncedUpdateParentRect, {passive: true})
 
         // Initialize
-        updateParentRect()
         prevParent.current = parent
         
         // Create ripple container
@@ -311,12 +284,6 @@ export default function useRipple({
             parent.removeEventListener('mouseup', mouseUpHandler)
             parent.removeEventListener('touchend', touchEndHandler)
             parent.removeEventListener('mouseleave', mouseLeaveHandler)
-            window.removeEventListener('resize', debouncedUpdateParentRect)
-            window.removeEventListener('scroll', debouncedUpdateParentRect)
-            if (updateParentRectTimeoutRef.current !== null) {
-                cancelAnimationFrame(updateParentRectTimeoutRef.current)
-                updateParentRectTimeoutRef.current = null
-            }
             resetState()
             removeRippleContainer(parent)
         }
@@ -336,9 +303,10 @@ export default function useRipple({
     function mouseDownHandler(e: MouseEvent) {
         if (!parent || disabled) return
         e.stopPropagation()
-        const position = calcPosition(e)
+        const rect = parent.getBoundingClientRect()
+        const position = calcPosition(e, rect)
         if (position) {
-            stateAnimation(position)
+            stateAnimation(position, rect)
         }
     }
 
@@ -352,9 +320,10 @@ export default function useRipple({
     function touchStartHandler(e: TouchEvent) {
         if (!parent || disabled) return
         e.stopPropagation()
-        const position = calcPosition(e)
+        const rect = parent.getBoundingClientRect()
+        const position = calcPosition(e, rect)
         if (position) {
-            stateAnimation(position)
+            stateAnimation(position, rect)
         }
     }
 
@@ -412,13 +381,13 @@ export default function useRipple({
      * @param e - Mouse or touch event
      * @returns Position object with x and y coordinates, or null if calculation fails
      */
-    function calcPosition(e: MouseEvent | TouchEvent) {
-        if (!parent || !parentRect.current) return null
+    function calcPosition(e: MouseEvent | TouchEvent, rect: DOMRect) {
+        if (!parent) return null
         const {clientX, clientY} = 'touches' in e ? e.touches[0]! : e
 
         return {
-            x: clientX - parentRect.current.left,
-            y: clientY - parentRect.current.top,
+            x: clientX - rect.left,
+            y: clientY - rect.top,
         }
     }
 
@@ -517,9 +486,9 @@ export default function useRipple({
      * @param span - The span element to animate
      * @returns The animation instance, or null if parent or dimensions are unavailable
      */
-    function growAnimate(span: HTMLSpanElement) {
-        if (!parent || !parentRect.current) return null
-        const radius = calcRippleRadius(parentRect.current.height, parentRect.current.width)
+    function growAnimate(span: HTMLSpanElement, rect: DOMRect) {
+        if (!parent) return null
+        const radius = calcRippleRadius(rect.height, rect.width)
 
         return span.animate(
             [
@@ -587,7 +556,7 @@ export default function useRipple({
      * 
      * @param position - Position object with x and y coordinates relative to parent
      */
-    function stateAnimation(position: { x: number, y: number }) {
+    function stateAnimation(position: { x: number, y: number }, rect: DOMRect) {
         if (!parent) return
         const span = spawnSpan(position)
         if (span) {
@@ -595,7 +564,7 @@ export default function useRipple({
             if (!state) return
             
             currentSpan.current = span.id
-            const growAnimation = growAnimate(span)
+            const growAnimation = growAnimate(span, rect)
             if (growAnimation) {
                 state.growAnimation = growAnimation
                 state.state = 'growing'
