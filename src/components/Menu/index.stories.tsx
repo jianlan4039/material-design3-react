@@ -71,6 +71,33 @@ export const Basic: Story = {
   },
 };
 
+export const MenuMounting: Story = {
+  render: () => {
+    const [btn, setBtn] = useState<HTMLButtonElement | null>(null);
+    const [open, setOpen] = useState(false);
+
+    const btnRef = useCallback((el: HTMLButtonElement | null) => {
+      setBtn(el);
+    }, []);
+
+    return (
+      <div style={{ height: '240px' }}>
+        <Button ref={btnRef} onClick={() => setOpen(!open)}>
+          {open ? 'Close Menu' : 'Open Menu'}
+        </Button>
+        {btn && (
+          <Menu anchor={btn} open={open}>
+            <MenuItem label="Profile" />
+            <MenuItem label="Billing" />
+            <MenuDivider />
+            <MenuItem label="Sign out" />
+          </Menu>
+        )}
+      </div>
+    );
+  },
+};
+
 export const FullFeatures: Story = {
   render: () => {
     const [btn, setBtn] = useState<HTMLButtonElement | null>(null);
