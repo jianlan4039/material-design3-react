@@ -41,6 +41,21 @@ const SubMenu: React.FC<SubMenuProps> = ({
     setSubmenu(el);
   }, []);
 
+  const subMenuClass = classNames(
+    style["nd-sub-menu"],
+    {
+      [style["nd-sub-menu--open"]]: open,
+    },
+    className,
+  );
+
+  const position = useAnchorPosition(menuItem);
+
+  useMenuExpandAnimation({
+    expanded: open,
+    container: submenu,
+  });
+
   useEffect(() => {
     return () => {
       if (timerRef.current) {
@@ -76,21 +91,6 @@ const SubMenu: React.FC<SubMenuProps> = ({
   const handleMouseLeave = useCallback(() => {
     startCloseTimer();
   }, [startCloseTimer]);
-
-  const subMenuClass = classNames(
-    style["nd-sub-menu"],
-    {
-      [style["nd-sub-menu--open"]]: open,
-    },
-    className,
-  );
-
-  const position = useAnchorPosition(menuItem);
-
-  useMenuExpandAnimation({
-    expanded: open,
-    container: submenu,
-  });
 
   return (
     <SubMenuContext.Provider value={{ startCloseTimer, clearCloseTimer }}>

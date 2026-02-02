@@ -67,6 +67,14 @@ export const SubMenu: Story = {
             <SubMenuComp label="SubMenu">
                 <MenuItem label="SubMenu Item 1" />
                 <MenuItem label="SubMenu Item 2" />
+                <SubMenuComp label="SubMenu Item 3">
+                    <MenuItem label="SubMenu Item 3-1" />
+                    <MenuItem label="SubMenu Item 3-2" />
+                    <SubMenuComp label="SubMenu Item 3-3">
+                        <MenuItem label="SubMenu Item 3-3-1" />
+                        <MenuItem label="SubMenu Item 3-3-2" />
+                    </SubMenuComp>
+                </SubMenuComp>
             </SubMenuComp>
           </Menu>
         )}
