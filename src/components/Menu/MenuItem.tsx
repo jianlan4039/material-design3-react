@@ -14,13 +14,14 @@ interface MenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
     children?: React.ReactNode;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ label, onClick, icon, className, children }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ label, onClick, icon, className, children, disabled }) => {
 
     const [itemElement, setItemElement] = useState<HTMLLIElement | null>(null);
 
     const menuItemClass = classNames(
         style['nd-menu-item'],
         {
+            [style['nd-menu-item--disabled']]: disabled,
         },
         className
     )
@@ -44,6 +45,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ label, onClick, icon, className, ch
     return (
         <li
             ref={liRef}
+            aria-disabled={disabled}
             onClick={onClick}
             className={menuItemClass.toString()}
         >
