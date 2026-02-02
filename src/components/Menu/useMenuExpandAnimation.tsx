@@ -23,6 +23,7 @@ export function useMenuExpandAnimation({
   const animationRef = useRef<Animation | null>(null);
   const prevExpandedRef = useRef<boolean | null>(null);
   const isInitialRender = useRef(true);
+  const inlineMinWidthRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!container) {
@@ -54,10 +55,29 @@ export function useMenuExpandAnimation({
       animationRef.current = null;
     }
 
+    const setMinWidthForAnimation = () => {
+      if (inlineMinWidthRef.current === null) {
+        inlineMinWidthRef.current = container.style.minWidth;
+      }
+      container.style.minWidth = '0px';
+    };
+
+    const restoreMinWidth = () => {
+      if (inlineMinWidthRef.current !== null) {
+        container.style.minWidth = inlineMinWidthRef.current;
+        inlineMinWidthRef.current = null;
+      }
+    };
+
     const contentWidth = container.scrollWidth;
 
     if (expanded) {
+      setMinWidthForAnimation();
       container.style.overflow = 'hidden';
+      container.style.width = '0px';
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      container.offsetWidth;
       
       const animation = container.animate(
         [
@@ -76,15 +96,18 @@ export function useMenuExpandAnimation({
       animation.onfinish = () => {
         container.style.width = 'auto';
         container.style.overflow = 'visible';
+        restoreMinWidth();
         animationRef.current = null;
         onExpandComplete?.();
       };
 
       animation.oncancel = () => {
+        restoreMinWidth();
         animationRef.current = null;
       };
     } else {
       const currentWidth = container.offsetWidth;
+      setMinWidthForAnimation();
       container.style.width = `${currentWidth}px`;
       container.style.overflow = 'hidden';
 
@@ -112,6 +135,7 @@ export function useMenuExpandAnimation({
       };
 
       animation.oncancel = () => {
+        restoreMinWidth();
         animationRef.current = null;
       };
     }
