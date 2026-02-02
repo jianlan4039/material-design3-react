@@ -7,7 +7,7 @@ import useElevation from "../Elevation";
 import useStateLayer from "../StateLayer";
 
 export interface MenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
-  label: string;
+  label?: string;
   onClick?: () => void;
   icon?: React.ReactNode;
   disabled?: boolean;
@@ -56,18 +56,16 @@ const MenuItem = forwardRef<HTMLLIElement, MenuItemProps>(({
   });
 
   return (
-    <>
-      <li
-        ref={handleRef}
-        aria-disabled={disabled}
-        onClick={onClick}
-        className={menuItemClass.toString()}
-        {...restProps}
-      >
-        {icon && <span className={style["nd-menu-item__icon"]}>{icon}</span>}
-        <span className={style["nd-menu-item__label"]}>{label || children}</span>
-      </li>
-    </>
+    <li
+      ref={handleRef}
+      aria-disabled={disabled}
+      onClick={onClick}
+      className={menuItemClass.toString()}
+      {...restProps}
+    >
+      {icon && <span className={style["nd-menu-item__icon"]}>{icon}</span>}
+      <span className={style["nd-menu-item__label"]}>{label || children}</span>
+    </li>
   );
 });
 

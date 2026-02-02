@@ -1,4 +1,3 @@
-
 import { useState, useLayoutEffect } from 'react';
 
 export interface AnchorPositionProps {
@@ -18,25 +17,6 @@ export const getAnchorPosition = ({ anchor }: AnchorPositionProps) => {
     }
 }
 
-/**
- * useAnchorPosition Hook
- * 
- * Calculates the position and dimensions of an anchor element.
- * 
- * @param anchor - Anchor element to calculate position and dimensions for
- * 
- * @example
- * ```tsx
- * const buttonRef = useRef<HTMLButtonElement>(null);
- * const anchorPosition = useAnchorPosition(buttonRef.current);
- * 
- * return (
- *   <button ref={buttonRef}>
- *     Click me
- *   </button>
- *  );
- * ```
- */
 const useAnchorPosition = (anchor: HTMLElement | null | undefined) => {
     const [position, setPosition] = useState<{ x: number, y: number, width: number, height: number }>({ x: 0, y: 0, width: 0, height: 0 });
 
@@ -46,7 +26,6 @@ const useAnchorPosition = (anchor: HTMLElement | null | undefined) => {
         const updatePosition = () => {
             const { x, y, width, height } = getAnchorPosition({ anchor });
             setPosition((prev) => {
-                // 性能优化：只有数值真正变化时才更新状态
                 if (
                     prev.x === x &&
                     prev.y === y &&
@@ -59,18 +38,15 @@ const useAnchorPosition = (anchor: HTMLElement | null | undefined) => {
             });
         };
 
-        // 初始化位置
         updatePosition();
 
-        // 监听 anchor 尺寸变化
         const resizeObserver = new ResizeObserver(() => {
             updatePosition();
         });
         resizeObserver.observe(anchor);
 
-        // 监听窗口变化 (resize & scroll)
         window.addEventListener('resize', updatePosition);
-        window.addEventListener('scroll', updatePosition, true); // true for capture to catch all scrolls
+        window.addEventListener('scroll', updatePosition, true);
 
         return () => {
             resizeObserver.disconnect();
