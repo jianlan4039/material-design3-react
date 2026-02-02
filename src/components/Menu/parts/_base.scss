@@ -4,8 +4,6 @@
     }
 
     .nd-menu {
-        display: flex;
-        flex-direction: column;
         border-radius: var(--_container-shape, var(--md-comp-menus-container-shape));
         background-color: var(--_container-color);
         box-shadow: 0px 1px 2px var(--_container-shadow-color); // Fallback elevation
@@ -15,29 +13,41 @@
         
         min-width: 112px;
         max-width: 280px;
+        box-sizing: border-box;
+        cursor: default;
+    }
+
+    .nd-menu__list {
+        display: flex;
+        flex-direction: column;
         margin: 0;
         padding: var(--md-comp-menus-group-padding);
         gap: var(--md-comp-menus-gap);
-        box-sizing: border-box;
-        cursor: default;
         list-style: none;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .nd-sub-menu {
-        display: flex;
-        flex-direction: column;
         border-radius: var(--_container-shape, var(--md-comp-menus-container-shape));
         background-color: var(--_container-color);
         box-shadow: 0px 1px 2px var(--_container-shadow-color);
         min-width: 112px;
         max-width: 280px;
         width: max-content;
+        box-sizing: border-box;
+        cursor: default;
+    }
+
+    .nd-sub-menu__list {
+        display: flex;
+        flex-direction: column;
         margin: 0;
         padding: var(--md-comp-menus-group-padding);
         gap: var(--md-comp-menus-gap);
-        box-sizing: border-box;
-        cursor: default;
         list-style: none;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .nd-menu-divider {

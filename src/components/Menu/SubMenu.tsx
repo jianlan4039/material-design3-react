@@ -49,6 +49,8 @@ const SubMenu: React.FC<SubMenuProps> = ({
     className,
   );
 
+  const subMenuListClass = classNames(style["nd-sub-menu__list"]);
+
   const position = useAnchorPosition(menuItem);
 
   return (
@@ -63,6 +65,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
         ? ReactDOM.createPortal(
             <div
               ref={containerRef}
+              className={subMenuClass.toString()}
               style={{
                 position: "absolute",
                 left: position.x + position.width,
@@ -75,7 +78,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleContentLeave}
             >
-              <ul className={subMenuClass.toString()}>{children}</ul>
+              <ul className={subMenuListClass.toString()}>{children}</ul>
             </div>,
             document.body,
           )

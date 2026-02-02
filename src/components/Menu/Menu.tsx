@@ -29,10 +29,13 @@ const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false, 
     className
   );
 
+  const menuListClass = classNames(style['nd-menu__list']);
+
   return shouldRender
     ? ReactDOM.createPortal(
         <div
           ref={containerRef}
+          className={menuClass.toString()}
           style={{
             position: 'absolute',
             top: position.y + position.height,
@@ -40,10 +43,10 @@ const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false, 
             zIndex: 1000,
             height: isPreparingOpen ? 0 : undefined,
             opacity: isPreparingOpen ? 0 : undefined,
-            // overflow: isPreparingOpen ? 'hidden' : undefined,
+            overflow: isPreparingOpen ? 'hidden' : undefined,
           }}
         >
-          <ul className={menuClass.toString()}>
+          <ul className={menuListClass.toString()}>
             {children}
           </ul>
         </div>,
