@@ -12,9 +12,10 @@ export interface MenuProps {
   children?: React.ReactNode;
   anchor?: HTMLElement;
   open?: boolean;
+  variant?: 'standard' | 'vibrant';
 }
 
-const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false }) => {
+const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false, variant = 'standard' }) => {
   const position = useAnchorPosition(anchor);
   const [ul, setUL] = useState<HTMLDivElement | null>(null);
   
@@ -24,7 +25,9 @@ const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false }
 
   const menuClass = classNames(
     style['nd-menu'],
-    {},
+    {
+      [style['nd-menu--vibrant']]: variant === 'vibrant',
+    },
     className
   );
 
@@ -40,6 +43,7 @@ const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false }
         position: 'absolute',
         top: position.y + position.height,
         left: position.x,
+        zIndex: 1000, // Ensure menu is on top
       }}
     >
       <ul className={menuClass.toString()}>

@@ -15,11 +15,13 @@ export interface SubMenuProps extends MenuItemProps {
   className?: string;
   children?: React.ReactNode;
   open?: boolean;
+  variant?: 'standard' | 'vibrant';
 }
 
 const SubMenu: React.FC<SubMenuProps> = ({
   className,
   children,
+  variant = 'standard',
   ...menuItemprops
 }) => {
   const {
@@ -45,6 +47,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
     style["nd-sub-menu"],
     {
       [style["nd-sub-menu--open"]]: open,
+      [style["nd-sub-menu--vibrant"]]: variant === 'vibrant',
     },
     className,
   );
@@ -71,6 +74,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
             position: "absolute",
             left: position.x + position.width,
             top: position.y,
+            zIndex: 1000,
           }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleContentLeave}
