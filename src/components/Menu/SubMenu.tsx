@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useContext, createContext, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 import useAnchorPosition from "./useAnchorPosition";
@@ -15,14 +15,23 @@ export interface SubMenuProps extends MenuItemProps {
   open?: boolean;
 }
 
+export interface SubMenuContextProps {
+  startCloseTimer: () => void;
+  clearCloseTimer: () => void;
+}
+
+export const SubMenuContext = createContext<SubMenuContextProps | null>(null);
+
 const SubMenu: React.FC<SubMenuProps> = ({
   className,
   children,
   ...menuItemprops
 }) => {
+  const parentContext = useContext(SubMenuContext);
   const [submenu, setSubmenu] = useState<HTMLDivElement | null>(null);
   const [menuItem, setMenuItem] = useState<HTMLLIElement | null>(null);
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   const menuItemRef = useCallback((el: HTMLLIElement | null) => {
     setMenuItem(el);
@@ -31,6 +40,42 @@ const SubMenu: React.FC<SubMenuProps> = ({
   const containerRef = useCallback((el: HTMLDivElement) => {
     setSubmenu(el);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+
+  const startCloseTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    timerRef.current = setTimeout(() => {
+      setOpen(false);
+      timerRef.current = null;
+    }, 200);
+    parentContext?.startCloseTimer();
+  }, [parentContext]);
+
+  const clearCloseTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    parentContext?.clearCloseTimer();
+  }, [parentContext]);
+
+  const handleMouseEnter = useCallback(() => {
+    clearCloseTimer();
+    setOpen(true);
+  }, [clearCloseTimer]);
+
+  const handleMouseLeave = useCallback(() => {
+    startCloseTimer();
+  }, [startCloseTimer]);
 
   const subMenuClass = classNames(
     style["nd-sub-menu"],
@@ -47,21 +92,13 @@ const SubMenu: React.FC<SubMenuProps> = ({
     container: submenu,
   });
 
-  const mouseOverHandler = () => {
-    setOpen(true)
-  }
-
-  const mouseOutHandler = () => {
-    setOpen(false)
-  }
-
   return (
-    <>
+    <SubMenuContext.Provider value={{ startCloseTimer, clearCloseTimer }}>
       <MenuItem 
         {...menuItemprops}
         ref={menuItemRef}
-        onMouseOver={mouseOverHandler}
-        onMouseOut={mouseOutHandler}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       ></MenuItem>
       {ReactDOM.createPortal(
         <div
@@ -71,12 +108,14 @@ const SubMenu: React.FC<SubMenuProps> = ({
             left: position.x + position.width,
             top: position.y,
           }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <ul className={subMenuClass.toString()}>{children}</ul>
         </div>,
         document.body,
       )}
-    </>
+    </SubMenuContext.Provider>
   );
 };
 
