@@ -271,3 +271,38 @@ export const NestedSubMenus: Story = {
     );
   },
 };
+
+export const SubMenuAnimation: Story = {
+  render: () => {
+    const [btn, setBtn] = useState<HTMLButtonElement | null>(null);
+    const [open, setOpen] = useState(false);
+
+    const btnRef = useCallback((el: HTMLButtonElement | null) => {
+      setBtn(el);
+    }, []);
+
+    return (
+      <div style={{ height: '360px' }}>
+        <Button ref={btnRef} onClick={() => setOpen(!open)}>
+          {open ? 'Close Menu' : 'Open Menu'}
+        </Button>
+        {btn && (
+          <Menu anchor={btn} open={open}>
+            <MenuItem label="Dashboard" />
+            <MenuItem label="Settings" />
+            <MenuDivider />
+            <SubMenuComp label="Export">
+              <MenuItem label="PDF" />
+              <MenuItem label="CSV" />
+              <MenuItem label="PNG" />
+            </SubMenuComp>
+            <SubMenuComp label="Share">
+              <MenuItem label="Copy Link" />
+              <MenuItem label="Email" />
+            </SubMenuComp>
+          </Menu>
+        )}
+      </div>
+    );
+  },
+};
