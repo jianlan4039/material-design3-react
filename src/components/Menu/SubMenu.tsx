@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback } from "react";
 import ReactDOM from "react-dom";
 
 import useAnchorPosition from "./useAnchorPosition";
-import useMenuExpandAnimation from "./useMenuExpandAnimation";
+import useMenuExpandPresence from "./useMenuExpandPresence";
 import type { MenuItemProps } from "./MenuItem";
 import { SubMenuContext } from "./SubMenuContext";
 import useSubMenuInteraction from "./useSubMenuInteraction";
@@ -31,20 +31,13 @@ const SubMenu: React.FC<SubMenuProps> = ({
     contextValue
   } = useSubMenuInteraction();
 
-  const [submenu, setSubmenu] = useState<HTMLDivElement | null>(null);
   const [menuItem, setMenuItem] = useState<HTMLLIElement | null>(null);
-  const [shouldRender, setShouldRender] = useState(false);
-  const [expandedForAnim, setExpandedForAnim] = useState(false);
-  const [isPreparingOpen, setIsPreparingOpen] = useState(false);
-  const latestOpenRef = useRef(open);
-  const rafRef = useRef<number | null>(null);
+  const { shouldRender, isPreparingOpen, containerRef } = useMenuExpandPresence({
+    expanded: open,
+  });
   
   const menuItemRef = useCallback((el: HTMLLIElement | null) => {
     setMenuItem(el);
-  }, []);
-  
-  const containerRef = useCallback((el: HTMLDivElement | null) => {
-    setSubmenu(el);
   }, []);
 
   const subMenuClass = classNames(
@@ -57,54 +50,6 @@ const SubMenu: React.FC<SubMenuProps> = ({
   );
 
   const position = useAnchorPosition(menuItem);
-
-  useEffect(() => {
-    latestOpenRef.current = open;
-  }, [open]);
-
-  useEffect(() => {
-    if (open) {
-      setShouldRender(true);
-      setExpandedForAnim(false);
-      setIsPreparingOpen(true);
-      return;
-    }
-    setExpandedForAnim(false);
-    setIsPreparingOpen(false);
-  }, [open]);
-
-  useEffect(() => {
-    if (!shouldRender || !open || !submenu) {
-      return;
-    }
-
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
-
-    rafRef.current = requestAnimationFrame(() => {
-      setExpandedForAnim(true);
-      setIsPreparingOpen(false);
-      rafRef.current = null;
-    });
-
-    return () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-    };
-  }, [shouldRender, open, submenu]);
-
-  useMenuExpandAnimation({
-    expanded: expandedForAnim,
-    container: submenu,
-    onCollapseComplete: () => {
-      if (!latestOpenRef.current) {
-        setShouldRender(false);
-      }
-    },
-  });
 
   return (
     <SubMenuContext.Provider value={contextValue}>

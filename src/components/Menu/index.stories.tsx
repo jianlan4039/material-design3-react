@@ -98,6 +98,66 @@ export const MenuMounting: Story = {
   },
 };
 
+export const MenuPresence: Story = {
+  render: () => {
+    const [btn, setBtn] = useState<HTMLButtonElement | null>(null);
+    const [open, setOpen] = useState(false);
+
+    const btnRef = useCallback((el: HTMLButtonElement | null) => {
+      setBtn(el);
+    }, []);
+
+    return (
+      <div style={{ height: '240px' }}>
+        <Button ref={btnRef} onClick={() => setOpen(!open)}>
+          {open ? 'Close Menu' : 'Open Menu'}
+        </Button>
+        {btn && (
+          <Menu anchor={btn} open={open}>
+            <MenuItem label="New" />
+            <MenuItem label="Open" />
+            <MenuDivider />
+            <MenuItem label="Close" />
+          </Menu>
+        )}
+      </div>
+    );
+  },
+};
+
+export const SubMenuPresence: Story = {
+  render: () => {
+    const [btn, setBtn] = useState<HTMLButtonElement | null>(null);
+    const [open, setOpen] = useState(false);
+
+    const btnRef = useCallback((el: HTMLButtonElement | null) => {
+      setBtn(el);
+    }, []);
+
+    return (
+      <div style={{ height: '320px' }}>
+        <Button ref={btnRef} onClick={() => setOpen(!open)}>
+          {open ? 'Close Menu' : 'Open Menu'}
+        </Button>
+        {btn && (
+          <Menu anchor={btn} open={open}>
+            <MenuItem label="Library" />
+            <MenuDivider />
+            <SubMenuComp label="Export">
+              <MenuItem label="PDF" />
+              <MenuItem label="CSV" />
+            </SubMenuComp>
+            <SubMenuComp label="Share">
+              <MenuItem label="Email" />
+              <MenuItem label="Link" />
+            </SubMenuComp>
+          </Menu>
+        )}
+      </div>
+    );
+  },
+};
+
 export const FullFeatures: Story = {
   render: () => {
     const [btn, setBtn] = useState<HTMLButtonElement | null>(null);

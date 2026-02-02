@@ -1,8 +1,8 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import useAnchorPosition from './useAnchorPosition';
-import { useListExpandAnimation } from '../List';
+import { useListExpandPresence } from '../List';
 
 import style from './index.module.scss';
 import classNames from '@/utils/classnames';
@@ -17,16 +17,9 @@ export interface MenuProps {
 
 const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false, variant = 'standard' }) => {
   const position = useAnchorPosition(anchor);
-  const [ul, setUL] = useState<HTMLDivElement | null>(null);
-  const [shouldRender, setShouldRender] = useState(false);
-  const [expandedForAnim, setExpandedForAnim] = useState(false);
-  const [isPreparingOpen, setIsPreparingOpen] = useState(false);
-  const latestOpenRef = useRef(open);
-  const rafRef = useRef<number | null>(null);
-  
-  const containerRef = useCallback((el: HTMLDivElement | null) => {
-    setUL(el);
-  }, []);
+  const { shouldRender, isPreparingOpen, containerRef } = useListExpandPresence({
+    expanded: open,
+  });
 
   const menuClass = classNames(
     style['nd-menu'],
@@ -35,54 +28,6 @@ const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false, 
     },
     className
   );
-
-  useEffect(() => {
-    latestOpenRef.current = open;
-  }, [open]);
-
-  useEffect(() => {
-    if (open) {
-      setShouldRender(true);
-      setExpandedForAnim(false);
-      setIsPreparingOpen(true);
-      return;
-    }
-    setExpandedForAnim(false);
-    setIsPreparingOpen(false);
-  }, [open]);
-
-  useEffect(() => {
-    if (!shouldRender || !open || !ul) {
-      return;
-    }
-
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
-
-    rafRef.current = requestAnimationFrame(() => {
-      setExpandedForAnim(true);
-      setIsPreparingOpen(false);
-      rafRef.current = null;
-    });
-
-    return () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-    };
-  }, [shouldRender, open, ul]);
-
-  useListExpandAnimation({
-    container: ul,
-    expanded: expandedForAnim,
-    onCollapseComplete: () => {
-      if (!latestOpenRef.current) {
-        setShouldRender(false);
-      }
-    },
-  });
 
   return shouldRender
     ? ReactDOM.createPortal(
@@ -95,7 +40,7 @@ const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false, 
             zIndex: 1000,
             height: isPreparingOpen ? 0 : undefined,
             opacity: isPreparingOpen ? 0 : undefined,
-            overflow: isPreparingOpen ? 'hidden' : undefined,
+            // overflow: isPreparingOpen ? 'hidden' : undefined,
           }}
         >
           <ul className={menuClass.toString()}>

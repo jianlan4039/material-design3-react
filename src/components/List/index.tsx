@@ -28,6 +28,8 @@ export { ListItemGroup } from './ListItemGroup';
 export type { ListItemGroupProps } from './ListItemGroup';
 export { useListExpandAnimation } from './useListExpandAnimation';
 export type { UseListExpandAnimationProps } from './useListExpandAnimation';
+export { default as useListExpandPresence } from './useListExpandPresence';
+export type { UseListExpandPresenceProps, UseListExpandPresenceResult } from './useListExpandPresence';
 export type { ListSelectionMode } from './ListContext';
 
 // ============================================================================
