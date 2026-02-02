@@ -64,7 +64,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
     };
   }, []);
 
-  const startCloseTimer = useCallback(() => {
+  const startCloseTimer = useCallback((propagate = true) => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
@@ -72,7 +72,9 @@ const SubMenu: React.FC<SubMenuProps> = ({
       setOpen(false);
       timerRef.current = null;
     }, 200);
-    parentContext?.startCloseTimer();
+    if (propagate) {
+      parentContext?.startCloseTimer();
+    }
   }, [parentContext]);
 
   const clearCloseTimer = useCallback(() => {
@@ -88,17 +90,21 @@ const SubMenu: React.FC<SubMenuProps> = ({
     setOpen(true);
   }, [clearCloseTimer]);
 
-  const handleMouseLeave = useCallback(() => {
-    startCloseTimer();
+  const handleTriggerLeave = useCallback(() => {
+    startCloseTimer(false);
+  }, [startCloseTimer]);
+
+  const handleContentLeave = useCallback(() => {
+    startCloseTimer(true);
   }, [startCloseTimer]);
 
   return (
-    <SubMenuContext.Provider value={{ startCloseTimer, clearCloseTimer }}>
+    <SubMenuContext.Provider value={{ startCloseTimer: () => startCloseTimer(true), clearCloseTimer }}>
       <MenuItem 
         {...menuItemprops}
         ref={menuItemRef}
         onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseLeave={handleTriggerLeave}
       ></MenuItem>
       {ReactDOM.createPortal(
         <div
@@ -109,7 +115,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
             top: position.y,
           }}
           onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onMouseLeave={handleContentLeave}
         >
           <ul className={subMenuClass.toString()}>{children}</ul>
         </div>,

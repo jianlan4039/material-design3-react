@@ -53,3 +53,16 @@
 
 ## 注释
 只有明确被要求加上注释的时候再加上注释。默认情况不添加任何注释。
+
+## 编码规范
+
+本项目遵守SOLID开发原则，具体包括：
+- 单一职责原则（Single Responsibility Principle）
+- 开闭原则（Open/Closed Principle）
+- 里氏替换原则（Liskov Substitution Principle）
+- 接口分离原则（Interface Segregation Principle）
+- 依赖反转原则（Dependency Inversion Principle）
+
+原则上必须遵守以上原则，但是在某些情况下允许有意识的违反，例如：
+- 组件的实现细节可能会违反单一职责原则，但是为了提高代码的可读性和维护性，我们可能会违反这个原则。
+- 在某些情况下，为了提高代码的灵活性和可扩展性，我们可能会违反开闭原则。
