@@ -18,6 +18,25 @@ export const getAnchorPosition = ({ anchor }: AnchorPositionProps) => {
     }
 }
 
+/**
+ * useAnchorPosition Hook
+ * 
+ * Calculates the position and dimensions of an anchor element.
+ * 
+ * @param anchor - Anchor element to calculate position and dimensions for
+ * 
+ * @example
+ * ```tsx
+ * const buttonRef = useRef<HTMLButtonElement>(null);
+ * const anchorPosition = useAnchorPosition(buttonRef.current);
+ * 
+ * return (
+ *   <button ref={buttonRef}>
+ *     Click me
+ *   </button>
+ *  );
+ * ```
+ */
 const useAnchorPosition = (anchor?: HTMLElement) => {
     const [position, setPosition] = useState<{ x: number, y: number, width: number, height: number }>({ x: 0, y: 0, width: 0, height: 0 });
 

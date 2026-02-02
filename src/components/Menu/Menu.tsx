@@ -14,6 +14,28 @@ interface MenuProps {
   open?: boolean
 }
 
+/**
+ * Menu Component
+ * 
+ * A menu component that positions a list of menu items relative to an anchor element.
+ * 
+ * @param className - Additional CSS class names to apply to the menu component
+ * @param children - Menu items to display in the menu
+ * @param anchor - Anchor element to position the menu relative to
+ * @param open - Whether the menu is open or closed (controlled state)
+ * 
+ * @example
+ * ```tsx
+ * const buttonRef = useRef<HTMLButtonElement>(null);
+ * 
+ * return (
+ *   <Menu anchor={buttonRef.current}>
+ *     <MenuItem label="Item 1" />
+ *     <MenuItem label="Item 2" />
+ *   </Menu>
+ * );
+ * ```
+ */
 const Menu: React.FC<MenuProps> = ({ className, children, anchor, open = false }) => {
 
   const position = useAnchorPosition(anchor);
