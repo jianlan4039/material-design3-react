@@ -18,6 +18,22 @@
         list-style: none;
     }
 
+    .nd-sub-menu {
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--md-comp-menus-container-shape);
+        background-color: var(--md-comp-menu-container-color);
+        min-width: 112px;
+        max-width: 280px;
+        width: max-content;
+        margin: 0;
+        padding: var(--md-comp-menus-group-padding);
+        gap: var(--md-comp-menus-gap);
+        box-sizing: border-box;
+        cursor: default;
+        list-style: none;
+    }
+
     .nd-menu-item {
         display: flex;
         align-items: center;
