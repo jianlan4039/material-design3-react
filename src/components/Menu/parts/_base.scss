@@ -11,8 +11,6 @@
         // The token md.comp.menus.container.elevation is '3px' which usually maps to a level, not a direct value.
         // But for now we use the shadow color.
         
-        min-width: 112px;
-        max-width: 280px;
         box-sizing: border-box;
         cursor: default;
     }
@@ -32,8 +30,6 @@
         border-radius: var(--_container-shape, var(--md-comp-menus-container-shape));
         background-color: var(--_container-color);
         box-shadow: 0px 1px 2px var(--_container-shadow-color);
-        min-width: 112px;
-        max-width: 280px;
         width: max-content;
         box-sizing: border-box;
         cursor: default;
@@ -73,6 +69,8 @@
         user-select: none;
         overflow: hidden;
         text-decoration: none; // For <a> tags
+        min-width: 112px;
+        max-width: 280px;
 
         &:first-child {
             border-radius: var(--md-comp-menus-menu-item-first-child-shape);
