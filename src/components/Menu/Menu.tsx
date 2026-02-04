@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import useAnchorPosition from './useAnchorPosition';
+import useAnchorPosition from './hooks/useAnchorPosition';
 import { useListExpandPresence } from '../List';
 
 import style from './index.module.scss';
