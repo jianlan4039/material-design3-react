@@ -16,6 +16,11 @@ export interface UseMenuExpandPresenceResult {
   containerRef: (element: HTMLDivElement | null) => void;
 }
 
+/**
+ * Hook to manage the mounting and unmounting presence of a menu with expand/collapse animation.
+ * It coordinates with useMenuExpandAnimation to ensure the element is mounted before animating open,
+ * and unmounted only after animating closed.
+ */
 const useMenuExpandPresence = ({
   expanded,
   duration,
@@ -25,44 +30,60 @@ const useMenuExpandPresence = ({
 }: UseMenuExpandPresenceProps): UseMenuExpandPresenceResult => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [shouldRender, setShouldRender] = useState(false);
-  const [expandedForAnim, setExpandedForAnim] = useState(false);
   const [isPreparingOpen, setIsPreparingOpen] = useState(false);
-  const latestExpandedRef = useRef(expanded);
+  const [animateExpanded, setAnimateExpanded] = useState(false);
+
   const rafRef = useRef<number | null>(null);
+  const latestExpandedRef = useRef(expanded);
+
+  // Keep track of the latest expanded prop to determine if we should unmount
+  // after the collapse animation completes.
+  latestExpandedRef.current = expanded;
 
   const containerRef = useCallback((element: HTMLDivElement | null) => {
     setContainer(element);
   }, []);
 
-  useEffect(() => {
-    latestExpandedRef.current = expanded;
-  }, [expanded]);
-
+  // Handle expanded prop changes
   useEffect(() => {
     if (expanded) {
+      // When opening:
+      // 1. Mount the component
       setShouldRender(true);
-      setExpandedForAnim(false);
+      // 2. Set preparing state to ensure initial styles (e.g. width: 0) are applied
       setIsPreparingOpen(true);
-      return;
+      // Note: We don't start the animation (setAnimateExpanded(true)) here.
+      // We wait for the container to be mounted and ready (handled by the next effect).
+    } else {
+      // When closing:
+      // 1. Trigger collapse animation immediately
+      setAnimateExpanded(false);
+      setIsPreparingOpen(false);
+      // Note: We don't unmount (setShouldRender(false)) here.
+      // We wait for the animation to complete.
     }
-    setExpandedForAnim(false);
-    setIsPreparingOpen(false);
   }, [expanded]);
 
+  // Handle the transition from "Mounted" to "Animating Open"
   useEffect(() => {
-    if (!shouldRender || !expanded || !container) {
-      return;
-    }
+    // Only start the open animation if:
+    // 1. We should be rendering
+    // 2. The prop says we should be expanded
+    // 3. The container element is available
+    // 4. We are currently in the "preparing" state
+    if (shouldRender && expanded && container && isPreparingOpen) {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
 
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
+      // Use requestAnimationFrame to ensure the browser has painted the initial state
+      // (width: 0 from isPreparingOpen) before we start the expansion animation.
+      rafRef.current = requestAnimationFrame(() => {
+        setAnimateExpanded(true);
+        setIsPreparingOpen(false);
+        rafRef.current = null;
+      });
     }
-
-    rafRef.current = requestAnimationFrame(() => {
-      setExpandedForAnim(true);
-      setIsPreparingOpen(false);
-      rafRef.current = null;
-    });
 
     return () => {
       if (rafRef.current) {
@@ -70,20 +91,23 @@ const useMenuExpandPresence = ({
         rafRef.current = null;
       }
     };
-  }, [shouldRender, expanded, container]);
+  }, [shouldRender, expanded, container, isPreparingOpen]);
+
+  const handleCollapseComplete = useCallback(() => {
+    onCollapseComplete?.();
+    // Only unmount if the latest intent is still to be collapsed
+    if (!latestExpandedRef.current) {
+      setShouldRender(false);
+    }
+  }, [onCollapseComplete]);
 
   useMenuExpandAnimation({
     container,
-    expanded: expandedForAnim,
+    expanded: animateExpanded,
     duration,
     easing,
     onExpandComplete,
-    onCollapseComplete: () => {
-      onCollapseComplete?.();
-      if (!latestExpandedRef.current) {
-        setShouldRender(false);
-      }
-    },
+    onCollapseComplete: handleCollapseComplete,
   });
 
   return {

@@ -30,6 +30,7 @@ export function useMenuExpandAnimation({
       return;
     }
 
+    // Handle initial render to set styles without animation
     if (isInitialRender.current) {
       isInitialRender.current = false;
       prevExpandedRef.current = expanded;
@@ -44,18 +45,21 @@ export function useMenuExpandAnimation({
       return;
     }
 
+    // Skip if state hasn't changed
     if (prevExpandedRef.current === expanded) {
       return;
     }
     
     prevExpandedRef.current = expanded;
 
+    // Cancel any ongoing animation
     if (animationRef.current) {
       animationRef.current.cancel();
       animationRef.current = null;
     }
 
-    const setMinWidthForAnimation = () => {
+    // Helper functions for animation setup/teardown
+    const setMinWidthZero = () => {
       if (inlineMinWidthRef.current === null) {
         inlineMinWidthRef.current = container.style.minWidth;
       }
@@ -69,15 +73,44 @@ export function useMenuExpandAnimation({
       }
     };
 
-    const contentWidth = container.scrollWidth;
-
-    if (expanded) {
-      setMinWidthForAnimation();
-      container.style.overflow = 'hidden';
-      container.style.width = '0px';
-
+    const forceReflow = () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       container.offsetWidth;
+    };
+
+    const handleAnimationEnd = (isFinished: boolean, callback?: () => void) => {
+      if (isFinished) {
+        if (expanded) {
+          container.style.width = 'auto';
+          container.style.overflow = 'visible';
+          restoreMinWidth();
+        } else {
+          container.style.width = '0';
+          // Note: We intentionally do not restore minWidth here to ensure it stays collapsed
+        }
+        callback?.();
+      } else {
+        // If cancelled, restore state
+        restoreMinWidth();
+      }
+      animationRef.current = null;
+    };
+
+    // Execute Animation
+    if (expanded) {
+      // Prepare for expansion:
+      // 1. Temporarily remove min-width to allow starting from 0
+      setMinWidthZero();
+      // 2. Hide overflow to prevent content from showing while width is small
+      container.style.overflow = 'hidden';
+      container.style.width = '0px';
+      
+      // 3. Force browser to recalculate layout (reflow) to ensure the initial 
+      // styles (width: 0) are applied before the animation starts.
+      forceReflow();
+      
+      // 4. Calculate the natural width of the content
+      const contentWidth = container.scrollWidth;
       
       const animation = container.animate(
         [
@@ -93,26 +126,16 @@ export function useMenuExpandAnimation({
 
       animationRef.current = animation;
 
-      animation.onfinish = () => {
-        container.style.width = 'auto';
-        container.style.overflow = 'visible';
-        restoreMinWidth();
-        animationRef.current = null;
-        onExpandComplete?.();
-      };
+      animation.onfinish = () => handleAnimationEnd(true, onExpandComplete);
+      animation.oncancel = () => handleAnimationEnd(false);
 
-      animation.oncancel = () => {
-        restoreMinWidth();
-        animationRef.current = null;
-      };
     } else {
       const currentWidth = container.offsetWidth;
-      setMinWidthForAnimation();
+      setMinWidthZero();
       container.style.width = `${currentWidth}px`;
       container.style.overflow = 'hidden';
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      container.offsetWidth;
+      forceReflow();
 
       const animation = container.animate(
         [
@@ -128,18 +151,11 @@ export function useMenuExpandAnimation({
 
       animationRef.current = animation;
 
-      animation.onfinish = () => {
-        container.style.width = '0';
-        animationRef.current = null;
-        onCollapseComplete?.();
-      };
-
-      animation.oncancel = () => {
-        restoreMinWidth();
-        animationRef.current = null;
-      };
+      animation.onfinish = () => handleAnimationEnd(true, onCollapseComplete);
+      animation.oncancel = () => handleAnimationEnd(false);
     }
 
+    // Cleanup function
     return () => {
       if (animationRef.current) {
         animationRef.current.cancel();
