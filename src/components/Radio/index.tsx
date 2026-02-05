@@ -28,11 +28,12 @@ export const Radio: React.FC<RadioProps> = ({
 }) => {
   const [wrapperElement, setWrapperElement] = useState<HTMLLabelElement | null>(null);
   const isControlled = checkedProp !== undefined;
+  const isDisabled = Boolean(disabled);
 
   const radioClassName = classNames(
     styles['nd-radio'],
     {
-      [styles['nd-radio--disabled']]: disabled,
+      [styles['nd-radio--disabled']]: isDisabled,
     },
     className
   );
@@ -43,23 +44,26 @@ export const Radio: React.FC<RadioProps> = ({
 
   useStateLayer({
     classNameManager: radioClassName,
-    disabled: disabled || false,
-  }, [disabled]);
+    disabled: isDisabled,
+  }, [isDisabled]);
 
   useRipple({
     parent: wrapperElement,
-    disabled: disabled || false,
+    disabled: isDisabled,
   });
+
+  const inputStateProps = isControlled
+    ? { checked: checkedProp }
+    : { defaultChecked };
 
   return (
     <label ref={wrapperRef} className={radioClassName.toString()}>
       <input
         type="radio"
         className={styles['nd-radio__input']}
-        disabled={disabled}
-        checked={isControlled ? checkedProp : undefined}
-        defaultChecked={!isControlled ? defaultChecked : undefined}
+        disabled={isDisabled}
         onChange={onChange}
+        {...inputStateProps}
         {...restProps}
       />
       <span className={styles['nd-radio__icon']} aria-hidden="true">
