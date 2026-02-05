@@ -1,0 +1,150 @@
+@layer nd-comp {
+  .nd-radio {
+    --nd-state-layer-color: var(--md-comp-radio-button-unselected-hover-state-layer-color, var(--md-sys-color-on-surface));
+    --md-sys-hover-state-layer-opacity: var(--md-comp-radio-button-unselected-hover-state-layer-opacity, 0.08);
+    --md-sys-focus-state-layer-opacity: var(--md-comp-radio-button-unselected-focus-state-layer-opacity, 0.1);
+    --md-sys-pressed-state-layer-opacity: var(--md-comp-radio-button-unselected-pressed-state-layer-opacity, 0.1);
+
+    --nd-ripple-color: var(--nd-state-layer-color);
+    --nd-ripple-inset: calc((48px - var(--md-comp-radio-button-state-layer-size, 40px)) / 2);
+    --nd-ripple-size: var(--md-comp-radio-button-state-layer-size, 40px);
+    --nd-ripple-shape: 50%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    user-select: none;
+
+    &::before {
+      inset: calc((48px - var(--md-comp-radio-button-state-layer-size, 40px)) / 2);
+      width: var(--md-comp-radio-button-state-layer-size, 40px);
+      height: var(--md-comp-radio-button-state-layer-size, 40px);
+      border-radius: 50%;
+    }
+
+    .nd-radio__input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: inherit;
+      z-index: 1;
+    }
+
+    .nd-radio__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--md-comp-radio-button-icon-size, 20px);
+      height: var(--md-comp-radio-button-icon-size, 20px);
+      color: var(--md-comp-radio-button-unselected-icon-color, var(--md-sys-color-on-surface-variant));
+      transition: color 150ms ease-in-out;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+      }
+
+      .nd-radio__icon-dot {
+        opacity: 0;
+        transform: scale(0.4);
+        transform-origin: center;
+        transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+        fill: currentColor;
+      }
+    }
+
+    &:has(.nd-radio__input:checked) {
+      --nd-state-layer-color: var(--md-comp-radio-button-selected-hover-state-layer-color, var(--md-sys-color-primary));
+
+      .nd-radio__icon {
+        color: var(--md-comp-radio-button-selected-icon-color, var(--md-sys-color-primary));
+      }
+
+      .nd-radio__icon-dot {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    &:hover:not(.nd-radio--disabled) {
+      --nd-state-layer-color: var(--md-comp-radio-button-unselected-hover-state-layer-color, var(--md-sys-color-on-surface));
+
+      .nd-radio__icon {
+        color: var(--md-comp-radio-button-unselected-hover-icon-color, var(--md-sys-color-on-surface));
+      }
+
+      &:has(.nd-radio__input:checked) {
+        --nd-state-layer-color: var(--md-comp-radio-button-selected-hover-state-layer-color, var(--md-sys-color-primary));
+
+        .nd-radio__icon {
+          color: var(--md-comp-radio-button-selected-hover-icon-color, var(--md-sys-color-primary));
+        }
+      }
+    }
+
+    &:has(.nd-radio__input:focus-visible) {
+      --nd-state-layer-color: var(--md-comp-radio-button-unselected-focus-state-layer-color, var(--md-sys-color-on-surface));
+
+      .nd-radio__icon {
+        color: var(--md-comp-radio-button-unselected-focus-icon-color, var(--md-sys-color-on-surface));
+      }
+
+      &:has(.nd-radio__input:checked) {
+        --nd-state-layer-color: var(--md-comp-radio-button-selected-focus-state-layer-color, var(--md-sys-color-primary));
+
+        .nd-radio__icon {
+          color: var(--md-comp-radio-button-selected-focus-icon-color, var(--md-sys-color-primary));
+        }
+      }
+    }
+
+    &:active:not(.nd-radio--disabled) {
+      --nd-state-layer-color: var(--md-comp-radio-button-unselected-pressed-state-layer-color, var(--md-sys-color-primary));
+
+      .nd-radio__icon {
+        color: var(--md-comp-radio-button-unselected-pressed-icon-color, var(--md-sys-color-on-surface));
+      }
+
+      &:has(.nd-radio__input:checked) {
+        --nd-state-layer-color: var(--md-comp-radio-button-selected-pressed-state-layer-color, var(--md-sys-color-on-surface));
+
+        .nd-radio__icon {
+          color: var(--md-comp-radio-button-selected-pressed-icon-color, var(--md-sys-color-primary));
+        }
+      }
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+
+      .nd-radio__input {
+        cursor: not-allowed;
+      }
+
+      .nd-radio__icon {
+        color: rgb(
+          from var(--md-comp-radio-button-disabled-unselected-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-radio-button-disabled-unselected-icon-opacity, 0.38)
+        );
+      }
+
+      &:has(.nd-radio__input:checked) {
+        .nd-radio__icon {
+          color: rgb(
+            from var(--md-comp-radio-button-disabled-selected-icon-color, var(--md-sys-color-on-surface))
+            r g b / var(--md-comp-radio-button-disabled-selected-icon-opacity, 0.38)
+          );
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@use "@tokens/components/radio/index.scss" as *;
+@use "@tokens/converter" as converter;
+
+@layer nd-comp {
+  :root {
+    @include converter.iterateTokens($tokens);
+  }
+}
