@@ -30,11 +30,19 @@
 }
 
 @function to-value($token, $value) {
-  @if string.index($value, 'md') == 1 {
-    @return var(--#{dot-to-hyphen($value)})
-  } @else {
-    @return #{$value}
+  @if meta.type-of($value) != string {
+    @return $value;
   }
+
+  @if string.index($value, 'md') == 1 {
+    @return var(--#{dot-to-hyphen($value)});
+  }
+
+  @if ends-with($value, 'dp') {
+    @return #{string.slice($value, 1, string.length($value) - 2)}px;
+  }
+
+  @return #{$value};
 }
 
 @function dot-to-hyphen($token) {
@@ -95,4 +103,16 @@
     }
   }
   @return $result;
+}
+
+@function ends-with($string, $suffix) {
+  @if meta.type-of($string) != string or meta.type-of($suffix) != string {
+    @return false;
+  }
+
+  @if string.length($suffix) > string.length($string) {
+    @return false;
+  }
+
+  @return string.slice($string, string.length($string) - string.length($suffix) + 1) == $suffix;
 }

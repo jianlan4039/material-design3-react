@@ -16,6 +16,7 @@
 
 @use "converter";
 @use "./basics/color";
+@use "./basics/elevation";
 @use "./basics/motions";
 @use "./basics/shapes";
 @use "./basics/state";
@@ -25,6 +26,7 @@
 :root{
   @layer nd-sys {
     @include color.default-light;
+    @include elevation.elevation;
     @include motions.duration;
     @include motions.easing;
     @include motions.physics-motion;

@@ -19,6 +19,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 
 import { List, ListItem, ListItemGroup, ListDivider } from './index';
+import Switch from '../Switch';
 
 /**
  * List Component Stories
@@ -195,7 +196,7 @@ export const TrailingContent: Story = {
         />
         <ListItem 
           headline="Switch trailing" 
-          trailingContent={<input type="checkbox" role="switch" readOnly checked />} 
+          trailingContent={<Switch defaultChecked aria-label="List trailing switch" />} 
           trailingType="switch" 
         />
         <ListItem 
