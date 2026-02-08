@@ -2,7 +2,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import classNames from '@utils/classnames';
 import useElevation from '../Elevation';
-import useRipple from '../Ripple/useRipple';
 import useStateLayer from '../StateLayer';
 import styles from './index.module.scss';
 
@@ -25,7 +24,6 @@ export const Switch: React.FC<SwitchProps> = ({
   role,
   ...restProps
 }) => {
-  const [wrapperElement, setWrapperElement] = useState<HTMLLabelElement | null>(null);
   const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
 
   const isControlled = checkedProp !== undefined;
@@ -45,10 +43,6 @@ export const Switch: React.FC<SwitchProps> = ({
 
   const handleClassName = classNames(styles['nd-switch__handle']);
 
-  const wrapperRef = useCallback((node: HTMLLabelElement | null) => {
-    setWrapperElement(node);
-  }, []);
-
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
       setInternalChecked(event.target.checked);
@@ -61,11 +55,6 @@ export const Switch: React.FC<SwitchProps> = ({
     disabled: isDisabled,
   }, [checked, isDisabled, hasIcons]);
 
-  useRipple({
-    parent: wrapperElement,
-    disabled: isDisabled,
-  });
-
   useElevation({
     classNameManager: handleClassName,
     disabled: isDisabled,
@@ -77,7 +66,7 @@ export const Switch: React.FC<SwitchProps> = ({
   }, [checked, hasIcons, selectedIcon, unselectedIcon]);
 
   return (
-    <label ref={wrapperRef} className={switchClassName.toString()}>
+    <label className={switchClassName.toString()}>
       <input
         type="checkbox"
         role={role ?? 'switch'}

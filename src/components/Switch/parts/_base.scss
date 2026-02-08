@@ -24,11 +24,6 @@
     --md-sys-focus-state-layer-opacity: var(--md-comp-switch-unselected-focus-state-layer-opacity, 0.10);
     --md-sys-pressed-state-layer-opacity: var(--md-comp-switch-unselected-pressed-state-layer-opacity, 0.10);
 
-    --nd-ripple-color: var(--nd-state-layer-color);
-    --nd-ripple-inset: calc((48px - var(--_state-size)) / 2);
-    --nd-ripple-size: var(--_state-size);
-    --nd-ripple-shape: var(--_state-shape);
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
