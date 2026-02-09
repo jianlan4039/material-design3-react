@@ -1,0 +1,103 @@
+/**
+ * Copyright (c) 2026 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Slider Layout Styles
+ *
+ * Handles orientation-specific layout, handle positioning,
+ * and value indicator placement.
+ */
+
+@layer nd-comp {
+  .nd-slider--horizontal {
+    width: 240px;
+
+    .nd-slider__track {
+      flex-direction: row;
+    }
+
+    .nd-slider__handle {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .nd-slider__stop {
+      top: 50%;
+    }
+
+    .nd-slider__value-indicator {
+      left: 50%;
+      bottom: calc(100% + var(--nd-slider-value-indicator-offset));
+      transform: translateX(-50%);
+    }
+  }
+
+  .nd-slider--vertical {
+    flex-direction: column;
+    width: 40px;
+    height: 240px;
+
+    .nd-slider__track {
+      flex-direction: column-reverse;
+      width: var(--nd-slider-track-height);
+      height: 100%;
+    }
+
+    .nd-slider__segment {
+      width: 100%;
+      height: auto;
+    }
+
+    .nd-slider__gap--leading,
+    .nd-slider__gap--trailing {
+      width: 100%;
+      height: auto;
+    }
+
+    .nd-slider__gap--leading {
+      height: var(--nd-slider-handle-gap-leading);
+    }
+
+    .nd-slider__gap--trailing {
+      height: var(--nd-slider-handle-gap-trailing);
+    }
+
+    .nd-slider__handle {
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: var(--nd-slider-handle-height);
+      height: var(--nd-slider-handle-width);
+    }
+
+    .nd-slider__stop {
+      left: 50%;
+    }
+
+    .nd-slider__value-indicator {
+      top: 50%;
+      left: calc(100% + var(--nd-slider-value-indicator-offset));
+      transform: translateY(-50%);
+    }
+
+    .nd-slider__segment--start {
+      border-radius: 0 0 var(--nd-slider-track-radius-leading) var(--nd-slider-track-radius-leading);
+    }
+
+    .nd-slider__segment--end {
+      border-radius: var(--nd-slider-track-radius-trailing) var(--nd-slider-track-radius-trailing) 0 0;
+    }
+  }
+}

@@ -1,68 +1,146 @@
-# Agent
+# AGENTS
 
-本仓库是基于 React + TypeScript + Sass 的 Material Design 3 组件实现。
-使用 Storybook 开发，Vite 作为工具链。
+This guide is for agentic coding assistants working in this repo. It captures
+how to build/run the project and the local style conventions inferred from the
+codebase.
 
-注意：`tsconfig.json` 默认排除故事和测试文件，`tsc` 不对其进行类型检查。
+## Project snapshot
+- React 19 + TypeScript, bundled with Vite.
+- Storybook configured with @storybook/react-vite.
+- ESLint flat config with @eslint/js, typescript-eslint, eslint-plugin-react.
+- SCSS modules + token SCSS files for Material Design 3 styling.
+- Strict TypeScript with path aliases.
 
-## 代码风格 (TypeScript/React)
+## Build, lint, test commands
 
-### 导入
-- 优先使用路径别名：`@/`, `@components/`, `@tokens/`, `@utils/`。
-- 导入顺序：1) React 2) 第三方 3) 别名 4) 相对路径 5) 样式。
-- 仅类型导入须使用 `import type`。
+Install:
+```bash
+npm install
+```
 
-### 类型与 Props
-- 严格遵循类型安全，禁用 `any`。
-- Props 优先继承原生元素属性。
-- 变体/尺寸使用显式联合类型。
-- 避免使用 `@ts-ignore`，必要时须注明原因。
+Dev server (Vite):
+```bash
+npm run dev
+```
 
-### 命名
-- 组件：`PascalCase` 文件夹与文件名；入口为 `index.tsx`。
-- Props：`ComponentNameProps`。
-- Hooks：`useXxx`。
-- CSS 类：BEM 规范，统一 `nd-` 前缀。
-- Token：使用 `@layer nd-comp` 和 `--md-comp-…` 格式。
+Storybook (dev):
+```bash
+npm run storybook
+```
 
-### 组件模式
-- 仅使用函数组件。
-- 交互组件：
-  - 使用 `ClassNameManager` 管理类名。
-  - 统一调用 `useStateLayer`, `useRipple`, `useElevation` 钩子。
-- 依赖 DOM 的钩子使用 callback refs。
+Storybook (static build):
+```bash
+npm run build-storybook
+```
 
-### 无障碍 (A11y)
-- 模拟按钮须包含 `role="button"`, `tabIndex`, 键盘监听及 `aria` 属性。
-- 开关类组件使用 `aria-pressed`。
+Type check (no script defined, but TS config exists):
+```bash
+npx tsc -p tsconfig.json
+```
 
-### 错误处理
-- 禁用/空状态优先早期返回。
-- 保护 DOM 操作，避免在 UI 层抛出异常。
+Lint (no script defined, but ESLint config exists):
+```bash
+npx eslint "src/**/*.{ts,tsx,js,jsx}"
+```
 
-### 样式 (Sass + CSS Modules)
-- 样式文件位于组件同级，`index.module.scss` 作为入口，具体规则按模块拆分至 `parts/`。
-- 使用 Sass `@use`。
-- Token 模式：在 `parts/_token-vars.scss` 中通过迭代生成。
+Tests:
+- No test runner is configured in package.json.
+- There are no test scripts or test dependencies.
+- “Single test” commands are not applicable unless you add a test runner.
 
-## 项目布局
-- `src/components/`: 组件实现与 Storybook 故事。
-- `src/tokens/`: Token 映射。
-- `src/utils/`: 工具函数。
-- `.storybook/`: Storybook 配置。
+Headers (license header helper scripts):
+```bash
+npm run add-header
+npm run add-header:all
+```
 
-## 注释
-只有明确被要求加上注释的时候再加上注释。默认情况不添加任何注释。
+## Repo layout and conventions
+- Components live under `src/components/<ComponentName>/`.
+- Component folders typically include:
+  - `index.tsx` (component + types)
+  - `index.module.scss` (CSS module)
+  - `parts/_*.scss` (partial styles)
+  - `index.stories.tsx` (Storybook)
+- Shared tokens live under `src/tokens/**/index.scss` and are imported by
+  components or Storybook preview.
+- Utilities live under `src/utils/`.
+- Aliases (from `tsconfig.json` and `vite.config.ts`):
+  - `@/*` -> `src/*`
+  - `@components/*` -> `src/components/*`
+  - `@tokens/*` -> `src/tokens/*`
+  - `@utils/*` -> `src/utils/*`
 
-## 编码规范
+## TypeScript + React style
+- Prefer function components and hooks; use `React.FC` for exported components.
+- Define explicit props interfaces (e.g., `CheckboxProps`).
+- When a component can be controlled/uncontrolled, follow the pattern used in
+  `Checkbox`/`List`/`SegmentedButton` with `value`, `defaultValue`, and
+  `onChange`.
+- Use `useCallback` and `useMemo` for derived values and handlers.
+- Use `React.HTMLAttributes`/`React.ButtonHTMLAttributes` and `Omit<...>` to
+  model DOM props accurately.
 
-本项目遵守SOLID开发原则，具体包括：
-- 单一职责原则（Single Responsibility Principle）
-- 开闭原则（Open/Closed Principle）
-- 里氏替换原则（Liskov Substitution Principle）
-- 接口分离原则（Interface Segregation Principle）
-- 依赖反转原则（Dependency Inversion Principle）
+## Imports
+- Order imports as:
+  1) React / standard library
+  2) blank line
+  3) aliases (e.g., `@utils/classnames`)
+  4) relative imports
+- Use `import type` for type-only imports.
+- Keep import paths consistent with aliases where available.
 
-原则上必须遵守以上原则，但是在某些情况下允许有意识的违反，例如：
-- 组件的实现细节可能会违反单一职责原则，但是为了提高代码的可读性和维护性，我们可能会违反这个原则。
-- 在某些情况下，为了提高代码的灵活性和可扩展性，我们可能会违反开闭原则。
+## Formatting
+- Follow the existing file’s formatting style.
+- Common patterns:
+  - Single quotes in TS/TSX.
+  - Semicolons are common in components; some files omit them (match file).
+  - Indentation is typically 2 spaces in TSX; match local file when editing.
+- Keep JSX props on new lines for long props blocks.
+
+## Naming
+- Components: `PascalCase` (e.g., `SegmentedButton`).
+- Hooks: `useX` prefix (e.g., `useRipple`).
+- Types: `PascalCase`, props named `XProps`.
+- Context: `XContext` with `XContextValue` types.
+- CSS module class names use `nd-` prefixed BEM-like names:
+  - `styles['nd-component']`
+  - `styles['nd-component__part']`
+  - `styles['nd-component--modifier']`
+
+## CSS / SCSS
+- Use CSS modules for component styles (`index.module.scss`).
+- Split SCSS into partials under `parts/_*.scss` when styles are complex.
+- Tokens live under `src/tokens/` and should be reused instead of hard-coded
+  values when possible.
+- Keep token usage consistent with Material Design 3 semantics.
+
+## Class names
+- Use the `classNames` helper from `@utils/classnames`.
+- Prefer building a `ClassNameManager`, then call `.toString()` when passing to
+  JSX.
+- When needed, use `.add()/.remove()` to mutate class sets (see `useElevation`).
+
+## Error handling and invariants
+- Use explicit errors for invalid usage (e.g., nested `List` throws).
+- Use early returns in hooks/handlers for disabled or missing dependencies.
+- Wrap DOM removal in try/catch when the element might already be removed.
+- Favor safe access (`?.`) and guard conditions around DOM operations.
+
+## Documentation and comments
+- Many TS/TSX files include a top-level Apache 2.0 license header. Preserve and
+  include it when adding new source files.
+- Use JSDoc blocks for public components, hooks, and exported types.
+- Section separators with `// =====` are common for large files.
+- Avoid adding comments unless they clarify non-obvious logic.
+
+## Storybook
+- Stories are under `src/**/*.stories.@(js|jsx|mjs|ts|tsx)`.
+- Global Storybook styles import tokens in `.storybook/preview.ts`.
+
+## Cursor/Copilot rules
+- No `.cursor/rules/`, `.cursorrules`, or `.github/copilot-instructions.md`
+  found in this repository at time of writing.
+
+## Notes for agents
+- There is no configured test runner; do not invent test commands.
+- If you add new tooling (lint/test/build scripts), update this file.
