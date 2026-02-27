@@ -8,6 +8,7 @@ export interface TrackProps {
   disabled?: boolean;
   style?: React.CSSProperties;
   className?: string;
+  squareSide?: 'left' | 'right' | 'both';
 }
 
 const Track: React.FC<TrackProps> = ({
@@ -15,6 +16,7 @@ const Track: React.FC<TrackProps> = ({
   disabled = false,
   style,
   className,
+  squareSide,
 }) => {
   const trackClassName = classNames(
     styles['nd-slider__track'],
@@ -22,6 +24,9 @@ const Track: React.FC<TrackProps> = ({
       [styles['nd-slider__track--active']]: active,
       [styles['nd-slider__track--inactive']]: !active,
       [styles['nd-slider__track--disabled']]: disabled,
+      [styles['nd-slider__track--left-square']]: squareSide === 'left',
+      [styles['nd-slider__track--right-square']]: squareSide === 'right',
+      [styles['nd-slider__track--both-square']]: squareSide === 'both',
     },
     className
   );
