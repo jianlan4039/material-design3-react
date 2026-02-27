@@ -60,8 +60,8 @@
 
   .nd-slider__track-container {
     position: absolute;
-    left: var(--_handle-leading-space);
-    right: var(--_handle-trailing-space);
+    left: 0;//var(--_handle-leading-space);
+    right: 0;//var(--_handle-trailing-space);
     top: 50%;
     transform: translateY(-50%);
     height: var(--_track-inactive-h);
