@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 import classNames from '@utils/classnames';
-import useStateLayer from '@components/StateLayer';
-import useElevation from '@components/Elevation';
 import styles from '../index.module.scss';
 
 export interface HandleProps {
@@ -50,16 +48,6 @@ const Handle: React.FC<HandleProps> = ({
   );
 
   const handleRef = React.useRef<HTMLSpanElement>(null);
-
-  useStateLayer({
-    classNameManager: handleClassName,
-    disabled,
-  }, [disabled]);
-
-  useElevation({
-    classNameManager: handleClassName,
-    disabled,
-  }, [disabled]);
 
   const handleStyle: React.CSSProperties = {
     '--md-elevation-level': '1',

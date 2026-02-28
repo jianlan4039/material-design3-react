@@ -31,7 +31,7 @@ const Slider: React.FC<SliderProps> = ({
   max = 100,
   disabled = false,
   size = 'small',
-  showValueIndicator = false,
+  showValueIndicator = true,
   onChange,
   className,
   ...restProps
@@ -172,17 +172,20 @@ const Slider: React.FC<SliderProps> = ({
           <Track
             active={false}
             disabled={disabled}
-            style={{ left: '0%', width: `${startPercent}%` }}
+            style={{ left: '0%', width: `calc(${startPercent}% - 6px)` }}
+            squareSide="right"
           />
           <Track
             active={true}
             disabled={disabled}
-            style={{ left: `${startPercent}%`, width: `${endPercent - startPercent}%` }}
+            style={{ left: `calc(${startPercent}% + 6px)`, width: `calc(${endPercent - startPercent}% - 12px)` }}
+            squareSide="both"
           />
           <Track
             active={false}
             disabled={disabled}
-            style={{ left: `${endPercent}%`, width: `${100 - endPercent}%` }}
+            style={{ left: `calc(${endPercent}% + 6px)`, width: `calc(${100 - endPercent}% - 6px)` }}
+            squareSide="left"
           />
         </>
       );

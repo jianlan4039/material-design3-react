@@ -19,6 +19,11 @@ export interface UseSliderDragReturn {
   handleKeyDown: (handleIndex: SliderHandleIndex) => (e: React.KeyboardEvent) => void;
 }
 
+const asRangeValue = (value: number | [number, number]): [number, number] => {
+  if (Array.isArray(value)) return value;
+  return [value, value];
+};
+
 const useSliderDrag = (options: UseSliderDragOptions): UseSliderDragReturn => {
   const {
     containerRef,
@@ -56,11 +61,16 @@ const useSliderDrag = (options: UseSliderDragOptions): UseSliderDragReturn => {
   const handlePointerMove = React.useCallback((e: MouseEvent | TouchEvent) => {
     if (activeHandle === null || disabled) return;
 
-    const clientX = 'touches' in e ? (e as TouchEvent).touches[0]?.clientX ?? 0 : (e as MouseEvent).clientX;
+    const clientX = 'touches' in e 
+      ? (e as TouchEvent).touches[0]?.clientX 
+      : (e as MouseEvent).clientX;
+    
+    if (clientX === undefined) return;
+    
     let newValue = getValueFromPosition(clientX);
 
     if (isRange) {
-      const [currentMin, currentMax] = currentValue as [number, number];
+      const [currentMin, currentMax] = asRangeValue(currentValue);
       if (activeHandle === 0) {
         newValue = Math.min(newValue, currentMax - 1);
       } else {
@@ -91,7 +101,7 @@ const useSliderDrag = (options: UseSliderDragOptions): UseSliderDragReturn => {
 
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchmove', onMove);
+    window.addEventListener('touchmove', onMove, { passive: false });
     window.addEventListener('touchend', onUp);
 
     return () => {
@@ -114,7 +124,7 @@ const useSliderDrag = (options: UseSliderDragOptions): UseSliderDragReturn => {
         case 'ArrowUp':
           e.preventDefault();
           if (isRange) {
-            const [currentMin, currentMax] = currentValue as [number, number];
+            const [currentMin, currentMax] = asRangeValue(currentValue);
             if (handleIndex === 0) {
               newValue = [Math.min(currentMin + step, currentMax - 1), currentMax];
             } else {
@@ -128,7 +138,7 @@ const useSliderDrag = (options: UseSliderDragOptions): UseSliderDragReturn => {
         case 'ArrowDown':
           e.preventDefault();
           if (isRange) {
-            const [currentMin, currentMax] = currentValue as [number, number];
+            const [currentMin, currentMax] = asRangeValue(currentValue);
             if (handleIndex === 0) {
               newValue = [Math.max(currentMin - step, min), currentMax];
             } else {
@@ -141,13 +151,13 @@ const useSliderDrag = (options: UseSliderDragOptions): UseSliderDragReturn => {
         case 'Home':
           e.preventDefault();
           newValue = isRange 
-            ? (handleIndex === 0 ? [min, (currentValue as [number, number])[1]] : [(currentValue as [number, number])[0], min]) 
+            ? (handleIndex === 0 ? [min, asRangeValue(currentValue)[1]] : [asRangeValue(currentValue)[0], asRangeValue(currentValue)[0] + 1])
             : min;
           break;
         case 'End':
           e.preventDefault();
           newValue = isRange 
-            ? (handleIndex === 0 ? [(currentValue as [number, number])[0], max] : [(currentValue as [number, number])[0], max]) 
+            ? (handleIndex === 0 ? [asRangeValue(currentValue)[1] - 1, asRangeValue(currentValue)[1]] : [asRangeValue(currentValue)[0], max])
             : max;
           break;
         default:
