@@ -9,6 +9,7 @@ export interface UseSliderPropsReturn {
   disabled: boolean;
   size: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
   showValueIndicator: boolean;
+  stops: number[];
   className: string | undefined;
   restProps: Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>;
   getValueOptions: () => UseSliderValueOptions;
@@ -25,6 +26,7 @@ const useSliderProps = (props: SliderProps): UseSliderPropsReturn => {
     disabled = false,
     size = 'small',
     showValueIndicator = true,
+    stops = [],
     className,
     ...restProps
   } = props;
@@ -50,6 +52,7 @@ const useSliderProps = (props: SliderProps): UseSliderPropsReturn => {
     disabled,
     size,
     showValueIndicator,
+    stops,
     className,
     restProps,
     getValueOptions,

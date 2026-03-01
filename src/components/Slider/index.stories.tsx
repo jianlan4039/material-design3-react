@@ -52,6 +52,10 @@ const meta = {
       control: 'boolean',
       description: 'Whether to show value indicator while dragging',
     },
+    stops: {
+      control: 'object',
+      description: 'Array of numeric stop positions along the track',
+    },
     onChange: {
       action: 'changed',
       description: 'Change event handler',
@@ -116,6 +120,32 @@ export const WithValueIndicator: Story = {
     showValueIndicator: true,
     defaultValue: 50,
     'aria-label': 'Slider with value indicator',
+  },
+};
+
+export const WithStops: Story = {
+  args: {
+    stops: [0, 25, 50, 75, 100],
+    defaultValue: 50,
+    'aria-label': 'Slider with stops',
+  },
+};
+
+export const StopsWithMinMax: Story = {
+  args: {
+    stops: [0, 10, 20, 30, 40, 50],
+    min: 0,
+    max: 50,
+    defaultValue: 25,
+    'aria-label': 'Slider with stops and custom range',
+  },
+};
+
+export const RangeWithStops: Story = {
+  args: {
+    stops: [0, 20, 40, 60, 80, 100],
+    defaultRangeValue: [30, 70],
+    'aria-label': 'Range slider with stops',
   },
 };
 

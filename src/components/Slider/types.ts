@@ -11,6 +11,7 @@ export interface BaseSliderProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   disabled?: boolean;
   size?: SliderSize;
   showValueIndicator?: boolean;
+  stops?: number[];
   className?: string;
 }
 

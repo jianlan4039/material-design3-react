@@ -12,7 +12,6 @@ codebase.
 - Strict TypeScript with path aliases.
 
 ## Build, lint, test commands
-
 Install:
 ```bash
 npm install
@@ -33,114 +32,94 @@ Storybook (static build):
 npm run build-storybook
 ```
 
-Type check (no script defined, but TS config exists):
+Type check:
 ```bash
 npx tsc -p tsconfig.json
 ```
 
-Lint (no script defined, but ESLint config exists):
+Lint:
 ```bash
 npx eslint "src/**/*.{ts,tsx,js,jsx}"
 ```
 
 Tests:
-- No test runner is configured in package.json.
-- There are no test scripts or test dependencies.
-- “Single test” commands are not applicable unless you add a test runner.
+- No test runner configured. Do not invent test commands.
 
-Headers (license header helper scripts):
-```bash
-npm run add-header
-npm run add-header:all
-```
+## Repo layout
+- Components: `src/components/<ComponentName>/` with `index.tsx`, `index.module.scss`, `parts/_*.scss`, `index.stories.tsx`
+- Tokens: `src/tokens/basics/` and `src/tokens/components/` using SCSS mixins
+- Utilities: `src/utils/`
+- Path aliases: `@/*`, `@components/*`, `@tokens/*`, `@utils/*`
 
-## Repo layout and conventions
-- Components live under `src/components/<ComponentName>/`.
-- Component folders typically include:
-  - `index.tsx` (component + types)
-  - `index.module.scss` (CSS module)
-  - `parts/_*.scss` (partial styles)
-  - `index.stories.tsx` (Storybook)
-- Shared tokens live under `src/tokens/**/index.scss` and are imported by
-  components or Storybook preview.
-- Utilities live under `src/utils/`.
-- Aliases (from `tsconfig.json` and `vite.config.ts`):
-  - `@/*` -> `src/*`
-  - `@components/*` -> `src/components/*`
-  - `@tokens/*` -> `src/tokens/*`
-  - `@utils/*` -> `src/utils/*`
-
-## TypeScript + React style
-- Prefer function components and hooks; use `React.FC` for exported components.
-- Define explicit props interfaces (e.g., `CheckboxProps`).
-- When a component can be controlled/uncontrolled, follow the pattern used in
-  `Checkbox`/`List`/`SegmentedButton` with `value`, `defaultValue`, and
-  `onChange`.
-- Use `useCallback` and `useMemo` for derived values and handlers.
-- Use `React.HTMLAttributes`/`React.ButtonHTMLAttributes` and `Omit<...>` to
-  model DOM props accurately.
+## TypeScript + React
+- Use `React.FC` for exported components, explicit props interfaces
+- Controlled/uncontrolled: `value`/`defaultValue` + `onChange` (see Checkbox/List/SegmentedButton)
+- `useCallback`/`useMemo` for derived values and handlers
+- `React.HTMLAttributes`/`React.ButtonHTMLAttributes` + `Omit<...>` for DOM props
 
 ## Imports
-- Order imports as:
-  1) React / standard library
-  2) blank line
-  3) aliases (e.g., `@utils/classnames`)
-  4) relative imports
-- Use `import type` for type-only imports.
-- Keep import paths consistent with aliases where available.
+1) React / stdlib 2) blank line 3) aliases 4) relative
+- Use `import type` for type-only imports
 
 ## Formatting
-- Follow the existing file’s formatting style.
-- Common patterns:
-  - Single quotes in TS/TSX.
-  - Semicolons are common in components; some files omit them (match file).
-  - Indentation is typically 2 spaces in TSX; match local file when editing.
-- Keep JSX props on new lines for long props blocks.
+- Single quotes in TS/TSX, 2-space indentation
+- Semicolons common (match file style)
+- JSX props on new lines for long blocks
 
 ## Naming
-- Components: `PascalCase` (e.g., `SegmentedButton`).
-- Hooks: `useX` prefix (e.g., `useRipple`).
-- Types: `PascalCase`, props named `XProps`.
-- Context: `XContext` with `XContextValue` types.
-- CSS module class names use `nd-` prefixed BEM-like names:
-  - `styles['nd-component']`
-  - `styles['nd-component__part']`
-  - `styles['nd-component--modifier']`
+- Components: `PascalCase` (e.g., SegmentedButton)
+- Hooks: `useX` prefix (e.g., useRipple)
+- CSS classes: `nd-` prefixed BEM (`.nd-component`, `.nd-component__part`, `.nd-component--modifier`)
 
 ## CSS / SCSS
-- Use CSS modules for component styles (`index.module.scss`).
-- Split SCSS into partials under `parts/_*.scss` when styles are complex.
-- Tokens live under `src/tokens/` and should be reused instead of hard-coded
-  values when possible.
-- Keep token usage consistent with Material Design 3 semantics.
+- CSS modules for component styles (`index.module.scss`)
+- SCSS partials in `parts/_*.scss` for complex styles
+- Use tokens from `src/tokens/` instead of hard-coded values
 
 ## Class names
-- Use the `classNames` helper from `@utils/classnames`.
-- Prefer building a `ClassNameManager`, then call `.toString()` when passing to
-  JSX.
-- When needed, use `.add()/.remove()` to mutate class sets (see `useElevation`).
+- Use `classNames` helper from `@utils/classnames`
+- Build `ClassNameManager`, call `.toString()` for JSX
+- `.add()/.remove()` to mutate class sets
 
-## Error handling and invariants
-- Use explicit errors for invalid usage (e.g., nested `List` throws).
-- Use early returns in hooks/handlers for disabled or missing dependencies.
-- Wrap DOM removal in try/catch when the element might already be removed.
-- Favor safe access (`?.`) and guard conditions around DOM operations.
+## Error handling
+- Explicit errors for invalid usage (e.g., nested List throws)
+- Early returns for disabled/missing dependencies
+- Wrap DOM removal in try/catch, use `?.` for safe access
 
-## Documentation and comments
-- Many TS/TSX files include a top-level Apache 2.0 license header. Preserve and
-  include it when adding new source files.
-- Use JSDoc blocks for public components, hooks, and exported types.
-- Section separators with `// =====` are common for large files.
-- Avoid adding comments unless they clarify non-obvious logic.
+## Documentation
+- Apache 2.0 license header in source files
+- JSDoc blocks for public APIs
+- Section separators `// =====` in large files
+- Avoid unnecessary comments
 
 ## Storybook
-- Stories are under `src/**/*.stories.@(js|jsx|mjs|ts|tsx)`.
-- Global Storybook styles import tokens in `.storybook/preview.ts`.
+- Stories: `src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+- Global styles import tokens in `.storybook/preview.ts`
 
-## Cursor/Copilot rules
-- No `.cursor/rules/`, `.cursorrules`, or `.github/copilot-instructions.md`
-  found in this repository at time of writing.
+## WHERE TO LOOK
+| Task | Location | Notes |
+|------|----------|-------|
+| Add component | src/components/<ComponentName>/ | index.tsx, index.module.scss, parts/, index.stories.tsx |
+| Add tokens | src/tokens/basics/ or components/ | SCSS mixins, @layer for MD3 |
+| Utilities | src/utils/classnames/ | ClassNameManager |
+| Complex patterns | src/components/Slider/ | hooks/, renderers/, types.ts subdirs |
 
-## Notes for agents
-- There is no configured test runner; do not invent test commands.
-- If you add new tooling (lint/test/build scripts), update this file.
+## ANTI-PATTERNS (THIS PROJECT)
+- Menu component: No index.tsx - uses Menu.tsx (deviation)
+- Token typo: `icon-buton` → `icon-button`
+- Token mismatch: `ext-fab` vs `ExtendedFab`
+- Large files (>500 lines): useRipple.tsx (607), Card.stories.tsx (457), ButtonGroup.stories.tsx (654)
+
+## UNIQUE STYLES
+- Component structure: index.tsx exports + types, parts/ for subcomponents
+- Custom hooks in hooks/ subdirs with useX naming
+- Tokens: basics/ (colors, elevation, motions, shapes, state) and components/
+- Renderers pattern (Slider uses renderers/ for single/range logic)
+- Portal positioning (Menu uses ReactDOM.createPortal)
+
+## NOTES (UPDATES)
+- No CI workflows (.github/workflows absent)
+- Storybook script has PATH hack - consider cross-env or separate script
+- License: Apache 2.0 - preserve in new source files
+- No test runner - do not invent test commands
+- Update this file when adding new tooling scripts
