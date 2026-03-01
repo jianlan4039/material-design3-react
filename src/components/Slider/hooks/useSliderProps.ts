@@ -16,7 +16,10 @@ export interface UseSliderPropsReturn {
 }
 
 const isRangeProps = (props: SliderProps): props is RangeSliderProps => {
-  return 'rangeValue' in props || 'defaultRangeValue' in props;
+  // Must check values, not key existence - 'key in obj' returns true even if value is undefined
+  const rangeValue = (props as RangeSliderProps).rangeValue;
+  const defaultRangeValue = (props as RangeSliderProps).defaultRangeValue;
+  return rangeValue !== undefined || defaultRangeValue !== undefined;
 };
 
 const useSliderProps = (props: SliderProps): UseSliderPropsReturn => {
@@ -25,9 +28,15 @@ const useSliderProps = (props: SliderProps): UseSliderPropsReturn => {
     max = 100,
     disabled = false,
     size = 'small',
-    showValueIndicator = true,
+    showValueIndicator = false,
     stops = [],
     className,
+    // Explicitly extract slider value props to prevent them from being passed to DOM
+    value: _value,
+    defaultValue: _defaultValue,
+    rangeValue: _rangeValue,
+    defaultRangeValue: _defaultRangeValue,
+    onChange: _onChange,
     ...restProps
   } = props;
 

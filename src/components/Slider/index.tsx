@@ -189,7 +189,7 @@ const Slider: React.FC<SliderProps> = (props) => {
                   {
                     [styles['nd-slider__stop--active']]: active,
                   }
-                )}
+                ).toString()}
                 style={{ left: `${percent}%` }}
               />
             ))}
