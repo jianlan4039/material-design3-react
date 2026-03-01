@@ -27,7 +27,7 @@ const useSliderProps = (props: SliderProps): UseSliderPropsReturn => {
     min = 0,
     max = 100,
     disabled = false,
-    size = 'small',
+    size = 'xsmall',
     showValueIndicator = false,
     stops = [],
     className,
