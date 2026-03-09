@@ -1,10 +1,10 @@
 import React, { useCallback, useState, forwardRef } from "react";
 
-import style from "./index.module.scss";
+import style from "../index.module.scss";
 import classNames from "@/utils/classnames";
-import useRipple from "../Ripple/useRipple";
-import useElevation from "../Elevation";
-import useStateLayer from "../StateLayer";
+import useRipple from "../../Ripple/useRipple";
+import useElevation from "../../Elevation";
+import useStateLayer from "../../StateLayer";
 
 export interface MenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   label?: string;

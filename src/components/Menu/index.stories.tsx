@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Menu from "./Menu";
-import MenuItem from "./MenuItem";
-import MenuDivider from "./MenuDivider";
+import MenuItem from "./components/MenuItem";
+import MenuDivider from "./components/MenuDivider";
 import Button from "../Button";
-import SubMenuComp from "./SubMenu";
+import SubMenuComp from "./components/SubMenu";
 
 const meta: Meta<typeof Menu> = {
   title: "Components/Menu",

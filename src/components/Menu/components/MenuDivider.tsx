@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './index.module.scss';
+import style from '../index.module.scss';
 import classNames from '@/utils/classnames';
 
 export interface MenuDividerProps extends React.HTMLAttributes<HTMLLIElement> {}

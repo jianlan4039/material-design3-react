@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useContext, useEffect } from 'react';
-import { SubMenuContext, type SubMenuContextProps } from '../SubMenuContext';
+import { SubMenuContext, type SubMenuContextProps } from '../components/SubMenuContext';
 
 const CLOSE_DELAY = 200;
 
