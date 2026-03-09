@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 
 import classNames from '@utils/classnames';
 import useStateLayer from '../../StateLayer';
@@ -105,6 +105,8 @@ export const TabItem: React.FC<TabItemProps> = ({
     unregisterItem,
     registerItemElement,
     unregisterItemElement,
+    registerItemLabel,
+    unregisterItemLabel,
   } = useTabContext();
 
   // Development-time validation for variant-specific props
@@ -124,6 +126,7 @@ export const TabItem: React.FC<TabItemProps> = ({
   }
 
   const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
+  const labelRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     registerItem(value);
@@ -140,6 +143,15 @@ export const TabItem: React.FC<TabItemProps> = ({
       unregisterItemElement(value);
     };
   }, [value, buttonElement, registerItemElement, unregisterItemElement]);
+
+  useEffect(() => {
+    if (labelRef.current) {
+      registerItemLabel(value, labelRef.current);
+    }
+    return () => {
+      unregisterItemLabel(value);
+    };
+  }, [value, registerItemLabel, unregisterItemLabel]);
 
   const disabled = disabledProp || groupDisabled;
   const selected = isSelected(value);
@@ -201,7 +213,7 @@ export const TabItem: React.FC<TabItemProps> = ({
         </span>
       )}
 
-      <span className={styles['nd-tab__label']}>
+      <span ref={labelRef} className={styles['nd-tab__label']}>
         {children}
       </span>
     </button>

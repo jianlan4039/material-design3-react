@@ -83,6 +83,16 @@ export interface TabContextValue {
    * Unregister an item's DOM element
    */
   unregisterItemElement: (value: string) => void;
+
+  /**
+   * Register an item's label element for primary variant indicator positioning
+   */
+  registerItemLabel: (value: string, element: HTMLElement) => void;
+
+  /**
+   * Unregister an item's label element
+   */
+  unregisterItemLabel: (value: string) => void;
 }
 
 /**
@@ -100,6 +110,8 @@ const defaultContextValue: TabContextValue = {
   isSelected: () => false,
   registerItemElement: () => {},
   unregisterItemElement: () => {},
+  registerItemLabel: () => {},
+  unregisterItemLabel: () => {},
 };
 
 /**

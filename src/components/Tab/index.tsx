@@ -116,6 +116,7 @@ export const Tab: React.FC<TabProps> = ({
   const [itemCount, setItemCount] = useState(0);
   const itemIndexCounter = useRef(0);
   const itemElementsRef = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const itemLabelsRef = useRef<Map<string, HTMLElement>>(new Map());
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
 
   const isControlled = valueProp !== undefined;
@@ -160,17 +161,42 @@ export const Tab: React.FC<TabProps> = ({
     itemElementsRef.current.delete(value);
   }, []);
 
+  const registerItemLabel = useCallback((value: string, element: HTMLElement): void => {
+    itemLabelsRef.current.set(value, element);
+  }, []);
+
+  const unregisterItemLabel = useCallback((value: string): void => {
+    itemLabelsRef.current.delete(value);
+  }, []);
+
   useLayoutEffect(() => {
     if (selectedValue) {
-      const element = itemElementsRef.current.get(selectedValue);
-      if (element) {
-        setIndicatorStyle({
-          left: element.offsetLeft,
-          width: element.offsetWidth,
-        });
+      const tabElement = itemElementsRef.current.get(selectedValue);
+      const labelElement = itemLabelsRef.current.get(selectedValue);
+
+      if (tabElement) {
+        if (variant === 'primary' && labelElement) {
+          // For primary variant: indicator spans label width, centered within tab
+          const tabRect = tabElement.getBoundingClientRect();
+          const labelRect = labelElement.getBoundingClientRect();
+          // Calculate label position relative to tab button, then add button's offset
+          const labelLeftRelativeToTab = labelRect.left - tabRect.left;
+          const indicatorLeft = tabElement.offsetLeft + labelLeftRelativeToTab;
+
+          setIndicatorStyle({
+            left: indicatorLeft,
+            width: labelRect.width,
+          });
+        } else {
+          // For secondary variant: indicator spans full tab width
+          setIndicatorStyle({
+            left: tabElement.offsetLeft,
+            width: tabElement.offsetWidth,
+          });
+        }
       }
     }
-  }, [selectedValue]);
+  }, [selectedValue, variant]);
 
   const toggleSelection = useCallback((newValue: string): void => {
     if (!isControlled) {
@@ -195,7 +221,9 @@ export const Tab: React.FC<TabProps> = ({
     isSelected,
     registerItemElement,
     unregisterItemElement,
-  }), [variant, selectedValues, disabled, showDivider, itemCount, registerItem, unregisterItem, toggleSelection, isSelected, registerItemElement, unregisterItemElement]);
+    registerItemLabel,
+    unregisterItemLabel,
+  }), [variant, selectedValues, disabled, showDivider, itemCount, registerItem, unregisterItem, toggleSelection, isSelected, registerItemElement, unregisterItemElement, registerItemLabel, unregisterItemLabel]);
 
   const tabClassName = classNames(
     styles['nd-tab'],

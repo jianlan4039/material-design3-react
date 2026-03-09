@@ -14,104 +14,27 @@
  * limitations under the License.
  */
 
-// ==================== Token Variables ====================
-// CSS custom properties for Tab component based on MD3 tokens
+/**
+ * Tab Tokens Export
+ *
+ * Generates all tab tokens as CSS custom properties in `nd-comp` layer.
+ * This file is only responsible for token generation.
+ *
+ * @author jian lan
+ * @created 2024
+ */
 
-:root {
-  // Primary Tab - Container
-  --md-comp-navigation-tab-container-height: 64px;
-  --md-comp-navigation-tab-container-color: var(--md-sys-color-surface);
-  --md-comp-navigation-tab-container-shape: 9999px; // full/pill shape
-  --md-comp-navigation-tab-container-elevation: 0;
+// ==================== Import Tab Tokens ====================
+// Import tab tokens and converter for on-demand token generation
+// Use 'as *' to import all content (including $tokens variable) into current namespace
+@use "@tokens/components/tab/index.scss" as *;
+@use "@tokens/converter" as converter;
 
-  // Primary Tab - Active Indicator
-  --md-comp-navigation-tab-active-indicator-color: var(--md-sys-color-on-surface);
-  --md-comp-navigation-tab-active-indicator-height: 3px;
-
-  // Primary Tab - Icon
-  --md-comp-navigation-tab-icon-size: 24px;
-  --md-comp-navigation-tab-icon-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-active-icon-color: var(--md-sys-color-primary);
-  --md-comp-navigation-tab-hover-icon-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-focus-icon-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-pressed-icon-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-inactive-icon-color: var(--md-sys-color-on-surface-variant);
-
-  // Primary Tab - Label Text
-  --md-comp-navigation-tab-label-text-font: var(--md-sys-typescale-title-small-font);
-  --md-comp-navigation-tab-label-text-size: var(--md-sys-typescale-title-small-size);
-  --md-comp-navigation-tab-label-text-line-height: var(--md-sys-typescale-title-small-line-height);
-  --md-comp-navigation-tab-label-text-weight: var(--md-sys-typescale-title-small-weight);
-  --md-comp-navigation-tab-label-text-tracking: var(--md-sys-typescale-title-small-tracking);
-
-  // Primary Tab - Label Colors
-  --md-comp-navigation-tab-label-text-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-active-label-text-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-hover-label-text-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-focus-label-text-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-pressed-label-text-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-navigation-tab-inactive-label-text-color: var(--md-sys-color-on-surface-variant);
-
-  // Primary Tab - State Layer
-  --md-comp-navigation-tab-state-layer-color: var(--md-sys-color-on-surface);
-  --md-comp-navigation-tab-hover-state-layer-opacity: 0.08;
-  --md-comp-navigation-tab-focus-state-layer-opacity: 0.12;
-  --md-comp-navigation-tab-pressed-state-layer-opacity: 0.12;
-
-  // Primary Tab - Focus Indicator
-  --md-comp-navigation-tab-focus-indicator-color: var(--md-sys-color-primary);
-  --md-comp-navigation-tab-focus-indicator-thickness: 1px;
-  --md-comp-navigation-tab-focus-indicator-outline-offset: 4px;
-
-  // Primary Tab - Badge
-  --md-comp-navigation-tab-badge-color: var(--md-sys-color-primary);
-  --md-comp-navigation-tab-badge-size: 8px;
-
-  // Secondary Tab - Container
-  --md-comp-secondary-navigation-tab-container-height: 48px;
-  --md-comp-secondary-navigation-tab-container-color: var(--md-sys-color-surface);
-  --md-comp-secondary-navigation-tab-container-shape: 0; // none
-
-  // Secondary Tab - Active Indicator
-  --md-comp-secondary-navigation-tab-active-indicator-color: var(--md-sys-color-primary);
-  --md-comp-secondary-navigation-tab-active-indicator-height: 2px;
-
-  // Secondary Tab - Label Text (uses same typescale as primary)
-  --md-comp-secondary-navigation-tab-label-text-font: var(--md-sys-typescale-title-small-font);
-  --md-comp-secondary-navigation-tab-label-text-size: var(--md-sys-typescale-title-small-size);
-  --md-comp-secondary-navigation-tab-label-text-line-height: var(--md-sys-typescale-title-small-line-height);
-  --md-comp-secondary-navigation-tab-label-text-weight: var(--md-sys-typescale-title-small-weight);
-  --md-comp-secondary-navigation-tab-label-text-tracking: var(--md-sys-typescale-title-small-tracking);
-
-  // Secondary Tab - Label Colors
-  --md-comp-secondary-navigation-tab-label-text-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-secondary-navigation-tab-active-label-text-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-hover-label-text-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-focus-label-text-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-pressed-label-text-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-inactive-label-text-color: var(--md-sys-color-on-surface-variant);
-
-  // Secondary Tab - State Layer
-  --md-comp-secondary-navigation-tab-state-layer-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-hover-state-layer-opacity: 0.08;
-  --md-comp-secondary-navigation-tab-focus-state-layer-opacity: 0.12;
-  --md-comp-secondary-navigation-tab-pressed-state-layer-opacity: 0.12;
-
-  // Secondary Tab - Focus Indicator
-  --md-comp-secondary-navigation-tab-focus-indicator-color: var(--md-sys-color-secondary);
-  --md-comp-secondary-navigation-tab-focus-indicator-thickness: 1px;
-  --md-comp-secondary-navigation-tab-focus-indicator-outline-offset: 4px;
-
-  // Secondary Tab - Icon (if needed)
-  --md-comp-secondary-navigation-tab-icon-size: 24px;
-  --md-comp-secondary-navigation-tab-icon-color: var(--md-sys-color-on-surface-variant);
-  --md-comp-secondary-navigation-tab-active-icon-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-hover-icon-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-focus-icon-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-pressed-icon-color: var(--md-sys-color-on-surface);
-  --md-comp-secondary-navigation-tab-inactive-icon-color: var(--md-sys-color-on-surface-variant);
-
-  // Divider
-  --md-comp-tab-divider-color: var(--md-sys-color-outline-variant);
-  --md-comp-tab-divider-width: 1px;
+// ==================== Generate Tab Tokens ====================
+// Generate all tab tokens as CSS variables in nd-comp layer
+// This ensures tokens are only generated when this component is used
+@layer nd-comp {
+  :root {
+    @include converter.iterateTokens($tokens);
+  }
 }

@@ -49,6 +49,7 @@
   background: transparent;
   cursor: pointer;
   outline: none;
+  flex: 1; // Equal width items
   font-family: var(--md-comp-navigation-tab-label-text-font);
   font-size: var(--md-comp-navigation-tab-label-text-size);
   font-weight: var(--md-comp-navigation-tab-label-text-weight);
