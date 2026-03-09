@@ -36,7 +36,7 @@ export interface TabProps {
   /**
    * Tab items (TabItem components)
    */
-  children: React.ReactNode;
+  children?: React.ReactNode;
 
   /**
    * Controlled selected value

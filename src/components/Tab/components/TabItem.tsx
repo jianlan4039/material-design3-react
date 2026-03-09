@@ -20,7 +20,7 @@ import classNames from '@utils/classnames';
 import useStateLayer from '../../StateLayer';
 import useRipple from '../../Ripple/useRipple';
 import { useTabContext } from './TabContext';
-import type { TabVariant } from './TabContext';
+// import type { TabVariant } from './TabContext';
 import styles from '../index.module.scss';
 
 // ==================== TabItem Component ====================
