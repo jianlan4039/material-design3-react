@@ -132,13 +132,18 @@ export const Tab: React.FC<TabProps> = ({
   }, [selectedValue]);
 
   const registerItem = useCallback((value: string): number => {
-    if (!itemsRef.current.has(value)) {
-      const index = itemIndexCounter.current++;
-      itemsRef.current.set(value, index);
-      setItemCount(itemsRef.current.size);
-      return index;
+    if (itemsRef.current.has(value)) {
+      const existingIndex = itemsRef.current.get(value);
+      if (existingIndex === undefined) {
+        throw new Error(`Item with value "${value}" was registered but index is undefined`);
+      }
+      return existingIndex;
     }
-    return itemsRef.current.get(value)!;
+
+    const index = itemIndexCounter.current++;
+    itemsRef.current.set(value, index);
+    setItemCount(itemsRef.current.size);
+    return index;
   }, []);
 
   const unregisterItem = useCallback((value: string): void => {
@@ -234,7 +239,23 @@ export interface TabItemProps extends Omit<React.ButtonHTMLAttributes<HTMLButton
   children: React.ReactNode;
 
   /**
-   * Optional icon to display (primary tabs only)
+   * Icon to display
+   * - **Recommended** for primary tabs (variant="primary") - Material Design 3 specification
+   * - **Ignored** for secondary tabs (variant="secondary") - not part of MD3 secondary tab design
+   *
+   * @example Primary tabs with icon:
+   * ```tsx
+   * <Tab variant="primary">
+   *   <TabItem value="home" icon={<HomeIcon />}>Home</TabItem>
+   * </Tab>
+   * ```
+   *
+   * @example Secondary tabs without icon:
+   * ```tsx
+   * <Tab variant="secondary">
+   *   <TabItem value="home">Home</TabItem>
+   * </Tab>
+   * ```
    */
   icon?: React.ReactNode;
 
@@ -282,6 +303,22 @@ export const TabItem: React.FC<TabItemProps> = ({
     registerItem,
     unregisterItem,
   } = useTabContext();
+
+  // Development-time validation for variant-specific props
+  if (import.meta.env.DEV) {
+    if (variant === 'primary' && icon === undefined) {
+      console.warn(
+        'TabItem: Primary tabs should include an icon for optimal Material Design 3 appearance. ' +
+        `TabItem with value "${value}" is missing the icon prop.`
+      );
+    }
+    if (variant === 'secondary' && icon !== undefined) {
+      console.warn(
+        'TabItem: Secondary tabs should not include an icon per Material Design 3 specification. ' +
+        `TabItem with value "${value}" has an icon prop which will be ignored.`
+      );
+    }
+  }
 
   const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
 
