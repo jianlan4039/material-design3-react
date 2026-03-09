@@ -73,6 +73,16 @@ export interface TabContextValue {
    * Check if a value is selected
    */
   isSelected: (value: string) => boolean;
+
+  /**
+   * Register an item's DOM element for indicator positioning
+   */
+  registerItemElement: (value: string, element: HTMLButtonElement) => void;
+
+  /**
+   * Unregister an item's DOM element
+   */
+  unregisterItemElement: (value: string) => void;
 }
 
 /**
@@ -88,6 +98,8 @@ const defaultContextValue: TabContextValue = {
   unregisterItem: () => {},
   toggleSelection: () => {},
   isSelected: () => false,
+  registerItemElement: () => {},
+  unregisterItemElement: () => {},
 };
 
 /**
