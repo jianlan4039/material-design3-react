@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useState, useCallback, useMemo, useRef, Children, createElement } from 'react';
+import { useState, useCallback, useMemo, useRef, Children, createElement, useLayoutEffect } from 'react';
 
 import classNames from '@utils/classnames';
 import { TabContext } from './components/TabContext';
@@ -115,6 +115,8 @@ export const Tab: React.FC<TabProps> = ({
   const itemsRef = useRef<Map<string, number>>(new Map());
   const [itemCount, setItemCount] = useState(0);
   const itemIndexCounter = useRef(0);
+  const itemElementsRef = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
 
   const isControlled = valueProp !== undefined;
 
@@ -150,6 +152,26 @@ export const Tab: React.FC<TabProps> = ({
     }
   }, []);
 
+  const registerItemElement = useCallback((value: string, element: HTMLButtonElement): void => {
+    itemElementsRef.current.set(value, element);
+  }, []);
+
+  const unregisterItemElement = useCallback((value: string): void => {
+    itemElementsRef.current.delete(value);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (selectedValue) {
+      const element = itemElementsRef.current.get(selectedValue);
+      if (element) {
+        setIndicatorStyle({
+          left: element.offsetLeft,
+          width: element.offsetWidth,
+        });
+      }
+    }
+  }, [selectedValue]);
+
   const toggleSelection = useCallback((newValue: string): void => {
     if (!isControlled) {
       setInternalSelectedValue(newValue);
@@ -171,7 +193,9 @@ export const Tab: React.FC<TabProps> = ({
     unregisterItem,
     toggleSelection,
     isSelected,
-  }), [variant, selectedValues, disabled, showDivider, itemCount, registerItem, unregisterItem, toggleSelection, isSelected]);
+    registerItemElement,
+    unregisterItemElement,
+  }), [variant, selectedValues, disabled, showDivider, itemCount, registerItem, unregisterItem, toggleSelection, isSelected, registerItemElement, unregisterItemElement]);
 
   const tabClassName = classNames(
     styles['nd-tab'],
@@ -214,6 +238,16 @@ export const Tab: React.FC<TabProps> = ({
         aria-disabled={disabled || undefined}
       >
         {renderedChildren}
+        {selectedValue && (
+          <span
+            className={styles['nd-tab__active-indicator']}
+            style={{
+              transform: `translateX(${indicatorStyle.left}px)`,
+              width: `${indicatorStyle.width}px`,
+            }}
+            aria-hidden="true"
+          />
+        )}
       </div>
     </TabContext.Provider>
   );
