@@ -1,0 +1,55 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// ==================== Secondary Tab Container ====================
+
+.nd-tab--secondary {
+  .nd-tab__item {
+    height: 100%;
+    min-width: 90px;
+    padding: 0 16px;
+    border-radius: 0;
+    flex-direction: row;
+  }
+}
+
+// ==================== Secondary Tab States ====================
+
+// Active state
+.nd-tab--secondary .nd-tab__item--active {
+  color: var(--md-comp-secondary-navigation-tab-active-label-text-color);
+}
+
+// Inactive state
+.nd-tab--secondary .nd-tab__item--inactive {
+  color: var(--md-comp-secondary-navigation-tab-inactive-label-text-color);
+}
+
+// Disabled state (handled in _states.scss)
+.nd-tab--secondary .nd-tab__item--disabled {
+  pointer-events: none;
+  opacity: 0.38;
+}
+
+// ==================== Secondary Tab Content ====================
+
+.nd-tab--secondary .nd-tab__label {
+  font-family: var(--md-comp-secondary-navigation-tab-label-text-font);
+  font-size: var(--md-comp-secondary-navigation-tab-label-text-size);
+  font-weight: var(--md-comp-secondary-navigation-tab-label-text-weight);
+  line-height: var(--md-comp-secondary-navigation-tab-label-text-line-height);
+  letter-spacing: var(--md-comp-secondary-navigation-tab-label-text-tracking);
+}
