@@ -2,7 +2,7 @@
  * Copyright (c) 2024 jian lan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ * you may not use this file except in compliance with License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
@@ -40,7 +40,7 @@ export interface TabContextValue {
   selectedValues: Set<string>;
 
   /**
-   * Whether the entire tab group is disabled
+   * Whether entire tab group is disabled
    */
   disabled: boolean;
 
@@ -50,7 +50,7 @@ export interface TabContextValue {
   showDivider: boolean;
 
   /**
-   * Total number of items in the group (for position-aware styling)
+   * Total number of items in group (for position-aware styling)
    */
   itemCount: number;
 
