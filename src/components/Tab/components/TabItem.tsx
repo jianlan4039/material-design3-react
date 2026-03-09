@@ -103,6 +103,8 @@ export const TabItem: React.FC<TabItemProps> = ({
     isSelected,
     registerItem,
     unregisterItem,
+    registerItemElement,
+    unregisterItemElement,
   } = useTabContext();
 
   // Development-time validation for variant-specific props
@@ -129,6 +131,15 @@ export const TabItem: React.FC<TabItemProps> = ({
       unregisterItem(value);
     };
   }, [value, registerItem, unregisterItem]);
+
+  useEffect(() => {
+    if (buttonElement) {
+      registerItemElement(value, buttonElement);
+    }
+    return () => {
+      unregisterItemElement(value);
+    };
+  }, [value, buttonElement, registerItemElement, unregisterItemElement]);
 
   const disabled = disabledProp || groupDisabled;
   const selected = isSelected(value);
@@ -193,10 +204,6 @@ export const TabItem: React.FC<TabItemProps> = ({
       <span className={styles['nd-tab__label']}>
         {children}
       </span>
-
-      {selected && (
-        <span className={styles['nd-tab__active-indicator']} aria-hidden="true" />
-      )}
     </button>
   );
 };
