@@ -14,28 +14,31 @@
  * limitations under the License.
  */
 
-// ==================== Primary Tab Active Indicator ====================
+// ==================== Shared Active Indicator ====================
 
-.nd-tab--primary .nd-tab__active-indicator {
+.nd-tab__active-indicator {
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
+  // GPU-accelerated animation
+  will-change: transform, width;
+  transition-property: transform, width;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+// ==================== Primary Tab Active Indicator ====================
+
+.nd-tab--primary .nd-tab__active-indicator {
   height: var(--md-comp-navigation-tab-active-indicator-height);
   background-color: var(--md-comp-navigation-tab-active-indicator-color);
   border-radius: 4px 4px 0 0;
-  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
 }
 
 // ==================== Secondary Tab Active Indicator ====================
 
 .nd-tab--secondary .nd-tab__active-indicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   height: var(--md-comp-secondary-navigation-tab-active-indicator-height);
   background-color: var(--md-comp-secondary-navigation-tab-active-indicator-color);
   border-radius: 2px 2px 0 0;
-  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
 }
