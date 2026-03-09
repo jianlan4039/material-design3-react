@@ -18,19 +18,19 @@ import React, { useState, useCallback, useMemo, useContext } from 'react';
 
 import classNames from '@utils/classnames';
 import Divider from '../Divider';
-import { ListContext, type ListSelectionMode, type ListContextValue } from './ListContext';
+import { ListContext, type ListSelectionMode, type ListContextValue } from './components/ListContext';
 import styles from './index.module.scss';
 
 // Re-export sub-components and types
-export { ListItem } from './ListItem';
-export type { ListItemProps, ListItemLeadingType, ListItemTrailingType, ListItemLines, ListItemVideoSize } from './ListItem';
-export { ListItemGroup } from './ListItemGroup';
-export type { ListItemGroupProps } from './ListItemGroup';
-export { useListExpandAnimation } from './useListExpandAnimation';
-export type { UseListExpandAnimationProps } from './useListExpandAnimation';
-export { default as useListExpandPresence } from './useListExpandPresence';
-export type { UseListExpandPresenceProps, UseListExpandPresenceResult } from './useListExpandPresence';
-export type { ListSelectionMode } from './ListContext';
+export { ListItem } from './components/ListItem';
+export type { ListItemProps, ListItemLeadingType, ListItemTrailingType, ListItemLines, ListItemVideoSize } from './components/ListItem';
+export { ListItemGroup } from './components/ListItemGroup';
+export type { ListItemGroupProps } from './components/ListItemGroup';
+export { useListExpandAnimation } from './hooks/useListExpandAnimation';
+export type { UseListExpandAnimationProps } from './hooks/useListExpandAnimation';
+export { default as useListExpandPresence } from './hooks/useListExpandPresence';
+export type { UseListExpandPresenceProps, UseListExpandPresenceResult } from './hooks/useListExpandPresence';
+export type { ListSelectionMode } from './components/ListContext';
 
 // ============================================================================
 // Types & Interfaces

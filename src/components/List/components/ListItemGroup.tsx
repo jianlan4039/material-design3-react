@@ -17,11 +17,11 @@
 import React, { useState, useCallback, useId } from 'react';
 
 import classNames from '@utils/classnames';
-import useRipple from '../Ripple/useRipple';
-import useStateLayer from '../StateLayer';
+import useRipple from '../../Ripple/useRipple';
+import useStateLayer from '../../StateLayer';
 import { useListContext } from './ListContext';
-import { useListExpandAnimation } from './useListExpandAnimation';
-import styles from './index.module.scss';
+import { useListExpandAnimation } from '../hooks/useListExpandAnimation';
+import styles from '../index.module.scss';
 
 import type { ListItemLeadingType } from './ListItem';
 
