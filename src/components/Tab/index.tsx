@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-import { useState, useCallback, useMemo, useRef, Children, createElement, useLayoutEffect } from 'react';
+import {
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  Children,
+  createElement,
+  useLayoutEffect,
+} from "react";
 
-import classNames from '@utils/classnames';
-import { TabContext } from './components/TabContext';
-import type { TabContextValue, TabVariant } from './components/TabContext';
-import { Divider } from '@components/Divider';
-import styles from './index.module.scss';
+import classNames from "@utils/classnames";
+import { TabContext } from "./components/TabContext";
+import type { TabContextValue, TabVariant } from "./components/TabContext";
+import { Divider } from "@components/Divider";
+import styles from "./index.module.scss";
 
 // Re-export sub-components and types
-export { TabItem } from './components/TabItem';
-export type { TabItemProps } from './components/TabItem';
-export type { TabVariant } from './components/TabContext';
+export { TabItem } from "./components/TabItem";
+export type { TabItemProps } from "./components/TabItem";
+export type { TabVariant } from "./components/TabContext";
 
 // ==================== Tab Component ====================
 
@@ -108,7 +116,7 @@ export const Tab: React.FC<TabProps> = ({
   defaultValue,
   onChange,
   disabled = false,
-  variant = 'secondary',
+  variant = "secondary",
   showDivider = false,
   className,
 }) => {
@@ -117,11 +125,17 @@ export const Tab: React.FC<TabProps> = ({
   const itemIndexCounter = useRef(0);
   const itemElementsRef = useRef<Map<string, HTMLButtonElement>>(new Map());
   const itemLabelsRef = useRef<Map<string, HTMLElement>>(new Map());
-  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
+  const [elementCount, setElementCount] = useState(0);
+  const [indicatorStyle, setIndicatorStyle] = useState<{
+    left: number;
+    width: number;
+  }>({ left: 0, width: 0 });
 
   const isControlled = valueProp !== undefined;
 
-  const [internalSelectedValue, setInternalSelectedValue] = useState<string | undefined>(defaultValue);
+  const [internalSelectedValue, setInternalSelectedValue] = useState<
+    string | undefined
+  >(defaultValue);
 
   const selectedValue = useMemo(() => {
     return isControlled ? valueProp : internalSelectedValue;
@@ -135,7 +149,9 @@ export const Tab: React.FC<TabProps> = ({
     if (itemsRef.current.has(value)) {
       const existingIndex = itemsRef.current.get(value);
       if (existingIndex === undefined) {
-        throw new Error(`Item with value "${value}" was registered but index is undefined`);
+        throw new Error(
+          `Item with value "${value}" was registered but index is undefined`,
+        );
       }
       return existingIndex;
     }
@@ -153,17 +169,25 @@ export const Tab: React.FC<TabProps> = ({
     }
   }, []);
 
-  const registerItemElement = useCallback((value: string, element: HTMLButtonElement): void => {
-    itemElementsRef.current.set(value, element);
-  }, []);
+  const registerItemElement = useCallback(
+    (value: string, element: HTMLButtonElement): void => {
+      itemElementsRef.current.set(value, element);
+      setElementCount(itemElementsRef.current.size);
+    },
+    [],
+  );
 
   const unregisterItemElement = useCallback((value: string): void => {
     itemElementsRef.current.delete(value);
+    setElementCount(itemElementsRef.current.size);
   }, []);
 
-  const registerItemLabel = useCallback((value: string, element: HTMLElement): void => {
-    itemLabelsRef.current.set(value, element);
-  }, []);
+  const registerItemLabel = useCallback(
+    (value: string, element: HTMLElement): void => {
+      itemLabelsRef.current.set(value, element);
+    },
+    [],
+  );
 
   const unregisterItemLabel = useCallback((value: string): void => {
     itemLabelsRef.current.delete(value);
@@ -175,7 +199,7 @@ export const Tab: React.FC<TabProps> = ({
       const labelElement = itemLabelsRef.current.get(selectedValue);
 
       if (tabElement) {
-        if (variant === 'primary' && labelElement) {
+        if (variant === "primary" && labelElement) {
           // For primary variant: indicator spans label width, centered within tab
           const tabRect = tabElement.getBoundingClientRect();
           const labelRect = labelElement.getBoundingClientRect();
@@ -196,43 +220,66 @@ export const Tab: React.FC<TabProps> = ({
         }
       }
     }
-  }, [selectedValue, variant]);
+  }, [selectedValue, variant, elementCount]);
 
-  const toggleSelection = useCallback((newValue: string): void => {
-    if (!isControlled) {
-      setInternalSelectedValue(newValue);
-    }
-    onChange?.(newValue);
-  }, [isControlled, onChange]);
+  const toggleSelection = useCallback(
+    (newValue: string): void => {
+      if (!isControlled) {
+        setInternalSelectedValue(newValue);
+      }
+      onChange?.(newValue);
+    },
+    [isControlled, onChange],
+  );
 
-  const isSelected = useCallback((value: string): boolean => {
-    return selectedValues.has(value);
-  }, [selectedValues]);
+  const isSelected = useCallback(
+    (value: string): boolean => {
+      return selectedValues.has(value);
+    },
+    [selectedValues],
+  );
 
-  const contextValue = useMemo<TabContextValue>(() => ({
-    variant,
-    selectedValues,
-    disabled,
-    showDivider,
-    itemCount,
-    registerItem,
-    unregisterItem,
-    toggleSelection,
-    isSelected,
-    registerItemElement,
-    unregisterItemElement,
-    registerItemLabel,
-    unregisterItemLabel,
-  }), [variant, selectedValues, disabled, showDivider, itemCount, registerItem, unregisterItem, toggleSelection, isSelected, registerItemElement, unregisterItemElement, registerItemLabel, unregisterItemLabel]);
+  const contextValue = useMemo<TabContextValue>(
+    () => ({
+      variant,
+      selectedValues,
+      disabled,
+      showDivider,
+      itemCount,
+      registerItem,
+      unregisterItem,
+      toggleSelection,
+      isSelected,
+      registerItemElement,
+      unregisterItemElement,
+      registerItemLabel,
+      unregisterItemLabel,
+    }),
+    [
+      variant,
+      selectedValues,
+      disabled,
+      showDivider,
+      itemCount,
+      registerItem,
+      unregisterItem,
+      toggleSelection,
+      isSelected,
+      registerItemElement,
+      unregisterItemElement,
+      registerItemLabel,
+      unregisterItemLabel,
+    ],
+  );
 
   const tabClassName = classNames(
-    styles['nd-tab'],
+    styles["nd-tab"],
     {
-      [styles['nd-tab--primary']]: variant === 'primary',
-      [styles['nd-tab--secondary']]: variant === 'secondary',
-      [styles['nd-tab--disabled']]: disabled,
+      [styles["nd-tab--primary"]]: variant === "primary",
+      [styles["nd-tab--secondary"]]: variant === "secondary",
+      [styles["nd-tab--disabled"]]: disabled,
     },
-    className
+    className,
   );
 
   const renderedChildren = useMemo(() => {
@@ -248,11 +295,13 @@ export const Tab: React.FC<TabProps> = ({
     return childArray.reduce<React.ReactNode[]>((acc, child, index) => {
       acc.push(child);
       if (index < childArray.length - 1) {
-        acc.push(createElement(Divider, {
-          key: `divider-${index}`,
-          direction: 'vertical',
-          className: styles['nd-tab__divider'],
-        }));
+        acc.push(
+          createElement(Divider, {
+            key: `divider-${index}`,
+            direction: "vertical",
+            className: styles["nd-tab__divider"],
+          }),
+        );
       }
       return acc;
     }, []);
@@ -268,7 +317,7 @@ export const Tab: React.FC<TabProps> = ({
         {renderedChildren}
         {selectedValue && (
           <span
-            className={styles['nd-tab__active-indicator']}
+            className={styles["nd-tab__active-indicator"]}
             style={{
               transform: `translateX(${indicatorStyle.left}px)`,
               width: `${indicatorStyle.width}px`,

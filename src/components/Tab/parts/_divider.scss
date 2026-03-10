@@ -17,9 +17,7 @@
 // ==================== Divider ====================
 
 .nd-tab__divider {
-  width: var(--md-comp-tab-divider-width);
-  height: 100%;
-  background-color: var(--md-comp-tab-divider-color);
-  flex-shrink: 0;
-  margin: 0 4px;
+  flex: none;
+  width: var(--md-comp-primary-navigation-tab-divider-height);
+  background-color: var(--md-comp-primary-navigation-tab-divider-color);
 }
