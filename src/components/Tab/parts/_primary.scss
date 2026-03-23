@@ -1,0 +1,75 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// ==================== Primary Tab Container ====================
+
+.nd-tab--primary {
+  .nd-tab__item {
+    height: 100%;
+    min-width: 48px;
+    padding: 0 24px;
+    //order-radius: var(--md-comp-navigation-tab-container-shape);
+    gap: 4px;
+  }
+}
+
+// ==================== Primary Tab States ====================
+
+// Active state
+.nd-tab--primary .nd-tab__item--active {
+  color: var(--md-comp-navigation-tab-active-label-text-color);
+
+  .nd-tab__icon {
+    color: var(--md-comp-navigation-tab-active-icon-color);
+  }
+}
+
+// Inactive state
+.nd-tab--primary .nd-tab__item--inactive {
+  color: var(--md-comp-navigation-tab-inactive-label-text-color);
+
+  .nd-tab__icon {
+    color: var(--md-comp-navigation-tab-inactive-icon-color);
+  }
+}
+
+// Disabled state (handled in _states.scss)
+.nd-tab--primary .nd-tab__item--disabled {
+  pointer-events: none;
+  opacity: 0.38;
+}
+
+// ==================== Primary Tab Content ====================
+
+.nd-tab--primary .nd-tab__icon {
+  color: var(--md-comp-navigation-tab-icon-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: var(--md-comp-navigation-tab-icon-size);
+    height: var(--md-comp-navigation-tab-icon-size);
+  }
+}
+
+.nd-tab--primary .nd-tab__label {
+  font-family: var(--md-comp-navigation-tab-label-text-font);
+  font-size: var(--md-comp-navigation-tab-label-text-size);
+  font-weight: var(--md-comp-navigation-tab-label-text-weight);
+  line-height: var(--md-comp-navigation-tab-label-text-line-height);
+  letter-spacing: var(--md-comp-navigation-tab-label-text-tracking);
+}

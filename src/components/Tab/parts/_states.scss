@@ -1,0 +1,132 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// ==================== State Layer ====================
+
+.nd-tab__item.nd-state-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--md-comp-navigation-tab-state-layer-color);
+  opacity: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+// Hover state - primary
+.nd-tab--primary .nd-tab__item.nd-state-container:hover::before {
+  opacity: var(--md-comp-navigation-tab-hover-state-layer-opacity);
+}
+
+// Hover state - secondary
+.nd-tab--secondary .nd-tab__item.nd-state-container:hover::before {
+  opacity: var(--md-comp-secondary-navigation-tab-hover-state-layer-opacity);
+}
+
+.nd-tab--primary .nd-tab__item.nd-state-container:hover {
+  color: var(--md-comp-navigation-tab-hover-label-text-color);
+
+  .nd-tab__icon {
+    color: var(--md-comp-navigation-tab-hover-icon-color);
+  }
+}
+
+.nd-tab--secondary .nd-tab__item.nd-state-container:hover {
+  color: var(--md-comp-secondary-navigation-tab-hover-label-text-color);
+}
+
+// Focus state - primary
+.nd-tab--primary .nd-tab__item.nd-state-container:focus-visible {
+  outline: var(--md-comp-navigation-tab-focus-indicator-thickness) solid var(--md-comp-navigation-tab-focus-indicator-color);
+  outline-offset: var(--md-comp-navigation-tab-focus-indicator-outline-offset);
+}
+
+.nd-tab--primary .nd-tab__item.nd-state-container:focus-visible::before {
+  opacity: var(--md-comp-navigation-tab-focus-state-layer-opacity);
+}
+
+.nd-tab--primary .nd-tab__item.nd-state-container:focus-visible {
+  color: var(--md-comp-navigation-tab-focus-label-text-color);
+
+  .nd-tab__icon {
+    color: var(--md-comp-navigation-tab-focus-icon-color);
+  }
+}
+
+// Focus state - secondary
+.nd-tab--secondary .nd-tab__item.nd-state-container:focus-visible {
+  outline: var(--md-comp-secondary-navigation-tab-focus-indicator-thickness) solid var(--md-comp-secondary-navigation-tab-focus-indicator-color);
+  outline-offset: var(--md-comp-secondary-navigation-tab-focus-indicator-outline-offset);
+}
+
+.nd-tab--secondary .nd-tab__item.nd-state-container:focus-visible::before {
+  opacity: var(--md-comp-secondary-navigation-tab-focus-state-layer-opacity);
+}
+
+.nd-tab--secondary .nd-tab__item.nd-state-container:focus-visible {
+  color: var(--md-comp-secondary-navigation-tab-focus-label-text-color);
+}
+
+// Pressed state - primary
+.nd-tab--primary .nd-tab__item.nd-state-container:active::before {
+  opacity: var(--md-comp-navigation-tab-pressed-state-layer-opacity);
+}
+
+.nd-tab--primary .nd-tab__item.nd-state-container:active {
+  color: var(--md-comp-navigation-tab-pressed-label-text-color);
+
+  .nd-tab__icon {
+    color: var(--md-comp-navigation-tab-pressed-icon-color);
+  }
+}
+
+// Pressed state - secondary
+.nd-tab--secondary .nd-tab__item.nd-state-container:active::before {
+  opacity: var(--md-comp-secondary-navigation-tab-pressed-state-layer-opacity);
+}
+
+.nd-tab--secondary .nd-tab__item.nd-state-container:active {
+  color: var(--md-comp-secondary-navigation-tab-pressed-label-text-color);
+}
+
+// ==================== Disabled State ====================
+
+.nd-tab__item--disabled {
+  pointer-events: none;
+  opacity: 0.38;
+
+  &::before {
+    display: none;
+  }
+
+  .nd-tab__active-indicator {
+    display: none;
+  }
+}
+
+.nd-tab--disabled .nd-tab__item {
+  pointer-events: none;
+  opacity: 0.38;
+
+  &::before {
+    display: none;
+  }
+
+  .nd-tab__active-indicator {
+    display: none;
+  }
+}

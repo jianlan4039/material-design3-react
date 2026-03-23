@@ -1,0 +1,113 @@
+/**
+ * Copyright (c) 2024 jian lan
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Elevation Component Styles
+ * 
+ * Material Design 3 elevation component styles.
+ * Provides shadow effects based on elevation level (0-5) using CSS variables.
+ * Uses BEM naming convention with `nd-` project prefix.
+ * 
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-elevation-container {
+    // CSS variables for elevation level and shadow color
+    --_level: var(--md-elevation-level, 0);
+    --_shadow-color: var(--md-elevation-shadow-color, rgb(0 0 0));
+  
+    // Ensure container has positioning context so ::after pseudo-element can be absolutely positioned
+    position: relative;
+  
+    // Key box shadow (main shadow) - Calculate Y offset
+    // level0: 0px
+    // level1: 1px
+    // level2: 1px
+    // level3: 1px
+    // level4: 2px
+    // level5: 4px
+    $key-level1-y: clamp(0, var(--_level), 1);
+    $key-level4-y: clamp(0, var(--_level) - 3, 1);
+    $key-level5-y: calc(2 * clamp(0, var(--_level) - 4, 1));
+    $key-y: calc(1px * ($key-level1-y + $key-level4-y + $key-level5-y));
+  
+    // Key box shadow - Calculate blur radius
+    // level0: 0px
+    // level1: 2px
+    // level2: 2px
+    // level3: 3px
+    // level4: 3px
+    // level5: 4px
+    $key-level1-blur: calc(2 * clamp(0, var(--_level), 1));
+    $key-level3-blur: clamp(0, var(--_level) - 2, 1);
+    $key-level5-blur: clamp(0, var(--_level) - 4, 1);
+    $key-blur: calc(1px * ($key-level1-blur + $key-level3-blur + $key-level5-blur));
+  
+    // Ambient box shadow (ambient shadow) - Calculate Y offset
+    // level0: 0px
+    // level1: 1px
+    // level2: 2px
+    // level3: 4px
+    // level4: 6px
+    // level5: 8px
+    $ambient-level1-y: clamp(0, var(--_level), 1);
+    $ambient-level2-y: clamp(0, var(--_level) - 1, 1);
+    $ambient-level3to5-y: calc(2 * clamp(0, var(--_level) - 2, 3));
+    $ambient-y: calc(1px * ($ambient-level1-y + $ambient-level2-y + $ambient-level3to5-y));
+  
+    // Ambient box shadow - Calculate blur radius
+    // level0: 0px
+    // level1: 3px
+    // level2: 6px
+    // level3: 8px
+    // level4: 10px
+    // level5: 12px
+    $ambient-level1to2-blur: calc(3 * clamp(0, var(--_level), 2));
+    $ambient-level3to5-blur: calc(2 * clamp(0, var(--_level) - 2, 3));
+    $ambient-blur: calc(1px * ($ambient-level1to2-blur + $ambient-level3to5-blur));
+  
+    // Ambient box shadow - Calculate spread radius
+    // level0: 0px
+    // level1: 1px
+    // level2: 2px
+    // level3: 3px
+    // level4: 4px
+    // level5: 6px
+    $ambient-level1to4-spread: clamp(0, var(--_level), 4);
+    $ambient-level5-spread: calc(2 * clamp(0, var(--_level) - 4, 1));
+    $ambient-spread: calc(1px * ($ambient-level1to4-spread + $ambient-level5-spread));
+  
+    // Use ::after pseudo-element to carry elevation shadow effect
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      z-index: -1;
+      
+      // Add transition to make shadow changes smooth
+      transition: box-shadow var(--md-sys-duration-medium1, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
+      
+      // Composite box-shadow: key shadow (alpha 0.3) + ambient shadow (alpha 0.15)
+      box-shadow:
+        0 $key-y $key-blur 0 rgb(from var(--_shadow-color) r g b / 0.3),
+        0 $ambient-y $ambient-blur $ambient-spread rgb(from var(--_shadow-color) r g b / 0.15);
+    }
+  }
+}

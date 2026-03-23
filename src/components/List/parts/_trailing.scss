@@ -1,0 +1,75 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * List Item Trailing Content Styles
+ *
+ * Styles for trailing content (icon, checkbox, radio, switch, text).
+ */
+
+// ==================== Trailing Container ====================
+
+.nd-list-item__trailing {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  gap: 8px;
+  color: var(--md-comp-list-list-item-trailing-icon-color, var(--md-sys-color-on-surface-variant));
+
+  // Align to top for multi-line variants
+  .nd-list-item--two-line &,
+  .nd-list-item--three-line & {
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  // Unselected trailing icon color (when item is not selected)
+  .nd-list-item:not(.nd-list-item--selected) & {
+    color: var(--md-comp-list-list-item-unselected-trailing-icon-color, var(--md-sys-color-on-surface));
+  }
+}
+
+// ==================== Icon ====================
+
+.nd-list-item--trailing-icon .nd-list-item__trailing {
+  svg {
+    width: var(--md-comp-list-list-item-trailing-icon-size, 24px);
+    height: var(--md-comp-list-list-item-trailing-icon-size, 24px);
+    fill: currentColor;
+  }
+
+  // Expressive mode with smaller icons
+  .nd-list-item--expressive & svg {
+    width: var(--md-comp-list-list-item-trailing-icon-expressive-size, 20px);
+    height: var(--md-comp-list-list-item-trailing-icon-expressive-size, 20px);
+  }
+}
+
+// ==================== Checkbox / Radio / Switch ====================
+
+.nd-list-item--trailing-checkbox .nd-list-item__trailing,
+.nd-list-item--trailing-radio .nd-list-item__trailing,
+.nd-list-item--trailing-switch .nd-list-item__trailing {
+  // These components handle their own sizing
+}
+
+// ==================== Text ====================
+
+.nd-list-item--trailing-text .nd-list-item__trailing {
+  font: var(--md-comp-list-list-item-trailing-supporting-text-type, 500 11px/16px Roboto);
+  color: var(--md-comp-list-list-item-trailing-supporting-text-color, var(--md-sys-color-on-surface-variant));
+}

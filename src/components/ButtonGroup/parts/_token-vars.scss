@@ -1,0 +1,44 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * ButtonGroup Token Variables
+ *
+ * CSS custom property definitions for ButtonGroup component.
+ * Only defines tokens for the container and connected style positioning.
+ * Individual button styling is handled by the Button component.
+ *
+ * Token source: src/tokens/components/button-group/index.module.scss
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-button-group {
+    // ==================== Container Tokens ====================
+    // Default to medium size
+    --nd-button-group-container-height: var(--md-comp-button-group-standard-medium-container-height, 56px);
+    --nd-button-group-between-space: var(--md-comp-button-group-standard-medium-between-space, 8px);
+    
+    // ==================== Standard Style Tokens ====================
+    --nd-button-group-pressed-item-width-multiplier: var(--md-comp-button-group-standard-medium-pressed-item-width-multiplier, 1.15);
+
+    // ==================== Connected Style Tokens ====================
+    --nd-button-group-inner-corner-size: var(--md-comp-button-group-connected-medium-inner-corner-size, 8px);
+    --nd-button-group-pressed-inner-corner-size: var(--md-comp-button-group-connected-medium-pressed-inner-corner-size, 4px);
+  }
+}

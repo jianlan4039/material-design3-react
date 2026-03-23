@@ -1,0 +1,88 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Button Large Size
+ *
+ * Responsible for `.nd-button--large` sizing token mapping:
+ * - container height
+ * - outlined outline width
+ * - typography (label-text)
+ * - icon size
+ * - container shapes (round/square)
+ * - paddings/spacings
+ * - pressed container shape
+ * - selected container shapes (round/square)
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-button--large {
+    --nd-button-container-height: var(--md-comp-button-large-container-height, var(--md-comp-button-container-height, 40px));
+    height: var(--nd-button-container-height);
+    padding-left: var(--md-comp-button-large-leading-space, var(--md-comp-button-leading-space, 24px));
+    padding-right: var(--md-comp-button-large-trailing-space, var(--md-comp-button-trailing-space, 24px));
+    gap: var(--md-comp-button-large-icon-label-space, var(--md-comp-button-icon-label-space, 8px));
+
+    // Typography: use size token as a whole, if present
+    font: var(--md-comp-button-large-label-text, inherit);
+
+    // Shapes
+    border-radius: var(--nd-button-corner-full);
+
+    &.nd-button--square {
+      border-radius: var(
+        --md-comp-button-large-container-shape-square,
+        var(--md-comp-button-container-shape-square, var(--md-sys-shape-corner-extra-large))
+      );
+    }
+
+    // Pressed shape
+    &:active:not(:disabled) {
+      border-radius: var(
+        --md-comp-button-large-pressed-container-shape,
+        var(--md-comp-button-pressed-container-shape, var(--md-sys-shape-corner-large))
+      );
+    }
+
+    // Selected shapes
+    &.nd-button--selected {
+      border-radius: var(
+        --md-comp-button-large-selected-container-shape-round,
+        var(--md-comp-button-selected-container-shape-round, var(--md-sys-shape-corner-extra-large))
+      );
+
+      &.nd-button--square {
+        border-radius: var(--nd-button-corner-full);
+      }
+    }
+  }
+
+  // Icon size overrides
+  .nd-button--large .nd-button__leading-icon,
+  .nd-button--large .nd-button__trailing-icon {
+    width: var(--md-comp-button-large-icon-size, var(--md-comp-button-icon-size, 20px));
+    height: var(--md-comp-button-large-icon-size, var(--md-comp-button-icon-size, 20px));
+  }
+
+  // Outlined border width for large
+  .nd-button--outlined.nd-button--large {
+    border-width: var(--md-comp-button-large-outlined-outline-width, 2px);
+  }
+}
+

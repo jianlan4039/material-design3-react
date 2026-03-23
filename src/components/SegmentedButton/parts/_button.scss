@@ -1,0 +1,139 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * SegmentedButton Item Styles
+ *
+ * Responsible for:
+ * - `.nd-segmented-button__item` individual segment styling
+ * - Typography, padding, and content layout
+ * - Border between segments
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-segmented-button__item {
+    // ==================== Reset ====================
+    appearance: none;
+    border: none;
+    background: transparent;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+
+    // ==================== Layout ====================
+    position: relative;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    // ==================== Sizing ====================
+    height: 100%;
+    min-width: 48px;
+    padding: 0 16px;
+    flex: 1 1 0;
+
+    // ==================== Typography ====================
+    font-family: var(--nd-segmented-button-label-text-font);
+    font-size: var(--nd-segmented-button-label-text-size);
+    font-weight: var(--nd-segmented-button-label-text-weight);
+    line-height: var(--nd-segmented-button-label-text-line-height);
+
+    // ==================== Colors (Unselected) ====================
+    color: var(--nd-segmented-button-unselected-label-text-color);
+    background-color: transparent;
+
+    // ==================== Transitions ====================
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    // ==================== Border between segments ====================
+    // Use box-shadow for inner border to avoid layout shifts
+    &:not(:first-child) {
+      box-shadow: inset 1px 0 0 0 var(--nd-segmented-button-outline-color);
+    }
+
+    // ==================== Selected State ====================
+    &--selected {
+      background-color: var(--nd-segmented-button-selected-container-color);
+      color: var(--nd-segmented-button-selected-label-text-color);
+    }
+
+    // ==================== Disabled State ====================
+    &:disabled,
+    &--disabled {
+      cursor: default;
+      pointer-events: none;
+      color: var(--nd-segmented-button-disabled-label-text-color);
+      opacity: var(--nd-segmented-button-disabled-label-text-opacity);
+    }
+  }
+
+  // ==================== Icon Styling ====================
+  .nd-segmented-button__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--nd-segmented-button-icon-size);
+    height: var(--nd-segmented-button-icon-size);
+    color: var(--nd-segmented-button-unselected-icon-color);
+    flex-shrink: 0;
+
+    // SVG sizing
+    > svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    // Selected state
+    .nd-segmented-button__item--selected & {
+      color: var(--nd-segmented-button-selected-icon-color);
+    }
+
+    // Disabled state
+    .nd-segmented-button__item:disabled &,
+    .nd-segmented-button__item--disabled & {
+      color: var(--nd-segmented-button-disabled-icon-color);
+      opacity: var(--nd-segmented-button-disabled-icon-opacity);
+    }
+  }
+
+  // ==================== Selected Icon (Checkmark) ====================
+  .nd-segmented-button__selected-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--nd-segmented-button-icon-size);
+    height: var(--nd-segmented-button-icon-size);
+    color: var(--nd-segmented-button-selected-icon-color);
+    flex-shrink: 0;
+
+    // SVG sizing
+    > svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // ==================== Label Styling ====================
+  .nd-segmented-button__label {
+    white-space: nowrap;
+    user-select: none;
+  }
+}

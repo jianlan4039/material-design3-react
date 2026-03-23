@@ -1,0 +1,40 @@
+$tokens: (
+    'md.comp.carousel-item.with-outline.outline.color': 'md.sys.color.outline',
+    'md.comp.carousel-item.with-outline.outline.width': '1px',
+
+    'md.comp.carousel-item.container.color': 'md.sys.color.surface',
+    'md.comp.carousel-item.container.elevation': '0',
+    'md.comp.carousel-item.container.shadow-color': 'md.sys.color.shadow',
+    'md.comp.carousel-item.container.surface-tint-layer.color': 'md.sys.color.surface-tint',
+
+    'md.comp.carousel-item.container.shape': 'md.sys.shape.corner.extra-large',
+
+    'md.comp.carousel-item.hover.container.elevation': '1',
+    'md.comp.carousel-item.hover.state-layer.color': 'md.sys.color.on-surface',
+    'md.comp.carousel-item.hover.state-layer.opacity': '0.08',
+
+    'md.comp.carousel-item.with-outline.hover.outline.color': 'md.sys.color.outline',
+
+    'md.comp.carousel-item.focus.indicator.color': 'md.sys.color.secondary',
+    'md.comp.carousel-item.focus.indicator.thickness': '3px',
+    'md.comp.carousel-item.focus.indicator.outline.offset': '2px',
+
+    'md.comp.carousel-item.with-outline.focus.outline.color': 'md.sys.color.on-surface',
+
+    'md.comp.carousel-item.focus.container.elevation': '0',
+
+    'md.comp.carousel-item.focus.state-layer.color': 'md.sys.color.on-surface',
+    'md.comp.carousel-item.focus.state-layer.opacity': '0.1',
+
+    'md.comp.carousel-item.with-outline.pressed.outline.color': 'md.sys.color.outline',
+    'md.comp.carousel-item.pressed.container.elevation': '0',
+    'md.comp.carousel-item.pressed.state-layer.color': 'md.sys.color.on-surface',
+    'md.comp.carousel-item.pressed.state-layer.opacity': '0.1',
+
+    'md.comp.carousel-item.disabled.container.elevation': '0',
+    'md.comp.carousel-item.disabled.container.opacity': '0.38',
+    'md.comp.carousel-item.disabled.container.opacity': 'md.sys.color.surface',
+
+    'md.comp.carousel-item.with-outline.disabled.outline.color': 'md.sys.color.outline',
+    'md.comp.carousel-item.with-outline.disabled.outline.opacity': '0.12'
+)

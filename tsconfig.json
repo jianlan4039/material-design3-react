@@ -1,0 +1,78 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // ========== 文件布局 ==========
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // ========== 模块系统 ==========
+    // 使用 ESNext 模块系统，与 Vite 构建工具配合
+    "module": "ESNext",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    
+    // ========== 类型声明 ==========
+    "types": [],
+    "typeRoots": ["./node_modules/@types"],
+
+    // ========== 输出配置 ==========
+    // 组件库需要生成声明文件和源码映射
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    // 注意：emitDeclarationOnly 通常在构建工具（如 Vite）中控制
+    // 如果使用 tsc 直接编译，可能需要移除此选项
+
+    // ========== JSX 配置 ==========
+    "jsx": "react-jsx",
+
+    // ========== 模块解析 ==========
+    "moduleResolution": "bundler", // 与 Vite 配合使用
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+
+    // ========== 类型检查严格性 ==========
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedSideEffectImports": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // ========== 性能优化 ==========
+    "skipLibCheck": true,
+    "incremental": true,
+    "composite": false, // 如果项目较大，可以启用项目引用
+
+    // ========== 路径别名 ==========
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@tokens/*": ["src/tokens/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    ".storybook"
+  ]
+}

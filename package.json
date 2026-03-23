@@ -1,0 +1,50 @@
+{
+  "name": "material-design3-react",
+  "version": "0.0.1",
+  "description": "an implementation of material design 3",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "storybook": "PATH=\"$PWD/scripts/bin:$PATH\" storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "add-header": "node scripts/add-header.js",
+    "add-header:all": "node scripts/add-header.js --all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jianlan4039/material-design3-react.git"
+  },
+  "keywords": [
+    "react",
+    "material",
+    "design",
+    "components",
+    "lib"
+  ],
+  "author": "jian lan",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jianlan4039/material-design3-react/issues"
+  },
+  "homepage": "https://github.com/jianlan4039/material-design3-react#readme",
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@storybook/react-vite": "^10.0.1",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
+    "sass": "^1.93.2",
+    "storybook": "10.1.11",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.51.0",
+    "vite": "^7.1.12"
+  }
+}

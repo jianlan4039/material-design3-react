@@ -1,0 +1,44 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * List Base Styles
+ *
+ * Base container styles for the List component.
+ */
+
+// ==================== List Container ====================
+
+.nd-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  // background-color: var(--md-comp-list-list-item-container-color, var(--md-sys-color-surface));
+  border-radius: var(--md-comp-list-container-shape, var(--md-sys-shape-corner-large, 16px));
+  overflow: hidden;
+
+  // Disabled state
+  &--disabled {
+    pointer-events: none;
+  }
+
+  // Segmented list with gaps between items
+  &--segmented {
+    gap: var(--md-comp-list-segmented-gap, 2px);
+  }
+}

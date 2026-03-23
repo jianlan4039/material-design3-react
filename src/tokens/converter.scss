@@ -1,0 +1,118 @@
+/**
+ * Copyright (c) 2024 jian lan
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@use "sass:string";
+@use "sass:list";
+@use "sass:meta";
+
+@mixin iterateTokens($map) {
+  @each $token, $value in $map {
+    $local-token: dot-to-hyphen($token);
+    @include toLocalToken($local-token, $value);
+  }
+}
+
+@mixin toLocalToken($token, $value) {
+  --#{$token}: #{to-value($token, $value)};
+}
+
+@function to-value($token, $value) {
+  @if meta.type-of($value) != string {
+    @return $value;
+  }
+
+  @if string.index($value, 'md') == 1 {
+    @return var(--#{dot-to-hyphen($value)});
+  }
+
+  @if ends-with($value, 'dp') {
+    @return #{string.slice($value, 1, string.length($value) - 2)}px;
+  }
+
+  @return #{$value};
+}
+
+@function dot-to-hyphen($token) {
+  // 如果不是字符串，直接原样返回（防御性写法）
+  @if meta.type-of($token) != string {
+    @return $token;
+  }
+
+  // 判断是否包含点号
+  @if string.index($token, ".") {
+    // 用 . 分割成列表
+    $parts: str-split($token, ".");
+
+    // 把列表重新用 - 连接
+    @return str-join($parts, "-");
+  } @else {
+    // 不含 . 就原样返回
+    @return $token;
+  }
+}
+
+// 把字符串按分隔符拆成列表
+@function str-split($string, $delimiter) {
+  $result: ();
+  $exploded: ();
+
+  // 找不到分隔符就直接返回单元素列表
+  @if string.index($string, $delimiter) == null {
+    @return append($result, $string);
+  }
+
+  // 循环切割
+  @while string.index($string, $delimiter) != null {
+    $d-index: string.index($string, $delimiter);
+    $item: string.slice($string, 1, $d-index - 1);
+    $result: list.append($result, $item);
+    $string: string.slice($string, $d-index + list.length($delimiter));
+  }
+
+  // 加上最后一段
+  @if list.length($string) > 0 {
+    $result: list.append($result, $string);
+  }
+
+  @return $result;
+}
+
+@function str-join($list, $glue) {
+  @if list.length($list) == 1 {
+    @return nth($list, 1);
+  }
+
+  $result: "";
+  @for $i from 1 through list.length($list) {
+    $result: $result + list.nth($list, $i);
+    @if $i < list.length($list) {
+      $result: $result + $glue;
+    }
+  }
+  @return $result;
+}
+
+@function ends-with($string, $suffix) {
+  @if meta.type-of($string) != string or meta.type-of($suffix) != string {
+    @return false;
+  }
+
+  @if string.length($suffix) > string.length($string) {
+    @return false;
+  }
+
+  @return string.slice($string, string.length($string) - string.length($suffix) + 1) == $suffix;
+}

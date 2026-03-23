@@ -1,0 +1,64 @@
+/**
+ * Copyright (c) 2024 jian lan
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Duration Variables
+@mixin duration() {
+  --md-sys-duration-extra-long1: 700ms;
+  --md-sys-duration-extra-long2: 800ms;
+  --md-sys-duration-extra-long3: 900ms;
+  --md-sys-duration-extra-long4: 1000ms;
+  --md-sys-duration-long1: 450ms;
+  --md-sys-duration-long2: 500ms; // default spatial
+  --md-sys-duration-long3: 550ms;
+  --md-sys-duration-long4: 600ms; // slow spatial (should be 650ms)
+  --md-sys-duration-medium1: 250ms;
+  --md-sys-duration-medium2: 300ms; // slow effects
+  --md-sys-duration-medium3: 350ms; // fast spatial
+  --md-sys-duration-medium4: 400ms;
+  --md-sys-duration-short1: 50ms;
+  --md-sys-duration-short2: 100ms;
+  --md-sys-duration-short3: 150ms; // fast effects
+  --md-sys-duration-short4: 200ms; // default effects
+};
+
+// Easing Variables
+@mixin easing() {
+  --md-sys-easing-linear: cubic-bezier(0, 0, 1, 1);
+  --md-sys-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-easing-legacy: cubic-bezier(0.4, 0, 0.2, 1);
+  --md-sys-easing-legacy-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --md-sys-easing-legacy-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --md-sys-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+}
+
+@mixin physics-motion() {
+  --md-sys-motion-expressive-fast-spatial: (cubic-bezier(0.42, 1.67, 0.21, 0.90), 350ms);
+  --md-sys-motion-expressive-default-spatial: (cubic-bezier(0.38, 1.21, 0.22, 1.00), 500ms);
+  --md-sys-motion-expressive-slow-spatial: (cubic-bezier(0.39, 1.29, 0.35, 0.98), 650ms);
+  --md-sys-motion-expressive-fast-effects: (cubic-bezier(0.31, 0.94, 0.34, 1.00), 150ms);
+  --md-sys-motion-expressive-default-effects: (cubic-bezier(0.34, 0.80, 0.34, 1.00), 200ms);
+  --md-sys-motion-expressive-slow-effects: (cubic-bezier(0.34, 0.88, 0.34, 1.00), 300ms);
+  --md-sys-motion-standard-fast-spatial: (cubic-bezier(0.27, 1.06, 0.18, 1.00), 350ms);
+  --md-sys-motion-standard-default-spatial: (cubic-bezier(0.27, 1.06, 0.18, 1.00), 500ms);
+  --md-sys-motion-standard-slow-spatial: (cubic-bezier(0.27, 1.06, 0.18, 1.00), 750ms);
+  --md-sys-motion-standard-fast-effects: (cubic-bezier(0.31, 0.94, 0.34, 1.00), 150ms);
+  --md-sys-motion-standard-default-effects: (cubic-bezier(0.34, 0.80, 0.34, 1.00), 200ms);
+  --md-sys-motion-standard-slow-effects: (cubic-bezier(0.34, 0.88, 0.34, 1.00), 300ms);
+}

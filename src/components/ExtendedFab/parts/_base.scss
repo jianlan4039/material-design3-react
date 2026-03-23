@@ -1,0 +1,152 @@
+/**
+ * Copyright (c) 2026 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Extended FAB Base Styles
+ *
+ * Responsible for:
+ * - `.nd-ext-fab` base layout and sizing (small size by default)
+ * - CSS custom properties reset for shared components (state-layer/elevation/ripple)
+ * - Base interactive states: hovered/focused/pressed/disabled
+ * - Icon and label slot styles
+ *
+ * @author jian lan
+ * @created 2026
+ */
+
+@layer nd-comp {
+  .nd-ext-fab {
+    // ==================== Local Size Helpers ====================
+    --nd-ext-fab-container-height: var(--md-comp-extended-fab-small-container-height, 56px);
+    --nd-ext-fab-leading-space: var(--md-comp-extended-fab-small-leading-space, 24px);
+    --nd-ext-fab-icon-label-space: var(--md-comp-extended-fab-small-icon-label-space, 8px);
+    --nd-ext-fab-trailing-space: var(--md-comp-extended-fab-small-trailing-space, 16px);
+    --nd-ext-fab-icon-size: var(--md-comp-extended-fab-small-icon-size, 24px);
+    --nd-ext-fab-label-text: var(--md-comp-extended-fab-small-label-text, 500 16px/24px Roboto);
+
+    // ==================== CSS Custom Properties Reset ====================
+    // Reset custom properties required by shared components for style isolation
+    // Reset state-layer related properties (color + opacities)
+    --nd-state-layer-color: currentColor;
+    --md-sys-hover-state-layer-opacity: 0.08;
+    --md-sys-focus-state-layer-opacity: 0.1;
+    --md-sys-pressed-state-layer-opacity: 0.1;
+
+    // Reset elevation related properties (default level 3)
+    --md-elevation-level: 3;
+    --md-elevation-shadow-color: var(--md-sys-color-shadow);
+
+    // Reset ripple related properties
+    --nd-ripple-color: currentColor;
+
+    // ==================== Layout & Sizing ====================
+    // Layout properties
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--nd-ext-fab-icon-label-space);
+
+    // Sizing properties
+    height: var(--nd-ext-fab-container-height);
+    padding-left: var(--nd-ext-fab-leading-space);
+    padding-right: var(--nd-ext-fab-trailing-space);
+
+    // Appearance properties
+    border: none;
+    border-radius: var(--md-comp-extended-fab-small-container-shape, var(--md-sys-shape-corner-large, 16px));
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+
+    // Interaction properties
+    cursor: pointer;
+    user-select: none;
+
+    // Transition effects
+    transition: background-color var(--md-sys-duration-medium3, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1)),
+                color var(--md-sys-duration-medium3, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1)),
+                box-shadow var(--md-sys-duration-medium3, 250ms) var(--md-sys-easing-emphasized-decelerate, cubic-bezier(0.05, 0.7, 0.1, 1));
+
+    // ==================== Icon Styles ====================
+    .nd-ext-fab__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: var(--nd-ext-fab-icon-size);
+      height: var(--nd-ext-fab-icon-size);
+      color: inherit;
+      font-size: var(--nd-ext-fab-icon-size);
+    }
+
+    // ==================== Label Styles ====================
+    .nd-ext-fab__label {
+      font: var(--nd-ext-fab-label-text);
+      white-space: nowrap;
+      color: inherit;
+    }
+
+    // ==================== No Icon Mode ====================
+    // When there's no icon, use trailing-space for both sides for symmetry
+    &--no-icon {
+      padding-left: var(--nd-ext-fab-trailing-space);
+    }
+
+    // ==================== Hovered State ====================
+    &:hover:not(:disabled) {
+      --md-elevation-level: 4;
+    }
+
+    // ==================== Focus State ====================
+    &:focus-visible {
+      --md-elevation-level: 3;
+      outline: var(--md-comp-extended-fab-focus-indicator-thickness, 3px) solid var(--md-comp-extended-fab-focus-indicator-color, var(--md-sys-color-secondary));
+      outline-offset: var(--md-comp-extended-fab-focus-indicator-outline-offset, 2px);
+    }
+
+    // ==================== Pressed State ====================
+    &:active:not(:disabled) {
+      --md-elevation-level: 3;
+    }
+
+    // ==================== Disabled State ====================
+    &:disabled {
+      cursor: not-allowed;
+      --md-elevation-level: 0;
+      background-color: rgb(
+        from var(--md-comp-extended-fab-disabled-container-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-extended-fab-disabled-container-opacity, 0.12)
+      );
+      color: rgb(
+        from var(--md-comp-extended-fab-disabled-label-text-color, var(--md-sys-color-on-surface))
+        r g b / var(--md-comp-extended-fab-disabled-label-text-opacity, 0.38)
+      );
+
+      .nd-ext-fab__icon {
+        color: rgb(
+          from var(--md-comp-extended-fab-disabled-icon-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-extended-fab-disabled-icon-opacity, 0.38)
+        );
+      }
+
+      .nd-ext-fab__label {
+        color: rgb(
+          from var(--md-comp-extended-fab-disabled-label-text-color, var(--md-sys-color-on-surface))
+          r g b / var(--md-comp-extended-fab-disabled-label-text-opacity, 0.38)
+        );
+      }
+    }
+  }
+}

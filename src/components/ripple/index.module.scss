@@ -1,0 +1,64 @@
+/**
+ * Copyright (c) 2024 jian lan
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Ripple Component Styles
+ * 
+ * Material Design 3 ripple effect component styles.
+ * Provides animated ripple effects for interactive elements.
+ * Uses BEM naming convention with `nd-` project prefix.
+ * 
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-ripple__surface {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    // Use component-provided ripple color for isolation.
+    // Falls back to currentColor when not set by parent component.
+    background: var(--nd-ripple-color, currentColor);
+    border-radius: 9999px;
+    pointer-events: none;
+    opacity: 0.12;
+  }
+
+  .nd-ripple__container {
+    // Position to cover parent element completely
+    // Use CSS variables for customizable positioning (e.g., centered ripple for checkbox)
+    position: absolute;
+    top: var(--nd-ripple-inset, 0);
+    left: var(--nd-ripple-inset, 0);
+    right: var(--nd-ripple-inset, 0);
+    bottom: var(--nd-ripple-inset, 0);
+    width: var(--nd-ripple-size, auto);
+    height: var(--nd-ripple-size, auto);
+    
+    // Clip ripple effects to container boundaries
+    overflow: hidden;
+    
+    // Use CSS variable for border-radius, fallback to inherit from parent
+    border-radius: var(--nd-ripple-shape, inherit);
+    
+    // Ensure container doesn't block pointer events
+    pointer-events: none;
+    
+    // Ensure container is above content but below interactive elements
+    z-index: 0;
+  }
+}

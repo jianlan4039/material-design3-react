@@ -1,0 +1,117 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Checkbox Error State Styles
+ *
+ * Responsible for:
+ * - `.nd-checkbox--error` modifier styles
+ * - Error state colors for container, outline, and icon
+ * - Error state interactive states: hovered/focused/pressed
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-checkbox {
+    // ==================== Error State ====================
+    &--error {
+      --nd-state-layer-color: var(--md-comp-checkbox-error-hover-state-layer-color, var(--md-sys-color-error));
+
+      // Unselected error state
+      .nd-checkbox__container {
+        box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-outline-width, 2px) var(--md-comp-checkbox-unselected-error-outline-color, var(--md-sys-color-error));
+      }
+
+      // Selected/Indeterminate error state
+      &.nd-checkbox--selected,
+      &.nd-checkbox--indeterminate {
+        .nd-checkbox__container {
+          background-color: var(--md-comp-checkbox-selected-error-container-color, var(--md-sys-color-error));
+          box-shadow: none;
+        }
+
+        .nd-checkbox__icon {
+          color: var(--md-comp-checkbox-selected-error-icon-color, var(--md-sys-color-on-error));
+        }
+      }
+
+      // ==================== Error Hovered State ====================
+      &:hover:not(.nd-checkbox--disabled) {
+        --nd-state-layer-color: var(--md-comp-checkbox-error-hover-state-layer-color, var(--md-sys-color-error));
+
+        .nd-checkbox__container {
+          box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-error-hover-outline-width, 2px) var(--md-comp-checkbox-unselected-error-hover-outline-color, var(--md-sys-color-error));
+        }
+
+        &.nd-checkbox--selected,
+        &.nd-checkbox--indeterminate {
+          .nd-checkbox__container {
+            background-color: var(--md-comp-checkbox-selected-error-hover-container-color, var(--md-sys-color-error));
+            box-shadow: none;
+          }
+
+          .nd-checkbox__icon {
+            color: var(--md-comp-checkbox-selected-error-hover-icon-color, var(--md-sys-color-on-error));
+          }
+        }
+      }
+
+      // ==================== Error Focus State ====================
+      &:has(.nd-checkbox__input:focus-visible) {
+        --nd-state-layer-color: var(--md-comp-checkbox-error-focus-state-layer-color, var(--md-sys-color-error));
+
+        .nd-checkbox__container {
+          box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-error-focus-outline-width, 2px) var(--md-comp-checkbox-unselected-error-focus-outline-color, var(--md-sys-color-error));
+        }
+
+        &.nd-checkbox--selected,
+        &.nd-checkbox--indeterminate {
+          .nd-checkbox__container {
+            background-color: var(--md-comp-checkbox-selected-error-focus-container-color, var(--md-sys-color-error));
+            box-shadow: none;
+          }
+
+          .nd-checkbox__icon {
+            color: var(--md-comp-checkbox-selected-error-focus-icon-color, var(--md-sys-color-on-error));
+          }
+        }
+      }
+
+      // ==================== Error Pressed State ====================
+      &:active:not(.nd-checkbox--disabled) {
+        --nd-state-layer-color: var(--md-comp-checkbox-error-pressed-state-layer-color, var(--md-sys-color-error));
+
+        .nd-checkbox__container {
+          box-shadow: inset 0 0 0 var(--md-comp-checkbox-unselected-error-pressed-outline-width, 2px) var(--md-comp-checkbox-unselected-error-pressed-outline-color, var(--md-sys-color-error));
+        }
+
+        &.nd-checkbox--selected,
+        &.nd-checkbox--indeterminate {
+          .nd-checkbox__container {
+            background-color: var(--md-comp-checkbox-selected-error-pressed-container-color, var(--md-sys-color-error));
+            box-shadow: none;
+          }
+
+          .nd-checkbox__icon {
+            color: var(--md-comp-checkbox-selected-error-pressed-icon-color, var(--md-sys-color-on-error));
+          }
+        }
+      }
+    }
+  }
+}

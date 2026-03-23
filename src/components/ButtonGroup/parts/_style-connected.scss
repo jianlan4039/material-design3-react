@@ -1,0 +1,91 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * ButtonGroup Connected Style
+ *
+ * Connected style has minimal 2px gaps between buttons.
+ * Buttons share a pill-shaped container appearance.
+ * First and last items have full corners on outer edges,
+ * inner edges have smaller corner radius.
+ *
+ * Since ButtonGroupItem composes the Button component,
+ * these styles override Button's default border-radius.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-button-group--connected {
+    // Connected style uses minimal 2px gap
+    gap: 2px;
+
+    // Items in connected style have position-aware corner radius
+    // These classes are applied to the Button component via className
+    .nd-button-group__item {
+      // Local helper for full corner radius based on container height
+      --nd-button-group-item-corner-full: calc(var(--nd-button-group-container-height, 56px) / 2);
+
+      // Default: inner corners on both sides (for middle items)
+      // Override Button's default border-radius
+      border-radius: var(--nd-button-group-inner-corner-size, 8px);
+
+      // First item: full left corners, inner right corners
+      &.nd-button-group__item--first {
+        border-top-left-radius: var(--nd-button-group-item-corner-full);
+        border-bottom-left-radius: var(--nd-button-group-item-corner-full);
+        border-top-right-radius: var(--nd-button-group-inner-corner-size, 8px);
+        border-bottom-right-radius: var(--nd-button-group-inner-corner-size, 8px);
+      }
+
+      // Middle items: inner corners on both sides
+      &.nd-button-group__item--middle {
+        border-radius: var(--nd-button-group-inner-corner-size, 8px);
+      }
+
+      // Last item: inner left corners, full right corners
+      &.nd-button-group__item--last {
+        border-top-left-radius: var(--nd-button-group-inner-corner-size, 8px);
+        border-bottom-left-radius: var(--nd-button-group-inner-corner-size, 8px);
+        border-top-right-radius: var(--nd-button-group-item-corner-full);
+        border-bottom-right-radius: var(--nd-button-group-item-corner-full);
+      }
+
+      // Single item (both first and last): full corners on all sides
+      &.nd-button-group__item--first.nd-button-group__item--last {
+        border-radius: var(--nd-button-group-item-corner-full);
+      }
+
+      // Pressed state: use smaller inner corner size
+      &:active:not(:disabled) {
+        &.nd-button-group__item--first:not(.nd-button-group__item--last) {
+          border-top-right-radius: var(--nd-button-group-pressed-inner-corner-size, 4px);
+          border-bottom-right-radius: var(--nd-button-group-pressed-inner-corner-size, 4px);
+        }
+
+        &.nd-button-group__item--middle {
+          border-radius: var(--nd-button-group-pressed-inner-corner-size, 4px);
+        }
+
+        &.nd-button-group__item--last:not(.nd-button-group__item--first) {
+          border-top-left-radius: var(--nd-button-group-pressed-inner-corner-size, 4px);
+          border-bottom-left-radius: var(--nd-button-group-pressed-inner-corner-size, 4px);
+        }
+      }
+    }
+  }
+}

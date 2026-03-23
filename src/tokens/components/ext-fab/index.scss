@@ -1,0 +1,205 @@
+$tokens: (
+    // ----------------- small -------------------
+    'md.comp.extended-fab.small.container.height': '56px',
+    'md.comp.extended-fab.small.label-text': '500 16px/24px Roboto',
+    'md.comp.extended-fab.small.icon.size': '24px',
+    'md.comp.extended-fab.small.container.shape': 'md.sys.shape.corner.large',
+
+    'md.comp.extended-fab.small.leading-space': '24px',
+    'md.comp.extended-fab.small.icon-label-space': '8px',
+    'md.comp.extended-fab.small.trailing-space': '16px',
+
+    // ----------------- medium -------------------
+    'md.comp.extended-fab.medium.container.height': '80px',
+    'md.comp.extended-fab.medium.label-text': '400 22px/28px Roboto',
+    'md.comp.extended-fab.medium.icon.size': '28px',
+    'md.comp.extended-fab.medium.container.shape': '20px',
+
+    'md.comp.extended-fab.medium.leading-space': '26px',
+    'md.comp.extended-fab.medium.icon-label-space': '12px',
+    'md.comp.extended-fab.medium.trailing-space': '26px',
+
+    // ----------------- large --------------------
+    'md.comp.extended-fab.large.container.height': '96px',
+    'md.comp.extended-fab.large.label-text': '400 23px/32px Roboto',
+    'md.comp.extended-fab.large.icon.size': '36px',
+    'md.comp.extended-fab.large.container.shape': 'md.sys.shape.corner.extra-large',
+
+    'md.comp.extended-fab.large.leading-space': '28px',
+    'md.comp.extended-fab.large.icon-label-space': '16px',
+    'md.comp.extended-fab.large.trailing-space': '28px',
+
+    // ----------------- tonal primary ------------
+    'md.comp.extended-fab.primary-container.container.color': 'md.sys.color.primary-container',
+    'md.comp.extended-fab.primary-container.container.elevation': '3',
+    'md.comp.extended-fab.primary-container.container.shadow-color': 'md.sys.color.shadow',
+    'md.comp.extended-fab.primary-container.label-text.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.extended-fab.primary-container.icon.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.extended-fab.primary-container.hovered.container.elevation': '4',
+    'md.comp.extended-fab.primary-container.hovered.state-layer.color': 'md.sys.color.on-primary-container',
+    'md.comp.extended-fab.primary-container.hovered.state-layer.opacity': '0.08',
+    'md.comp.extended-fab.primary-container.hovered.label-text.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.extended-fab.primary-container.hovered.icon.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.extended-fab.primary-container.focused.container.elevation': '3',
+    'md.comp.extended-fab.primary-container.focused.state-layer.color': 'md.sys.color.on-primary-container',
+    'md.comp.extended-fab.primary-container.focused.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.primary-container.focused.label-text.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.extended-fab.primary-container.focused.icon.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.extended-fab.primary-container.pressed.container.elevation': '3',
+    'md.comp.extended-fab.primary-container.pressed.state-layer.color': 'md.sys.color.on-primary-container',
+    'md.comp.extended-fab.primary-container.pressed.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.primary-container.pressed.label-text.color': 'md.sys.color.on-primary-container',
+
+    'md.comp.extended-fab.primary-container.pressed.icon.color': 'md.sys.color.on-primary-container',
+
+    // ----------------- tonal secondary ------------
+    'md.comp.extended-fab.secondary-container.container.color': 'md.sys.color.secondary-container',
+    'md.comp.extended-fab.secondary-container.container.elevation': '3',
+    'md.comp.extended-fab.secondary-container.container.shadow-color': 'md.sys.color.shadow',
+    'md.comp.extended-fab.secondary-container.label-text.color': 'md.sys.color.on-secondary-container',
+
+    'md.comp.extended-fab.secondary-container.icon.color': 'md.sys.color.on-secondary-container',
+
+    'md.comp.extended-fab.secondary-container.hovered.container.elevation': '4',
+    'md.comp.extended-fab.secondary-container.hovered.state-layer.color': 'md.sys.color.on-secondary-container',
+    'md.comp.extended-fab.secondary-container.hovered.state-layer.opacity': '0.08',
+    'md.comp.extended-fab.secondary-container.hovered.label-text.color': 'md.sys.color.on-secondary-container',
+
+    'md.comp.extended-fab.secondary-container.hovered.icon.color': 'md.sys.color.on-secondary-container',
+
+    'md.comp.extended-fab.secondary-container.focused.container.elevation': '3',
+    'md.comp.extended-fab.secondary-container.focused.state-layer.color': 'md.sys.color.on-secondary-container',
+    'md.comp.extended-fab.secondary-container.focused.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.secondary-container.focused.label-text.color': 'md.sys.color.on-secondary-container',
+
+    'md.comp.extended-fab.secondary-container.focused.icon.color': 'md.sys.color.on-secondary-container',
+
+    'md.comp.extended-fab.secondary-container.pressed.container.elevation': '3',
+    'md.comp.extended-fab.secondary-container.pressed.state-layer.color': 'md.sys.color.on-secondary-container',
+    'md.comp.extended-fab.secondary-container.pressed.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.secondary-container.pressed.label-text.color': 'md.sys.color.on-secondary-container',
+
+    'md.comp.extended-fab.secondary-container.pressed.icon.color': 'md.sys.color.on-secondary-container',
+
+    // ----------------- tonal tertiary ------------
+    'md.comp.extended-fab.tertiary-container.container.color': 'md.sys.color.tertiary-container',
+    'md.comp.extended-fab.tertiary-container.container.elevation': '3',
+    'md.comp.extended-fab.tertiary-container.container.shadow-color': 'md.sys.color.shadow',
+    'md.comp.extended-fab.tertiary-container.label-text.color': 'md.sys.color.on-tertiary-container',
+
+    'md.comp.extended-fab.tertiary-container.icon.color': 'md.sys.color.on-tertiary-container',
+
+    'md.comp.extended-fab.tertiary-container.hovered.container.elevation': '4',
+    'md.comp.extended-fab.tertiary-container.hovered.state-layer.color': 'md.sys.color.on-tertiary-container',
+    'md.comp.extended-fab.tertiary-container.hovered.state-layer.opacity': '0.08',
+    'md.comp.extended-fab.tertiary-container.hovered.label-text.color': 'md.sys.color.on-tertiary-container',
+
+    'md.comp.extended-fab.tertiary-container.hovered.icon.color': 'md.sys.color.on-tertiary-container',
+
+    'md.comp.extended-fab.tertiary-container.focused.container.elevation': '3',
+    'md.comp.extended-fab.tertiary-container.focused.state-layer.color': 'md.sys.color.on-tertiary-container',
+    'md.comp.extended-fab.tertiary-container.focused.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.tertiary-container.focused.label-text.color': 'md.sys.color.on-tertiary-container',
+
+    'md.comp.extended-fab.tertiary-container.focused.icon.color': 'md.sys.color.on-tertiary-container',
+    
+    'md.comp.extended-fab.tertiary-container.pressed.container.elevation': '3',
+    'md.comp.extended-fab.tertiary-container.pressed.state-layer.color': 'md.sys.color.on-tertiary-container',
+    'md.comp.extended-fab.tertiary-container.pressed.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.tertiary-container.pressed.label-text.color': 'md.sys.color.on-tertiary-container',
+
+    'md.comp.extended-fab.tertiary-container.pressed.icon.color': 'md.sys.color.on-tertiary-container',
+
+    // ----------------- primary ------------
+    'md.comp.extended-fab.primary.container.color': 'md.sys.color.primary',
+    'md.comp.extended-fab.primary.container.elevation': '3',
+    'md.comp.extended-fab.primary.container.shadow-color': 'md.sys.color.shadow',
+    'md.comp.extended-fab.primary.label-text.color': 'md.sys.color.on-primary',
+
+    'md.comp.extended-fab.primary.icon.color': 'md.sys.color.on-primary',
+
+    'md.comp.extended-fab.primary.hovered.container.elevation': '4',
+    'md.comp.extended-fab.primary.hovered.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.extended-fab.primary.hovered.state-layer.opacity': '0.08',
+    'md.comp.extended-fab.primary.hovered.label-text.color': 'md.sys.color.on-primary',
+
+    'md.comp.extended-fab.primary.hovered.icon.color': 'md.sys.color.on-primary',
+
+    'md.comp.extended-fab.primary.focused.container.elevation': '3',
+    'md.comp.extended-fab.primary.focused.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.extended-fab.primary.focused.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.primary.focused.label-text.color': 'md.sys.color.on-primary',
+
+    'md.comp.extended-fab.primary.focused.icon.color': 'md.sys.color.on-primary',
+
+    'md.comp.extended-fab.primary.pressed.container.elevation': '3',
+    'md.comp.extended-fab.primary.pressed.state-layer.color': 'md.sys.color.on-primary',
+    'md.comp.extended-fab.primary.pressed.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.primary.pressed.label-text.color': 'md.sys.color.on-primary',
+
+    'md.comp.extended-fab.primary.pressed.icon.color': 'md.sys.color.on-primary',
+
+    // ----------------- secondary -------------
+    'md.comp.extended-fab.secondary.container.color': 'md.sys.color.secondary',
+    'md.comp.extended-fab.secondary.container.elevation': '3',
+    'md.comp.extended-fab.secondary.container.shadow-color': 'md.sys.color.shadow',
+    'md.comp.extended-fab.secondary.label-text.color': 'md.sys.color.on-secondary',
+
+    'md.comp.extended-fab.secondary.icon.color': 'md.sys.color.on-secondary',
+
+    'md.comp.extended-fab.secondary.hovered.container.elevation': '4',
+    'md.comp.extended-fab.secondary.hovered.state-layer.color': 'md.sys.color.on-secondary',
+    'md.comp.extended-fab.secondary.hovered.state-layer.opacity': '0.08',
+    'md.comp.extended-fab.secondary.hovered.label-text.color': 'md.sys.color.on-secondary',
+
+    'md.comp.extended-fab.secondary.hovered.icon.color': 'md.sys.color.on-secondary',
+
+    'md.comp.extended-fab.secondary.focused.container.elevation': '3',
+    'md.comp.extended-fab.secondary.focused.state-layer.color': 'md.sys.color.on-secondary',
+    'md.comp.extended-fab.secondary.focused.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.secondary.focused.label-text.color': 'md.sys.color.on-secondary',
+
+    'md.comp.extended-fab.secondary.focused.icon.color': 'md.sys.color.on-secondary',
+
+    'md.comp.extended-fab.secondary.pressed.container.elevation': '3',
+    'md.comp.extended-fab.secondary.pressed.state-layer.color': 'md.sys.color.on-secondary',
+    'md.comp.extended-fab.secondary.pressed.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.secondary.pressed.label-text.color': 'md.sys.color.on-secondary',
+
+    'md.comp.extended-fab.secondary.pressed.icon.color': 'md.sys.color.on-secondary',
+
+    // ----------------- tertiary -------------
+    'md.comp.extended-fab.tertiary.container.color': 'md.sys.color.tertiary',
+    'md.comp.extended-fab.tertiary.container.elevation': '3',
+    'md.comp.extended-fab.tertiary.container.shadow-color': 'md.sys.color.shadow',
+    'md.comp.extended-fab.tertiary.label-text.color': 'md.sys.color.on-tertiary',
+
+    'md.comp.extended-fab.tertiary.icon.color': 'md.sys.color.on-tertiary',
+
+    'md.comp.extended-fab.tertiary.hovered.container.elevation': '4',
+    'md.comp.extended-fab.tertiary.hovered.state-layer.color': 'md.sys.color.on-tertiary',
+    'md.comp.extended-fab.tertiary.hovered.state-layer.opacity': '0.08',
+    'md.comp.extended-fab.tertiary.hovered.label-text.color': 'md.sys.color.on-tertiary',
+
+    'md.comp.extended-fab.tertiary.hovered.icon.color': 'md.sys.color.on-tertiary',
+
+    'md.comp.extended-fab.tertiary.focused.container.elevation': '3',
+    'md.comp.extended-fab.tertiary.focused.state-layer.color': 'md.sys.color.on-tertiary',
+    'md.comp.extended-fab.tertiary.focused.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.tertiary.focused.label-text.color': 'md.sys.color.on-tertiary',
+
+    'md.comp.extended-fab.tertiary.focused.icon.color': 'md.sys.color.on-tertiary',
+
+    'md.comp.extended-fab.tertiary.pressed.container.elevation': '3',
+    'md.comp.extended-fab.tertiary.pressed.state-layer.color': 'md.sys.color.on-tertiary',
+    'md.comp.extended-fab.tertiary.pressed.state-layer.opacity': '0.1',
+    'md.comp.extended-fab.tertiary.pressed.label-text.color': 'md.sys.color.on-tertiary',
+
+    'md.comp.extended-fab.tertiary.pressed.icon.color': 'md.sys.color.on-tertiary',
+)

@@ -1,0 +1,144 @@
+$tokens: (
+    // -------------- enabled --------------
+    // stop indicator
+    'md.comp.slider.stop-indicator.size': '4px',
+    'md.comp.slider.stop-indicator.shape': 'md.sys.shape.corner.full',
+    'md.comp.slider.stop-indicator.trailing-space': '4px',
+    'md.comp.slider.stop-indicator.color': 'md.sys.color.on-secondary-container',
+    
+    'md.comp.slider.stop-indicator.color-selected': 'md.sys.color.on-primary',
+
+    // container
+    'md.comp.slider.active.stop-indicator.container.color': 'md.sys.color.on-primary',
+    'md.comp.slider.active.stop-indicator.container.opacity': '1',
+    'md.comp.slider.inactive.stop-indicator.container.color': 'md.sys.color.on-secondary-container',
+    'md.comp.slider.inactive.stop-indicator.container.opacity': '1',
+    
+    //track
+    'md.comp.slider.active.track.height': '16px',
+    'md.comp.slider.inactive.track.height': '16px',
+    'md.comp.slider.active.track.shape': 'md.sys.shape.corner.full',
+    'md.comp.slider.active.track.outer-corner.corner-size': 'md.sys.shape.corner.full',
+
+    'md.comp.slider.active.track.inner-corner.corner-size': 'md.comp.slider.active.track.inner-corner.corner-size',
+    'md.comp.slider.inactive.track.shape': 'md.sys.shape.corner.full',
+    'md.comp.slider.active.track.color': 'md.sys.color.primary',
+    'md.comp.slider.inactive.track.color': 'md.sys.color.secondary-container',
+
+    // handle
+    'md.comp.slider.handle.height': '44px',
+    'md.comp.slider.handle.width': '4px',
+    'md.comp.slider.handle.shape': 'md.sys.shape.corner.full',
+    'md.comp.slider.handle.elevation': '1px',
+
+    'md.comp.slider.handle.color': 'md.sys.color.primary',
+    'md.comp.slider.slider-active-handle-color': 'md.sys.color.primary',
+    'md.comp.slider.active.handle.height': '44px',
+    'md.comp.slider.active.handle.width': '4px',
+
+    'md.comp.slider.active.handle.shape': 'md.sys.shape.corner.full',
+    'md.comp.slider.active.handle.leading-space': '6px',
+    'md.comp.slider.active.handle.trailing-space': '6px',
+    'md.comp.slider.active.handle.padding': '6px',
+
+    // -------------- disabled ---------------
+    // stop
+    'md.comp.slider.disabled.active.stop-indicator.container.color': 'md.sys.color.inverse-on-surface',
+    'md.comp.slider.disabled.inactive.stop-indicator.container.color': 'md.sys.color.on-surface',
+
+    // track
+    'md.comp.slider.disabled.active.track.color': 'md.sys.color.on-surface',
+    'md.comp.slider.disabled.active.track.opacity': '0.38',
+    'md.comp.slider.disabled.inactive.track.color': 'md.sys.color.on-surface',
+    'md.comp.slider.disabled.inactive.track.opacity': '0.12',
+
+    // handle
+    'md.comp.slider.disabled.handle.color': 'md.sys.color.on-surface',
+    'md.comp.slider.disabled.handle.opacity': '0.38',
+    'md.comp.slider.disabled.handle.width': '4px',
+
+    // -------------- hover --------------
+    // handle
+    'md.comp.slider.hover.handle.width': '4px',
+
+    // -------------- focus --------------
+    // track
+    'md.comp.slider.focus.active.track.color': 'md.sys.color.primary',
+    'md.comp.slider.focus.inactive.track.color': 'md.sys.color.secondary-container',
+
+    // handle
+    'md.comp.slider.focus.handle.width': '2px',
+
+    // -------------- pressed --------------
+    // handle
+    'md.comp.slider.pressed.handle.color': 'md.sys.color.primary',
+    'md.comp.slider.pressed.handle.width': '2px',
+
+    // track
+    'md.comp.slider.pressed.active.track.color': 'md.sys.color.primary',
+    'md.comp.slider.pressed.inactive.track.color': 'md.sys.color.secondary-container',
+
+    // value indicator
+    'md.comp.slider.value-indicator.container.color': 'md.sys.color.inverse-surface',
+    'md.comp.slider.value-indicator.label.label-text.font': 'Roboto',
+    'md.comp.slider.value-indicator.label.label-text.color': 'md.sys.color.inverse-on-surface',
+    'md.comp.slider.value-indicator.label.label-text.line-height': 'md.sys.typescale.label-large.line-height',
+    
+    'md.comp.slider.value-indicator.label.label-text.size': 'md.sys.typescale.label-large.size',
+    'md.comp.slider.value-indicator.label.label-text.weight': '400',
+    'md.comp.slider.value-indicator.active.bottom-space': '12px',
+
+    // -------------------------- xsmall -----------------------------
+    'md.comp.slider.xsmall.active.track.height': '16px',
+    'md.comp.slider.xsmall.active.track.shape.leading': '8px',
+
+    'md.comp.slider.xsmall.inactive.track.height': '16px',
+    'md.comp.slider.xsmall.inactive.track.shape.trailing': '8px',
+
+    'md.comp.slider.xsmall.active.handle.height': '44px',
+
+    // -------------------------- small -----------------------------
+    'md.comp.slider.small.active.track.height': '24px',
+    'md.comp.slider.small.active.track.shape.leading': '8px',
+
+    'md.comp.slider.small.inactive.track.height': '24px',
+    'md.comp.slider.small.inactive.track.shape.trailing': '8px',
+
+    'md.comp.slider.small.active.handle.height': '44px',
+    
+    // ------------------------- medium -----------------------------
+    'md.comp.slider.medium.active.track.height': '40px',
+    'md.comp.slider.medium.active.track.shape.leading': '12px',
+    'md.comp.slider.medium.inactive.track.height': '40px',
+    'md.comp.slider.medium.inactive.track.shape.trailing': '12px',
+
+    'md.comp.slider.medium.active.handle.height': '44px',
+
+    'md.comp.slider.medium.icon.padding': '6px',
+    'md.comp.slider.medium.icon.size': '24px',
+
+    // ------------------------- large -----------------------------
+    'md.comp.slider.large.active.track.height': '56px',
+    'md.comp.slider.large.active.track.shape.leading': '16px',
+
+    'md.comp.slider.large.inactive.track.height': '56px',
+    'md.comp.slider.large.inactive.track.shape.trailing': '16px',
+
+    'md.comp.slider.large.active.handle.height': '68px',
+    
+    'md.comp.slider.large.icon.padding': '6px',
+    'md.comp.slider.large.icon.size': '24px',
+
+    // ------------------------- xlarge -----------------------------
+    'md.comp.slider.xlarge.active.track.height': '96px',
+    'md.comp.slider.xlarge.active.track.shape.leading': '28px',
+
+    'md.comp.slider.xlarge.inactive.track.height': '96px',
+    'md.comp.slider.xlarge.inactive.track.shape.trailing': '28px',
+
+    'md.comp.slider.xlarge.active.handle.height': '108px',
+    
+    'md.comp.slider.xlarge.icon.padding': '8px',
+    'md.comp.slider.xlarge.icon.size': '32px'
+
+)

@@ -1,0 +1,118 @@
+@layer nd-comp {
+    .nd-menu,
+    .nd-sub-menu {
+        // Default (Standard) Theme
+        --_container-color: var(--md-comp-menus-standard-container-color);
+        --_container-shadow-color: var(--md-comp-menus-standard-container-shadow-color);
+        --_container-shape: var(--md-comp-menus-container-shape); // Common
+
+        // Item Colors
+        --_item-container-color: var(--md-comp-menus-standard-menu-item-container-color);
+        --_item-label-text-color: var(--md-comp-menus-standard-menu-item-label-text-color);
+        --_item-supporting-text-color: var(--md-comp-menus-standard-menu-item-supporting-text-color);
+        --_item-trailing-supporting-text-color: var(--md-comp-menus-standard-menu-item-trailing-supporting-text-color);
+        --_item-leading-icon-color: var(--md-comp-menus-standard-menu-item-leading-icon-color);
+        --_item-trailing-icon-color: var(--md-comp-menus-standard-menu-item-trailing-icon-color);
+
+        // Selected Item Colors
+        --_item-selected-container-color: var(--md-comp-menus-standard-menu-item-selected-container-color);
+        --_item-selected-label-text-color: var(--md-comp-menus-standard-menu-item-selected-label-text-color);
+        --_item-selected-supporting-text-color: var(--md-comp-menus-standard-menu-item-selected-supporting-text-color);
+        --_item-selected-trailing-supporting-text-color: var(--md-comp-menus-standard-menu-item-selected-trailing-supporting-text-color);
+        --_item-selected-leading-icon-color: var(--md-comp-menus-standard-menu-item-selected-leading-icon-color);
+        --_item-selected-trailing-icon-color: var(--md-comp-menus-standard-menu-item-selected-trailing-icon-color);
+
+        // Disabled Item Colors
+        --_item-disabled-label-text-color: var(--md-comp-menus-standard-menu-item-disabled-label-text-color);
+        --_item-disabled-label-text-opacity: var(--md-comp-menus-standard-menu-item-disabled-label-text-opacity);
+        --_item-disabled-supporting-text-color: var(--md-comp-menus-standard-menu-item-disabled-supporting-text-color);
+        --_item-disabled-supporting-text-opacity: var(--md-comp-menus-standard-menu-item-disabled-supporting-text-opacity);
+        --_item-disabled-trailing-supporting-text-color: var(--md-comp-menus-standard-menu-item-disabled-trailing-supporting-text-color);
+        --_item-disabled-trailing-supporting-text-opacity: var(--md-comp-menus-standard-menu-item-disabled-trailing-supporting-text-opacity);
+        --_item-disabled-leading-icon-color: var(--md-comp-menus-standard-menu-item-disabled-leading-icon-color);
+        --_item-disabled-leading-icon-opacity: var(--md-comp-menus-standard-menu-item-disabled-leading-icon-opacity);
+        --_item-disabled-trailing-icon-color: var(--md-comp-menus-standard-menu-item-disabled-trailing-icon-color);
+        --_item-disabled-trailing-icon-opacity: var(--md-comp-menus-standard-menu-item-disabled-trailing-icon-opacity);
+
+        // State Layer Colors (Hover/Focus/Pressed)
+        --_item-hover-state-layer-color: var(--md-comp-menus-standard-menu-item-hovered-state-layer-color);
+        --_item-hover-state-layer-opacity: var(--md-comp-menus-standard-menu-item-hovered-state-layer-opacity);
+        --_item-focus-state-layer-color: var(--md-comp-menus-standard-menu-item-focused-state-layer-color);
+        --_item-focus-state-layer-opacity: var(--md-comp-menus-standard-menu-item-focused-state-layer-opacity);
+        --_item-pressed-state-layer-color: var(--md-comp-menus-standard-menu-item-pressed-state-layer-color);
+        --_item-pressed-state-layer-opacity: var(--md-comp-menus-standard-menu-item-pressed-state-layer-opacity);
+
+        // Selected State Layer Colors
+        --_item-selected-hover-state-layer-color: var(--md-comp-menus-standard-menu-item-selected-hovered-state-layer-color);
+        --_item-selected-hover-state-layer-opacity: var(--md-comp-menus-standard-menu-item-selected-hovered-state-layer-opacity);
+        --_item-selected-focus-state-layer-color: var(--md-comp-menus-standard-menu-item-selected-focused-state-layer-color);
+        --_item-selected-focus-state-layer-opacity: var(--md-comp-menus-standard-menu-item-selected-focused-state-layer-opacity);
+        --_item-selected-pressed-state-layer-color: var(--md-comp-menus-standard-menu-item-selected-pressed-state-layer-color);
+        --_item-selected-pressed-state-layer-opacity: var(--md-comp-menus-standard-menu-item-selected-pressed-state-layer-opacity);
+    
+        // Typography (Common)
+        --_item-label-text-font: var(--md-comp-menus-menu-item-label-text-font);
+        --_item-label-text-size: var(--md-comp-menus-menu-item-label-text-size);
+        --_item-label-text-weight: var(--md-comp-menus-menu-item-label-text-weight);
+        --_item-label-text-line-height: var(--md-comp-menus-menu-item-label-text-line-height);
+
+        --_item-supporting-text-font: var(--md-comp-menus-menu-item-supporting-text-font);
+        --_item-supporting-text-size: var(--md-comp-menus-menu-item-supporting-text-size);
+        --_item-supporting-text-weight: var(--md-comp-menus-menu-item-supporting-text-weight);
+        --_item-supporting-text-line-height: var(--md-comp-menus-menu-item-supporting-text-line-height);
+
+        --_item-trailing-supporting-text-font: var(--md-comp-menus-menu-item-trailing-supporting-text-font);
+        --_item-trailing-supporting-text-size: var(--md-comp-menus-menu-item-trailing-supporting-text-size);
+        --_item-trailing-supporting-text-weight: var(--md-comp-menus-menu-item-trailing-supporting-text-weight);
+        --_item-trailing-supporting-text-line-height: var(--md-comp-menus-menu-item-trailing-supporting-text-line-height);
+    }
+
+    .nd-menu--vibrant,
+    .nd-sub-menu--vibrant {
+        --_container-color: var(--md-comp-menus-vibrant-container-color);
+        
+        // Item Colors
+        --_item-container-color: var(--md-comp-menus-vibrant-menu-item-color); // Note: token name slightly different
+        --_item-label-text-color: var(--md-comp-menus-vibrant-menu-item-label-text-color);
+        --_item-supporting-text-color: var(--md-comp-menus-vibrant-menu-item-supporting-text-color);
+        --_item-trailing-supporting-text-color: var(--md-comp-menus-vibrant-menu-item-trailing-supporting-text-color);
+        --_item-leading-icon-color: var(--md-comp-menus-vibrant-menu-item-leading-icon-color);
+        --_item-trailing-icon-color: var(--md-comp-menus-vibrant-menu-item-trailing-icon-color);
+
+        // Selected Item Colors
+        --_item-selected-container-color: var(--md-comp-menus-vibrant-menu-item-selected-container-color);
+        --_item-selected-label-text-color: var(--md-comp-menus-vibrant-menu-item-selected-label-text-color);
+        --_item-selected-supporting-text-color: var(--md-comp-menus-vibrant-menu-item-selected-supporting-text-color);
+        --_item-selected-trailing-supporting-text-color: var(--md-comp-menus-vibrant-menu-item-selected-trailing-supporting-text-color);
+        --_item-selected-leading-icon-color: var(--md-comp-menus-vibrant-menu-item-selected-leading-icon-color);
+        --_item-selected-trailing-icon-color: var(--md-comp-menus-vibrant-menu-item-selected-trailing-icon-color);
+
+        // Disabled
+        --_item-disabled-label-text-color: var(--md-comp-menus-vibrant-menu-item-disabled-label-text-color);
+        --_item-disabled-label-text-opacity: var(--md-comp-menus-vibrant-menu-item-disabled-label-text-opacity);
+        --_item-disabled-supporting-text-color: var(--md-comp-menus-vibrant-menu-item-disabled-supporting-text-color);
+        --_item-disabled-supporting-text-opacity: var(--md-comp-menus-vibrant-menu-item-disabled-supporting-text-opacity);
+        --_item-disabled-trailing-supporting-text-color: var(--md-comp-menus-vibrant-menu-item-disabled-trailing-supporting-text-color);
+        --_item-disabled-trailing-supporting-text-opacity: var(--md-comp-menus-vibrant-menu-item-disabled-trailing-supporting-text-opacity);
+        --_item-disabled-leading-icon-color: var(--md-comp-menus-vibrant-menu-item-disabled-leading-icon-color);
+        --_item-disabled-leading-icon-opacity: var(--md-comp-menus-vibrant-menu-item-disabled-leading-icon-opacity);
+        --_item-disabled-trailing-icon-color: var(--md-comp-menus-vibrant-menu-item-disabled-trailing-icon-color);
+        --_item-disabled-trailing-icon-opacity: var(--md-comp-menus-vibrant-menu-item-disabled-trailing-icon-opacity);
+
+        // State Layer Colors
+        --_item-hover-state-layer-color: var(--md-comp-menus-vibrant-menu-item-hovered-state-layer-color);
+        --_item-hover-state-layer-opacity: var(--md-comp-menus-vibrant-menu-item-hovered-state-layer-opacity);
+        --_item-focus-state-layer-color: var(--md-comp-menus-vibrant-menu-item-focused-state-layer-color);
+        --_item-focus-state-layer-opacity: var(--md-comp-menus-vibrant-menu-item-focused-state-layer-opacity);
+        --_item-pressed-state-layer-color: var(--md-comp-menus-vibrant-menu-item-pressed-state-layer-color);
+        --_item-pressed-state-layer-opacity: var(--md-comp-menus-vibrant-menu-item-pressed-state-layer-opacity);
+
+        // Selected State Layer Colors
+        --_item-selected-hover-state-layer-color: var(--md-comp-menus-vibrant-menu-item-selected-hovered-state-layer-color);
+        --_item-selected-hover-state-layer-opacity: var(--md-comp-menus-vibrant-menu-item-selected-hovered-state-layer-opacity);
+        --_item-selected-focus-state-layer-color: var(--md-comp-menus-vibrant-menu-item-selected-focused-state-layer-color);
+        --_item-selected-focus-state-layer-opacity: var(--md-comp-menus-vibrant-menu-item-selected-focused-state-layer-opacity);
+        --_item-selected-pressed-state-layer-color: var(--md-comp-menus-vibrant-menu-item-selected-pressed-state-layer-color);
+        --_item-selected-pressed-state-layer-opacity: var(--md-comp-menus-vibrant-menu-item-selected-pressed-state-layer-opacity);
+    }
+}

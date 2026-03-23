@@ -1,0 +1,147 @@
+@layer nd-comp {
+    body {
+        position: relative;
+    }
+
+    .nd-menu {
+        border-radius: var(--_container-shape, var(--md-comp-menus-container-shape));
+        background-color: var(--_container-color);
+        box-shadow: 0px 1px 2px var(--_container-shadow-color); // Fallback elevation
+        // Note: Elevation should ideally be handled by elevation tokens or utility, but generic shadow here.
+        // The token md.comp.menus.container.elevation is '3px' which usually maps to a level, not a direct value.
+        // But for now we use the shadow color.
+        
+        box-sizing: border-box;
+        cursor: default;
+    }
+
+    .nd-menu__list {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: var(--md-comp-menus-group-padding);
+        gap: var(--md-comp-menus-gap);
+        list-style: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .nd-sub-menu {
+        border-radius: var(--_container-shape, var(--md-comp-menus-container-shape));
+        background-color: var(--_container-color);
+        box-shadow: 0px 1px 2px var(--_container-shadow-color);
+        width: max-content;
+        box-sizing: border-box;
+        cursor: default;
+    }
+
+    .nd-sub-menu__list {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: var(--md-comp-menus-group-padding);
+        gap: var(--md-comp-menus-gap);
+        list-style: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .nd-menu-divider {
+        height: var(--md-comp-menu-divider-height);
+        background-color: var(--md-comp-menu-divider-color);
+        margin: 4px 0; // Approximate vertical spacing
+        width: 100%;
+        list-style: none;
+    }
+
+    .nd-menu-item {
+        display: flex;
+        align-items: center;
+        min-block-size: var(--md-comp-menus-menu-item-height);
+        padding-inline: var(--md-comp-menus-menu-item-leading-space) var(--md-comp-menus-menu-item-trailing-space);
+        padding-block: var(--md-comp-menus-menu-item-top-space) var(--md-comp-menus-menu-item-bottom-space);
+        border-radius: var(--md-comp-menus-menu-item-shape);
+        background-color: var(--_item-container-color, transparent);
+        gap: var(--md-comp-menus-menu-item-between-space);
+        flex: 0 0 auto;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        overflow: hidden;
+        text-decoration: none; // For <a> tags
+        min-width: 112px;
+        max-width: 280px;
+
+        &:first-child {
+            border-radius: var(--md-comp-menus-menu-item-first-child-shape);
+        }
+
+        &:last-child {
+            border-radius: var(--md-comp-menus-menu-item-last-child-shape);
+        }
+        
+        // Selected state shape override
+        &.nd-menu-item--selected {
+             border-radius: var(--md-comp-menus-menu-item-selected-shape);
+        }
+
+        &__icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--md-comp-menus-menu-item-leading-icon-size);
+            height: var(--md-comp-menus-menu-item-leading-icon-size);
+            font-size: var(--md-comp-menus-menu-item-leading-icon-size);
+            color: var(--_item-leading-icon-color);
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: center;
+        }
+
+        &__label {
+            font-family: var(--_item-label-text-font);
+            font-size: var(--_item-label-text-size);
+            font-weight: var(--_item-label-text-weight);
+            line-height: var(--_item-label-text-line-height);
+            color: var(--_item-label-text-color);
+        }
+
+        &__supporting-text {
+            font-family: var(--_item-supporting-text-font);
+            font-size: var(--_item-supporting-text-size);
+            font-weight: var(--_item-supporting-text-weight);
+            line-height: var(--_item-supporting-text-line-height);
+            color: var(--_item-supporting-text-color);
+        }
+
+        &__trailing-content {
+             display: flex;
+             flex-direction: row;
+             align-items: center;
+             justify-content: flex-end;
+             gap: 12px; // Approximate gap between trailing text and icon
+        }
+
+        &__trailing-supporting-text {
+            font-family: var(--_item-trailing-supporting-text-font);
+            font-size: var(--_item-trailing-supporting-text-size);
+            font-weight: var(--_item-trailing-supporting-text-weight);
+            line-height: var(--_item-trailing-supporting-text-line-height);
+            color: var(--_item-trailing-supporting-text-color);
+        }
+
+        &__trailing-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--md-comp-menus-menu-item-trailing-icon-size);
+            height: var(--md-comp-menus-menu-item-trailing-icon-size);
+            font-size: var(--md-comp-menus-menu-item-trailing-icon-size);
+            color: var(--_item-trailing-icon-color);
+        }
+    }
+}

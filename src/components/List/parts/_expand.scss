@@ -1,0 +1,122 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * List Item Group (Expandable/Accordion) Styles
+ *
+ * Styles for expandable list item groups with accordion animation.
+ */
+
+// ==================== Group Container ====================
+
+.nd-list-item-group {
+  display: flex;
+  flex-direction: column;
+  // border-radius: var(--md-comp-list-expand-container-shape, 0);
+  // overflow: hidden; // Remove to allow header's rounding (hover/selected) to show
+}
+
+// ==================== Group Header ====================
+
+.nd-list-item-group__header {
+  // Inherits .nd-list-item styles
+  // Additional expand-specific styles
+
+  &[aria-expanded="true"] {
+    background-color: var(--md-comp-list-expand-expanded-list-item-container-color, var(--md-sys-color-surface));
+  }
+
+  &[aria-expanded="false"] {
+    background-color: var(--md-comp-list-list-item-container-color, var(--md-sys-color-surface));
+  }
+}
+
+// ==================== Expand Icon ====================
+
+.nd-list-item-group__expand-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--md-comp-list-expand-trailing-icon-shape, var(--md-sys-shape-corner-full, 50%));
+  background-color: var(--md-comp-list-expand-collapsed-list-item-trailing-icon-container-color, var(--md-sys-color-surface));
+  transition: background-color 200ms ease-in-out;
+
+  .nd-list-item-group--expanded & {
+    background-color: var(--md-comp-list-expand-expanded-list-item-trailing-icon-container-color, var(--md-sys-color-surface-container));
+  }
+}
+
+.nd-list-item-group__expand-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--md-comp-list-expand-collapsed-list-item-trailing-icon-icon-color, var(--md-sys-color-on-surface));
+  transition: transform 200ms ease-in-out, fill 200ms ease-in-out;
+
+  &--expanded {
+    transform: rotate(180deg);
+    fill: var(--md-comp-list-expand-expanded-list-item-trailing-icon-icon-color, var(--md-sys-color-on-surface));
+  }
+}
+
+// ==================== Expandable Content ====================
+
+.nd-list-item-group__content {
+  // Initial state is handled by useListExpandAnimation hook
+  // These styles define the collapsed state appearance
+  overflow: hidden;
+  height: 0;
+}
+
+.nd-list-item-group__children {
+  // Container for child list items
+  // Prevents content from collapsing margins
+  display: flex;
+  flex-direction: column;
+  // padding-left: 16px; // Indent nested items
+  background-color: transparent;
+}
+
+// ==================== Expanded State ====================
+
+.nd-list-item-group--expanded {
+  .nd-list-item-group__content {
+    // Height is controlled by animation hook
+    // When animation completes, height is set to 'auto'
+  }
+}
+
+// ==================== Disabled State ====================
+
+.nd-list-item-group--disabled {
+  .nd-list-item-group__header {
+    pointer-events: none;
+  }
+
+  .nd-list-item-group__expand-icon-container {
+    opacity: 0.38;
+  }
+}
+
+// ==================== Nested Items Styling ====================
+
+.nd-list-item-group__children {
+  .nd-list-item {
+    // Nested items may have slightly different styling
+    padding-left: var(--md-comp-list-list-item-leading-space, 16px);
+  }
+}

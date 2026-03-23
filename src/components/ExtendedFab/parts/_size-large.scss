@@ -1,0 +1,65 @@
+/**
+ * Copyright (c) 2026 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Extended FAB Large Size
+ *
+ * Responsible for `.nd-ext-fab--large` sizing token mapping:
+ * - container height (96px)
+ * - icon size (36px)
+ * - label text (400 23px/32px)
+ * - spacing (leading: 28px, icon-label: 16px, trailing: 28px)
+ * - container shape (extra-large)
+ *
+ * @author jian lan
+ * @created 2026
+ */
+
+@layer nd-comp {
+  .nd-ext-fab--large {
+    --nd-ext-fab-container-height: var(--md-comp-extended-fab-large-container-height, 96px);
+    --nd-ext-fab-leading-space: var(--md-comp-extended-fab-large-leading-space, 28px);
+    --nd-ext-fab-icon-label-space: var(--md-comp-extended-fab-large-icon-label-space, 16px);
+    --nd-ext-fab-trailing-space: var(--md-comp-extended-fab-large-trailing-space, 28px);
+    --nd-ext-fab-icon-size: var(--md-comp-extended-fab-large-icon-size, 36px);
+    --nd-ext-fab-label-text: var(--md-comp-extended-fab-large-label-text, 400 23px/32px Roboto);
+
+    height: var(--nd-ext-fab-container-height);
+    padding-left: var(--nd-ext-fab-leading-space);
+    padding-right: var(--nd-ext-fab-trailing-space);
+    gap: var(--nd-ext-fab-icon-label-space);
+
+    // Shape
+    border-radius: var(--md-comp-extended-fab-large-container-shape, var(--md-sys-shape-corner-extra-large, 28px));
+
+    // No icon mode - use trailing-space for both sides
+    &.nd-ext-fab--no-icon {
+      padding-left: var(--nd-ext-fab-trailing-space);
+    }
+  }
+
+  // Icon size overrides
+  .nd-ext-fab--large .nd-ext-fab__icon {
+    width: var(--nd-ext-fab-icon-size);
+    height: var(--nd-ext-fab-icon-size);
+    font-size: var(--nd-ext-fab-icon-size);
+  }
+
+  // Label text overrides
+  .nd-ext-fab--large .nd-ext-fab__label {
+    font: var(--nd-ext-fab-label-text);
+  }
+}

@@ -1,0 +1,230 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Slider Base Styles
+ *
+ * Responsible for:
+ * - `.nd-slider` base layout and sizing
+ * - CSS custom properties reset for shared components (state-layer/elevation)
+ * - Base interactive states: hovered/focused/pressed/disabled
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@layer nd-comp {
+  .nd-slider {
+    // ==================== CSS Custom Properties Reset ====================
+    --nd-state-layer-color: var(--md-comp-slider-handle-color, var(--md-sys-color-primary));
+    --md-sys-hover-state-layer-opacity: 0.08;
+    --md-sys-focus-state-layer-opacity: 0.1;
+    --md-sys-pressed-state-layer-opacity: 0.12;
+    --md-elevation-level: var(--md-comp-slider-handle-elevation, 1);
+    --md-elevation-shadow-color: var(--md-sys-color-shadow);
+
+    // ==================== Layout & Sizing ====================
+    --_track-h: var(--md-comp-slider-medium-active-track-height, 40px);
+    --_track-inactive-h: var(--md-comp-slider-medium-inactive-track-height, 40px);
+    --_handle-h: var(--md-comp-slider-medium-active-handle-height, 44px);
+    --_handle-w: var(--md-comp-slider-handle-width, 4px);
+    --_handle-leading-space: var(--md-comp-slider-active-handle-leading-space, 6px);
+    --_handle-trailing-space: var(--md-comp-slider-active-handle-trailing-space, 6px);
+
+    --_track-active-color: var(--md-comp-slider-active-track-color, var(--md-sys-color-primary));
+    --_track-inactive-color: var(--md-comp-slider-inactive-track-color, var(--md-sys-color-secondary-container));
+    --_handle-color: var(--md-comp-slider-handle-color, var(--md-sys-color-primary));
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: var(--_handle-h);
+    min-width: 200px;
+    cursor: pointer;
+    user-select: none;
+    touch-action: none;
+  }
+
+  .nd-slider__track-container {
+    position: absolute;
+    left: 0;//var(--_handle-leading-space);
+    right: 0;//var(--_handle-trailing-space);
+    top: 50%;
+    transform: translateY(-50%);
+    height: var(--_track-inactive-h);
+    display: flex;
+    align-items: center;
+  }
+
+  .nd-slider__stops {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .nd-slider__stop {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--md-comp-slider-stop-indicator-size, 4px);
+    height: var(--md-comp-slider-stop-indicator-size, 4px);
+    border-radius: var(--md-comp-slider-stop-indicator-shape, var(--md-sys-shape-corner-full, 9999px));
+    background-color: var(--md-comp-slider-inactive-stop-indicator-container-color, var(--md-sys-color-on-secondary-container));
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .nd-slider__stop--active {
+    background-color: var(--md-comp-slider-active-stop-indicator-container-color, var(--md-sys-color-on-primary));
+  }
+
+  .nd-slider--disabled .nd-slider__stop {
+    background-color: var(--md-comp-slider-disabled-inactive-stop-indicator-container-color, var(--md-sys-color-on-surface));
+    opacity: var(--md-comp-slider-inactive-stop-indicator-container-opacity, 1);
+  }
+
+  .nd-slider--disabled .nd-slider__stop--active {
+    background-color: var(--md-comp-slider-disabled-active-stop-indicator-container-color, var(--md-sys-color-inverse-on-surface));
+    opacity: var(--md-comp-slider-active-stop-indicator-container-opacity, 1);
+  }
+
+  .nd-slider__track {
+    position: absolute;
+    height: var(--_track-h);
+    border-radius: var(--md-sys-shape-corner-full, 9999px);
+    transition: background-color 150ms ease-in-out;
+  }
+
+  .nd-slider__track--left-square {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .nd-slider__track--right-square {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .nd-slider__track--both-square {
+    border-radius: 0;
+  }
+
+  .nd-slider__track--active {
+    background-color: var(--_track-active-color);
+  }
+
+  .nd-slider__track--inactive {
+    background-color: var(--_track-inactive-color);
+  }
+
+  .nd-slider__track--disabled.nd-slider__track--active {
+    background-color: var(--md-comp-slider-disabled-active-track-color, var(--md-sys-color-on-surface));
+    opacity: var(--md-comp-slider-disabled-active-track-opacity, 0.38);
+  }
+
+  .nd-slider__track--disabled.nd-slider__track--inactive {
+    background-color: var(--md-comp-slider-disabled-inactive-track-color, var(--md-sys-color-on-surface));
+    opacity: var(--md-comp-slider-disabled-inactive-track-opacity, 0.12);
+  }
+
+  .nd-slider__handle {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--_handle-w);
+    height: var(--_handle-h);
+    border-radius: var(--md-comp-slider-handle-shape, var(--md-sys-shape-corner-full, 9999px));
+    background-color: var(--_handle-color);
+    transition: background-color 150ms ease-in-out;
+    cursor: grab;
+  }
+
+  .nd-slider__handle:active {
+    cursor: grabbing;
+  }
+
+  .nd-slider__handle--disabled {
+    background-color: var(--md-comp-slider-disabled-handle-color, var(--md-sys-color-on-surface));
+    opacity: var(--md-comp-slider-disabled-handle-opacity, 0.38);
+    cursor: not-allowed;
+  }
+
+  .nd-slider__handle--dragging {
+    cursor: grabbing;
+  }
+
+  .nd-slider__bulb {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .nd-slider__bulb--visible {
+    opacity: 1;
+  }
+
+  .nd-slider__bulb-container {
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    border-radius: var(--md-sys-shape-corner-full, 9999px);
+    background-color: var(--md-comp-slider-value-indicator-container-color, var(--md-sys-color-inverse-surface));
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .nd-slider__bulb-label {
+    font-family: var(--md-comp-slider-value-indicator-label-label-text-font, Roboto);
+    font-size: var(--md-comp-slider-value-indicator-label-label-text-size, var(--md-sys-typescale-label-large-size, 14px));
+    font-weight: var(--md-comp-slider-value-indicator-label-label-text-weight, 400);
+    color: var(--md-comp-slider-value-indicator-label-label-text-color, var(--md-sys-color-inverse-on-surface));
+    white-space: nowrap;
+  }
+
+  // Sizes
+  .nd-slider--xsmall {
+    --_track-h: var(--md-comp-slider-xsmall-active-track-height, 16px);
+    --_track-inactive-h: var(--md-comp-slider-xsmall-inactive-track-height, 16px);
+    --_handle-h: var(--md-comp-slider-xsmall-active-handle-height, 44px);
+  }
+
+  .nd-slider--small {
+    --_track-h: var(--md-comp-slider-small-active-track-height, 24px);
+    --_track-inactive-h: var(--md-comp-slider-small-inactive-track-height, 24px);
+    --_handle-h: var(--md-comp-slider-small-active-handle-height, 44px);
+  }
+
+  .nd-slider--large {
+    --_track-h: var(--md-comp-slider-large-active-track-height, 56px);
+    --_track-inactive-h: var(--md-comp-slider-large-inactive-track-height, 56px);
+    --_handle-h: var(--md-comp-slider-large-active-handle-height, 68px);
+  }
+
+  .nd-slider--xlarge {
+    --_track-h: var(--md-comp-slider-xlarge-active-track-height, 96px);
+    --_track-inactive-h: var(--md-comp-slider-xlarge-inactive-track-height, 96px);
+    --_handle-h: var(--md-comp-slider-xlarge-active-handle-height, 108px);
+  }
+
+  .nd-slider--disabled {
+    cursor: not-allowed;
+  }
+}

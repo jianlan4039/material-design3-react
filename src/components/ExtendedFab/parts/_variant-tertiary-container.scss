@@ -1,0 +1,95 @@
+/**
+ * Copyright (c) 2026 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Extended FAB Tertiary Container Variant (Tonal)
+ *
+ * Responsible for `.nd-ext-fab--tertiary-container` token mapping, including
+ * default/disabled/hovered/focused/pressed states.
+ *
+ * @author jian lan
+ * @created 2026
+ */
+
+@layer nd-comp {
+  // ==================== Tertiary Container Variant ====================
+  .nd-ext-fab--tertiary-container {
+    --md-elevation-shadow-color: var(--md-comp-extended-fab-tertiary-container-container-shadow-color, var(--md-sys-color-shadow));
+    --md-elevation-level: var(--md-comp-extended-fab-tertiary-container-container-elevation, 3);
+    
+    background-color: var(--md-comp-extended-fab-tertiary-container-container-color, var(--md-sys-color-tertiary-container));
+    color: var(--md-comp-extended-fab-tertiary-container-label-text-color, var(--md-sys-color-on-tertiary-container));
+
+    .nd-ext-fab__icon {
+      color: var(--md-comp-extended-fab-tertiary-container-icon-color, var(--md-sys-color-on-tertiary-container));
+    }
+
+    .nd-ext-fab__label {
+      color: var(--md-comp-extended-fab-tertiary-container-label-text-color, var(--md-sys-color-on-tertiary-container));
+    }
+
+    // Hovered state
+    &:hover:not(:disabled) {
+      --md-elevation-level: var(--md-comp-extended-fab-tertiary-container-hovered-container-elevation, 4);
+      --nd-state-layer-color: var(--md-comp-extended-fab-tertiary-container-hovered-state-layer-color, var(--md-sys-color-on-tertiary-container));
+      --md-sys-hover-state-layer-opacity: var(--md-comp-extended-fab-tertiary-container-hovered-state-layer-opacity, 0.08);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-extended-fab-tertiary-container-hovered-label-text-color, var(--md-sys-color-on-tertiary-container));
+
+      .nd-ext-fab__icon {
+        color: var(--md-comp-extended-fab-tertiary-container-hovered-icon-color, var(--md-sys-color-on-tertiary-container));
+      }
+
+      .nd-ext-fab__label {
+        color: var(--md-comp-extended-fab-tertiary-container-hovered-label-text-color, var(--md-sys-color-on-tertiary-container));
+      }
+    }
+
+    // Focused state
+    &:focus-visible:not(:disabled) {
+      --md-elevation-level: var(--md-comp-extended-fab-tertiary-container-focused-container-elevation, 3);
+      --nd-state-layer-color: var(--md-comp-extended-fab-tertiary-container-focused-state-layer-color, var(--md-sys-color-on-tertiary-container));
+      --md-sys-focus-state-layer-opacity: var(--md-comp-extended-fab-tertiary-container-focused-state-layer-opacity, 0.1);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-extended-fab-tertiary-container-focused-label-text-color, var(--md-sys-color-on-tertiary-container));
+
+      .nd-ext-fab__icon {
+        color: var(--md-comp-extended-fab-tertiary-container-focused-icon-color, var(--md-sys-color-on-tertiary-container));
+      }
+
+      .nd-ext-fab__label {
+        color: var(--md-comp-extended-fab-tertiary-container-focused-label-text-color, var(--md-sys-color-on-tertiary-container));
+      }
+    }
+
+    // Pressed state
+    &:active:not(:disabled) {
+      --md-elevation-level: var(--md-comp-extended-fab-tertiary-container-pressed-container-elevation, 3);
+      --nd-state-layer-color: var(--md-comp-extended-fab-tertiary-container-pressed-state-layer-color, var(--md-sys-color-on-tertiary-container));
+      --md-sys-pressed-state-layer-opacity: var(--md-comp-extended-fab-tertiary-container-pressed-state-layer-opacity, 0.1);
+      --nd-ripple-color: var(--nd-state-layer-color);
+      color: var(--md-comp-extended-fab-tertiary-container-pressed-label-text-color, var(--md-sys-color-on-tertiary-container));
+
+      .nd-ext-fab__icon {
+        color: var(--md-comp-extended-fab-tertiary-container-pressed-icon-color, var(--md-sys-color-on-tertiary-container));
+      }
+
+      .nd-ext-fab__label {
+        color: var(--md-comp-extended-fab-tertiary-container-pressed-label-text-color, var(--md-sys-color-on-tertiary-container));
+      }
+    }
+  }
+}
