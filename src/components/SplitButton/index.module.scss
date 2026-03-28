@@ -1,0 +1,70 @@
+/**
+ * Copyright (c) 2024 jian lan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Split Button Component Styles
+ *
+ * Material Design 3 style split button component styles.
+ * Uses BEM naming convention with `nd-` project prefix.
+ *
+ * @author jian lan
+ * @created 2024
+ */
+
+@use "./parts/token-vars";
+
+@layer nd-comp {
+  .nd-split-button {
+    // Container layout
+    display: inline-flex;
+    align-items: center;
+    gap: var(--md-comp-split-button-between-space, 2px);
+
+    // Local helper for corner radius calculation
+    --nd-split-button-container-height: var(--md-comp-split-button-container-height, 40px);
+    --nd-split-button-corner-full: calc(var(--nd-split-button-container-height) / 2);
+    --nd-split-button-inner-corner: var(--md-comp-split-button-inner-corner-corner-size, 4px);
+
+    // Leading button: rounded left, squared right
+    &__leading {
+      border-top-left-radius: var(--nd-split-button-corner-full);
+      border-top-right-radius: var(--nd-split-button-inner-corner);
+      border-bottom-right-radius: var(--nd-split-button-inner-corner);
+      border-bottom-left-radius: var(--nd-split-button-corner-full);
+    }
+
+    // Trailing button: squared left, rounded right
+    &__trailing {
+      border-top-left-radius: var(--nd-split-button-inner-corner);
+      border-top-right-radius: var(--nd-split-button-corner-full);
+      border-bottom-right-radius: var(--nd-split-button-corner-full);
+      border-bottom-left-radius: var(--nd-split-button-inner-corner);
+    }
+  }
+
+  // Size variants
+  .nd-split-button--small {
+    --md-comp-split-button-container-height: var(--md-comp-split-button-small-container-height, 40px);
+    --md-comp-split-button-between-space: var(--md-comp-split-button-small-between-space, 2px);
+    --md-comp-split-button-inner-corner-corner-size: var(--md-comp-split-button-small-inner-corner-corner-size, 4px);
+  }
+
+  .nd-split-button--medium {
+    --md-comp-split-button-container-height: var(--md-comp-split-button-medium-container-height, 56px);
+    --md-comp-split-button-between-space: var(--md-comp-split-button-medium-between-space, 2px);
+    --md-comp-split-button-inner-corner-corner-size: var(--md-comp-split-button-medium-inner-corner-corner-size, 4px);
+  }
+}

@@ -60,6 +60,9 @@
   .nd-button__label {
     display: inline-block;
     white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     // Label text color: Use default label text color token
     color: var(--md-comp-button-label-text-color, var(--md-sys-color-on-primary));

@@ -4,128 +4,82 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Material Design 3 React component library implementing Google's Material Design 3 specification. Uses TypeScript, SCSS modules, Vite, and Storybook for development.
+Material Design 3 React Component Library implementing MD3 components with React 19, TypeScript, and SCSS.
 
 ## Commands
 
-### Development
-- `npm run dev` - Run Vite development server
-- `npm run storybook` - Run Storybook dev server on port 6006
-- `npm run build-storybook` - Build Storybook for production
+```bash
+# Development
+npm run dev              # Start Vite dev server
+npm run storybook        # Start Storybook at localhost:6006
 
-### Utilities
-- `npm run add-header <file>` - Add Apache 2.0 license header to a specific file
-- `npm run add-header:all` - Add header to all source files
+# Build
+npm run build-storybook  # Build static Storybook site
+
+# Linting
+npx eslint src/          # Run ESLint
+
+# Copyright headers
+npm run add-header       # Add header to changed files
+npm run add-header:all   # Add header to all files
+```
 
 ## Architecture
 
-### Component Structure
+### Directory Structure
 
-Each component follows this standard structure:
-```
-src/components/ComponentName/
-├── index.tsx              # Main component and exports
-├── index.module.scss       # Component styles (imports from parts/)
-├── index.stories.tsx      # Storybook documentation
-├── parts/                # SCSS partials organized by concern
-│   ├── _base.scss       # Base styles
-│   ├── _token-vars.scss  # MD3 token imports
-│   └── _variant-*.scss  # Variant-specific styles
-├── components/           # Subcomponents (for complex components)
-└── hooks/               # Custom hooks (for complex components)
-```
-
-### Design Token System
-
-`src/tokens/` contains Material Design 3 tokens organized by:
-- `basics/color` - Color system
-- `basics/elevation` - Elevation shadows
-- `basics/motions` - Duration, easing, physics
-- `basics/shapes` - Border radius
-- `basics/state` - State layer tokens
-- `components/` - Component-specific token overrides
-
-Tokens use CSS layers: `nd-sys` (system), `nd-ef` (effects), `nd-comp` (components), `nd-custom` (custom).
-
-### Component Patterns
-
-#### Context Pattern for Parent-Child Communication
-Parent components create context with selection state and item registration:
-- `registerItem(value)` - Called by children on mount, returns index for position-aware styling
-- `unregisterItem(value)` - Called by children on unmount
-- `toggleSelection(value)` - Handles single/multi selection logic
-- `isSelected(value)` - Check if item is selected
-- `itemCount` - Total number of registered items
-
-Children register themselves via `useEffect` to track position (first, middle, last).
-
-#### Controlled/Uncontrolled Pattern
-Components support both modes:
-```tsx
-// Controlled
-<Component value={value} onChange={setValue} />
-
-// Uncontrolled
-<Component defaultValue="initial" />
-```
-
-Selection modes: `'single'` (radio-like) vs `'multiple'` (checkbox-like).
-
-#### State Management Hooks
-- `useStateLayer` - Adds `nd-state-container` class for interactive states (hover, active, focus). Removes when disabled.
-- `useRipple` - Applies MD3 ripple effect to button elements
-- `useElevation` - Applies elevation shadows
-- `useListExpandPresence` - Handles list expansion animations with `shouldRender`, `isPreparingOpen`, `containerRef`
-
-#### ClassNameManager Utility
-Fluent API for class manipulation:
-```tsx
-const cn = classNames('base-class', { 'modifier': condition });
-cn.add('extra-class').remove('unwanted');
-cn.check('base-class'); // true
-cn.toString(); // "base-class modifier extra-class"
-```
-
-### Styling Conventions
-
-- BEM-like naming: `nd-component-name--modifier`
-- SCSS modules with camelCase property access: `styles['nd-component--modifier']`
-- Variant classes use `--variant-name` suffix
-- State classes: `--active`, `--disabled`, `--selected`, `--dragging`
-- Position classes for connected/grouped items: `--first`, `--middle`, `--last`
+- `src/components/` - React components, each in its own folder with `index.tsx`, `index.module.scss`, and `*.stories.tsx`
+- `src/tokens/` - Material Design 3 design tokens (SCSS)
+  - `basics/` - Core tokens: color, elevation, motions, shapes, state
+  - `components/` - Component-specific token overrides
+- `src/utils/` - Shared utilities (e.g., `classnames`)
 
 ### Path Aliases
 
-Configured in `vite.config.ts` and `tsconfig.json`:
+Configured in both `tsconfig.json` and `vite.config.ts`:
 - `@/*` → `src/*`
 - `@components/*` → `src/components/*`
 - `@tokens/*` → `src/tokens/*`
 - `@utils/*` → `src/utils/*`
 
+### Component Pattern
+
+Components follow a consistent structure:
+
+```
+ComponentName/
+├── index.tsx           # Main component with JSDoc
+├── index.module.scss   # Entry point importing from parts/
+├── index.stories.tsx   # Storybook documentation
+└── parts/              # SCSS partials (base, variants, sizes)
+```
+
+**Key patterns:**
+- Use `forwardRef` to expose DOM refs
+- Extend native HTML element props (e.g., `React.ButtonHTMLAttributes`)
+- CSS class naming: `nd-{component}` prefix with BEM modifiers (`nd-button--filled`)
+- Use hooks from `Elevation`, `Ripple`, `StateLayer` for MD3 effects
+
+### SCSS Architecture
+
+Uses CSS layers: `nd-sys`, `nd-ef`, `nd-comp`, `nd-custom`
+
+Token structure:
+- `src/tokens/index.scss` - Root token file, defines layers
+- `src/tokens/converter.scss` - Token-to-CSS-variable conversion
+- Component styles import from `parts/` partials following SRP
+
 ### TypeScript Configuration
 
-Strict mode enabled with:
-- `moduleResolution: "bundler"` - ES module resolution
-- `verbatimModuleSyntax: true` - Explicit import syntax
-- `noUncheckedIndexedAccess: true` - Safe array/object access
-- Storybook files excluded from type checking
+- Strict mode enabled with additional checks (`noUncheckedIndexedAccess`, `noImplicitReturns`)
+- Module resolution: `bundler` (for Vite)
+- Target: ES2022
+- Stories and tests are excluded from compilation
 
-### Special Component Patterns
+## Component Conventions
 
-**Tab Component**: Distinguishes between `primary` (with icons, 64dp) and `secondary` (no icons, 48dp) variants. Primary tabs require icons per MD3 spec.
-
-**Menu Component**: Uses `ReactDOM.createPortal` to render at document body level with anchor-based positioning. Reuses list hooks for expansion animations.
-
-**Slider Component**: Uses renderer factory pattern (`createSingleSliderRenderer`, `createRangeSliderRenderer`) for different UI configurations. Centralizes types in `types.ts`.
-
-**List Component**: Prevents nesting (throws error if `insideList` context is true). Supports `segmented` (gaps between items) and `expressive` (dynamic border-radius) modes.
-
-## Material Design 3 Compliance
-
-Components implement MD3 specifications for:
-- State layers (hover, press, focus)
-- Elevation system
-- Color roles (primary, secondary, tertiary, surface, etc.)
-- Motion timing and easing
-- Shape tokens (border radius)
-- Accessibility (ARIA attributes, keyboard navigation)
+1. **Props**: Extend native HTML element props, add component-specific props with JSDoc
+2. **State**: Support controlled/uncontrolled modes where applicable (check `selected` vs `selectedProp` pattern)
+3. **Effects**: Use hooks from `Elevation`, `Ripple`, `StateLayer` components
+4. **ClassNames**: Use `@utils/classnames` utility for conditional class merging
+5. **Copyright**: All files must have Apache 2.0 license header
