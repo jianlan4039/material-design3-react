@@ -28,7 +28,7 @@ import { ButtonGroup, ButtonGroupItem } from './index';
  */
 
 const meta = {
-  title: 'Components/ButtonGroup',
+  title: 'Button/Button Group',
   component: ButtonGroup,
   parameters: {
     layout: 'centered',

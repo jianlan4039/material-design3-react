@@ -76,7 +76,7 @@ export interface SplitButtonProps extends React.HTMLAttributes<HTMLDivElement> {
    *
    * @default 'filled'
    */
-  variant?: 'filled';
+  variant?: 'filled' | 'tonal' | 'elevated' | 'outlined';
 
   /**
    * Button size

@@ -27,7 +27,7 @@ import { Button } from './index';
  */
 
 const meta = {
-  title: 'Components/Button',
+  title: 'Button/Common Button',
   component: Button,
   parameters: {
     layout: 'centered',

@@ -27,7 +27,7 @@ import { SplitButton } from './index';
  */
 
 const meta = {
-  title: 'Components/SplitButton',
+  title: 'Button/Split Button',
   component: SplitButton,
   parameters: {
     layout: 'centered',
@@ -57,7 +57,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['filled'],
+      options: ['filled', 'tonal', 'elevated', 'outlined'],
       description: 'Button visual variant',
     },
     size: {
@@ -177,6 +177,56 @@ export const DisabledWithIcon: Story = {
     size: 'small',
     disabled: true,
   },
+};
+
+/**
+ * Tonal variant
+ */
+export const Tonal: Story = {
+  args: {
+    children: 'Tonal',
+    leadingIcon: <StarIcon />,
+    variant: 'tonal',
+    size: 'small',
+  },
+};
+
+/**
+ * Elevated variant
+ */
+export const Elevated: Story = {
+  args: {
+    children: 'Elevated',
+    leadingIcon: <StarIcon />,
+    variant: 'elevated',
+    size: 'small',
+  },
+};
+
+/**
+ * Outlined variant
+ */
+export const Outlined: Story = {
+  args: {
+    children: 'Outlined',
+    leadingIcon: <StarIcon />,
+    variant: 'outlined',
+    size: 'small',
+  },
+};
+
+/**
+ * All variants comparison
+ */
+export const AllVariants: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
+      <SplitButton variant="filled" size="small" leadingIcon={<StarIcon />}>Filled</SplitButton>
+      <SplitButton variant="tonal" size="small" leadingIcon={<StarIcon />}>Tonal</SplitButton>
+      <SplitButton variant="elevated" size="small" leadingIcon={<StarIcon />}>Elevated</SplitButton>
+      <SplitButton variant="outlined" size="small" leadingIcon={<StarIcon />}>Outlined</SplitButton>
+    </div>
+  ),
 };
 
 /**

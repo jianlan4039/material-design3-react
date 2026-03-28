@@ -4,9 +4,9 @@
     {
       "type": "frame",
       "id": "GpkmS",
-      "x": -134,
+      "x": -138,
       "y": -86,
-      "name": "Split button",
+      "name": "Split button - filled",
       "height": 48,
       "cornerRadius": 20,
       "stroke": {
@@ -160,6 +160,539 @@
                       "name": "icon",
                       "geometry": "M6 7.4l-6-6 1.4-1.4 4.6 4.6 4.6-4.6 1.4 1.4-6 6z",
                       "fill": "#ffffffff",
+                      "width": 11,
+                      "height": 6.7833333015441895
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "zcvV1",
+      "x": -138,
+      "y": -7,
+      "name": "Split button - tonal",
+      "height": 48,
+      "cornerRadius": 20,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1
+      },
+      "gap": 2,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "MBTjD",
+          "name": "Leading button",
+          "clip": true,
+          "height": 40,
+          "fill": "#e8def8ff",
+          "cornerRadius": [
+            20,
+            4,
+            4,
+            20
+          ],
+          "stroke": {
+            "align": "inside",
+            "thickness": 1
+          },
+          "layout": "vertical",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "I8HXk",
+              "name": "State-layer",
+              "height": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1
+              },
+              "gap": 8,
+              "padding": [
+                10,
+                12,
+                10,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "F2EEq",
+                  "name": "Icon",
+                  "clip": true,
+                  "width": 20,
+                  "height": 20,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1
+                  },
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "H91pt",
+                      "x": 1.6666665077209473,
+                      "y": 1.6666665077209473,
+                      "name": "icon",
+                      "geometry": "M6 16l4-3.05 4 3.05-1.5-4.95 4-2.85-4.9 0-1.6-5.2-1.6 5.2-4.9 0 4 2.85-1.5 4.95z m4 4c-1.38333 0-2.68333-0.2625-3.9-0.7875-1.21667-0.525-2.275-1.2375-3.175-2.1375-0.9-0.9-1.6125-1.95833-2.1375-3.175-0.525-1.21667-0.7875-2.51667-0.7875-3.9 0-1.38333 0.2625-2.68333 0.7875-3.9 0.525-1.21667 1.2375-2.275 2.1375-3.175 0.9-0.9 1.95833-1.6125 3.175-2.1375 1.21667-0.525 2.51667-0.7875 3.9-0.7875 1.38333 0 2.68333 0.2625 3.9 0.7875 1.21667 0.525 2.275 1.2375 3.175 2.1375 0.9 0.9 1.6125 1.95833 2.1375 3.175 0.525 1.21667 0.7875 2.51667 0.7875 3.9 0 1.38333-0.2625 2.68333-0.7875 3.9-0.525 1.21667-1.2375 2.275-2.1375 3.175-0.9 0.9-1.95833 1.6125-3.175 2.1375-1.21667 0.525-2.51667 0.7875-3.9 0.7875z",
+                      "fill": "#4a4459ff",
+                      "width": 16.66666603088379,
+                      "height": 16.66666603088379
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "AXMjx",
+                  "name": "Label",
+                  "fill": "#4a4459ff",
+                  "content": "Label",
+                  "lineHeight": 1.4285714285714286,
+                  "fontFamily": "Roboto",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "letterSpacing": 0.10000000149011612
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rvqiM",
+          "name": "Trailing button",
+          "clip": true,
+          "width": 48,
+          "height": 40,
+          "fill": "#e8def8ff",
+          "cornerRadius": [
+            4,
+            20,
+            20,
+            4
+          ],
+          "stroke": {
+            "align": "inside",
+            "thickness": 1
+          },
+          "layout": "vertical",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "RJ9Kh",
+              "name": "State-layer",
+              "width": "fill_container",
+              "height": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1
+              },
+              "padding": [
+                9,
+                14,
+                9,
+                12
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "8VlOy",
+                  "name": "Icon",
+                  "clip": true,
+                  "width": 22,
+                  "height": 22,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1
+                  },
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "c81mH",
+                      "x": 5.5,
+                      "y": 7.333333492279053,
+                      "name": "icon",
+                      "geometry": "M6 7.4l-6-6 1.4-1.4 4.6 4.6 4.6-4.6 1.4 1.4-6 6z",
+                      "fill": "#4a4459ff",
+                      "width": 11,
+                      "height": 6.7833333015441895
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "kDyr1",
+      "x": -138,
+      "y": 68,
+      "name": "Split button - elevated",
+      "height": 48,
+      "cornerRadius": 20,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1
+      },
+      "effect": [
+        {
+          "type": "shadow",
+          "shadowType": "outer",
+          "color": "#0000004d",
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "blur": 2.625
+        },
+        {
+          "type": "shadow",
+          "shadowType": "outer",
+          "color": "#00000026",
+          "offset": {
+            "x": 0,
+            "y": 4
+          },
+          "blur": 7,
+          "spread": 3
+        }
+      ],
+      "gap": 2,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "FH4xM",
+          "name": "Leading button",
+          "clip": true,
+          "height": 40,
+          "fill": "#f7f2faff",
+          "cornerRadius": [
+            20,
+            4,
+            4,
+            20
+          ],
+          "stroke": {
+            "align": "inside",
+            "thickness": 1
+          },
+          "layout": "vertical",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "780Cl",
+              "name": "State-layer",
+              "height": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1
+              },
+              "gap": 8,
+              "padding": [
+                10,
+                12,
+                10,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "MorRN",
+                  "name": "Icon",
+                  "clip": true,
+                  "width": 20,
+                  "height": 20,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1
+                  },
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "KCq0j",
+                      "x": 1.6666665077209473,
+                      "y": 1.6666665077209473,
+                      "name": "icon",
+                      "geometry": "M6 16l4-3.05 4 3.05-1.5-4.95 4-2.85-4.9 0-1.6-5.2-1.6 5.2-4.9 0 4 2.85-1.5 4.95z m4 4c-1.38333 0-2.68333-0.2625-3.9-0.7875-1.21667-0.525-2.275-1.2375-3.175-2.1375-0.9-0.9-1.6125-1.95833-2.1375-3.175-0.525-1.21667-0.7875-2.51667-0.7875-3.9 0-1.38333 0.2625-2.68333 0.7875-3.9 0.525-1.21667 1.2375-2.275 2.1375-3.175 0.9-0.9 1.95833-1.6125 3.175-2.1375 1.21667-0.525 2.51667-0.7875 3.9-0.7875 1.38333 0 2.68333 0.2625 3.9 0.7875 1.21667 0.525 2.275 1.2375 3.175 2.1375 0.9 0.9 1.6125 1.95833 2.1375 3.175 0.525 1.21667 0.7875 2.51667 0.7875 3.9 0 1.38333-0.2625 2.68333-0.7875 3.9-0.525 1.21667-1.2375 2.275-2.1375 3.175-0.9 0.9-1.95833 1.6125-3.175 2.1375-1.21667 0.525-2.51667 0.7875-3.9 0.7875z",
+                      "fill": "#6750a4ff",
+                      "width": 16.66666603088379,
+                      "height": 16.66666603088379
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "7oYMg",
+                  "name": "Label",
+                  "fill": "#6750a4ff",
+                  "content": "Label",
+                  "lineHeight": 1.4285714285714286,
+                  "fontFamily": "Roboto",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "letterSpacing": 0.10000000149011612
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DjJem",
+          "name": "Trailing button",
+          "clip": true,
+          "width": 48,
+          "height": 40,
+          "fill": "#f7f2faff",
+          "cornerRadius": [
+            4,
+            20,
+            20,
+            4
+          ],
+          "stroke": {
+            "align": "inside",
+            "thickness": 1
+          },
+          "layout": "vertical",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "MRaqw",
+              "name": "State-layer",
+              "width": "fill_container",
+              "height": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1
+              },
+              "padding": [
+                9,
+                14,
+                9,
+                12
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "naaxM",
+                  "name": "Icon",
+                  "clip": true,
+                  "width": 22,
+                  "height": 22,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1
+                  },
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "37Ldr",
+                      "x": 5.5,
+                      "y": 7.333333492279053,
+                      "name": "icon",
+                      "geometry": "M6 7.4l-6-6 1.4-1.4 4.6 4.6 4.6-4.6 1.4 1.4-6 6z",
+                      "fill": "#6750a4ff",
+                      "width": 11,
+                      "height": 6.7833333015441895
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "hMWdC",
+      "x": -138,
+      "y": 141,
+      "name": "Split button - outlined",
+      "height": 48,
+      "cornerRadius": 20,
+      "stroke": {
+        "align": "inside",
+        "thickness": 1
+      },
+      "gap": 2,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "RXuN9",
+          "name": "Leading button",
+          "clip": true,
+          "height": 40,
+          "cornerRadius": [
+            20,
+            4,
+            4,
+            20
+          ],
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#cac4d0ff"
+          },
+          "layout": "vertical",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "1nJ9t",
+              "name": "State-layer",
+              "height": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1
+              },
+              "gap": 8,
+              "padding": [
+                10,
+                12,
+                10,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "e6m65",
+                  "name": "Icon",
+                  "clip": true,
+                  "width": 20,
+                  "height": 20,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1
+                  },
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "bRNok",
+                      "x": 1.6666665077209473,
+                      "y": 1.6666665077209473,
+                      "name": "icon",
+                      "geometry": "M6 16l4-3.05 4 3.05-1.5-4.95 4-2.85-4.9 0-1.6-5.2-1.6 5.2-4.9 0 4 2.85-1.5 4.95z m4 4c-1.38333 0-2.68333-0.2625-3.9-0.7875-1.21667-0.525-2.275-1.2375-3.175-2.1375-0.9-0.9-1.6125-1.95833-2.1375-3.175-0.525-1.21667-0.7875-2.51667-0.7875-3.9 0-1.38333 0.2625-2.68333 0.7875-3.9 0.525-1.21667 1.2375-2.275 2.1375-3.175 0.9-0.9 1.95833-1.6125 3.175-2.1375 1.21667-0.525 2.51667-0.7875 3.9-0.7875 1.38333 0 2.68333 0.2625 3.9 0.7875 1.21667 0.525 2.275 1.2375 3.175 2.1375 0.9 0.9 1.6125 1.95833 2.1375 3.175 0.525 1.21667 0.7875 2.51667 0.7875 3.9 0 1.38333-0.2625 2.68333-0.7875 3.9-0.525 1.21667-1.2375 2.275-2.1375 3.175-0.9 0.9-1.95833 1.6125-3.175 2.1375-1.21667 0.525-2.51667 0.7875-3.9 0.7875z",
+                      "fill": "#49454fff",
+                      "width": 16.66666603088379,
+                      "height": 16.66666603088379
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "GcWCs",
+                  "name": "Label",
+                  "fill": "#49454fff",
+                  "content": "Label",
+                  "lineHeight": 1.4285714285714286,
+                  "fontFamily": "Roboto",
+                  "fontSize": 14,
+                  "fontWeight": "500",
+                  "letterSpacing": 0.10000000149011612
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "gXUmB",
+          "name": "Trailing button",
+          "clip": true,
+          "width": 48,
+          "height": 40,
+          "cornerRadius": [
+            4,
+            20,
+            20,
+            4
+          ],
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#cac4d0ff"
+          },
+          "layout": "vertical",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "oB7Xc",
+              "name": "State-layer",
+              "width": "fill_container",
+              "height": "fill_container",
+              "stroke": {
+                "align": "inside",
+                "thickness": 1
+              },
+              "padding": [
+                9,
+                14,
+                9,
+                12
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "UFjC4",
+                  "name": "Icon",
+                  "clip": true,
+                  "width": 22,
+                  "height": 22,
+                  "stroke": {
+                    "align": "inside",
+                    "thickness": 1
+                  },
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "path",
+                      "id": "mzxQC",
+                      "x": 5.5,
+                      "y": 7.333333492279053,
+                      "name": "icon",
+                      "geometry": "M6 7.4l-6-6 1.4-1.4 4.6 4.6 4.6-4.6 1.4 1.4-6 6z",
+                      "fill": "#49454fff",
                       "width": 11,
                       "height": 6.7833333015441895
                     }

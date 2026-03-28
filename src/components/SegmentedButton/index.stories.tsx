@@ -28,7 +28,7 @@ import { SegmentedButton, SegmentedButtonItem } from './index';
  */
 
 const meta = {
-  title: 'Components/SegmentedButton',
+  title: 'Button/Segmented Button',
   component: SegmentedButton,
   parameters: {
     layout: 'centered',

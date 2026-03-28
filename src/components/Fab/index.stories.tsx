@@ -28,7 +28,7 @@ import { Fab } from './index';
  */
 
 const meta = {
-  title: 'Components/Fab',
+  title: 'Button/Fab',
   component: Fab,
   parameters: {
     layout: 'centered',
